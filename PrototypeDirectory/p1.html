@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="js/resources/css/ext-all.css" />
+		<script type="text/javascript" src="js/ext-all.js"></script>
+		<script type="text/javascript" src="js/locale/ext-lang-zh_CN.js"></script>
+		<script type="text/javascript">
+			Ext.onReady(function() {
+				// 创建一个按钮 
+				Ext.create('Ext.button.Button', {
+					text: "弹出窗口",
+					id: "btnShow",
+					name: "btnShow",
+					renderTo: Ext.getBody(),
+					handler: show
+				})
+			
+				var comboxCZFStates = Ext.create('Ext.data.Store', {
+					fields: ['value', 'text'],
+					data: [{
+							"value": "=",
+							"text": "等于"
+						},
+						{
+							"value": ">",
+							"text": "大于"
+						},
+						{
+							"value": "<",
+							"text": "小于"
+						},
+						{
+							"value": ">=",
+							"text": "大于等于"
+						},
+						{
+							"value": "<=",
+							"text": "小于等于"
+						},
+						{
+							"value": "like",
+							"text": "like"
+						},
+					]
+				});
+			
+				// 创建一个 form 面板,里面放一些控件
+				var AddForm = Ext.create('Ext.form.Panel', {
+					border: false,
+					fieldDefaults: {
+						msgTarget: "side", // 提示信息在右旁边显示图标
+						labelWidth: 70,
+						align: "right",
+						allowBlank: false // 不允许为空
+					},
+					width: 280,
+					defaults: {
+						padding: 10
+					},
+					layout: 'column',
+					items: [{
+							xtype: 'hidden',
+							name: "quId"
+						},
+						{
+							xtype: 'numberfield',
+							fieldLabel: "第几题",
+							name: 'sorts',
+							regex: /^\d+$/, // 正则验证
+							maxLength: 100,
+							columnWidth: 1
+						},
+						{
+							xtype: 'combo',
+							fieldLabel: "皮肤分类",
+							name: 'claId',
+							id: 'claId',
+							valueField: 'value',
+							displayField: 'text',
+							columnWidth: 1, // 列布局占的比例,总值为1 
+							allowBlank: false,
+							store: comboxCZFStates,
+							emptyText: "请选择皮肤分类",
+							blankText: "请选择皮肤分类"
+						},
+						{
+							xtype: "filefield",
+							fieldLabel: "上传图片",
+							buttonText: ' 选择 ',
+							regex: /^.+\.((jpg)|(gif)|(gif)|(png)|(jpeg)|(bmp))$/, //正则验证
+							name: 'queImg',
+							allowBlank: true,
+							columnWidth: 1
+						},
+						{
+							xtype: 'textareafield',
+							grow: true,
+							fieldLabel: "问题",
+							name: 'question',
+							columnWidth: 1
+						}
+					]
+				});
+			
+				// 创建一个Windows面板
+				var AddDialog = Ext.create('Ext.window.Window', {
+					title: '人员信息维护',
+					layout: 'fit',
+					iconCls: 'a_add',
+					closeAction: 'hide', // 窗口关闭的方式 : hide / close
+					resizable: true, // 是否可以拉伸
+					closable: true, // 是否可以关闭
+					modal: true, // 是否为模态窗口
+					items: AddForm,
+					buttonAlign: 'center',
+					buttons: [{
+							id: 'btnAdd',
+							text: "添加",
+							iconCls: 'a_add',
+							handler: Add
+						},
+						{
+							id: 'btnCancel',
+							iconCls: 'a_cross',
+							text: "重置",
+							handler: function() {
+								AddForm.form.reset();
+							}
+						},
+						{
+							id: 'btnClose',
+							iconCls: 'a_add',
+							text: "关闭",
+							handler: function() {
+								AddDialog.close();
+							}
+						}
+					]
+				});
+			
+				// 添加问题
+				function Add() {
+					var form = AddForm.getForm();
+					if(form.isValid()) {
+						form.submit({
+							url: "/question/Add",
+							params: {
+								json: Ext.JSON.encode(AddForm.form.getValues()),
+							},
+							waitMag: "正在上传请稍候...",
+							success: function(form, action) {
+								Ext.Msg.alert("提示", action.result.msg);
+								comboxCZFStates.load();
+							}
+						});
+					}
+				};
+			
+				function show() {
+					//	Ext.Msg.alert("提示","你好!");
+					AddDialog.show();
+				}
+			
+			});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

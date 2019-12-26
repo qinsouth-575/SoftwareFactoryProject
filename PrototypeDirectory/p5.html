@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="js/resources/css/ext-all.css" />
+		<script type="text/javascript" src="js/ext-all.js"></script>
+		<script type="text/javascript" src="js/locale/ext-lang-zh_CN.js"></script>
+		<script type="text/javascript">
+			Ext.onReady(function() {
+				Ext.QuickTips.init();
+
+				var form = new Ext.form.FormPanel({
+					buttonAlign: 'center',
+					width: 600,
+					title: 'form布局',
+					frame: true,
+					fieldDefaults: {
+						labelAlign: 'right',
+						labelWidth: 30
+					},
+					items: [{
+							xtype: 'container',
+							layout: 'column', // 使用列布局,分成两列
+							items: [{
+									columnWidth: 0.7,
+									xtype: 'fieldset',
+									collapsible: true, // 是否可以折叠
+									collapsed: false, // 默认是否折叠
+									title: "单纯输入",
+									autoHeight: true,
+									defaults: {
+										width: 300
+									},
+									defaultType: 'textfield',
+									layout: 'form',
+									items: [{
+											xtype: 'container',
+											layout: 'hbox',
+											margin: 5,
+											items: [{
+													xtype: 'textfield',
+													fieldLabel: "票面货币",
+													id: 'zfdAddWin_piaomianhuobi',
+													name: 'zfdAddWin_piaomianhuobi',
+													width: 200,
+													labelWidth: 60
+												},
+												{
+													xtype: 'textfield',
+													fieldLabel: '票款',
+													id: 'zfdAddWin_pmhbpiaokuan',
+													name: 'zfdAddWin_pmhbpiaokuan',
+													width: 300,
+													labelWidth: 30
+												},
+											]
+
+										},
+										{
+											xtype: 'combo',
+											fieldLabel: "选择",
+											name: 'combo',
+											store: new Ext.data.Store({
+												fields: ['value', 'text'],
+												data: [{
+														'value': "value1",
+														'text': "text1"
+													},
+													{
+														'value': "value2",
+														'text': "text2"
+													}
+												]
+											}),
+											displayField: 'text',
+											valueFiled: 'value',
+											mode: 'local',
+											emptyText: "请选择"
+										},
+										{
+											xtype: 'datefield',
+											fieldLabel: "日期",
+											name: 'date'
+										},
+										{
+											xtype: 'timefield',
+											fieldLabel: "时间",
+											name: 'time'
+										},
+										{
+											xtype: 'textarea',
+											fieldLabel: "多行",
+											name: 'textarea',
+
+											/* 	xtype: 'textarea',
+												name: 'remark',
+												id : 'remark',
+												fieldLabel: "备注", */
+											//	 width: '100%',
+										},
+										{
+											xtype: 'hidden',
+											name: 'hidden'
+										}
+									]
+								},
+								// 第二列的内容
+								{
+									xtype: 'container',
+									columnWidth: 0.3,
+									layout: 'form',
+									items: [{
+											xtype: 'fieldset',
+											checkboxTaggle: true, // 多选
+											title: "多选",
+											autoHeight: true,
+											defaultType: 'checkbox',
+											hideLabels: true,
+											style: 'margin-left : 10px;',
+											bodyStyle: 'margin-left : 20px;',
+											items: [{
+													boxLabel: "首先要穿暖",
+													name: 'check',
+													value: '1',
+													checked: true,
+													width: 'auto'
+												},
+												{
+													boxLabel: "然后要吃饱",
+													name: 'check',
+													value: '2',
+													checked: true,
+													width: 'auto'
+												},
+												{
+													boxLabel: "房子遮风避雨",
+													name: 'check',
+													value: '3',
+													width: 'auto'
+												},
+												{
+													boxLabel: "交通方便",
+													name: 'check',
+													value: '4',
+													width: 'auto'
+												}
+											]
+										},
+										// 第二列第二行单选框
+										{
+											xtype: 'fieldset',
+											checkboxToggle: true,
+											title: '单选',
+											autoHeight: true,
+											defaultType: 'radio',
+											hideLabels: true,
+											style: 'margin-left: 10px;',
+											bodyStyle: 'margin-left: 20px;',
+											items: [{
+													boxLabel: "渴望自由",
+													name: 'rad',
+													value: '1',
+													checked: true,
+													width: 'auto'
+												},
+												{
+													boxLabel: "祈求爱情",
+													name: 'rad',
+													value: '2',
+													//	checked : true,
+													width: 'auto'
+												},
+												{
+													boxLabel: "金钱多多",
+													name: 'rad',
+													value: '3',
+													//	checked : true,
+													width: 'auto'
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							xtype: 'container',
+							layout: 'form',
+							items: [{
+								labelAlign: 'top',
+								xtype: 'htmleditor',
+								fieldLabel: '在线编辑器',
+								id: 'editor',
+								anchor: '98%',
+								height: 200
+							}]
+						}
+					],
+					buttons: [{
+							text: "保存"
+						},
+						{
+							text: "读取"
+						},
+						{
+							text: "取消"
+						}
+					]
+				});
+
+				form.render("form");
+			});
+		</script>
+
+	</head>
+
+	<body>
+		<h1>我的ExtJS4.2学习之路</h1>
+		<hr /> 作者：束洋洋 开始日期：2013年12月10日 21:09:01
+		<h2>深入浅出ExtJS之表单控件</h2>
+		<div id="form"></div>
+	</body>
+
+</html>

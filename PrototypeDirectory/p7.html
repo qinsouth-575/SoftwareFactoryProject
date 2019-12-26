@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="js/resources/css/ext-all.css" />
+		<script type="text/javascript" src="js/ext-all.js"></script>
+		<script type="text/javascript" src="js/locale/ext-lang-zh_CN.js"></script>
+		<script type="text/javascript">
+			Ext.onReady(function(){
+				var states = Ext.create('Ext.data.Store', {
+					fields: ['abbr', 'name'],
+					data: [{
+							"abbr": "AL",
+							"name": "Alabama"
+						},
+						{
+							"abbr": "AK",
+							"name": "Alaska"
+						},
+						{
+							"abbr": "AZ",
+							"name": "Arizona"
+						}
+					]
+				});
+	
+				Ext.create('Ext.form.ComboBox', {
+					fieldLabel: 'Choose State',
+					store: states,
+					queryMode: 'local',
+					valueField: 'abbr',
+					renderTo: Ext.getBody(),
+					// Template for the dropdown menu.
+					// Note the use of "x-boundlist-item" class,
+					// this is required to make the items selectable.
+					tpl: Ext.create('Ext.XTemplate',
+						'<tpl for=".">',
+						'<div class="x-boundlist-item">{abbr} - {name}</div>',
+						'</tpl>'
+					),
+					// template for the content inside text field
+					displayTpl: Ext.create('Ext.XTemplate',
+						'<tpl for=".">',
+						'{abbr} - {name}',
+						'</tpl>'
+					)
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+	</body>
+
+</html>
