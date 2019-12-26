@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="js/resources/css/ext-all.css" />
+		<script type="text/javascript" src="js/ext-all.js"></script>
+		<script type="text/javascript" src="js/locale/ext-lang-zh_CN.js"></script>
+		<script type="text/javascript">
+			Ext.onReady(function() {
+				var tdata = {
+					id: 1,
+					text: '根节点',
+					expanded: true,
+					children: [{
+							id: 2,
+							text: '叶子节点1',
+							leaf: "1"
+						},
+						{
+							id: 3,
+							text: '叶子节点2',
+							leaf: "0"
+						},
+						{
+							id: 4,
+							text: '节点3',
+							expanded: true,
+							children: [{
+								id: 5,
+								text: '节点3-1111',
+								expanded: true,
+								leaf: "1"
+
+							}]
+
+						}
+					]
+				};
+
+				// 创建一个Tree的数据集
+				var tStore = Ext.create('Ext.data.TreeStore', {
+					root: tdata
+				});
+
+				// 创建一个 Tree 面板
+				var t1Panel = Ext.create('Ext.tree.Panel', {
+					renderTo: Ext.getBody(),
+					title: "简单的一棵树",
+					//  width: 450,
+					rootVisible: true, // 是否显示根节点
+					useArrows: true, // 将节点前的 + 号 显示为一个箭头图标
+					lines: true, // 是否显示折叠线
+					store: tStore,
+					listeners: {
+						itemclick: function(view, record, item, index, e, eOpts) {
+							e.stopEvent();
+							var newtab = contentPanel.getComponent(record.get('id'));
+							if(!newtab && record.get('leaf')) { //判断是否已经打开该面板   
+								newtab = contentPanel.add({
+									'id': record.get('id'),
+									'title': record.get('text'),
+									closable: true, //通过html载入目标页   
+									html: '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="' + record.get('href') + '"></iframe>'
+								});
+
+							};
+							contentPanel.setActiveTab(newtab);
+						}
+					}
+				});
+
+				// 添加按钮
+				Ext.create('Ext.button.Button', {
+					id: 'btnAdd',
+					name: 'btnAdd',
+					text: "添加节点",
+					handler: addNode,
+					renderTo: Ext.getBody()
+				});
+
+				Ext.create('Ext.button.Button', {
+					id: 'btnDelete',
+					name: 'btnDelete',
+					text: "删除节点",
+					handler: deleteNode,
+					renderTo: Ext.getBody()
+				});
+
+				function addNode() {
+					var nodes = t1Panel.getSelectionModel().getSelection();
+					Ext.each(nodes, function(node) {
+						//先通过ajax从后台删除数据，删除成功后再从页面删除数据
+						//	console.info(node.get("text") + "---,节点类型: " + node.get("leaf")  + "---,节点类型: " + node.isLeaf( ) + ",节点ID: " + node.get("id"));
+						var parent = node.appendChild({
+							text: 'Parent 1'
+						});
+
+						parent.appendChild({
+							text: 'Child 3',
+							leaf: true
+						});
+
+						parent.expand();
+					})
+
+					var nodecount = t1Panel.getSelectionModel().getCount();
+					//	console.info(nodecount);
+				};
+
+				function deleteNode() {
+					var nodes = t1Panel.getSelectionModel().getSelection();
+					Ext.each(nodes, function(node) {
+						// node.removeAll();			// 删除选中节点下的子节点
+						node.remove(); // 删除选中节点及其子节点
+					})
+				};
+
+				//==============================================下面是一个Tree表格
+
+				var t2data = {
+					name: 'Root',
+					description: '根节点是这么描述的',
+					expanded: true,
+					children: [{
+							name: "叶子节点1",
+							description: "叶子节点1的描述",
+							leaf: true
+						},
+						{
+							name: "叶子节点2",
+							description: "叶子节点2的描述",
+							leaf: true
+						},
+						{
+							name: "子节点3",
+							description: "子节点3的描述",
+							expanded: true,
+							children: [{
+								name: "叶子节点3",
+								description: "叶子节点3的描述",
+								leaf: true
+							}]
+						}
+					]
+				};
+
+				var t2Store = Ext.create('Ext.data.TreeStore', {
+					fields: ['name', 'description'],
+					root: t2data,
+
+				});
+
+				Ext.create('Ext.tree.Panel', {
+					renderTo: Ext.getBody(),
+					title: '一颗拥有多列的树',
+					rootVisible: true, // 是否显示根节点
+					columns: [{
+						xtype: 'treecolumn',
+						text: '节点名',
+						dataIndex: 'name',
+						width: 150,
+						sortable: true
+					}, {
+						text: '描述',
+						dataIndex: 'description',
+						flex: 1,
+						sortable: true
+					}],
+					store: t2Store
+				});
+
+				// ==================开始创建动态加载Tree
+
+				// 创建动态Tree 的数据集 Store
+				var datatStore = Ext.create('Ext.data.TreeStore', {
+					autoLoad: true, // 是否自动加载
+					root: {
+						id: "0",
+						text: "导航菜单",
+						expanded: true
+					},
+					// 设置 AJAX 
+					proxy: {
+						type: 'ajax',
+						url: '<%=basePath %>tree!GetTreeDate', // Action 请求
+						reader: {
+							type: 'json',
+							root: 'rows' // 返回的JSON的头
+						},
+						// 传参
+						extraParams: {
+							tid: ''
+						}
+					},
+					listeners: { // 开启监听事件
+						'beforeexpand': function(node, eOpts) {
+							//点击父亲节点的菜单会将节点的id通过ajax请求，将到后台  
+							console.info(node);
+							this.proxy.extraParams.tid = node.raw.id;
+						}
+					}
+				});
+
+				// 添加按钮
+				Ext.create('Ext.button.Button', {
+					id: 'btnAdd',
+					name: 'btnAdd',
+					text: "查看节点信息",
+					handler: dataNode,
+					renderTo: Ext.getBody()
+				});
+
+				function dataNode() {
+					var nodes = dataTree.getSelectionModel().getSelection();
+					Ext.each(nodes, function(node) {
+						//先通过ajax从后台删除数据，删除成功后再从页面删除数据
+						console.info(node);
+						//	console.info(node.get("text") + "---,节点类型: " + node.get("leaf")  + "---,节点类型: " + node.isLeaf( ) + ",节点ID: " + node.get("id"));
+
+					})
+
+					var nodecount = dataTree.getSelectionModel().getCount();
+					console.info(nodecount);
+				};
+
+				// 先创建一棵Tree
+				var dataTree = Ext.create('Ext.tree.Panel', {
+					renderTo: Ext.getBody(),
+					title: "动态加载TreePanel",
+					width: 300,
+					height: 400,
+					rootVisible: true, // 是否显示根节点
+					useArrows: true, // 将节点前的 + 号 显示为一个箭头图标
+					lines: true, // 是否显示折叠线
+					store: datatStore
+				});
+
+			});
+		</script>
+	</head>
+
+	<body>
+	</body>
+
+</html>
