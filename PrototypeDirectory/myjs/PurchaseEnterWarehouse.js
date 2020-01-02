@@ -223,14 +223,14 @@ var formControl = Ext.create('Ext.form.Panel', {
 		msgTarget: "side", // 错误提示信息在右旁边显示图标
 		labelWidth: 79,
 		labelAlign: "right",
-		margin: 1
+		margin: 1,
 	},
 	//defaultType : 'textfield',
 	layout: "anchor",
 	items: [{
 			xtype: "container",
 			layout: 'hbox',
-			margin: 5,
+			margin: 2,
 			items: [{
 					xtype: 'textfield',
 					name: 'supplier',
@@ -255,7 +255,7 @@ var formControl = Ext.create('Ext.form.Panel', {
 		{
 			xtype: "container",
 			layout: 'hbox',
-			margin: 5,
+			margin: 2,
 			items: [{
 					xtype: 'textfield',
 					name: 'supplierAddress',
@@ -277,7 +277,7 @@ var formControl = Ext.create('Ext.form.Panel', {
 		{
 			xtype: "container",
 			layout: 'hbox',
-			margin: 5,
+			margin: 2,
 			items: [{
 					xtype: 'textfield',
 					name: 'typeOfPurchaseWarehousing',
@@ -299,7 +299,7 @@ var formControl = Ext.create('Ext.form.Panel', {
 		{
 			xtype: "container",
 			layout: 'hbox',
-			margin: 5,
+			margin: 2,
 			items: [{
 					xtype: 'combobox',
 					name: 'whetherTheTax',
@@ -325,7 +325,7 @@ var formControl = Ext.create('Ext.form.Panel', {
 		{
 			xtype: "container",
 			layout: 'hbox',
-			margin: 5,
+			margin: 2,
 			items: [{
 					xtype: 'textfield',
 					name: 'warehouse',
@@ -347,7 +347,7 @@ var formControl = Ext.create('Ext.form.Panel', {
 		{
 			xtype: "container",
 			layout: 'hbox',
-			margin: 5,
+			margin: 2,
 			items: [{
 					xtype: 'textfield',
 					name: 'proofNumber',
@@ -378,53 +378,86 @@ var formControl = Ext.create('Ext.form.Panel', {
 			xtype: 'tabpanel',
 			plain: true,
 			activeTab: 0,
-			height: 135,
-			margin: 5,
+			height: 137,
+			margin: '-3 3 0 3',			//设置四面外边距，可负数
 			defaults: {
 				bodyStyle: 'padding:0px'
 			},
 			items: [{
 				title: '内容',
 				defaults: {
-					width: 230
+					width: 230				//此属性无用
 				},
 				defaultType: 'textfield',
 				items: grid,				//Tab1 列表
 			}, {
 				title: '帐款',
 				defaults: {
-					width: 230
+					width: 545
 				},
 				defaultType: 'textfield',
-				items: [{
-					fieldLabel: 'Home',
-					name: 'home',
-					value: '(888) 555-1212'
+				items: [,
+				{
+					xtype: "container",
+					layout: 'hbox',
+					items: [{
+							xtype: 'textfield',
+							name: 'accountOwnership',
+							id: 'accountOwnership',
+							fieldLabel: "帐款归属",
+							labelSeparator: "<font color ='red'>*</font>:",
+							allowBlank: false,
+							width: '50%',
+						},
+						{
+							xtype: 'datefield',
+							name: 'dateOfPayment',
+							id: 'dateOfPayment',
+							fieldLabel: "付款日期",
+							format: 'Y-m-d',
+							width: '50%',
+						},
+					]
 				}, {
-					fieldLabel: 'Business',
-					name: 'business'
-				}, {
-					fieldLabel: 'Mobile',
-					name: 'mobile'
-				}, {
-					fieldLabel: 'Fax',
-					name: 'fax'
+					xtype: "container",
+					layout: 'hbox',
+					items: [{
+							xtype: 'textfield',
+							name: 'paymentClause',
+							id: 'paymentClause',
+							fieldLabel: "付款条件",
+							width: '50%',
+						},
+						{
+							xtype: 'datefield',
+							name: 'inTheAccountReceivable',
+							id: 'inTheAccountReceivable',
+							fieldLabel: "账款月份",
+							format: 'Y-m',
+							width: '50%',
+						},
+					]
 				}]
 			}, {
+				defaultType: 'textfield',
 				cls: 'x-plain',
 				title: '备注',
 				layout: 'fit',
+				defaults: {
+					width: 545
+				},
+				margin : 2,
 				items: {
 					xtype: 'htmleditor',
 					name: 'bio2',
-					fieldLabel: 'Biography'
+					fieldLabel: '备注'
 				}
 			}]
 		},
 		{
 			xtype: "container",
 			layout: 'hbox',
-			margin: 5,
+			margin: 2,
 			items: [{
 					xtype: 'textfield',
 					name: 'buyer',
@@ -446,7 +479,7 @@ var formControl = Ext.create('Ext.form.Panel', {
 		{
 			xtype: "container",
 			layout: 'hbox',
-			margin: 5,
+			margin: 2,
 			items: [{
 					xtype: 'textfield',
 					name: 'department',
@@ -468,7 +501,7 @@ var formControl = Ext.create('Ext.form.Panel', {
 		{
 			xtype: "container",
 			layout: 'hbox',
-			margin: 5,
+			margin: 2,
 			items: [{
 					xtype: 'textfield',
 					name: 'subordinateToTheProject',
@@ -481,6 +514,80 @@ var formControl = Ext.create('Ext.form.Panel', {
 		},
 	]
 });
+
+//创建活动的Window窗体
+var PurchaseEnterWarehouse = Ext.create('Ext.window.Window', {
+	id: "PurchaseEnterWarehouseWindow",
+	title: "采购入库单",
+	width: 579,
+	height: 447,
+	layout: 'fit',
+ 	//autoScroll: false,	// 容器过高或者过宽时，窗体自动显示滚动条 - 无效
+    modal: false,
+	closable: true, 	// Extjs Window可以配置是否显示关闭按钮：
+	closeAction: 'hide',// 在关闭Extjs Window的时候，通过配置项closeAction可以控制按钮是销毁（destroy）还是隐藏（hide），默认情况下为销毁：
+	maximizable: true, 	// 最大化按钮
+	minimizable: true, 	// 最小化按钮;需重写minimize()函数;
+	constrain: true,	// 保证整个窗口不会越过浏览器的边界;
+	resizable: true,   	// 窗口可拖动改变大小;
+	items: formControl,
+	//anchor:"100% 100%",
+	buttons: [{
+			xtype: 'button',
+			text: "新增",
+			handler: showValue
+		}, {
+			xtype: 'button',
+			text: "删除",
+			handler: onUserSaveClick
+		}, {
+			xtype: 'button',
+			text: "修改",
+			handler: function(){
+				alert("修改按钮");
+			}
+		}, {
+			xtype: 'button',
+			text: "保存",
+			handler: showValue
+		}, {
+			xtype: 'button',
+			text: "审核",
+			handler: onUserSaveClick
+		}, {
+			xtype: 'button',
+			text: "刷新",
+			handler: onUserSaveClick
+		}
+	],
+	listeners: {
+		// 最小化
+		minimize: function(win, opts) {
+			win.collapse();
+		}
+	}
+});
+//}).show();
+
+//
+function showValue() {
+	var svalue = Ext.getCmp('supplier').getValue() + "---" +
+		Ext.getCmp('documentDate').getValue() + "---" +
+		Ext.getCmp('address').getValue() + "---" +
+		Ext.getCmp('dateLibary').getValue() + "---" +
+		Ext.getCmp('dateReg').getValue() + "---单选1: " +
+		Ext.getCmp('color').getChecked()[0].boxLabel + "---单选1: " +
+		Ext.getCmp('color').getChecked()[0].inputValue + "---复选 : " +
+		// Ext.getCmp('radio1').getValue() + "---单选2: " + 
+		// Ext.getCmp('radio2').getValue() + "---复选 " + 
+		Ext.getCmp('check1').getValue() + "---" +
+		Ext.getCmp('check2').getValue() + "---" +
+		Ext.getCmp('check3').getValue() + "---" +
+		Ext.getCmp('cmjiguan').getValue() + "---" +
+		Ext.getCmp('remark').getValue();
+
+	Ext.getCmp('remark').setValue(svalue);
+}
 
 // 结果集的保存--修改
 function onUserSaveClick() {
@@ -517,73 +624,4 @@ function onUserSaveClick() {
 
 		}
 	}
-}
-
-//创建活动的Window窗体
-var PurchaseEnterWarehouse = Ext.create('Ext.window.Window', {
-	id: "PurchaseEnterWarehouseWindow",
-	title: "采购入库单",
-	width: 700,
-	height: 483,
-	layout: 'fit',
- 	//autoScroll: false,	// 容器过高或者过宽时，窗体自动显示滚动条 - 无效
-    modal: false,
-	closable: true, 	// Extjs Window可以配置是否显示关闭按钮：
-	closeAction: 'hide',// 在关闭Extjs Window的时候，通过配置项closeAction可以控制按钮是销毁（destroy）还是隐藏（hide），默认情况下为销毁：
-	maximizable: true, 	// 最大化按钮
-	minimizable: true, 	// 最小化按钮;需重写minimize()函数;
-	constrain: true,	// 保证整个窗口不会越过浏览器的边界;
-	resizable: true,   	// 窗口可拖动改变大小;
-	items: formControl,
-	//anchor:"100% 100%",
-	buttons: [{
-			xtype: 'button',
-			text: "确定",
-			handler: showValue
-		},
-		{
-			xtype: 'button',
-			text: "验证",
-			handler: onUserSaveClick
-		}
-	],
-	listeners: {
-		// 最小化
-		minimize: function(win, opts) {
-			win.collapse();
-		}
-	}
-});
-//}).show();
-
-function showValue() {
-	var svalue = Ext.getCmp('supplier').getValue() + "---" +
-		Ext.getCmp('documentDate').getValue() + "---" +
-		Ext.getCmp('address').getValue() + "---" +
-		Ext.getCmp('dateLibary').getValue() + "---" +
-		Ext.getCmp('dateReg').getValue() + "---单选1: " +
-		Ext.getCmp('color').getChecked()[0].boxLabel + "---单选1: " +
-		Ext.getCmp('color').getChecked()[0].inputValue + "---复选 : " +
-		// Ext.getCmp('radio1').getValue() + "---单选2: " + 
-		// Ext.getCmp('radio2').getValue() + "---复选 " + 
-		Ext.getCmp('check1').getValue() + "---" +
-		Ext.getCmp('check2').getValue() + "---" +
-		Ext.getCmp('check3').getValue() + "---" +
-		Ext.getCmp('cmjiguan').getValue() + "---" +
-		Ext.getCmp('remark').getValue();
-
-	Ext.getCmp('remark').setValue(svalue);
-	/*
-	name
-	age
-	address
-	dateLibary
-	dateReg
-	color
-	check1
-	check2
-	check3
-	cmjiguan
-	remark
-	*/
 }
