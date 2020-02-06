@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.ComareaMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.Comarea" >
+    <result column="AreaID" property="areaid" jdbcType="VARCHAR" />
+    <result column="AreaName" property="areaname" jdbcType="VARCHAR" />
+    <result column="EngName" property="engname" jdbcType="VARCHAR" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="MergeOutState" property="mergeoutstate" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AreaID, AreaName, EngName, Memo, MergeOutState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.ComareaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comarea
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.factory.entity.ComareaExample" >
+    delete from comarea
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.Comarea" >
+    insert into comarea (AreaID, AreaName, EngName, 
+      Memo, MergeOutState)
+    values (#{areaid,jdbcType=VARCHAR}, #{areaname,jdbcType=VARCHAR}, #{engname,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{mergeoutstate,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.Comarea" >
+    insert into comarea
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaid != null" >
+        AreaID,
+      </if>
+      <if test="areaname != null" >
+        AreaName,
+      </if>
+      <if test="engname != null" >
+        EngName,
+      </if>
+      <if test="memo != null" >
+        Memo,
+      </if>
+      <if test="mergeoutstate != null" >
+        MergeOutState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaid != null" >
+        #{areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="areaname != null" >
+        #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="engname != null" >
+        #{engname,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeoutstate != null" >
+        #{mergeoutstate,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.ComareaExample" resultType="java.lang.Integer" >
+    select count(*) from comarea
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comarea
+    <set >
+      <if test="record.areaid != null" >
+        AreaID = #{record.areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaname != null" >
+        AreaName = #{record.areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.engname != null" >
+        EngName = #{record.engname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        Memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mergeoutstate != null" >
+        MergeOutState = #{record.mergeoutstate,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comarea
+    set AreaID = #{record.areaid,jdbcType=VARCHAR},
+      AreaName = #{record.areaname,jdbcType=VARCHAR},
+      EngName = #{record.engname,jdbcType=VARCHAR},
+      Memo = #{record.memo,jdbcType=VARCHAR},
+      MergeOutState = #{record.mergeoutstate,jdbcType=SMALLINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

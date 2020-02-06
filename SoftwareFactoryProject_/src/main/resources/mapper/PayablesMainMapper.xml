@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.PayablesMainMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.PayablesMain" >
+    <id column="payables_id" property="payablesId" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="payables_supplier_name" property="payablesSupplierName" jdbcType="VARCHAR" />
+    <result column="scs_id" property="scsId" jdbcType="INTEGER" />
+    <result column="payables_sat_name1" property="payablesSatName1" jdbcType="INTEGER" />
+    <result column="payables_Price1" property="payablesPrice1" jdbcType="REAL" />
+    <result column="payables_sat_name2" property="payablesSatName2" jdbcType="INTEGER" />
+    <result column="payables_Price2" property="payablesPrice2" jdbcType="REAL" />
+    <result column="payables_sat_name3" property="payablesSatName3" jdbcType="INTEGER" />
+    <result column="payables_Price3" property="payablesPrice3" jdbcType="REAL" />
+    <result column="payables_zhekou" property="payablesZhekou" jdbcType="INTEGER" />
+    <result column="payables_endtime" property="payablesEndtime" jdbcType="DATE" />
+    <result column="payables_payablestime" property="payablesPayablestime" jdbcType="TIMESTAMP" />
+    <result column="payables_currency_name" property="payablesCurrencyName" jdbcType="VARCHAR" />
+    <result column="currency_id" property="currencyId" jdbcType="VARCHAR" />
+    <result column="payables_currency_inexchange" property="payablesCurrencyInexchange" jdbcType="VARCHAR" />
+    <result column="payables_exchange_rate" property="payablesExchangeRate" jdbcType="REAL" />
+    <result column="payables_type" property="payablesType" jdbcType="VARCHAR" />
+    <result column="payables_voucherNo" property="payablesVoucherno" jdbcType="VARCHAR" />
+    <result column="payables_remarks" property="payablesRemarks" jdbcType="VARCHAR" />
+    <result column="staff_id" property="staffId" jdbcType="VARCHAR" />
+    <result column="payables_team_name" property="payablesTeamName" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="payables_project_name" property="payablesProjectName" jdbcType="VARCHAR" />
+    <result column="payables_billpersonnel" property="payablesBillpersonnel" jdbcType="VARCHAR" />
+    <result column="payables_reviewers" property="payablesReviewers" jdbcType="VARCHAR" />
+    <result column="payables_auditstatus" property="payablesAuditstatus" jdbcType="INTEGER" />
+    <result column="payables_Auditing" property="payablesAuditing" jdbcType="VARCHAR" />
+    <result column="payables_yn" property="payablesYn" jdbcType="VARCHAR" />
+    <result column="payables_custom1" property="payablesCustom1" jdbcType="VARCHAR" />
+    <result column="payables_custom2" property="payablesCustom2" jdbcType="VARCHAR" />
+    <result column="payables_custom3" property="payablesCustom3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    payables_id, supplier_id, payables_supplier_name, scs_id, payables_sat_name1, payables_Price1, 
+    payables_sat_name2, payables_Price2, payables_sat_name3, payables_Price3, payables_zhekou, 
+    payables_endtime, payables_payablestime, payables_currency_name, currency_id, payables_currency_inexchange, 
+    payables_exchange_rate, payables_type, payables_voucherNo, payables_remarks, staff_id, 
+    payables_team_name, project_id, payables_project_name, payables_billpersonnel, payables_reviewers, 
+    payables_auditstatus, payables_Auditing, payables_yn, payables_custom1, payables_custom2, 
+    payables_custom3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.PayablesMainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from payables_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from payables_main
+    where payables_id = #{payablesId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from payables_main
+    where payables_id = #{payablesId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.PayablesMainExample" >
+    delete from payables_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.PayablesMain" >
+    insert into payables_main (payables_id, supplier_id, payables_supplier_name, 
+      scs_id, payables_sat_name1, payables_Price1, 
+      payables_sat_name2, payables_Price2, payables_sat_name3, 
+      payables_Price3, payables_zhekou, payables_endtime, 
+      payables_payablestime, payables_currency_name, 
+      currency_id, payables_currency_inexchange, 
+      payables_exchange_rate, payables_type, payables_voucherNo, 
+      payables_remarks, staff_id, payables_team_name, 
+      project_id, payables_project_name, payables_billpersonnel, 
+      payables_reviewers, payables_auditstatus, 
+      payables_Auditing, payables_yn, payables_custom1, 
+      payables_custom2, payables_custom3)
+    values (#{payablesId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{payablesSupplierName,jdbcType=VARCHAR}, 
+      #{scsId,jdbcType=INTEGER}, #{payablesSatName1,jdbcType=INTEGER}, #{payablesPrice1,jdbcType=REAL}, 
+      #{payablesSatName2,jdbcType=INTEGER}, #{payablesPrice2,jdbcType=REAL}, #{payablesSatName3,jdbcType=INTEGER}, 
+      #{payablesPrice3,jdbcType=REAL}, #{payablesZhekou,jdbcType=INTEGER}, #{payablesEndtime,jdbcType=DATE}, 
+      #{payablesPayablestime,jdbcType=TIMESTAMP}, #{payablesCurrencyName,jdbcType=VARCHAR}, 
+      #{currencyId,jdbcType=VARCHAR}, #{payablesCurrencyInexchange,jdbcType=VARCHAR}, 
+      #{payablesExchangeRate,jdbcType=REAL}, #{payablesType,jdbcType=VARCHAR}, #{payablesVoucherno,jdbcType=VARCHAR}, 
+      #{payablesRemarks,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, #{payablesTeamName,jdbcType=VARCHAR}, 
+      #{projectId,jdbcType=VARCHAR}, #{payablesProjectName,jdbcType=VARCHAR}, #{payablesBillpersonnel,jdbcType=VARCHAR}, 
+      #{payablesReviewers,jdbcType=VARCHAR}, #{payablesAuditstatus,jdbcType=INTEGER}, 
+      #{payablesAuditing,jdbcType=VARCHAR}, #{payablesYn,jdbcType=VARCHAR}, #{payablesCustom1,jdbcType=VARCHAR}, 
+      #{payablesCustom2,jdbcType=VARCHAR}, #{payablesCustom3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.PayablesMain" >
+    insert into payables_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payablesId != null" >
+        payables_id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="payablesSupplierName != null" >
+        payables_supplier_name,
+      </if>
+      <if test="scsId != null" >
+        scs_id,
+      </if>
+      <if test="payablesSatName1 != null" >
+        payables_sat_name1,
+      </if>
+      <if test="payablesPrice1 != null" >
+        payables_Price1,
+      </if>
+      <if test="payablesSatName2 != null" >
+        payables_sat_name2,
+      </if>
+      <if test="payablesPrice2 != null" >
+        payables_Price2,
+      </if>
+      <if test="payablesSatName3 != null" >
+        payables_sat_name3,
+      </if>
+      <if test="payablesPrice3 != null" >
+        payables_Price3,
+      </if>
+      <if test="payablesZhekou != null" >
+        payables_zhekou,
+      </if>
+      <if test="payablesEndtime != null" >
+        payables_endtime,
+      </if>
+      <if test="payablesPayablestime != null" >
+        payables_payablestime,
+      </if>
+      <if test="payablesCurrencyName != null" >
+        payables_currency_name,
+      </if>
+      <if test="currencyId != null" >
+        currency_id,
+      </if>
+      <if test="payablesCurrencyInexchange != null" >
+        payables_currency_inexchange,
+      </if>
+      <if test="payablesExchangeRate != null" >
+        payables_exchange_rate,
+      </if>
+      <if test="payablesType != null" >
+        payables_type,
+      </if>
+      <if test="payablesVoucherno != null" >
+        payables_voucherNo,
+      </if>
+      <if test="payablesRemarks != null" >
+        payables_remarks,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="payablesTeamName != null" >
+        payables_team_name,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="payablesProjectName != null" >
+        payables_project_name,
+      </if>
+      <if test="payablesBillpersonnel != null" >
+        payables_billpersonnel,
+      </if>
+      <if test="payablesReviewers != null" >
+        payables_reviewers,
+      </if>
+      <if test="payablesAuditstatus != null" >
+        payables_auditstatus,
+      </if>
+      <if test="payablesAuditing != null" >
+        payables_Auditing,
+      </if>
+      <if test="payablesYn != null" >
+        payables_yn,
+      </if>
+      <if test="payablesCustom1 != null" >
+        payables_custom1,
+      </if>
+      <if test="payablesCustom2 != null" >
+        payables_custom2,
+      </if>
+      <if test="payablesCustom3 != null" >
+        payables_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payablesId != null" >
+        #{payablesId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesSupplierName != null" >
+        #{payablesSupplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="scsId != null" >
+        #{scsId,jdbcType=INTEGER},
+      </if>
+      <if test="payablesSatName1 != null" >
+        #{payablesSatName1,jdbcType=INTEGER},
+      </if>
+      <if test="payablesPrice1 != null" >
+        #{payablesPrice1,jdbcType=REAL},
+      </if>
+      <if test="payablesSatName2 != null" >
+        #{payablesSatName2,jdbcType=INTEGER},
+      </if>
+      <if test="payablesPrice2 != null" >
+        #{payablesPrice2,jdbcType=REAL},
+      </if>
+      <if test="payablesSatName3 != null" >
+        #{payablesSatName3,jdbcType=INTEGER},
+      </if>
+      <if test="payablesPrice3 != null" >
+        #{payablesPrice3,jdbcType=REAL},
+      </if>
+      <if test="payablesZhekou != null" >
+        #{payablesZhekou,jdbcType=INTEGER},
+      </if>
+      <if test="payablesEndtime != null" >
+        #{payablesEndtime,jdbcType=DATE},
+      </if>
+      <if test="payablesPayablestime != null" >
+        #{payablesPayablestime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payablesCurrencyName != null" >
+        #{payablesCurrencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesCurrencyInexchange != null" >
+        #{payablesCurrencyInexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesExchangeRate != null" >
+        #{payablesExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="payablesType != null" >
+        #{payablesType,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesVoucherno != null" >
+        #{payablesVoucherno,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesRemarks != null" >
+        #{payablesRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesTeamName != null" >
+        #{payablesTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesProjectName != null" >
+        #{payablesProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesBillpersonnel != null" >
+        #{payablesBillpersonnel,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesReviewers != null" >
+        #{payablesReviewers,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesAuditstatus != null" >
+        #{payablesAuditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="payablesAuditing != null" >
+        #{payablesAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesYn != null" >
+        #{payablesYn,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesCustom1 != null" >
+        #{payablesCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesCustom2 != null" >
+        #{payablesCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesCustom3 != null" >
+        #{payablesCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.PayablesMainExample" resultType="java.lang.Integer" >
+    select count(*) from payables_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update payables_main
+    <set >
+      <if test="record.payablesId != null" >
+        payables_id = #{record.payablesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierId != null" >
+        supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesSupplierName != null" >
+        payables_supplier_name = #{record.payablesSupplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scsId != null" >
+        scs_id = #{record.scsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payablesSatName1 != null" >
+        payables_sat_name1 = #{record.payablesSatName1,jdbcType=INTEGER},
+      </if>
+      <if test="record.payablesPrice1 != null" >
+        payables_Price1 = #{record.payablesPrice1,jdbcType=REAL},
+      </if>
+      <if test="record.payablesSatName2 != null" >
+        payables_sat_name2 = #{record.payablesSatName2,jdbcType=INTEGER},
+      </if>
+      <if test="record.payablesPrice2 != null" >
+        payables_Price2 = #{record.payablesPrice2,jdbcType=REAL},
+      </if>
+      <if test="record.payablesSatName3 != null" >
+        payables_sat_name3 = #{record.payablesSatName3,jdbcType=INTEGER},
+      </if>
+      <if test="record.payablesPrice3 != null" >
+        payables_Price3 = #{record.payablesPrice3,jdbcType=REAL},
+      </if>
+      <if test="record.payablesZhekou != null" >
+        payables_zhekou = #{record.payablesZhekou,jdbcType=INTEGER},
+      </if>
+      <if test="record.payablesEndtime != null" >
+        payables_endtime = #{record.payablesEndtime,jdbcType=DATE},
+      </if>
+      <if test="record.payablesPayablestime != null" >
+        payables_payablestime = #{record.payablesPayablestime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payablesCurrencyName != null" >
+        payables_currency_name = #{record.payablesCurrencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyId != null" >
+        currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesCurrencyInexchange != null" >
+        payables_currency_inexchange = #{record.payablesCurrencyInexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesExchangeRate != null" >
+        payables_exchange_rate = #{record.payablesExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="record.payablesType != null" >
+        payables_type = #{record.payablesType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesVoucherno != null" >
+        payables_voucherNo = #{record.payablesVoucherno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesRemarks != null" >
+        payables_remarks = #{record.payablesRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffId != null" >
+        staff_id = #{record.staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesTeamName != null" >
+        payables_team_name = #{record.payablesTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesProjectName != null" >
+        payables_project_name = #{record.payablesProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesBillpersonnel != null" >
+        payables_billpersonnel = #{record.payablesBillpersonnel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesReviewers != null" >
+        payables_reviewers = #{record.payablesReviewers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesAuditstatus != null" >
+        payables_auditstatus = #{record.payablesAuditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.payablesAuditing != null" >
+        payables_Auditing = #{record.payablesAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesYn != null" >
+        payables_yn = #{record.payablesYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesCustom1 != null" >
+        payables_custom1 = #{record.payablesCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesCustom2 != null" >
+        payables_custom2 = #{record.payablesCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesCustom3 != null" >
+        payables_custom3 = #{record.payablesCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update payables_main
+    set payables_id = #{record.payablesId,jdbcType=VARCHAR},
+      supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      payables_supplier_name = #{record.payablesSupplierName,jdbcType=VARCHAR},
+      scs_id = #{record.scsId,jdbcType=INTEGER},
+      payables_sat_name1 = #{record.payablesSatName1,jdbcType=INTEGER},
+      payables_Price1 = #{record.payablesPrice1,jdbcType=REAL},
+      payables_sat_name2 = #{record.payablesSatName2,jdbcType=INTEGER},
+      payables_Price2 = #{record.payablesPrice2,jdbcType=REAL},
+      payables_sat_name3 = #{record.payablesSatName3,jdbcType=INTEGER},
+      payables_Price3 = #{record.payablesPrice3,jdbcType=REAL},
+      payables_zhekou = #{record.payablesZhekou,jdbcType=INTEGER},
+      payables_endtime = #{record.payablesEndtime,jdbcType=DATE},
+      payables_payablestime = #{record.payablesPayablestime,jdbcType=TIMESTAMP},
+      payables_currency_name = #{record.payablesCurrencyName,jdbcType=VARCHAR},
+      currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      payables_currency_inexchange = #{record.payablesCurrencyInexchange,jdbcType=VARCHAR},
+      payables_exchange_rate = #{record.payablesExchangeRate,jdbcType=REAL},
+      payables_type = #{record.payablesType,jdbcType=VARCHAR},
+      payables_voucherNo = #{record.payablesVoucherno,jdbcType=VARCHAR},
+      payables_remarks = #{record.payablesRemarks,jdbcType=VARCHAR},
+      staff_id = #{record.staffId,jdbcType=VARCHAR},
+      payables_team_name = #{record.payablesTeamName,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      payables_project_name = #{record.payablesProjectName,jdbcType=VARCHAR},
+      payables_billpersonnel = #{record.payablesBillpersonnel,jdbcType=VARCHAR},
+      payables_reviewers = #{record.payablesReviewers,jdbcType=VARCHAR},
+      payables_auditstatus = #{record.payablesAuditstatus,jdbcType=INTEGER},
+      payables_Auditing = #{record.payablesAuditing,jdbcType=VARCHAR},
+      payables_yn = #{record.payablesYn,jdbcType=VARCHAR},
+      payables_custom1 = #{record.payablesCustom1,jdbcType=VARCHAR},
+      payables_custom2 = #{record.payablesCustom2,jdbcType=VARCHAR},
+      payables_custom3 = #{record.payablesCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.PayablesMain" >
+    update payables_main
+    <set >
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesSupplierName != null" >
+        payables_supplier_name = #{payablesSupplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="scsId != null" >
+        scs_id = #{scsId,jdbcType=INTEGER},
+      </if>
+      <if test="payablesSatName1 != null" >
+        payables_sat_name1 = #{payablesSatName1,jdbcType=INTEGER},
+      </if>
+      <if test="payablesPrice1 != null" >
+        payables_Price1 = #{payablesPrice1,jdbcType=REAL},
+      </if>
+      <if test="payablesSatName2 != null" >
+        payables_sat_name2 = #{payablesSatName2,jdbcType=INTEGER},
+      </if>
+      <if test="payablesPrice2 != null" >
+        payables_Price2 = #{payablesPrice2,jdbcType=REAL},
+      </if>
+      <if test="payablesSatName3 != null" >
+        payables_sat_name3 = #{payablesSatName3,jdbcType=INTEGER},
+      </if>
+      <if test="payablesPrice3 != null" >
+        payables_Price3 = #{payablesPrice3,jdbcType=REAL},
+      </if>
+      <if test="payablesZhekou != null" >
+        payables_zhekou = #{payablesZhekou,jdbcType=INTEGER},
+      </if>
+      <if test="payablesEndtime != null" >
+        payables_endtime = #{payablesEndtime,jdbcType=DATE},
+      </if>
+      <if test="payablesPayablestime != null" >
+        payables_payablestime = #{payablesPayablestime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payablesCurrencyName != null" >
+        payables_currency_name = #{payablesCurrencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        currency_id = #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesCurrencyInexchange != null" >
+        payables_currency_inexchange = #{payablesCurrencyInexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesExchangeRate != null" >
+        payables_exchange_rate = #{payablesExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="payablesType != null" >
+        payables_type = #{payablesType,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesVoucherno != null" >
+        payables_voucherNo = #{payablesVoucherno,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesRemarks != null" >
+        payables_remarks = #{payablesRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesTeamName != null" >
+        payables_team_name = #{payablesTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesProjectName != null" >
+        payables_project_name = #{payablesProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesBillpersonnel != null" >
+        payables_billpersonnel = #{payablesBillpersonnel,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesReviewers != null" >
+        payables_reviewers = #{payablesReviewers,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesAuditstatus != null" >
+        payables_auditstatus = #{payablesAuditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="payablesAuditing != null" >
+        payables_Auditing = #{payablesAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesYn != null" >
+        payables_yn = #{payablesYn,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesCustom1 != null" >
+        payables_custom1 = #{payablesCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesCustom2 != null" >
+        payables_custom2 = #{payablesCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesCustom3 != null" >
+        payables_custom3 = #{payablesCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where payables_id = #{payablesId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.PayablesMain" >
+    update payables_main
+    set supplier_id = #{supplierId,jdbcType=VARCHAR},
+      payables_supplier_name = #{payablesSupplierName,jdbcType=VARCHAR},
+      scs_id = #{scsId,jdbcType=INTEGER},
+      payables_sat_name1 = #{payablesSatName1,jdbcType=INTEGER},
+      payables_Price1 = #{payablesPrice1,jdbcType=REAL},
+      payables_sat_name2 = #{payablesSatName2,jdbcType=INTEGER},
+      payables_Price2 = #{payablesPrice2,jdbcType=REAL},
+      payables_sat_name3 = #{payablesSatName3,jdbcType=INTEGER},
+      payables_Price3 = #{payablesPrice3,jdbcType=REAL},
+      payables_zhekou = #{payablesZhekou,jdbcType=INTEGER},
+      payables_endtime = #{payablesEndtime,jdbcType=DATE},
+      payables_payablestime = #{payablesPayablestime,jdbcType=TIMESTAMP},
+      payables_currency_name = #{payablesCurrencyName,jdbcType=VARCHAR},
+      currency_id = #{currencyId,jdbcType=VARCHAR},
+      payables_currency_inexchange = #{payablesCurrencyInexchange,jdbcType=VARCHAR},
+      payables_exchange_rate = #{payablesExchangeRate,jdbcType=REAL},
+      payables_type = #{payablesType,jdbcType=VARCHAR},
+      payables_voucherNo = #{payablesVoucherno,jdbcType=VARCHAR},
+      payables_remarks = #{payablesRemarks,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
+      payables_team_name = #{payablesTeamName,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      payables_project_name = #{payablesProjectName,jdbcType=VARCHAR},
+      payables_billpersonnel = #{payablesBillpersonnel,jdbcType=VARCHAR},
+      payables_reviewers = #{payablesReviewers,jdbcType=VARCHAR},
+      payables_auditstatus = #{payablesAuditstatus,jdbcType=INTEGER},
+      payables_Auditing = #{payablesAuditing,jdbcType=VARCHAR},
+      payables_yn = #{payablesYn,jdbcType=VARCHAR},
+      payables_custom1 = #{payablesCustom1,jdbcType=VARCHAR},
+      payables_custom2 = #{payablesCustom2,jdbcType=VARCHAR},
+      payables_custom3 = #{payablesCustom3,jdbcType=VARCHAR}
+    where payables_id = #{payablesId,jdbcType=VARCHAR}
+  </update>
+</mapper>

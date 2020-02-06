@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.PurchaseReturnsMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.PurchaseReturns" >
+    <id column="pure_id" property="pureId" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="pure_engname" property="pureEngname" jdbcType="VARCHAR" />
+    <result column="puret_id" property="puretId" jdbcType="VARCHAR" />
+    <result column="pure_price_include_tax" property="purePriceIncludeTax" jdbcType="VARCHAR" />
+    <result column="warehouse_id" property="warehouseId" jdbcType="INTEGER" />
+    <result column="pure_single_status" property="pureSingleStatus" jdbcType="VARCHAR" />
+    <result column="pure_document_date" property="pureDocumentDate" jdbcType="DATE" />
+    <result column="pure_document_number" property="pureDocumentNumber" jdbcType="VARCHAR" />
+    <result column="currency_id" property="currencyId" jdbcType="VARCHAR" />
+    <result column="pure_exchange_rate" property="pureExchangeRate" jdbcType="REAL" />
+    <result column="pure_foreign_trade" property="pureForeignTrade" jdbcType="INTEGER" />
+    <result column="pure_sunnum" property="pureSunnum" jdbcType="INTEGER" />
+    <result column="pure_sunmoney" property="pureSunmoney" jdbcType="REAL" />
+    <result column="pure_tax" property="pureTax" jdbcType="REAL" />
+    <result column="pure_include_tax_amount" property="pureIncludeTaxAmount" jdbcType="REAL" />
+    <result column="pure_delivery_address" property="pureDeliveryAddress" jdbcType="VARCHAR" />
+    <result column="pure_buyer" property="pureBuyer" jdbcType="VARCHAR" />
+    <result column="pure_belongs_section" property="pureBelongsSection" jdbcType="VARCHAR" />
+    <result column="pure_belongs_project" property="pureBelongsProject" jdbcType="VARCHAR" />
+    <result column="pure_executor" property="pureExecutor" jdbcType="VARCHAR" />
+    <result column="pure_checkagain_staff" property="pureCheckagainStaff" jdbcType="VARCHAR" />
+    <result column="pure_header_provision" property="pureHeaderProvision" jdbcType="VARCHAR" />
+    <result column="pure_end_clause" property="pureEndClause" jdbcType="VARCHAR" />
+    <result column="pure_remark" property="pureRemark" jdbcType="VARCHAR" />
+    <result column="pure_audition" property="pureAudition" jdbcType="VARCHAR" />
+    <result column="pure_yn" property="pureYn" jdbcType="VARCHAR" />
+    <result column="pure_custom1" property="pureCustom1" jdbcType="VARCHAR" />
+    <result column="pure_custom2" property="pureCustom2" jdbcType="VARCHAR" />
+    <result column="pure_custom3" property="pureCustom3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pure_id, supplier_id, pure_engname, puret_id, pure_price_include_tax, warehouse_id, 
+    pure_single_status, pure_document_date, pure_document_number, currency_id, pure_exchange_rate, 
+    pure_foreign_trade, pure_sunnum, pure_sunmoney, pure_tax, pure_include_tax_amount, 
+    pure_delivery_address, pure_buyer, pure_belongs_section, pure_belongs_project, pure_executor, 
+    pure_checkagain_staff, pure_header_provision, pure_end_clause, pure_remark, pure_audition, 
+    pure_yn, pure_custom1, pure_custom2, pure_custom3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.PurchaseReturnsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purchase_returns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchase_returns
+    where pure_id = #{pureId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from purchase_returns
+    where pure_id = #{pureId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.PurchaseReturnsExample" >
+    delete from purchase_returns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.PurchaseReturns" >
+    insert into purchase_returns (pure_id, supplier_id, pure_engname, 
+      puret_id, pure_price_include_tax, warehouse_id, 
+      pure_single_status, pure_document_date, pure_document_number, 
+      currency_id, pure_exchange_rate, pure_foreign_trade, 
+      pure_sunnum, pure_sunmoney, pure_tax, 
+      pure_include_tax_amount, pure_delivery_address, 
+      pure_buyer, pure_belongs_section, pure_belongs_project, 
+      pure_executor, pure_checkagain_staff, pure_header_provision, 
+      pure_end_clause, pure_remark, pure_audition, 
+      pure_yn, pure_custom1, pure_custom2, 
+      pure_custom3)
+    values (#{pureId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{pureEngname,jdbcType=VARCHAR}, 
+      #{puretId,jdbcType=VARCHAR}, #{purePriceIncludeTax,jdbcType=VARCHAR}, #{warehouseId,jdbcType=INTEGER}, 
+      #{pureSingleStatus,jdbcType=VARCHAR}, #{pureDocumentDate,jdbcType=DATE}, #{pureDocumentNumber,jdbcType=VARCHAR}, 
+      #{currencyId,jdbcType=VARCHAR}, #{pureExchangeRate,jdbcType=REAL}, #{pureForeignTrade,jdbcType=INTEGER}, 
+      #{pureSunnum,jdbcType=INTEGER}, #{pureSunmoney,jdbcType=REAL}, #{pureTax,jdbcType=REAL}, 
+      #{pureIncludeTaxAmount,jdbcType=REAL}, #{pureDeliveryAddress,jdbcType=VARCHAR}, 
+      #{pureBuyer,jdbcType=VARCHAR}, #{pureBelongsSection,jdbcType=VARCHAR}, #{pureBelongsProject,jdbcType=VARCHAR}, 
+      #{pureExecutor,jdbcType=VARCHAR}, #{pureCheckagainStaff,jdbcType=VARCHAR}, #{pureHeaderProvision,jdbcType=VARCHAR}, 
+      #{pureEndClause,jdbcType=VARCHAR}, #{pureRemark,jdbcType=VARCHAR}, #{pureAudition,jdbcType=VARCHAR}, 
+      #{pureYn,jdbcType=VARCHAR}, #{pureCustom1,jdbcType=VARCHAR}, #{pureCustom2,jdbcType=VARCHAR}, 
+      #{pureCustom3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.PurchaseReturns" >
+    insert into purchase_returns
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pureId != null" >
+        pure_id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="pureEngname != null" >
+        pure_engname,
+      </if>
+      <if test="puretId != null" >
+        puret_id,
+      </if>
+      <if test="purePriceIncludeTax != null" >
+        pure_price_include_tax,
+      </if>
+      <if test="warehouseId != null" >
+        warehouse_id,
+      </if>
+      <if test="pureSingleStatus != null" >
+        pure_single_status,
+      </if>
+      <if test="pureDocumentDate != null" >
+        pure_document_date,
+      </if>
+      <if test="pureDocumentNumber != null" >
+        pure_document_number,
+      </if>
+      <if test="currencyId != null" >
+        currency_id,
+      </if>
+      <if test="pureExchangeRate != null" >
+        pure_exchange_rate,
+      </if>
+      <if test="pureForeignTrade != null" >
+        pure_foreign_trade,
+      </if>
+      <if test="pureSunnum != null" >
+        pure_sunnum,
+      </if>
+      <if test="pureSunmoney != null" >
+        pure_sunmoney,
+      </if>
+      <if test="pureTax != null" >
+        pure_tax,
+      </if>
+      <if test="pureIncludeTaxAmount != null" >
+        pure_include_tax_amount,
+      </if>
+      <if test="pureDeliveryAddress != null" >
+        pure_delivery_address,
+      </if>
+      <if test="pureBuyer != null" >
+        pure_buyer,
+      </if>
+      <if test="pureBelongsSection != null" >
+        pure_belongs_section,
+      </if>
+      <if test="pureBelongsProject != null" >
+        pure_belongs_project,
+      </if>
+      <if test="pureExecutor != null" >
+        pure_executor,
+      </if>
+      <if test="pureCheckagainStaff != null" >
+        pure_checkagain_staff,
+      </if>
+      <if test="pureHeaderProvision != null" >
+        pure_header_provision,
+      </if>
+      <if test="pureEndClause != null" >
+        pure_end_clause,
+      </if>
+      <if test="pureRemark != null" >
+        pure_remark,
+      </if>
+      <if test="pureAudition != null" >
+        pure_audition,
+      </if>
+      <if test="pureYn != null" >
+        pure_yn,
+      </if>
+      <if test="pureCustom1 != null" >
+        pure_custom1,
+      </if>
+      <if test="pureCustom2 != null" >
+        pure_custom2,
+      </if>
+      <if test="pureCustom3 != null" >
+        pure_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pureId != null" >
+        #{pureId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="pureEngname != null" >
+        #{pureEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="puretId != null" >
+        #{puretId,jdbcType=VARCHAR},
+      </if>
+      <if test="purePriceIncludeTax != null" >
+        #{purePriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseId != null" >
+        #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="pureSingleStatus != null" >
+        #{pureSingleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pureDocumentDate != null" >
+        #{pureDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="pureDocumentNumber != null" >
+        #{pureDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="pureExchangeRate != null" >
+        #{pureExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="pureForeignTrade != null" >
+        #{pureForeignTrade,jdbcType=INTEGER},
+      </if>
+      <if test="pureSunnum != null" >
+        #{pureSunnum,jdbcType=INTEGER},
+      </if>
+      <if test="pureSunmoney != null" >
+        #{pureSunmoney,jdbcType=REAL},
+      </if>
+      <if test="pureTax != null" >
+        #{pureTax,jdbcType=REAL},
+      </if>
+      <if test="pureIncludeTaxAmount != null" >
+        #{pureIncludeTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="pureDeliveryAddress != null" >
+        #{pureDeliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pureBuyer != null" >
+        #{pureBuyer,jdbcType=VARCHAR},
+      </if>
+      <if test="pureBelongsSection != null" >
+        #{pureBelongsSection,jdbcType=VARCHAR},
+      </if>
+      <if test="pureBelongsProject != null" >
+        #{pureBelongsProject,jdbcType=VARCHAR},
+      </if>
+      <if test="pureExecutor != null" >
+        #{pureExecutor,jdbcType=VARCHAR},
+      </if>
+      <if test="pureCheckagainStaff != null" >
+        #{pureCheckagainStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="pureHeaderProvision != null" >
+        #{pureHeaderProvision,jdbcType=VARCHAR},
+      </if>
+      <if test="pureEndClause != null" >
+        #{pureEndClause,jdbcType=VARCHAR},
+      </if>
+      <if test="pureRemark != null" >
+        #{pureRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="pureAudition != null" >
+        #{pureAudition,jdbcType=VARCHAR},
+      </if>
+      <if test="pureYn != null" >
+        #{pureYn,jdbcType=VARCHAR},
+      </if>
+      <if test="pureCustom1 != null" >
+        #{pureCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="pureCustom2 != null" >
+        #{pureCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="pureCustom3 != null" >
+        #{pureCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.PurchaseReturnsExample" resultType="java.lang.Integer" >
+    select count(*) from purchase_returns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update purchase_returns
+    <set >
+      <if test="record.pureId != null" >
+        pure_id = #{record.pureId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierId != null" >
+        supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureEngname != null" >
+        pure_engname = #{record.pureEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.puretId != null" >
+        puret_id = #{record.puretId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purePriceIncludeTax != null" >
+        pure_price_include_tax = #{record.purePriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseId != null" >
+        warehouse_id = #{record.warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pureSingleStatus != null" >
+        pure_single_status = #{record.pureSingleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureDocumentDate != null" >
+        pure_document_date = #{record.pureDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="record.pureDocumentNumber != null" >
+        pure_document_number = #{record.pureDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyId != null" >
+        currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureExchangeRate != null" >
+        pure_exchange_rate = #{record.pureExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="record.pureForeignTrade != null" >
+        pure_foreign_trade = #{record.pureForeignTrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.pureSunnum != null" >
+        pure_sunnum = #{record.pureSunnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.pureSunmoney != null" >
+        pure_sunmoney = #{record.pureSunmoney,jdbcType=REAL},
+      </if>
+      <if test="record.pureTax != null" >
+        pure_tax = #{record.pureTax,jdbcType=REAL},
+      </if>
+      <if test="record.pureIncludeTaxAmount != null" >
+        pure_include_tax_amount = #{record.pureIncludeTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="record.pureDeliveryAddress != null" >
+        pure_delivery_address = #{record.pureDeliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureBuyer != null" >
+        pure_buyer = #{record.pureBuyer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureBelongsSection != null" >
+        pure_belongs_section = #{record.pureBelongsSection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureBelongsProject != null" >
+        pure_belongs_project = #{record.pureBelongsProject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureExecutor != null" >
+        pure_executor = #{record.pureExecutor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureCheckagainStaff != null" >
+        pure_checkagain_staff = #{record.pureCheckagainStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureHeaderProvision != null" >
+        pure_header_provision = #{record.pureHeaderProvision,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureEndClause != null" >
+        pure_end_clause = #{record.pureEndClause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureRemark != null" >
+        pure_remark = #{record.pureRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureAudition != null" >
+        pure_audition = #{record.pureAudition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureYn != null" >
+        pure_yn = #{record.pureYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureCustom1 != null" >
+        pure_custom1 = #{record.pureCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureCustom2 != null" >
+        pure_custom2 = #{record.pureCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pureCustom3 != null" >
+        pure_custom3 = #{record.pureCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update purchase_returns
+    set pure_id = #{record.pureId,jdbcType=VARCHAR},
+      supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      pure_engname = #{record.pureEngname,jdbcType=VARCHAR},
+      puret_id = #{record.puretId,jdbcType=VARCHAR},
+      pure_price_include_tax = #{record.purePriceIncludeTax,jdbcType=VARCHAR},
+      warehouse_id = #{record.warehouseId,jdbcType=INTEGER},
+      pure_single_status = #{record.pureSingleStatus,jdbcType=VARCHAR},
+      pure_document_date = #{record.pureDocumentDate,jdbcType=DATE},
+      pure_document_number = #{record.pureDocumentNumber,jdbcType=VARCHAR},
+      currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      pure_exchange_rate = #{record.pureExchangeRate,jdbcType=REAL},
+      pure_foreign_trade = #{record.pureForeignTrade,jdbcType=INTEGER},
+      pure_sunnum = #{record.pureSunnum,jdbcType=INTEGER},
+      pure_sunmoney = #{record.pureSunmoney,jdbcType=REAL},
+      pure_tax = #{record.pureTax,jdbcType=REAL},
+      pure_include_tax_amount = #{record.pureIncludeTaxAmount,jdbcType=REAL},
+      pure_delivery_address = #{record.pureDeliveryAddress,jdbcType=VARCHAR},
+      pure_buyer = #{record.pureBuyer,jdbcType=VARCHAR},
+      pure_belongs_section = #{record.pureBelongsSection,jdbcType=VARCHAR},
+      pure_belongs_project = #{record.pureBelongsProject,jdbcType=VARCHAR},
+      pure_executor = #{record.pureExecutor,jdbcType=VARCHAR},
+      pure_checkagain_staff = #{record.pureCheckagainStaff,jdbcType=VARCHAR},
+      pure_header_provision = #{record.pureHeaderProvision,jdbcType=VARCHAR},
+      pure_end_clause = #{record.pureEndClause,jdbcType=VARCHAR},
+      pure_remark = #{record.pureRemark,jdbcType=VARCHAR},
+      pure_audition = #{record.pureAudition,jdbcType=VARCHAR},
+      pure_yn = #{record.pureYn,jdbcType=VARCHAR},
+      pure_custom1 = #{record.pureCustom1,jdbcType=VARCHAR},
+      pure_custom2 = #{record.pureCustom2,jdbcType=VARCHAR},
+      pure_custom3 = #{record.pureCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.PurchaseReturns" >
+    update purchase_returns
+    <set >
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="pureEngname != null" >
+        pure_engname = #{pureEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="puretId != null" >
+        puret_id = #{puretId,jdbcType=VARCHAR},
+      </if>
+      <if test="purePriceIncludeTax != null" >
+        pure_price_include_tax = #{purePriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseId != null" >
+        warehouse_id = #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="pureSingleStatus != null" >
+        pure_single_status = #{pureSingleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pureDocumentDate != null" >
+        pure_document_date = #{pureDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="pureDocumentNumber != null" >
+        pure_document_number = #{pureDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        currency_id = #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="pureExchangeRate != null" >
+        pure_exchange_rate = #{pureExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="pureForeignTrade != null" >
+        pure_foreign_trade = #{pureForeignTrade,jdbcType=INTEGER},
+      </if>
+      <if test="pureSunnum != null" >
+        pure_sunnum = #{pureSunnum,jdbcType=INTEGER},
+      </if>
+      <if test="pureSunmoney != null" >
+        pure_sunmoney = #{pureSunmoney,jdbcType=REAL},
+      </if>
+      <if test="pureTax != null" >
+        pure_tax = #{pureTax,jdbcType=REAL},
+      </if>
+      <if test="pureIncludeTaxAmount != null" >
+        pure_include_tax_amount = #{pureIncludeTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="pureDeliveryAddress != null" >
+        pure_delivery_address = #{pureDeliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pureBuyer != null" >
+        pure_buyer = #{pureBuyer,jdbcType=VARCHAR},
+      </if>
+      <if test="pureBelongsSection != null" >
+        pure_belongs_section = #{pureBelongsSection,jdbcType=VARCHAR},
+      </if>
+      <if test="pureBelongsProject != null" >
+        pure_belongs_project = #{pureBelongsProject,jdbcType=VARCHAR},
+      </if>
+      <if test="pureExecutor != null" >
+        pure_executor = #{pureExecutor,jdbcType=VARCHAR},
+      </if>
+      <if test="pureCheckagainStaff != null" >
+        pure_checkagain_staff = #{pureCheckagainStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="pureHeaderProvision != null" >
+        pure_header_provision = #{pureHeaderProvision,jdbcType=VARCHAR},
+      </if>
+      <if test="pureEndClause != null" >
+        pure_end_clause = #{pureEndClause,jdbcType=VARCHAR},
+      </if>
+      <if test="pureRemark != null" >
+        pure_remark = #{pureRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="pureAudition != null" >
+        pure_audition = #{pureAudition,jdbcType=VARCHAR},
+      </if>
+      <if test="pureYn != null" >
+        pure_yn = #{pureYn,jdbcType=VARCHAR},
+      </if>
+      <if test="pureCustom1 != null" >
+        pure_custom1 = #{pureCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="pureCustom2 != null" >
+        pure_custom2 = #{pureCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="pureCustom3 != null" >
+        pure_custom3 = #{pureCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pure_id = #{pureId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.PurchaseReturns" >
+    update purchase_returns
+    set supplier_id = #{supplierId,jdbcType=VARCHAR},
+      pure_engname = #{pureEngname,jdbcType=VARCHAR},
+      puret_id = #{puretId,jdbcType=VARCHAR},
+      pure_price_include_tax = #{purePriceIncludeTax,jdbcType=VARCHAR},
+      warehouse_id = #{warehouseId,jdbcType=INTEGER},
+      pure_single_status = #{pureSingleStatus,jdbcType=VARCHAR},
+      pure_document_date = #{pureDocumentDate,jdbcType=DATE},
+      pure_document_number = #{pureDocumentNumber,jdbcType=VARCHAR},
+      currency_id = #{currencyId,jdbcType=VARCHAR},
+      pure_exchange_rate = #{pureExchangeRate,jdbcType=REAL},
+      pure_foreign_trade = #{pureForeignTrade,jdbcType=INTEGER},
+      pure_sunnum = #{pureSunnum,jdbcType=INTEGER},
+      pure_sunmoney = #{pureSunmoney,jdbcType=REAL},
+      pure_tax = #{pureTax,jdbcType=REAL},
+      pure_include_tax_amount = #{pureIncludeTaxAmount,jdbcType=REAL},
+      pure_delivery_address = #{pureDeliveryAddress,jdbcType=VARCHAR},
+      pure_buyer = #{pureBuyer,jdbcType=VARCHAR},
+      pure_belongs_section = #{pureBelongsSection,jdbcType=VARCHAR},
+      pure_belongs_project = #{pureBelongsProject,jdbcType=VARCHAR},
+      pure_executor = #{pureExecutor,jdbcType=VARCHAR},
+      pure_checkagain_staff = #{pureCheckagainStaff,jdbcType=VARCHAR},
+      pure_header_provision = #{pureHeaderProvision,jdbcType=VARCHAR},
+      pure_end_clause = #{pureEndClause,jdbcType=VARCHAR},
+      pure_remark = #{pureRemark,jdbcType=VARCHAR},
+      pure_audition = #{pureAudition,jdbcType=VARCHAR},
+      pure_yn = #{pureYn,jdbcType=VARCHAR},
+      pure_custom1 = #{pureCustom1,jdbcType=VARCHAR},
+      pure_custom2 = #{pureCustom2,jdbcType=VARCHAR},
+      pure_custom3 = #{pureCustom3,jdbcType=VARCHAR}
+    where pure_id = #{pureId,jdbcType=VARCHAR}
+  </update>
+</mapper>
