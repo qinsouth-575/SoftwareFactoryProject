@@ -27,4 +27,8 @@ public interface StaffMapper {
     int updateByPrimaryKeySelective(Staff record);
 
     int updateByPrimaryKey(Staff record);
+    
+    
+    //查询账户密码登录
+    Staff queryNameAndPwd(Staff account);
 }

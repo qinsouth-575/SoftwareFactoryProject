@@ -30,6 +30,7 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.factory.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 			
+			
 			<!-- 
 			
 			<table schema="Comdepartment" tableName="comdepartment"></table>

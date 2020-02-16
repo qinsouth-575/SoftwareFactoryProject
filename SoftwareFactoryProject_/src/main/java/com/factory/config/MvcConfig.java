@@ -17,6 +17,18 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 @SuppressWarnings("deprecation")
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
+	
+	/*		解决跨域方法 - 2、处理跨域请求的Configuration	
+	 * 		CrossOriginConfig.java
+	 * 		继承WebMvcConfigurerAdapter或者实现WebMvcConfigurer接口		*
+    private static final String ORIGINS[] = new String[] { "GET", "POST", "PUT", "DELETE" };
+    
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins("*").allowCredentials(true)
+        		.allowedMethods(ORIGINS).maxAge(3600);
+    }													//				*/
+    
 	//extends WebMvcConfigurationSupport
 	
 	@Override

@@ -1,13 +1,20 @@
 package com.factory.entity;
 
+/**
+ * - 实体层 - 部门类
+ * @author south wind
+ * @version v1.0 2020年2月15日 上午11:19:21
+ * - 表/功能：
+ */
 public class Comdepartment {
-    private String departid;
+	
+    private String departid;		//部门编号
 
-    private String departname;
+    private String departname;		//部门名称
 
-    private String engname;
+    private String engname;			//英文名称
 
-    private String memo;
+    private String memo;			//备注
 
     private Short female;
 
@@ -100,4 +107,12 @@ public class Comdepartment {
     public void setSalarytypeid(String salarytypeid) {
         this.salarytypeid = salarytypeid;
     }
+
+	@Override
+	public String toString() {
+		return "部门类 - Comdepartment [departid=" + departid + ", departname=" + departname + ", engname=" + engname + ", memo="
+				+ memo + ", female=" + female + ", male=" + male + ", jobsch=" + jobsch + ", mergeoutstate="
+				+ mergeoutstate + ", calid=" + calid + ", salarytypeid=" + salarytypeid + "]";
+	}
+    
 }

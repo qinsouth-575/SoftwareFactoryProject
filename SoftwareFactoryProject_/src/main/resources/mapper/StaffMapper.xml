@@ -8,6 +8,7 @@
     <result column="team_id" property="teamId" jdbcType="VARCHAR" />
     <result column="staff_gender" property="staffGender" jdbcType="BIT" />
     <result column="staff_idnumber" property="staffIdnumber" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="staff_birthday" property="staffBirthday" jdbcType="DATE" />
     <result column="staff_maritalstatus" property="staffMaritalstatus" jdbcType="INTEGER" />
     <result column="staff_native_place" property="staffNativePlace" jdbcType="INTEGER" />
@@ -58,10 +59,16 @@
     <result column="staff_custom1" property="staffCustom1" jdbcType="VARCHAR" />
     <result column="staff_custom2" property="staffCustom2" jdbcType="VARCHAR" />
     <result column="staff_custom3" property="staffCustom3" jdbcType="VARCHAR" />
-    <result column="staff_custom4" property="staffCustom4" jdbcType="VARCHAR" />
-    <result column="staff_custom5" property="staffCustom5" jdbcType="VARCHAR" />
-    <result column="staff_custom6" property="staffCustom6" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+  
+  <select id="queryNameAndPwd" resultMap="BaseResultMap">
+  	SELECT * FROM `staff` WHERE `staff_id`=#{staffId} AND `password`=#{password};
+  </select>
+
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -122,18 +129,18 @@
   </sql>
   <sql id="Base_Column_List" >
     staff_id, staff_name, staff_english_name, team_id, staff_gender, staff_idnumber, 
-    staff_birthday, staff_maritalstatus, staff_native_place, staff_nativeplace, staff_nationality, 
-    staff_nation, staff_chineseposition, staff_zipcode, staff_Mobilephone, staff_politicalstatus, 
-    staff_entrydate, "staff_becomea regularworker", staff_probationperiod, staff_dimissiondate, 
-    staff_technicaltitle, staff_englishposition, staff_address, staff_phone, staff_highesteducation, 
-    staff_degree, staff_graduateschool, staff_major, staff_foreignlanguagelevel, "staff_physical examinationdate", 
-    staff_atmaturitydate, staff_entercountry, staff_passport_number, staff_contractstartdate, 
-    staff_contractenddate, staff_contractduration, staff_email, staff_censusregisternumber, 
-    staff_censusregistezipcode, staff_censusregisteraddress, staff_hometelephone, staff_homezipcode, 
-    staff_homeaddress, staff_newphone, staff_newzipcode, staff_newaddress, staff_emergencycontact, 
-    staff_urgentcontactzipcode, staff_emergencycontactnumber, staff_emergencycontactaddress, 
-    staff_remark, staff_Auditing, staff_yn, staff_custom1, staff_custom2, staff_custom3, 
-    staff_custom4, staff_custom5, staff_custom6
+    password, staff_birthday, staff_maritalstatus, staff_native_place, staff_nativeplace, 
+    staff_nationality, staff_nation, staff_chineseposition, staff_zipcode, staff_Mobilephone, 
+    staff_politicalstatus, staff_entrydate, "staff_becomea regularworker", staff_probationperiod, 
+    staff_dimissiondate, staff_technicaltitle, staff_englishposition, staff_address, 
+    staff_phone, staff_highesteducation, staff_degree, staff_graduateschool, staff_major, 
+    staff_foreignlanguagelevel, "staff_physical examinationdate", staff_atmaturitydate, 
+    staff_entercountry, staff_passport_number, staff_contractstartdate, staff_contractenddate, 
+    staff_contractduration, staff_email, staff_censusregisternumber, staff_censusregistezipcode, 
+    staff_censusregisteraddress, staff_hometelephone, staff_homezipcode, staff_homeaddress, 
+    staff_newphone, staff_newzipcode, staff_newaddress, staff_emergencycontact, staff_urgentcontactzipcode, 
+    staff_emergencycontactnumber, staff_emergencycontactaddress, staff_remark, staff_Auditing, 
+    staff_yn, staff_custom1, staff_custom2, staff_custom3
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.StaffExample" >
     select
@@ -168,12 +175,12 @@
   <insert id="insert" parameterType="com.factory.entity.Staff" >
     insert into staff (staff_id, staff_name, staff_english_name, 
       team_id, staff_gender, staff_idnumber, 
-      staff_birthday, staff_maritalstatus, staff_native_place, 
-      staff_nativeplace, staff_nationality, staff_nation, 
-      staff_chineseposition, staff_zipcode, staff_Mobilephone, 
-      staff_politicalstatus, staff_entrydate, "staff_becomea regularworker", 
-      staff_probationperiod, staff_dimissiondate, 
-      staff_technicaltitle, staff_englishposition, 
+      password, staff_birthday, staff_maritalstatus, 
+      staff_native_place, staff_nativeplace, staff_nationality, 
+      staff_nation, staff_chineseposition, staff_zipcode, 
+      staff_Mobilephone, staff_politicalstatus, 
+      staff_entrydate, "staff_becomea regularworker", staff_probationperiod, 
+      staff_dimissiondate, staff_technicaltitle, staff_englishposition, 
       staff_address, staff_phone, staff_highesteducation, 
       staff_degree, staff_graduateschool, staff_major, 
       staff_foreignlanguagelevel, "staff_physical examinationdate", 
@@ -186,17 +193,16 @@
       staff_emergencycontact, staff_urgentcontactzipcode, 
       staff_emergencycontactnumber, staff_emergencycontactaddress, 
       staff_remark, staff_Auditing, staff_yn, 
-      staff_custom1, staff_custom2, staff_custom3, 
-      staff_custom4, staff_custom5, staff_custom6
+      staff_custom1, staff_custom2, staff_custom3
       )
     values (#{staffId,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{staffEnglishName,jdbcType=VARCHAR}, 
       #{teamId,jdbcType=VARCHAR}, #{staffGender,jdbcType=BIT}, #{staffIdnumber,jdbcType=VARCHAR}, 
-      #{staffBirthday,jdbcType=DATE}, #{staffMaritalstatus,jdbcType=INTEGER}, #{staffNativePlace,jdbcType=INTEGER}, 
-      #{staffNativeplace,jdbcType=VARCHAR}, #{staffNationality,jdbcType=VARCHAR}, #{staffNation,jdbcType=VARCHAR}, 
-      #{staffChineseposition,jdbcType=VARCHAR}, #{staffZipcode,jdbcType=VARCHAR}, #{staffMobilephone,jdbcType=VARCHAR}, 
-      #{staffPoliticalstatus,jdbcType=VARCHAR}, #{staffEntrydate,jdbcType=DATE}, #{staffBecomeaRegularworker,jdbcType=DATE}, 
-      #{staffProbationperiod,jdbcType=VARCHAR}, #{staffDimissiondate,jdbcType=DATE}, 
-      #{staffTechnicaltitle,jdbcType=VARCHAR}, #{staffEnglishposition,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{staffBirthday,jdbcType=DATE}, #{staffMaritalstatus,jdbcType=INTEGER}, 
+      #{staffNativePlace,jdbcType=INTEGER}, #{staffNativeplace,jdbcType=VARCHAR}, #{staffNationality,jdbcType=VARCHAR}, 
+      #{staffNation,jdbcType=VARCHAR}, #{staffChineseposition,jdbcType=VARCHAR}, #{staffZipcode,jdbcType=VARCHAR}, 
+      #{staffMobilephone,jdbcType=VARCHAR}, #{staffPoliticalstatus,jdbcType=VARCHAR}, 
+      #{staffEntrydate,jdbcType=DATE}, #{staffBecomeaRegularworker,jdbcType=DATE}, #{staffProbationperiod,jdbcType=VARCHAR}, 
+      #{staffDimissiondate,jdbcType=DATE}, #{staffTechnicaltitle,jdbcType=VARCHAR}, #{staffEnglishposition,jdbcType=VARCHAR}, 
       #{staffAddress,jdbcType=VARCHAR}, #{staffPhone,jdbcType=VARCHAR}, #{staffHighesteducation,jdbcType=VARCHAR}, 
       #{staffDegree,jdbcType=VARCHAR}, #{staffGraduateschool,jdbcType=VARCHAR}, #{staffMajor,jdbcType=VARCHAR}, 
       #{staffForeignlanguagelevel,jdbcType=VARCHAR}, #{staffPhysicalExaminationdate,jdbcType=DATE}, 
@@ -209,8 +215,7 @@
       #{staffEmergencycontact,jdbcType=VARCHAR}, #{staffUrgentcontactzipcode,jdbcType=VARCHAR}, 
       #{staffEmergencycontactnumber,jdbcType=VARCHAR}, #{staffEmergencycontactaddress,jdbcType=VARCHAR}, 
       #{staffRemark,jdbcType=VARCHAR}, #{staffAuditing,jdbcType=VARCHAR}, #{staffYn,jdbcType=VARCHAR}, 
-      #{staffCustom1,jdbcType=VARCHAR}, #{staffCustom2,jdbcType=VARCHAR}, #{staffCustom3,jdbcType=VARCHAR}, 
-      #{staffCustom4,jdbcType=VARCHAR}, #{staffCustom5,jdbcType=VARCHAR}, #{staffCustom6,jdbcType=VARCHAR}
+      #{staffCustom1,jdbcType=VARCHAR}, #{staffCustom2,jdbcType=VARCHAR}, #{staffCustom3,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.factory.entity.Staff" >
@@ -233,6 +238,9 @@
       </if>
       <if test="staffIdnumber != null" >
         staff_idnumber,
+      </if>
+      <if test="password != null" >
+        password,
       </if>
       <if test="staffBirthday != null" >
         staff_birthday,
@@ -384,15 +392,6 @@
       <if test="staffCustom3 != null" >
         staff_custom3,
       </if>
-      <if test="staffCustom4 != null" >
-        staff_custom4,
-      </if>
-      <if test="staffCustom5 != null" >
-        staff_custom5,
-      </if>
-      <if test="staffCustom6 != null" >
-        staff_custom6,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="staffId != null" >
@@ -412,6 +411,9 @@
       </if>
       <if test="staffIdnumber != null" >
         #{staffIdnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="staffBirthday != null" >
         #{staffBirthday,jdbcType=DATE},
@@ -563,15 +565,6 @@
       <if test="staffCustom3 != null" >
         #{staffCustom3,jdbcType=VARCHAR},
       </if>
-      <if test="staffCustom4 != null" >
-        #{staffCustom4,jdbcType=VARCHAR},
-      </if>
-      <if test="staffCustom5 != null" >
-        #{staffCustom5,jdbcType=VARCHAR},
-      </if>
-      <if test="staffCustom6 != null" >
-        #{staffCustom6,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.factory.entity.StaffExample" resultType="java.lang.Integer" >
@@ -600,6 +593,9 @@
       </if>
       <if test="record.staffIdnumber != null" >
         staff_idnumber = #{record.staffIdnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.staffBirthday != null" >
         staff_birthday = #{record.staffBirthday,jdbcType=DATE},
@@ -751,15 +747,6 @@
       <if test="record.staffCustom3 != null" >
         staff_custom3 = #{record.staffCustom3,jdbcType=VARCHAR},
       </if>
-      <if test="record.staffCustom4 != null" >
-        staff_custom4 = #{record.staffCustom4,jdbcType=VARCHAR},
-      </if>
-      <if test="record.staffCustom5 != null" >
-        staff_custom5 = #{record.staffCustom5,jdbcType=VARCHAR},
-      </if>
-      <if test="record.staffCustom6 != null" >
-        staff_custom6 = #{record.staffCustom6,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -773,6 +760,7 @@
       team_id = #{record.teamId,jdbcType=VARCHAR},
       staff_gender = #{record.staffGender,jdbcType=BIT},
       staff_idnumber = #{record.staffIdnumber,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
       staff_birthday = #{record.staffBirthday,jdbcType=DATE},
       staff_maritalstatus = #{record.staffMaritalstatus,jdbcType=INTEGER},
       staff_native_place = #{record.staffNativePlace,jdbcType=INTEGER},
@@ -822,10 +810,7 @@
       staff_yn = #{record.staffYn,jdbcType=VARCHAR},
       staff_custom1 = #{record.staffCustom1,jdbcType=VARCHAR},
       staff_custom2 = #{record.staffCustom2,jdbcType=VARCHAR},
-      staff_custom3 = #{record.staffCustom3,jdbcType=VARCHAR},
-      staff_custom4 = #{record.staffCustom4,jdbcType=VARCHAR},
-      staff_custom5 = #{record.staffCustom5,jdbcType=VARCHAR},
-      staff_custom6 = #{record.staffCustom6,jdbcType=VARCHAR}
+      staff_custom3 = #{record.staffCustom3,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -847,6 +832,9 @@
       </if>
       <if test="staffIdnumber != null" >
         staff_idnumber = #{staffIdnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="staffBirthday != null" >
         staff_birthday = #{staffBirthday,jdbcType=DATE},
@@ -998,15 +986,6 @@
       <if test="staffCustom3 != null" >
         staff_custom3 = #{staffCustom3,jdbcType=VARCHAR},
       </if>
-      <if test="staffCustom4 != null" >
-        staff_custom4 = #{staffCustom4,jdbcType=VARCHAR},
-      </if>
-      <if test="staffCustom5 != null" >
-        staff_custom5 = #{staffCustom5,jdbcType=VARCHAR},
-      </if>
-      <if test="staffCustom6 != null" >
-        staff_custom6 = #{staffCustom6,jdbcType=VARCHAR},
-      </if>
     </set>
     where staff_id = #{staffId,jdbcType=VARCHAR}
   </update>
@@ -1017,6 +996,7 @@
       team_id = #{teamId,jdbcType=VARCHAR},
       staff_gender = #{staffGender,jdbcType=BIT},
       staff_idnumber = #{staffIdnumber,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       staff_birthday = #{staffBirthday,jdbcType=DATE},
       staff_maritalstatus = #{staffMaritalstatus,jdbcType=INTEGER},
       staff_native_place = #{staffNativePlace,jdbcType=INTEGER},
@@ -1066,10 +1046,7 @@
       staff_yn = #{staffYn,jdbcType=VARCHAR},
       staff_custom1 = #{staffCustom1,jdbcType=VARCHAR},
       staff_custom2 = #{staffCustom2,jdbcType=VARCHAR},
-      staff_custom3 = #{staffCustom3,jdbcType=VARCHAR},
-      staff_custom4 = #{staffCustom4,jdbcType=VARCHAR},
-      staff_custom5 = #{staffCustom5,jdbcType=VARCHAR},
-      staff_custom6 = #{staffCustom6,jdbcType=VARCHAR}
+      staff_custom3 = #{staffCustom3,jdbcType=VARCHAR}
     where staff_id = #{staffId,jdbcType=VARCHAR}
   </update>
 </mapper>

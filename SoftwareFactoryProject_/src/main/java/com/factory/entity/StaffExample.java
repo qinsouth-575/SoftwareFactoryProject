@@ -542,6 +542,76 @@ public class StaffExample {
             return (Criteria) this;
         }
 
+        public Criteria andPasswordIsNull() {
+            addCriterion("password is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordIsNotNull() {
+            addCriterion("password is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordEqualTo(String value) {
+            addCriterion("password =", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordNotEqualTo(String value) {
+            addCriterion("password <>", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordGreaterThan(String value) {
+            addCriterion("password >", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordGreaterThanOrEqualTo(String value) {
+            addCriterion("password >=", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordLessThan(String value) {
+            addCriterion("password <", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordLessThanOrEqualTo(String value) {
+            addCriterion("password <=", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordLike(String value) {
+            addCriterion("password like", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordNotLike(String value) {
+            addCriterion("password not like", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordIn(List<String> values) {
+            addCriterion("password in", values, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordNotIn(List<String> values) {
+            addCriterion("password not in", values, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBetween(String value1, String value2) {
+            addCriterion("password between", value1, value2, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordNotBetween(String value1, String value2) {
+            addCriterion("password not between", value1, value2, "password");
+            return (Criteria) this;
+        }
+
         public Criteria andStaffBirthdayIsNull() {
             addCriterion("staff_birthday is null");
             return (Criteria) this;
@@ -3929,216 +3999,6 @@ public class StaffExample {
 
         public Criteria andStaffCustom3NotBetween(String value1, String value2) {
             addCriterion("staff_custom3 not between", value1, value2, "staffCustom3");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4IsNull() {
-            addCriterion("staff_custom4 is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4IsNotNull() {
-            addCriterion("staff_custom4 is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4EqualTo(String value) {
-            addCriterion("staff_custom4 =", value, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4NotEqualTo(String value) {
-            addCriterion("staff_custom4 <>", value, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4GreaterThan(String value) {
-            addCriterion("staff_custom4 >", value, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4GreaterThanOrEqualTo(String value) {
-            addCriterion("staff_custom4 >=", value, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4LessThan(String value) {
-            addCriterion("staff_custom4 <", value, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4LessThanOrEqualTo(String value) {
-            addCriterion("staff_custom4 <=", value, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4Like(String value) {
-            addCriterion("staff_custom4 like", value, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4NotLike(String value) {
-            addCriterion("staff_custom4 not like", value, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4In(List<String> values) {
-            addCriterion("staff_custom4 in", values, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4NotIn(List<String> values) {
-            addCriterion("staff_custom4 not in", values, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4Between(String value1, String value2) {
-            addCriterion("staff_custom4 between", value1, value2, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom4NotBetween(String value1, String value2) {
-            addCriterion("staff_custom4 not between", value1, value2, "staffCustom4");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5IsNull() {
-            addCriterion("staff_custom5 is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5IsNotNull() {
-            addCriterion("staff_custom5 is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5EqualTo(String value) {
-            addCriterion("staff_custom5 =", value, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5NotEqualTo(String value) {
-            addCriterion("staff_custom5 <>", value, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5GreaterThan(String value) {
-            addCriterion("staff_custom5 >", value, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5GreaterThanOrEqualTo(String value) {
-            addCriterion("staff_custom5 >=", value, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5LessThan(String value) {
-            addCriterion("staff_custom5 <", value, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5LessThanOrEqualTo(String value) {
-            addCriterion("staff_custom5 <=", value, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5Like(String value) {
-            addCriterion("staff_custom5 like", value, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5NotLike(String value) {
-            addCriterion("staff_custom5 not like", value, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5In(List<String> values) {
-            addCriterion("staff_custom5 in", values, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5NotIn(List<String> values) {
-            addCriterion("staff_custom5 not in", values, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5Between(String value1, String value2) {
-            addCriterion("staff_custom5 between", value1, value2, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom5NotBetween(String value1, String value2) {
-            addCriterion("staff_custom5 not between", value1, value2, "staffCustom5");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6IsNull() {
-            addCriterion("staff_custom6 is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6IsNotNull() {
-            addCriterion("staff_custom6 is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6EqualTo(String value) {
-            addCriterion("staff_custom6 =", value, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6NotEqualTo(String value) {
-            addCriterion("staff_custom6 <>", value, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6GreaterThan(String value) {
-            addCriterion("staff_custom6 >", value, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6GreaterThanOrEqualTo(String value) {
-            addCriterion("staff_custom6 >=", value, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6LessThan(String value) {
-            addCriterion("staff_custom6 <", value, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6LessThanOrEqualTo(String value) {
-            addCriterion("staff_custom6 <=", value, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6Like(String value) {
-            addCriterion("staff_custom6 like", value, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6NotLike(String value) {
-            addCriterion("staff_custom6 not like", value, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6In(List<String> values) {
-            addCriterion("staff_custom6 in", values, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6NotIn(List<String> values) {
-            addCriterion("staff_custom6 not in", values, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6Between(String value1, String value2) {
-            addCriterion("staff_custom6 between", value1, value2, "staffCustom6");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffCustom6NotBetween(String value1, String value2) {
-            addCriterion("staff_custom6 not between", value1, value2, "staffCustom6");
             return (Criteria) this;
         }
     }

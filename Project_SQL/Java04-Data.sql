@@ -4,7 +4,7 @@ CREATE DATABASE `Factory_Data`;
 USE `Factory_Data`;
 
 ##1.共用管理开账（共九步）
-#第一步：人员资料（3） - 1.部门设定
+#第一步：人员资料（3） - 1.部门设定	# DROP TABLE `comdepartment`;
 CREATE TABLE `comdepartment` (
   `DepartID` 		VARCHAR(8) 	DEFAULT NULL 	COMMENT '部门编号',
   `DepartName` 		VARCHAR(30) 	DEFAULT NULL 	COMMENT '部门名称',
@@ -18,21 +18,20 @@ CREATE TABLE `comdepartment` (
   `SalaryTypeID` 	VARCHAR(10) 	DEFAULT NULL 	COMMENT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 INSERT  INTO `comdepartment`(`DepartID`,`DepartName`,`EngName`,`Memo`,`Female`,`Male`,`JobSch`,`MergeOutState`,`CalID`,`SalaryTypeID`) 
-VALUES ('01','财务部','','',0,0,'',0,'002',''),('02','直销部','','',0,0,'',0,'002',''),('03','渠道部','','',0,0,'',0,'002',''),
-('04','服务中心','','',0,0,'',0,'002',''),('05','综合管理部','','',0,0,'',0,'002',''),('06','生产部','','',0,0,'',0,'001',''),
-('0601','一车间','','',0,0,'',0,'001',''),('0602','二车间','','',0,0,'',0,'001',''),('0603','三车间','','',0,0,'',0,'001',''),
-('0604','质保课','','',0,0,'',0,'001',''),('07','研发部','','',0,0,'',0,'002',''),('08','储运部','','',0,0,'',0,'001',''),('09','采购部','','',0,0,'',0,'002','');
-#第一步：人员资料（3） - 2.学历设定
-CREATE TABLE `humschooling` (
+VALUES ('01','财务部','accounting department','',0,0,'',0,'002',''),('02','直销部','','',0,0,'',0,'002',''),('03','渠道部','','',0,0,'',0,'002',''),
+('04','服务中心','service center','',0,0,'',0,'002',''),('05','综合管理部','','',0,0,'',0,'002',''),('06','生产部','','',0,0,'',0,'001',''),
+('07','研发部','Research and Development Department','',0,0,'',0,'002',''),('08','储运部','','',0,0,'',0,'001',''),('09','采购部','','',0,0,'',0,'002','');
+#第一步：人员资料（3） - 2.学历设定	# DROP TABLE `hum_schooling`;
+CREATE TABLE `hum_schooling` (
   `SchoolingID` 	VARCHAR(10) 	DEFAULT NULL 	COMMENT '学历编号',
   `SchoolingName` 	VARCHAR(30) 	DEFAULT NULL 	COMMENT '学历名称',
   `EngName` 		VARCHAR(40) 	DEFAULT NULL 	COMMENT '英文名称',
   `Memo` 		VARCHAR(4000) 	DEFAULT NULL 	COMMENT '备注',
   `MergeOutState` 	SMALLINT(6) 	DEFAULT NULL 	COMMENT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-INSERT  INTO `humschooling`(`SchoolingID`,`SchoolingName`,`EngName`,`Memo`,`MergeOutState`) 
+INSERT  INTO `hum_schooling`(`SchoolingID`,`SchoolingName`,`EngName`,`Memo`,`MergeOutState`) 
 VALUES ('01','高中/中专','','',0),('02','大专','','',0),('03','本科','','',0),('04','硕士','','',0),('05','博士','','',0);
-#第一步：人员资料（3） - 3.人员主文件设定
+#第一步：人员资料（3） - 3.人员主文件设定	# DROP TABLE `staff`;
 CREATE TABLE `staff` (
   `staff_id` 		VARCHAR(50) 	NOT NULL 	COMMENT '员工编号（主键 唯一）',
   `staff_name` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '员工名称',
@@ -40,6 +39,7 @@ CREATE TABLE `staff` (
   `team_id`		VARCHAR(50) 	DEFAULT NULL 	COMMENT '所属部门（部门id）',
   `staff_gender` 	TINYINT(1) 	DEFAULT NULL 	COMMENT '性别(1:男,2:女)',
   `staff_idnumber` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '身份证号',
+  `password` 		VARCHAR(150)	NOT NULL 	COMMENT '登录密码',
   `staff_birthday` 	DATE 		DEFAULT NULL 	COMMENT '出生日期',
   `staff_maritalstatus` INT(11) 	DEFAULT NULL 	COMMENT '婚姻状况(0 未婚|1 已婚|2离婚|3 丧偶)',
   `staff_native_place` 	INT(11) 	DEFAULT NULL 	COMMENT '血型（0 a型|1 b型|2 ab型|3 o型|5 rh+型|6 rh-型）',
@@ -90,32 +90,29 @@ CREATE TABLE `staff` (
   `staff_custom1` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏',
   `staff_custom2` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏',
   `staff_custom3` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏',
-  `staff_custom4` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏',
-  `staff_custom5` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏',
-  `staff_custom6` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏',
   PRIMARY KEY (`staff_id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-INSERT INTO `staff`(`staff_id`,`team_id`,`staff_name`,`staff_idnumber`,`staff_gender`,`staff_birthday`,`staff_entrydate`)
-VALUES ('10001','05','王总','43000019711203001x',1,'1971-12-03','2001-04-05'),
-('10002','05','林副总','430000197401090021',0,'1974-01-09','2001-04-05'),
-('10003','05','陈助理','43000019691204001x',1,'1969-12-04','2003-06-21'),
-('10005','01','曾会计','430000197410010001',0,'1974-10-01','2001-04-05'),
-('10006','01','陈出纳','430000198010230001',0,'1980-10-23','2001-05-08'),
-('10007','02','王经理','430000197612080019',1,'1976-12-08','2003-12-05'),
-('10008','02','刘直销','43000019811124002x',0,'1981-11-12','2006-08-12'),
-('10009','02','周直销','430000197905080013',1,'1979-05-08','2005-03-05'),
-('10010','03','戴经理','430000197502160015',1,'1975-02-16','2008-04-21'),
-('10011','06','欧经理','430000197108190010',1,'1971-08-19','2001-06-01'),
-('10012','0601','洪主任','430000198503150029',0,'1985-03-15','2008-12-03'),
-('10013','0602','龚主任','403000198404080019',1,'1984-04-08','2007-06-21'),
-('10014','0603','杨主任','430000198304190022',0,'1983-04-19','2007-04-21'),
-('10015','07','邓工','43000019770924001x',1,'1977-09-24','2007-03-05'),
-('10016','08','王保管','430000197112030020',0,'1971-12-03','2001-12-01'),
-('10017','08','胡保管','430000198012040045',0,'1980-12-04','2005-01-02'),
-('10018','09','朱采购','43000019720516001x',1,'1972-05-16','2004-12-01'),
-('10019','0604','牛质检','430000197404290013',1,'1974-04-29','2006-04-01');
-#第二步：会计科目（4） - 1.币别设定
-CREATE TABLE `comcurrencysys` (										#数据表37 C14 有数据8
+) ENGINE=INNODB DEFAULT CHARSET=utf8;#	,  员工名称  ,     身份证号   ,性别(1:男,2:女),    出生日期   ,     入职日期    )
+INSERT INTO `staff`(`staff_id`,`team_id`,`staff_name`,`staff_idnumber`,`password`,`staff_gender`,`staff_birthday`,`staff_entrydate`)
+VALUES ('10001','05','王总','43000019711203001x','123123',1,'1971-12-03','2001-04-05'),
+('10002','05','林副总','430000197401090021','123123',0,'1974-01-09','2001-04-05'),
+('10003','05','陈助理','43000019691204001x','123123',1,'1969-12-04','2003-06-21'),
+('10005','01','曾会计','430000197410010001','123123',0,'1974-10-01','2001-04-05'),
+('10006','01','陈出纳','430000198010230001','123123',0,'1980-10-23','2001-05-08'),
+('10007','02','王经理','430000197612080019','123123',1,'1976-12-08','2003-12-05'),
+('10008','02','刘直销','43000019811124002x','123123',0,'1981-11-12','2006-08-12'),
+('10009','02','周直销','430000197905080013','123123',1,'1979-05-08','2005-03-05'),
+('10010','03','戴经理','430000197502160015','123123',1,'1975-02-16','2008-04-21'),
+('10011','06','欧经理','430000197108190010','123123',1,'1971-08-19','2001-06-01'),
+('10012','0601','洪主任','430000198503150029','123123',0,'1985-03-15','2008-12-03'),
+('10013','0602','龚主任','403000198404080019','123123',1,'1984-04-08','2007-06-21'),
+('10014','0603','杨主任','430000198304190022','123123',0,'1983-04-19','2007-04-21'),
+('10015','07','邓工','43000019770924001x','123123',1,'1977-09-24','2007-03-05'),
+('10016','08','王保管','430000197112030020','123123',0,'1971-12-03','2001-12-01'),
+('10017','08','胡保管','430000198012040045','123123',0,'1980-12-04','2005-01-02'),
+('10018','09','朱采购','43000019720516001x','123123',1,'1972-05-16','2004-12-01'),
+('10019','0604','牛质检','430000197404290013','123123',1,'1974-04-29','2006-04-01');
+#第二步：会计科目（4） - 1.币别设定	# DROP TABLE `comcurren_cysys`;
+CREATE TABLE `comcurren_cysys` (									#数据表37 C14 有数据8
   `CurrencyID` 		VARCHAR(3) 	DEFAULT NULL 	COMMENT '币别编号',
   `CurrencyName` 	VARCHAR(12) 	DEFAULT NULL 	COMMENT '币别名称',
   `ShortName` 		VARCHAR(8) 	DEFAULT NULL 	COMMENT '币别简称',
@@ -133,13 +130,13 @@ CREATE TABLE `comcurrencysys` (										#数据表37 C14 有数据8
   `MergeOutState` 	SMALLINT(6) 	DEFAULT NULL 	COMMENT '',
   `CashSubject` 	VARCHAR(16) 	DEFAULT NULL 	COMMENT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-INSERT  INTO `comcurrencysys`(`CurrencyID`,`CurrencyName`,`ShortName`,`EngName`,`ModifyDate`,`FixedRate`,`BuyInRate`,`SellOutRate`,`AmountDeciDigits`,`AmountThouPt`,`PriceDeciDigits`,`PriceThouPt`,`TaxDigits`,`TaxThouPt`,`MergeOutState`,`CashSubject`) 
+INSERT  INTO `comcurren_cysys`(`CurrencyID`,`CurrencyName`,`ShortName`,`EngName`,`ModifyDate`,`FixedRate`,`BuyInRate`,`SellOutRate`,`AmountDeciDigits`,`AmountThouPt`,`PriceDeciDigits`,`PriceThouPt`,`TaxDigits`,`TaxThouPt`,`MergeOutState`,`CashSubject`) 
 VALUES ('EUR','欧元','欧元','EUR',20090421,7.618,7.618,7.618,3,0,3,0,0,0,0,''),
 ('GBP','英镑','英镑','GBP',20090421,11.935,11.935,11.935,3,0,3,0,0,0,0,''),('HKD','港币','港币','HKD',20090421,1.0506,1.0506,1.0506,0,0,3,0,0,0,0,''),
 ('JPY','日元','日元','JPY',20090421,0.0649,0.0649,0.0649,0,0,3,0,0,0,0,''),('NTD','台币','台币','NTD',20090421,0.238,0.238,0.238,0,0,3,0,0,0,0,''),
 ('RMB','人民币','人民币','RMB',20090421,1,1,1,2,1,2,1,0,0,0,''),('USD','美金','美金','USD',20090421,8.195,8.195,8.195,0,0,3,0,0,0,0,'');
-#第四步：物料主文件（5） - 1.仓库设定
-CREATE TABLE `comwarehouse` (
+#第四步：物料主文件（5） - 1.仓库设定	# DROP TABLE `comware_house`;
+CREATE TABLE `comware_house` (
   `WareHouseID` 	VARCHAR(6) 	DEFAULT NULL 	COMMENT '仓库编号',
   `WareHouseName` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '仓库名称',
   `ShortName` 		VARCHAR(8) 	DEFAULT NULL 	COMMENT '仓库简称',
@@ -151,20 +148,20 @@ CREATE TABLE `comwarehouse` (
   `MergeOutState` 	SMALLINT(6) 	DEFAULT NULL 	COMMENT '',
   `DataVer` 		INT(11) 	DEFAULT NULL 	COMMENT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-INSERT  INTO `comwarehouse`(`WareHouseID`,`WareHouseName`,`ShortName`,`EngName`,`LinkMan`,`Telephone`,`WareHouseAddress`,`Memo`,`MergeOutState`,`DataVer`) 
+INSERT  INTO `comware_house`(`WareHouseID`,`WareHouseName`,`ShortName`,`EngName`,`LinkMan`,`Telephone`,`WareHouseAddress`,`Memo`,`MergeOutState`,`DataVer`) 
 VALUES ('01','原料仓库','原料仓库','','王保管','','','',0,3),('02','成品仓','成品仓','','胡保管','','','',0,4);
-#第四步：物料主文件（5） - 2.计量单位设定
-CREATE TABLE `comstdunit` (
+#第四步：物料主文件（5） - 2.计量单位设定	# DROP TABLE `comstd_unit`;
+CREATE TABLE `comstd_unit` (
   `UnitID` 		VARCHAR(6) 	DEFAULT NULL 	COMMENT '单位编号',
   `UnitName` 		VARCHAR(20) 	DEFAULT NULL 	COMMENT '单位名称',
   `EngName` 		VARCHAR(20) 	DEFAULT NULL 	COMMENT '英文名称',
   `Memo` 		VARCHAR(4000) 	DEFAULT NULL 	COMMENT '备注',
   `MergeOutState` 	SMALLINT(6) 	DEFAULT NULL 	COMMENT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-INSERT  INTO `comstdunit`(`UnitID`,`UnitName`,`EngName`,`Memo`,`MergeOutState`) 
+INSERT  INTO `comstd_unit`(`UnitID`,`UnitName`,`EngName`,`Memo`,`MergeOutState`) 
 VALUES ('01','PCS','','',0),('02','KG','','',0);
-#第四步：物料主文件（5） - 4.物料类别设定
-CREATE TABLE `comproductclass` (
+#第四步：物料主文件（5） - 4.物料类别设定	# DROP TABLE `comproduct_class`;
+CREATE TABLE `comproduct_class` (
   `ClassID` 		VARCHAR(6) 	DEFAULT NULL 	COMMENT '类别编号',
   `ClassName` 		VARCHAR(20) 	DEFAULT NULL 	COMMENT '类别名称',
   `EngName` 		VARCHAR(20) 	DEFAULT NULL 	COMMENT '英文名称',
@@ -184,7 +181,7 @@ CREATE TABLE `comproductclass` (
   `Memo` 		VARCHAR(4000) 	DEFAULT NULL 	COMMENT '备注',
   `SendOutWare` 	VARCHAR(16) 	DEFAULT NULL 	COMMENT '发出商品科目'
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-INSERT  INTO `comproductclass`(`ClassID`,`ClassName`,`EngName`,`AccInventory`,`AccPurchased`,`ReturnPurchase`,`AccSale`,`AccSaleCost`,`ReturnSale`,`GiftExpense`,`MaterialWarehouse`,`MergeOutState`,`DataVer`,`OtherExpense`,`OtherIncome`,`OtherCost`,`Memo`,`SendOutWare`) 
+INSERT  INTO `comproduct_class`(`ClassID`,`ClassName`,`EngName`,`AccInventory`,`AccPurchased`,`ReturnPurchase`,`AccSale`,`AccSaleCost`,`ReturnSale`,`GiftExpense`,`MaterialWarehouse`,`MergeOutState`,`DataVer`,`OtherExpense`,`OtherIncome`,`OtherCost`,`Memo`,`SendOutWare`) 
 VALUES ('B01','主机包装物','','包装物','','','其他业务收入','其他业务支出','','营业费用','',0,2,'','','','','发出商品'),
 ('B02','彩显包装物','','包装物','','','其他业务收入','其他业务支出','','营业费用','',0,2,'','','','','发出商品'),
 ('B98','运输包装物','','包装物','','','其他业务收入','其他业务支出','','营业费用','',0,4,'','','','','发出商品'),
@@ -212,7 +209,7 @@ VALUES ('B01','主机包装物','','包装物','','','其他业务收入','其�
 ('Y12','手写板','','包装物','','','主营业务收入','主营业务成本','','营业费用','',0,2,'','','','','发出商品'),
 ('Y98','数据线','','包装物','','','主营业务收入','主营业务成本','','营业费用','',0,2,'','','','','发出商品'),
 ('Y99','其它原材料','','包装物','','','主营业务收入','主营业务成本','','营业费用','',0,2,'','','','','发出商品');
-#第四步：物料主文件（5） - 5.物料主文件设定
+#第四步：物料主文件（5） - 5.物料主文件设定	# DROP TABLE `matter`;
 CREATE TABLE `matter` (
   `matter_id` 		VARCHAR(50) 	NOT NULL 	COMMENT '物料编号（主键 唯一）',
   `matter_name` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '物料名称',
@@ -265,7 +262,7 @@ CREATE TABLE `matter` (
   `matter_custom6` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏六',
   PRIMARY KEY (`matter_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-#第五步：客户资料（6） - 1.地区设定/第六步：供应商资料（3） - 1.地区设定		（“客户”和“供应商”都是这一张表）
+#第五步：客户资料（6） - 1.地区设定/第六步：供应商资料（3） - 1.地区设定		（“客户”和“供应商”都是这一张表）# DROP TABLE `comarea`;
 CREATE TABLE `comarea` (
   `AreaID` 		VARCHAR(6) 	DEFAULT NULL 	COMMENT '地区编号',
   `AreaName` 		VARCHAR(20) 	DEFAULT NULL 	COMMENT '地区名称',
@@ -276,8 +273,8 @@ CREATE TABLE `comarea` (
 INSERT  INTO `comarea`(`AreaID`,`AreaName`,`EngName`,`Memo`,`MergeOutState`) 
 VALUES ('C01','东北区','','',0),('C02','华北区','','',0),('C03','西北区','','',0),
 ('C04','华东区','','',0),('C05','华中区','','',0),('C06','华南区','','',0),('C07','西南区','','',0);
-#第五步：客户资料（6） - 2.客户类别设定/第六步：供应商资料（3） - 2.供应商类别设定	（“客户”和“供应商”两类别表合一）
-CREATE TABLE `comcustclass` (
+#第五步：客户资料（6） - 2.客户类别设定/第六步：供应商资料（3） - 2.供应商类别设定	（“客户”和“供应商”两类别表合一）# DROP TABLE `comcust_class`;
+CREATE TABLE `comcust_class` (
   `Flag` 		SMALLINT(6) 	DEFAULT NULL 	COMMENT '标识（1.客户/2.供应商）',
   `ClassID` 		VARCHAR(6) 	DEFAULT NULL 	COMMENT '类别编号',
   `ClassName` 		VARCHAR(20) 	DEFAULT NULL 	COMMENT '类别名称',
@@ -285,10 +282,10 @@ CREATE TABLE `comcustclass` (
   `Memo` 		VARCHAR(4000) 	DEFAULT NULL 	COMMENT '备注',
   `MergeOutState` 	SMALLINT(6) 	DEFAULT NULL 	COMMENT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-INSERT  INTO `comcustclass`(`Flag`,`ClassID`,`ClassName`,`EngName`,`Memo`,`MergeOutState`) 
+INSERT  INTO `comcust_class`(`Flag`,`ClassID`,`ClassName`,`EngName`,`Memo`,`MergeOutState`) 
 VALUES (1,'01','大客户','','',0),(1,'02','代理商','','',0),(1,'03','其它经销商','','',0),(1,'99','其它最终用户','','',0),
 (2,'01','主要供应商','','',0),(2,'02','一般供应商','','',0),(2,'03','委外厂','','',0),(2,'04','其它供应商','','',0);
-#第五步：客户资料（6） - 3.客户等级设定
+#第五步：客户资料（6） - 3.客户等级设定		# DROP TABLE `comcustomerlevel`;
 CREATE TABLE `comcustomerlevel` (
   `LevelID` 		VARCHAR(6) 	DEFAULT NULL 	COMMENT '编号',
   `LevelName` 		VARCHAR(30) 	DEFAULT NULL 	COMMENT '等级',
@@ -297,7 +294,7 @@ CREATE TABLE `comcustomerlevel` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 INSERT  INTO `comcustomerlevel`(`LevelID`,`LevelName`,`Memo`,`MergeOutState`) 
 VALUES ('A','A级客户','',0),('B','B级客户','',0),('C','C级客户','',0),('D','D级客户','',0),('E','E级客户','',0);
-#第五步：客户资料（6） - 5.客户主文件设定
+#第五步：客户资料（6） - 5.客户主文件设定	# DROP TABLE `customer`;
 CREATE TABLE `customer` (
   `customer_id` 	VARCHAR(50) 	NOT NULL 	COMMENT '客户编号（主键 唯一）',
   `customer_name` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '客户全称',
@@ -419,7 +416,7 @@ CREATE TABLE `supplier` (
   PRIMARY KEY (`supplier_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 #第七步：银行资料（2） - 1.银行类别设定
-CREATE TABLE `combankcls` (
+CREATE TABLE `combank_cls` (
   `BankClsID` 		VARCHAR(6) 	DEFAULT NULL 	COMMENT '类别编号',
   `BankClsName` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '类别名称',
   `EngName` 		VARCHAR(20) 	DEFAULT NULL 	COMMENT '英文名称',
@@ -755,7 +752,7 @@ CREATE TABLE `sale_return_warehouse` (
   PRIMARY KEY (`srw_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 #销售退货单 详表
-CREATE TABLE `sale_return_warehouse_detailed` (
+CREATE TABLE `sale_return_warehouse_details` (
   `srwd_id` VARCHAR(50) NOT NULL,
   `srw_id` VARCHAR(50) DEFAULT NULL,
   `matter_id` VARCHAR(50) DEFAULT NULL,
@@ -1113,7 +1110,7 @@ CREATE TABLE `purchase_storage` (
   PRIMARY KEY (`ps_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='采购入库主表';
 #采购入库详表
-CREATE TABLE `purchase_storage_detailed` (
+CREATE TABLE `purchase_storage_details` (
   `psd_id` VARCHAR(50) NOT NULL,
   `ps_id` VARCHAR(50) DEFAULT NULL,
   `matter_id` VARCHAR(50) DEFAULT NULL,
@@ -1179,7 +1176,7 @@ CREATE TABLE `purchase_returns` (
   PRIMARY KEY (`pure_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='采购退货主表';
 #采购退货详表
-CREATE TABLE `purchase_returns_detailed` (
+CREATE TABLE `purchase_returns_details` (
   `pured_id` VARCHAR(50) NOT NULL,
   `pure_id` VARCHAR(50) DEFAULT NULL,
   `matter_id` VARCHAR(50) DEFAULT NULL,
@@ -1285,7 +1282,7 @@ CREATE TABLE `payables_detail` (
   PRIMARY KEY (`paydetail_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='应付冲款单详表（付款冲款+预付冲应付）';
 #应付冲款单（预付款）主表
-CREATE TABLE `priabill` (
+CREATE TABLE `priabill_main` (
   `priabill_id` 	VARCHAR(50) 	NOT NULL 	COMMENT '预付款单主表ID，主键',
   `supplier_id` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '供应商表id，外键',
   `priabill_supplier_name` VARCHAR(20) 	DEFAULT NULL 	COMMENT '供应商名称',
@@ -1322,7 +1319,7 @@ CREATE TABLE `priabill` (
   PRIMARY KEY (`priabill_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 #应付冲款单（预付款）详表
-CREATE TABLE `priadetails` (
+CREATE TABLE `priabill_details` (
   `priadetails_id` 	VARCHAR(50) 	NOT NULL 	COMMENT '预付款单明细表ID, 主键行号',
   `priabill_id` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '预付款单主表ID,   外键',
   `priabill_price` 	FLOAT 		DEFAULT NULL 	COMMENT '预付金额',
@@ -1350,7 +1347,7 @@ CREATE TABLE `priadetails` (
 ###库存台账						2
 ###库存进出明细表					2
 ###库存呆滞品分析表					2
-CREATE TABLE `allocationprimarybill` (
+CREATE TABLE `allocation_primary_bill` (
   `apbid` VARCHAR(20) NOT NULL COMMENT '单据编号',
   `apbDate` DATE NOT NULL COMMENT '单据日期',
   `foldWarehouseid` VARCHAR(20) NOT NULL COMMENT '调入仓库',
@@ -1364,7 +1361,7 @@ CREATE TABLE `allocationprimarybill` (
   PRIMARY KEY (`apbid`)
 ) ENGINE=MYISAM DEFAULT CHARSET=gbk COMMENT='调拨单主表';
 
-CREATE TABLE `allocationschedulebill` (
+CREATE TABLE `allocation_schedule_bill` (
   `asbid` INT(8) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `apbid` VARCHAR(20) NOT NULL COMMENT '主表单据编号',
   `stockNumber` VARCHAR(20) NOT NULL COMMENT '物料编号',
@@ -1374,7 +1371,7 @@ CREATE TABLE `allocationschedulebill` (
   PRIMARY KEY (`asbid`)
 ) ENGINE=MYISAM DEFAULT CHARSET=gbk COMMENT='调拨单详表';
 
-CREATE TABLE `blitemprimarybill` (
+CREATE TABLE `blitem_primary_bill` (
   `bpbid` VARCHAR(20) NOT NULL COMMENT '单据编号',
   `bpbDate` DATE NOT NULL COMMENT '单据日期',
   `warehouseid` VARCHAR(20) NOT NULL COMMENT '盘点仓库编号',
@@ -1388,7 +1385,7 @@ CREATE TABLE `blitemprimarybill` (
   PRIMARY KEY (`bpbid`)
 ) ENGINE=MYISAM DEFAULT CHARSET=gbk COMMENT='盘点单主表';
 
-CREATE TABLE `blitemschedulebill` (
+CREATE TABLE `blitem_schedule_bill` (
   `bsbid` INT(8) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `bpbid` VARCHAR(20) NOT NULL COMMENT '主表单据编号',
   `stockNumber` VARCHAR(20) NOT NULL COMMENT '物料编号',

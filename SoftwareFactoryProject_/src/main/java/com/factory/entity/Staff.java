@@ -15,6 +15,8 @@ public class Staff {
 
     private String staffIdnumber;
 
+    private String password;
+
     private Date staffBirthday;
 
     private Integer staffMaritalstatus;
@@ -114,14 +116,92 @@ public class Staff {
     private String staffCustom2;
 
     private String staffCustom3;
+    
+    public Staff() {
+		super();
+	}
 
-    private String staffCustom4;
+	public Staff(String staffId) {
+		super();
+		this.staffId = staffId;
+	}
 
-    private String staffCustom5;
+	public Staff(String staffId, String staffName, String staffEnglishName, String teamId, Boolean staffGender,
+			String staffIdnumber, String password, Date staffBirthday, Integer staffMaritalstatus,
+			Integer staffNativePlace, String staffNativeplace2, String staffNationality, String staffNation,
+			String staffChineseposition, String staffZipcode, String staffMobilephone, String staffPoliticalstatus,
+			Date staffEntrydate, Date staffBecomeaRegularworker, String staffProbationperiod, Date staffDimissiondate,
+			String staffTechnicaltitle, String staffEnglishposition, String staffAddress, String staffPhone,
+			String staffHighesteducation, String staffDegree, String staffGraduateschool, String staffMajor,
+			String staffForeignlanguagelevel, Date staffPhysicalExaminationdate, Date staffAtmaturitydate,
+			Date staffEntercountry, String staffPassportNumber, Date staffContractstartdate, Date staffContractenddate,
+			String staffContractduration, String staffEmail, String staffCensusregisternumber,
+			String staffCensusregistezipcode, String staffCensusregisteraddress, String staffHometelephone,
+			String staffHomezipcode, String staffHomeaddress, String staffNewphone, String staffNewzipcode,
+			String staffNewaddress, String staffEmergencycontact, String staffUrgentcontactzipcode,
+			String staffEmergencycontactnumber, String staffEmergencycontactaddress, String staffRemark,
+			String staffAuditing, String staffYn, String staffCustom1, String staffCustom2, String staffCustom3) {
+		super();
+		this.staffId = staffId;
+		this.staffName = staffName;
+		this.staffEnglishName = staffEnglishName;
+		this.teamId = teamId;
+		this.staffGender = staffGender;
+		this.staffIdnumber = staffIdnumber;
+		this.password = password;
+		this.staffBirthday = staffBirthday;
+		this.staffMaritalstatus = staffMaritalstatus;
+		this.staffNativePlace = staffNativePlace;
+		staffNativeplace = staffNativeplace2;
+		this.staffNationality = staffNationality;
+		this.staffNation = staffNation;
+		this.staffChineseposition = staffChineseposition;
+		this.staffZipcode = staffZipcode;
+		this.staffMobilephone = staffMobilephone;
+		this.staffPoliticalstatus = staffPoliticalstatus;
+		this.staffEntrydate = staffEntrydate;
+		this.staffBecomeaRegularworker = staffBecomeaRegularworker;
+		this.staffProbationperiod = staffProbationperiod;
+		this.staffDimissiondate = staffDimissiondate;
+		this.staffTechnicaltitle = staffTechnicaltitle;
+		this.staffEnglishposition = staffEnglishposition;
+		this.staffAddress = staffAddress;
+		this.staffPhone = staffPhone;
+		this.staffHighesteducation = staffHighesteducation;
+		this.staffDegree = staffDegree;
+		this.staffGraduateschool = staffGraduateschool;
+		this.staffMajor = staffMajor;
+		this.staffForeignlanguagelevel = staffForeignlanguagelevel;
+		this.staffPhysicalExaminationdate = staffPhysicalExaminationdate;
+		this.staffAtmaturitydate = staffAtmaturitydate;
+		this.staffEntercountry = staffEntercountry;
+		this.staffPassportNumber = staffPassportNumber;
+		this.staffContractstartdate = staffContractstartdate;
+		this.staffContractenddate = staffContractenddate;
+		this.staffContractduration = staffContractduration;
+		this.staffEmail = staffEmail;
+		this.staffCensusregisternumber = staffCensusregisternumber;
+		this.staffCensusregistezipcode = staffCensusregistezipcode;
+		this.staffCensusregisteraddress = staffCensusregisteraddress;
+		this.staffHometelephone = staffHometelephone;
+		this.staffHomezipcode = staffHomezipcode;
+		this.staffHomeaddress = staffHomeaddress;
+		this.staffNewphone = staffNewphone;
+		this.staffNewzipcode = staffNewzipcode;
+		this.staffNewaddress = staffNewaddress;
+		this.staffEmergencycontact = staffEmergencycontact;
+		this.staffUrgentcontactzipcode = staffUrgentcontactzipcode;
+		this.staffEmergencycontactnumber = staffEmergencycontactnumber;
+		this.staffEmergencycontactaddress = staffEmergencycontactaddress;
+		this.staffRemark = staffRemark;
+		this.staffAuditing = staffAuditing;
+		this.staffYn = staffYn;
+		this.staffCustom1 = staffCustom1;
+		this.staffCustom2 = staffCustom2;
+		this.staffCustom3 = staffCustom3;
+	}
 
-    private String staffCustom6;
-
-    public String getStaffId() {
+	public String getStaffId() {
         return staffId;
     }
 
@@ -167,6 +247,14 @@ public class Staff {
 
     public void setStaffIdnumber(String staffIdnumber) {
         this.staffIdnumber = staffIdnumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getStaffBirthday() {
@@ -569,27 +657,35 @@ public class Staff {
         this.staffCustom3 = staffCustom3;
     }
 
-    public String getStaffCustom4() {
-        return staffCustom4;
-    }
-
-    public void setStaffCustom4(String staffCustom4) {
-        this.staffCustom4 = staffCustom4;
-    }
-
-    public String getStaffCustom5() {
-        return staffCustom5;
-    }
-
-    public void setStaffCustom5(String staffCustom5) {
-        this.staffCustom5 = staffCustom5;
-    }
-
-    public String getStaffCustom6() {
-        return staffCustom6;
-    }
-
-    public void setStaffCustom6(String staffCustom6) {
-        this.staffCustom6 = staffCustom6;
-    }
+	@Override
+	public String toString() {
+		return "Staff [staffId=" + staffId + ", staffName=" + staffName + ", staffEnglishName=" + staffEnglishName
+				+ ", teamId=" + teamId + ", staffGender=" + staffGender + ", staffIdnumber=" + staffIdnumber
+				+ ", password=" + password + ", staffBirthday=" + staffBirthday + ", staffMaritalstatus="
+				+ staffMaritalstatus + ", staffNativePlace=" + staffNativePlace + ", staffNativeplace="
+				+ staffNativeplace + ", staffNationality=" + staffNationality + ", staffNation=" + staffNation
+				+ ", staffChineseposition=" + staffChineseposition + ", staffZipcode=" + staffZipcode
+				+ ", staffMobilephone=" + staffMobilephone + ", staffPoliticalstatus=" + staffPoliticalstatus
+				+ ", staffEntrydate=" + staffEntrydate + ", staffBecomeaRegularworker=" + staffBecomeaRegularworker
+				+ ", staffProbationperiod=" + staffProbationperiod + ", staffDimissiondate=" + staffDimissiondate
+				+ ", staffTechnicaltitle=" + staffTechnicaltitle + ", staffEnglishposition=" + staffEnglishposition
+				+ ", staffAddress=" + staffAddress + ", staffPhone=" + staffPhone + ", staffHighesteducation="
+				+ staffHighesteducation + ", staffDegree=" + staffDegree + ", staffGraduateschool="
+				+ staffGraduateschool + ", staffMajor=" + staffMajor + ", staffForeignlanguagelevel="
+				+ staffForeignlanguagelevel + ", staffPhysicalExaminationdate=" + staffPhysicalExaminationdate
+				+ ", staffAtmaturitydate=" + staffAtmaturitydate + ", staffEntercountry=" + staffEntercountry
+				+ ", staffPassportNumber=" + staffPassportNumber + ", staffContractstartdate=" + staffContractstartdate
+				+ ", staffContractenddate=" + staffContractenddate + ", staffContractduration=" + staffContractduration
+				+ ", staffEmail=" + staffEmail + ", staffCensusregisternumber=" + staffCensusregisternumber
+				+ ", staffCensusregistezipcode=" + staffCensusregistezipcode + ", staffCensusregisteraddress="
+				+ staffCensusregisteraddress + ", staffHometelephone=" + staffHometelephone + ", staffHomezipcode="
+				+ staffHomezipcode + ", staffHomeaddress=" + staffHomeaddress + ", staffNewphone=" + staffNewphone
+				+ ", staffNewzipcode=" + staffNewzipcode + ", staffNewaddress=" + staffNewaddress
+				+ ", staffEmergencycontact=" + staffEmergencycontact + ", staffUrgentcontactzipcode="
+				+ staffUrgentcontactzipcode + ", staffEmergencycontactnumber=" + staffEmergencycontactnumber
+				+ ", staffEmergencycontactaddress=" + staffEmergencycontactaddress + ", staffRemark=" + staffRemark
+				+ ", staffAuditing=" + staffAuditing + ", staffYn=" + staffYn + ", staffCustom1=" + staffCustom1
+				+ ", staffCustom2=" + staffCustom2 + ", staffCustom3=" + staffCustom3 + "]";
+	}
+    
 }

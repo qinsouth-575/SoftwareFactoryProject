@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
 		<style type="text/css">
 			* {
 				padding: 0;
-				margin:0 auto;
-				
+				margin: 0 auto;
 			}
 			
 			.content {
 				border: 1px solid black;
-				margin:5px 140px 15px;
+				margin: 5px 140px 15px;
 				border-radius: 6px 6px 0 0;
-
 			}
 			
 			.content-i {
 				margin: 10px 20px 10px;
 				border: 1px solid gainsboro;
 				padding-top: 10px;
-				
 			}
 		</style>
-		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../../layui/css/layui.css" />
 	</head>
 
 	<body>
@@ -58,7 +56,7 @@
 								</div>
 							</div>
 
-							<div class="layui-row" >
+							<div class="layui-row">
 								<div class="layui-col-md6" style="margin-bottom: 4px;">
 									<div class="layui-form-item">
 										<label class="layui-form-label">增值科目</label>
@@ -78,7 +76,7 @@
 								</div>
 
 							</div>
-							
+
 							<div class="layui-row">
 								<div class="layui-col-md6">
 									<div class="layui-form-item">
@@ -99,7 +97,7 @@
 								</div>
 
 							</div>
-							<div style="margin: 0 0 15px 39px;"><input type="checkbox" name="" title="账面数量为零载入" lay-skin="primary" ></div> 
+							<div style="margin: 0 0 15px 39px;"><input type="checkbox" name="" title="账面数量为零载入" lay-skin="primary"></div>
 							<!--选项卡-->
 							<div class="layui-tab layui-tab-card" style="width: 690px;margin-left: 40px;background-color: white;">
 								<ul class="layui-tab-title">
@@ -109,7 +107,7 @@
 								</ul>
 								<div class="layui-tab-content">
 									<div class="layui-tab-item layui-show">
-										<table class="layui-table" style="text-align: center;"lay-skin="line" lay-size="sm">
+										<table class="layui-table" style="text-align: center;" lay-skin="line" lay-size="sm">
 											<thead>
 												<th style="text-align: center;">(栏号)</th>
 												<th style="text-align: center;">物料编号</th>
@@ -137,7 +135,7 @@
 													<td>111</td>
 													<td>111</td>
 													<td>111</td>
-													<td>111</td>						
+													<td>111</td>
 												</tr>
 												<tr>
 													<td>111</td>
@@ -151,7 +149,7 @@
 													<td>111</td>
 													<td>111</td>
 													<td>111</td>
-													<td>111</td>	
+													<td>111</td>
 												</tr>
 												<tr>
 													<td>111</td>
@@ -165,11 +163,11 @@
 													<td>111</td>
 													<td>111</td>
 													<td>111</td>
-													<td>111</td>	
+													<td>111</td>
 												</tr>
 
 											</tbody>
-											
+
 										</table>
 										<span>合计：<span>20</span></span>
 									</div>
@@ -228,7 +226,7 @@
 								</div>
 
 							</div>
-							
+
 							<div class="layui-row">
 								<div class="layui-col-md6">
 									<div class="layui-form-item">
@@ -249,12 +247,12 @@
 								</div>
 
 							</div>
-							
+
 							<!--下拉框-->
 							<div class="layui-form-item">
 								<div class="" style="width: 100px; margin-left: 38px;">
 									<select name="city" lay-verify="">
-										<option value="0" >载入盘点物料</option>
+										<option value="0">载入盘点物料</option>
 										<option value="1">批号设定</option>
 										<option value="2" selected>功能</option>
 									</select>
@@ -263,8 +261,8 @@
 				</form>
 				</div>
 				</div>
-				<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
-				<script type="text/javascript" src="../layui/layui.js"></script>
+				<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+				<script type="text/javascript" src="../../layui/layui.js"></script>
 				<script type="text/javascript">
 					layui.use('laydate', function() {
 						var laydate = layui.laydate;
@@ -292,9 +290,7 @@
 							return false;
 						});
 					});
-					
-					
-					
 				</script>
 	</body>
+
 </html>
