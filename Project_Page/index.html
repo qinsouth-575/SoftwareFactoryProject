@@ -10,14 +10,11 @@
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="css/font.css">
 		<link rel="stylesheet" href="css/xadmin.css">
-
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script src="lib/layui/layui.js" charset="utf-8"></script>
-		<script type="text/javascript" src="js/xadmin.js"></script>
-		<script type="text/javascript" src="js/vue.js"></script>
-		<script type="text/javascript" src="js/axios.min.js"></script>
+		<style type="text/css">
+			.layui-nav{padding: 0 11px;}
+			.layui-nav.left>.layui-nav-item>a{float: left;padding: 0 11px;}
+		</style>
 	</head>
-
 	<body>
 		<!-- 顶部开始 -->
 		<div class="container">
@@ -31,9 +28,21 @@
 			
 			<ul class="layui-nav left fast-add" lay-filter="">
 				<li class="layui-nav-item">
-					<a href="javascript:;">新增</a>
-					<dl class="layui-nav-child">
-						<!-- 二级菜单 -->
+					<a href="javascript:;" onclick="triggerEvent('goFirstPage')">第一笔</a>
+					<a href="javascript:;" onclick="triggerEvent('goPrePage')">上一笔</a>
+					<a href="javascript:;" onclick="triggerEvent('goNextPage')">下一笔</a>
+					<a href="javascript:;" onclick="triggerEvent('goLastPage')">后一笔</a>
+					<a href="javascript:;" onclick="triggerEvent('goInsert')">新增</a>
+					<a href="javascript:;" onclick="triggerEvent('save')">保存</a>
+					<a href="javascript:;" onclick="triggerEvent('cancel')">放弃</a>
+					<a href="javascript:;" onclick="triggerEvent('goUpdate')">修改</a>
+					<a href="javascript:;" onclick="triggerEvent('delete')">删除</a>
+					<a href="javascript:;" onclick="triggerEvent('refresh')">刷新</a>
+					<a href="javascript:;" onclick="triggerEvent('audit')">审核</a>
+					<a href="javascript:;" onclick="triggerEvent('cancelTheAudit')">取消审核</a>
+					
+					<!-- 二级菜单 -->
+					<!--<dl class="layui-nav-child">
 						<dd>
 							<a onClick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a>
 						</dd>
@@ -43,7 +52,7 @@
 						<dd>
 							<a onClick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a>
 						</dd>
-					</dl>
+					</dl>-->
 				</li>
 			</ul>
 			
@@ -409,6 +418,48 @@
 	        <div class="copyright">Copyright ©2019 L-admin v2.3 All Rights Reserved</div>  
 	    </div>-->
 		<!-- 底部结束 -->
+
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="js/xadmin.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/axios.min.js"></script>
+		<script type="text/javascript">
+			//必须设置允许跨域访问session中数据(cooike)
+			axios.default.withCredentials = true;
+			//vue需要再main.js的import下增加以下代码
+			//axios.defaults.withCredentials = true;
+			 
+			//当前登录用户
+			var user = {};
+			
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return decodeURI(r[2]);
+				return null;
+			}
+			
+			function query_login_user() {
+				user.staffId = GetQueryString("staffId");
+				//数据没错			/alert("参数：" + user.staffId);
+				axios.post(`http://localhost:8080/SoftwareFactoryProject_/staffs/queryLoginUser`, user).then(function(res){
+					//弹框：返回的东西蛮多哈		/alert(JSON.stringify(res));
+					user = res.data;
+					$("#login_stfff_name").text(user.staffName);
+				});
+			}
+			
+			query_login_user();
+			
+			//index操作菜单点击事件
+			function triggerEvent(incident){
+				$("iframe").attr("id", "");
+				$(".layui-show>iframe").attr("id", "check");
+				
+				$("#check")[0].contentWindow.subpageTriggerEvent(incident);
+			}
+		</script>
 	</body>
 
 </html>

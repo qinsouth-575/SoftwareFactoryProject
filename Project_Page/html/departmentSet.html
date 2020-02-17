@@ -10,19 +10,13 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="../css/font.css">
 		<link rel="stylesheet" href="../css/xadmin.css">
-		<script src="../js/jquery.min.js"></script>
-		<script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
-		<script type="text/javascript" src="../js/xadmin.js"></script>
-
 		<style type="text/css">
-			.color {
-				color: blue;
-			}
+			.color {color: blue;}
 		</style>
 	</head>
 
 	<body>
-		<div class="x-body">
+		<div class="x-body" id="main-div">
 			<div class="layui-container">
 				<!--标题开始-->
 				<div class="layui-row layui-col-md-offset1" style="margin-bottom: 15px;">
@@ -40,33 +34,33 @@
 						<div class="layui-form-item">
 							<label class="layui-form-label color">部门编号</label>
 							<div class="layui-input-block">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								<input type="text" name="title" required lay-verify="required" placeholder="请输入部门编号" v-model="department.departid" autocomplete="off" class="layui-input" disabled="disabled">
 							</div>
 						</div>
 						
 						<div class="layui-form-item">
 							<label class="layui-form-label color">部门名称</label>
 							<div class="layui-input-block">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								<input type="text" name="title" required lay-verify="required" placeholder="请输入部门名称" v-model="department.departname" autocomplete="off" class="layui-input" disabled="disabled">
 							</div>
 						</div>
 						
 						<div class="layui-form-item">
 							<label class="layui-form-label">英文名称</label>
 							<div class="layui-input-block">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								<input type="text" name="title" required lay-verify="required" placeholder="请输入英文名称" v-model="department.engname" autocomplete="off" class="layui-input" disabled="disabled">
 							</div>
 						</div>
 						
 						<div class="layui-form-item layui-form-text">
 							<label class="layui-form-label">备注</label>
 							<div class="layui-input-block">
-								<textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+								<textarea name="desc" placeholder="请输入备注内容" v-model="department.memo" class="layui-textarea" disabled="disabled"></textarea>
 							</div>
 						</div>
 						
 						<div class="layui-form-item">
-							<div class="layui-input-block">
+							<div class="layui-input-block">	
 								<button class="layui-btn" lay-submit lay-filter="formDemo">设定</button>
 							</div>
 						</div>
@@ -76,50 +70,140 @@
 			</div>
 		</div>
 	
+		<script src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/xadmin.js"></script>
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<script type="text/javascript" src="../js/axios.min.js"></script>
 		<script type="text/javascript">
 			//必须设置允许跨域访问session中数据(cooike)
 			axios.default.withCredentials = true;
+			
+			var state = "";
+			
+			function subpageTriggerEvent(incident){
+				//alert("部门设定页 - 触发事件：" + incident);
+				
+				if(incident == "goFirstPage"){
+					listVm.goFirstPage();
+				} else if(incident == "goPrePage"){
+					listVm.goPrePage();
+				} else if(incident == "goNextPage"){
+					listVm.goNextPage();
+				} else if(incident == "goLastPage"){
+					listVm.goLastPage();
+				} else if(incident == "goInsert"){
+					listVm.goInsert();
+				} else if(incident == "save"){
+					listVm.save();
+				} else if(incident == "cancel"){
+					listVm.cancel();
+				} else if(incident == "goUpdate"){
+					listVm.goUpdate();
+				} else if(incident == "delete"){
+					listVm.delete_();
+				} else if(incident == "refresh"){
+					listVm.refresh();
+				}
+				
+				state = incident;
+			}
 		
 			//创建vue实例
 			var listVm = new Vue({
 				el : "#main-div",
 				data : {
-					bills : [],
-					bill : {}
+					pageCd : {},
+					department : {
+						pageNum : 1
+					},
+					state : ""
 				},
 				methods : {
-					queryBill : function(){
-						var this_ = this;
+					queryPage : function(pageNum_){
+						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", true);
 						
-						axios.get(`http://localhost:8080/EnterFactoryExam_F/bills/bill`).then(function(res){
-							this_.bills = res.data;
+						var this_ = this;
+						this.department.pageNum = pageNum_;
+						
+						axios.post(`http://localhost:8080/SoftwareFactoryProject_/departments/cd`, this.department).then(function(res){
+							//数据正常		/alert(JSON.stringify(res.data));
+							this_.pageCd = res.data;
+							this_.department = this_.pageCd.list[0];
 						});
 					},
-					queryByNo : function(billNo){
-						var this_ = this;
+		   			goFirstPage : function(){
+		   				this.queryPage(1);
+		   			},
+		   			goPrePage : function(){
+		   				if(this.pageCd.hasPreviousPage)
+		      				this.queryPage(this.pageCd.prePage);
+		   			},
+		   			goNextPage : function(){
+		   				if(this.pageCd.hasNextPage)
+		      				this.queryPage(this.pageCd.nextPage);
+		   			},
+		   			goLastPage : function(){
+		   				this.queryPage(this.pageCd.pages);
+		   			},
+					goInsert : function(){
+						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
+						this.state = "goInsert";
 						
-						axios.get(`http://localhost:8080/EnterFactoryExam_F/bills/bill/${billNo}`).then(function(res){
-							this_.bill = res.data;
-							this_.bill.billDate = this_.bill.billDate.substring(0,10);
-							this_.bill.detList = JSON.stringify(this_.bill.detList);
-						});
+						this.department = {};
 					},
-					insertBill : function(){
+					save : function(){
+						//alert("执行" + this.state + "操作！");
 						var this_ = this;
-						this.bill.detList = JSON.parse(this.bill.detList);
+						this.department.flag = this.state;
 						
-						axios.post(`http://localhost:8080/EnterFactoryExam_F/bills/bill`,this.bill).then(function(res){
-							if(res.data.code == "200"){
-								this_.queryBill();
-							}else{
-								this_.bill.detList = JSON.stringify(this_.bill.detList);
+						axios.put(`http://localhost:8080/SoftwareFactoryProject_/departments/cd`, this.department).then(function(res){
+							//数据正常		/alert(JSON.stringify(res));
+							if(res.data.code == "1"){
+		   						this_.queryPage((this_.pageCd.pages+1));
+								return false;
+							} else if(res.data.code == "2"){
+								$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", true);
+								return false;
 							}
-							showAlertDialog(res.data.message);
+							alert("非常遗憾，本次" + res.data.message);
 						});
+					},
+					cancel : function(){
+						if(this.state == "goInsert"){
+			   				if(confirm("确定取消本次新增操作吗！？"))
+								this.queryPage(1);
+						} else if(this.state == "goUpdate"){
+			   				if(confirm("确定取消本次修改操作吗！？"))
+		   						this.queryPage(this.pageCd.pages);
+						}
+						
+					},
+					goUpdate : function(){
+						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
+						this.state = "goUpdate";
+					},
+					delete_ : function(){
+		   				if(!confirm("确定删除本条仓库数据吗？"))
+		   					return false;
+		   				
+						var this_ = this;
+		   				//数据无误			/	alert("参数：" + this.department.departid);
+		   				axios.delete(`http://localhost:8080/SoftwareFactoryProject_/departments/cd/` + this.department.departid).then(function(res){
+							//数据正常		/alert(JSON.stringify(res));
+							if(res.data.code == "1"){
+								this_.queryPage(1);
+								return false;
+							}
+							alert("非常遗憾，本次" + res.data.message);
+						});
+					},
+					refresh : function(){
+						this.queryPage(1);
 					}
 				},
 				mounted : function(){
-					this.queryBill();
+					this.queryPage(1);
 				}
 			});
 		</script>

@@ -58,7 +58,7 @@
 						//alert("登录成功！");
 						$("#staffId").val("");
 						$("#password").val("");
-						$(location).attr('href', 'index.html');
+						$(location).attr('href', 'index.html?staffId=' + user.staffId);
 					} else {
 						$("#login_form").removeClass('shake_effect');
 						setTimeout(function() {
