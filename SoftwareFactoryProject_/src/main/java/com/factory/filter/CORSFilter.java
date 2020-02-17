@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 
 /**
  * - 过滤层 - CORSFilter类
@@ -21,7 +20,7 @@ import org.springframework.stereotype.Component;
  * - 表/功能：
  */
 
-@Component
+//注释，即未使用：	/@Component
 public class CORSFilter implements Filter {
 	
 	private static Logger log = Logger.getLogger(CORSFilter.class);
@@ -45,7 +44,6 @@ public class CORSFilter implements Filter {
             return;
         }
         chain.doFilter(request, response);
-		
 	}
 	
     @Override

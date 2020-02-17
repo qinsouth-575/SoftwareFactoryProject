@@ -16,6 +16,11 @@ public class StaffBiz {
 	public Staff queryNameAndPwd(Staff staff) {
 		return dao.queryNameAndPwd(staff);
 	}
+
+	//按Id查询当前登录用户信息
+    public Staff selectByPrimaryKey(String staffId) {
+    	return dao.selectByPrimaryKey(staffId);
+    };
 	
 	
 	

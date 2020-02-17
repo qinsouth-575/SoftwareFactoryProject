@@ -8,25 +8,20 @@ package com.factory.entity;
  */
 public class Comdepartment {
 	
-    private String departid;		//部门编号
-
-    private String departname;		//部门名称
-
-    private String engname;			//英文名称
-
-    private String memo;			//备注
-
+    private String departid;				//部门编号
+    private String departname;				//部门名称
+    private String engname;					//英文名称
+    private String memo;					//备注
     private Short female;
-
     private Short male;
-
     private String jobsch;
-
     private Short mergeoutstate;
-
     private String calid;
-
     private String salarytypeid;
+    
+    private Integer pageNum;				//当前页
+    private final Integer pageSize = 1;		//每页显示条数
+    private String flag;					//goInsert：新增	goUpdate：修改
 
     public String getDepartid() {
         return departid;
@@ -107,12 +102,33 @@ public class Comdepartment {
     public void setSalarytypeid(String salarytypeid) {
         this.salarytypeid = salarytypeid;
     }
+	
+	public Integer getPageNum() {
+		return pageNum;
+	}
+	
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
+	}
+	
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
 	@Override
 	public String toString() {
 		return "部门类 - Comdepartment [departid=" + departid + ", departname=" + departname + ", engname=" + engname + ", memo="
 				+ memo + ", female=" + female + ", male=" + male + ", jobsch=" + jobsch + ", mergeoutstate="
-				+ mergeoutstate + ", calid=" + calid + ", salarytypeid=" + salarytypeid + "]";
+				+ mergeoutstate + ", calid=" + calid + ", salarytypeid=" + salarytypeid + ", pageNum=" + pageNum
+				+ ", pageSize=" + pageSize + ", flag=" + flag + "]";
 	}
-    
+
 }

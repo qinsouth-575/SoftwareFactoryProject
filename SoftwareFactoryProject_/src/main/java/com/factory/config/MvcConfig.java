@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -20,14 +21,32 @@ public class MvcConfig implements WebMvcConfigurer {
 	
 	/*		解决跨域方法 - 2、处理跨域请求的Configuration	
 	 * 		CrossOriginConfig.java
-	 * 		继承WebMvcConfigurerAdapter或者实现WebMvcConfigurer接口		*
+	 * 		继承WebMvcConfigurerAdapter或者实现WebMvcConfigurer接口		*/
     private static final String ORIGINS[] = new String[] { "GET", "POST", "PUT", "DELETE" };
     
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("*").allowCredentials(true)
-        		.allowedMethods(ORIGINS).maxAge(3600);
-    }													//				*/
+        /*														*/
+    	registry.addMapping("/**")
+        		.allowedOrigins("*")
+        		.allowCredentials(true)
+        		.allowedMethods(ORIGINS)
+        		.maxAge(3600);								//	*/
+        
+    	/*														*
+        registry.addMapping("/**") 							//添加映射路径
+        		.allowedOrigins("http://localhost:8080") 	//放行哪些原始域
+        		.allowedMethods(ORIGINS) 					//放行哪些原始域(请求方式) 
+        									//"GET","POST", "PUT", "DELETE", "OPTIONS"
+        		.allowedHeaders("*") 						//放行哪些原始域(头部信息)
+        		.allowCredentials(true) 					//是否发送Cookie信息
+//      		.exposedHeaders("access-control-allow-headers",
+//                      		"access-control-allow-methods",
+//                      		"access-control-allow-origin",
+//                      		"access-control-max-age",
+//                      		"X-Frame-Options") //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
+        		.maxAge(1800);								//	*/
+    }
     
 	//extends WebMvcConfigurationSupport
 	

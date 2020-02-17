@@ -20,7 +20,7 @@
     <result column="staff_Mobilephone" property="staffMobilephone" jdbcType="VARCHAR" />
     <result column="staff_politicalstatus" property="staffPoliticalstatus" jdbcType="VARCHAR" />
     <result column="staff_entrydate" property="staffEntrydate" jdbcType="DATE" />
-    <result column="staff_becomea regularworker" property="staffBecomeaRegularworker" jdbcType="DATE" />
+    <result column="staff_becomea_regularworker" property="staffBecomeaRegularworker" jdbcType="DATE" />
     <result column="staff_probationperiod" property="staffProbationperiod" jdbcType="VARCHAR" />
     <result column="staff_dimissiondate" property="staffDimissiondate" jdbcType="DATE" />
     <result column="staff_technicaltitle" property="staffTechnicaltitle" jdbcType="VARCHAR" />
@@ -32,7 +32,7 @@
     <result column="staff_graduateschool" property="staffGraduateschool" jdbcType="VARCHAR" />
     <result column="staff_major" property="staffMajor" jdbcType="VARCHAR" />
     <result column="staff_foreignlanguagelevel" property="staffForeignlanguagelevel" jdbcType="VARCHAR" />
-    <result column="staff_physical examinationdate" property="staffPhysicalExaminationdate" jdbcType="DATE" />
+    <result column="staff_physical_examinationdate" property="staffPhysicalExaminationdate" jdbcType="DATE" />
     <result column="staff_atmaturitydate" property="staffAtmaturitydate" jdbcType="DATE" />
     <result column="staff_entercountry" property="staffEntercountry" jdbcType="DATE" />
     <result column="staff_passport_number" property="staffPassportNumber" jdbcType="VARCHAR" />
@@ -131,10 +131,10 @@
     staff_id, staff_name, staff_english_name, team_id, staff_gender, staff_idnumber, 
     password, staff_birthday, staff_maritalstatus, staff_native_place, staff_nativeplace, 
     staff_nationality, staff_nation, staff_chineseposition, staff_zipcode, staff_Mobilephone, 
-    staff_politicalstatus, staff_entrydate, "staff_becomea regularworker", staff_probationperiod, 
+    staff_politicalstatus, staff_entrydate, staff_becomea_regularworker, staff_probationperiod, 
     staff_dimissiondate, staff_technicaltitle, staff_englishposition, staff_address, 
     staff_phone, staff_highesteducation, staff_degree, staff_graduateschool, staff_major, 
-    staff_foreignlanguagelevel, "staff_physical examinationdate", staff_atmaturitydate, 
+    staff_foreignlanguagelevel, staff_physical_examinationdate, staff_atmaturitydate, 
     staff_entercountry, staff_passport_number, staff_contractstartdate, staff_contractenddate, 
     staff_contractduration, staff_email, staff_censusregisternumber, staff_censusregistezipcode, 
     staff_censusregisteraddress, staff_hometelephone, staff_homezipcode, staff_homeaddress, 
@@ -179,11 +179,11 @@
       staff_native_place, staff_nativeplace, staff_nationality, 
       staff_nation, staff_chineseposition, staff_zipcode, 
       staff_Mobilephone, staff_politicalstatus, 
-      staff_entrydate, "staff_becomea regularworker", staff_probationperiod, 
+      staff_entrydate, staff_becomea_regularworker, staff_probationperiod, 
       staff_dimissiondate, staff_technicaltitle, staff_englishposition, 
       staff_address, staff_phone, staff_highesteducation, 
       staff_degree, staff_graduateschool, staff_major, 
-      staff_foreignlanguagelevel, "staff_physical examinationdate", 
+      staff_foreignlanguagelevel, staff_physical_examinationdate, 
       staff_atmaturitydate, staff_entercountry, staff_passport_number, 
       staff_contractstartdate, staff_contractenddate, 
       staff_contractduration, staff_email, staff_censusregisternumber, 
@@ -276,7 +276,7 @@
         staff_entrydate,
       </if>
       <if test="staffBecomeaRegularworker != null" >
-        "staff_becomea regularworker",
+        staff_becomea_regularworker,
       </if>
       <if test="staffProbationperiod != null" >
         staff_probationperiod,
@@ -312,7 +312,7 @@
         staff_foreignlanguagelevel,
       </if>
       <if test="staffPhysicalExaminationdate != null" >
-        "staff_physical examinationdate",
+        staff_physical_examinationdate,
       </if>
       <if test="staffAtmaturitydate != null" >
         staff_atmaturitydate,
@@ -631,7 +631,7 @@
         staff_entrydate = #{record.staffEntrydate,jdbcType=DATE},
       </if>
       <if test="record.staffBecomeaRegularworker != null" >
-        "staff_becomea regularworker" = #{record.staffBecomeaRegularworker,jdbcType=DATE},
+        staff_becomea_regularworker = #{record.staffBecomeaRegularworker,jdbcType=DATE},
       </if>
       <if test="record.staffProbationperiod != null" >
         staff_probationperiod = #{record.staffProbationperiod,jdbcType=VARCHAR},
@@ -667,7 +667,7 @@
         staff_foreignlanguagelevel = #{record.staffForeignlanguagelevel,jdbcType=VARCHAR},
       </if>
       <if test="record.staffPhysicalExaminationdate != null" >
-        "staff_physical examinationdate" = #{record.staffPhysicalExaminationdate,jdbcType=DATE},
+        staff_physical_examinationdate = #{record.staffPhysicalExaminationdate,jdbcType=DATE},
       </if>
       <if test="record.staffAtmaturitydate != null" >
         staff_atmaturitydate = #{record.staffAtmaturitydate,jdbcType=DATE},
@@ -772,7 +772,7 @@
       staff_Mobilephone = #{record.staffMobilephone,jdbcType=VARCHAR},
       staff_politicalstatus = #{record.staffPoliticalstatus,jdbcType=VARCHAR},
       staff_entrydate = #{record.staffEntrydate,jdbcType=DATE},
-      "staff_becomea regularworker" = #{record.staffBecomeaRegularworker,jdbcType=DATE},
+      staff_becomea_regularworker = #{record.staffBecomeaRegularworker,jdbcType=DATE},
       staff_probationperiod = #{record.staffProbationperiod,jdbcType=VARCHAR},
       staff_dimissiondate = #{record.staffDimissiondate,jdbcType=DATE},
       staff_technicaltitle = #{record.staffTechnicaltitle,jdbcType=VARCHAR},
@@ -784,7 +784,7 @@
       staff_graduateschool = #{record.staffGraduateschool,jdbcType=VARCHAR},
       staff_major = #{record.staffMajor,jdbcType=VARCHAR},
       staff_foreignlanguagelevel = #{record.staffForeignlanguagelevel,jdbcType=VARCHAR},
-      "staff_physical examinationdate" = #{record.staffPhysicalExaminationdate,jdbcType=DATE},
+      staff_physical_examinationdate = #{record.staffPhysicalExaminationdate,jdbcType=DATE},
       staff_atmaturitydate = #{record.staffAtmaturitydate,jdbcType=DATE},
       staff_entercountry = #{record.staffEntercountry,jdbcType=DATE},
       staff_passport_number = #{record.staffPassportNumber,jdbcType=VARCHAR},
@@ -870,7 +870,7 @@
         staff_entrydate = #{staffEntrydate,jdbcType=DATE},
       </if>
       <if test="staffBecomeaRegularworker != null" >
-        "staff_becomea regularworker" = #{staffBecomeaRegularworker,jdbcType=DATE},
+        staff_becomea_regularworker = #{staffBecomeaRegularworker,jdbcType=DATE},
       </if>
       <if test="staffProbationperiod != null" >
         staff_probationperiod = #{staffProbationperiod,jdbcType=VARCHAR},
@@ -906,7 +906,7 @@
         staff_foreignlanguagelevel = #{staffForeignlanguagelevel,jdbcType=VARCHAR},
       </if>
       <if test="staffPhysicalExaminationdate != null" >
-        "staff_physical examinationdate" = #{staffPhysicalExaminationdate,jdbcType=DATE},
+        staff_physical_examinationdate = #{staffPhysicalExaminationdate,jdbcType=DATE},
       </if>
       <if test="staffAtmaturitydate != null" >
         staff_atmaturitydate = #{staffAtmaturitydate,jdbcType=DATE},
@@ -1008,7 +1008,7 @@
       staff_Mobilephone = #{staffMobilephone,jdbcType=VARCHAR},
       staff_politicalstatus = #{staffPoliticalstatus,jdbcType=VARCHAR},
       staff_entrydate = #{staffEntrydate,jdbcType=DATE},
-      "staff_becomea regularworker" = #{staffBecomeaRegularworker,jdbcType=DATE},
+      staff_becomea_regularworker = #{staffBecomeaRegularworker,jdbcType=DATE},
       staff_probationperiod = #{staffProbationperiod,jdbcType=VARCHAR},
       staff_dimissiondate = #{staffDimissiondate,jdbcType=DATE},
       staff_technicaltitle = #{staffTechnicaltitle,jdbcType=VARCHAR},
@@ -1020,7 +1020,7 @@
       staff_graduateschool = #{staffGraduateschool,jdbcType=VARCHAR},
       staff_major = #{staffMajor,jdbcType=VARCHAR},
       staff_foreignlanguagelevel = #{staffForeignlanguagelevel,jdbcType=VARCHAR},
-      "staff_physical examinationdate" = #{staffPhysicalExaminationdate,jdbcType=DATE},
+      staff_physical_examinationdate = #{staffPhysicalExaminationdate,jdbcType=DATE},
       staff_atmaturitydate = #{staffAtmaturitydate,jdbcType=DATE},
       staff_entercountry = #{staffEntercountry,jdbcType=DATE},
       staff_passport_number = #{staffPassportNumber,jdbcType=VARCHAR},

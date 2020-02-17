@@ -1,4 +1,4 @@
-package com.factory.Action;
+package com.factory.action;
 
 /**
  * - 控制层 - 采购入库表Servlet

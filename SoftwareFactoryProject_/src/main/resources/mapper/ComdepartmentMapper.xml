@@ -13,6 +13,15 @@
     <result column="CalID" property="calid" jdbcType="VARCHAR" />
     <result column="SalaryTypeID" property="salarytypeid" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+  <select id="queryCDAll" parameterType="com.factory.entity.Comdepartment" resultMap="BaseResultMap">
+  	SELECT * FROM `comdepartment` 
+  </select>
+  
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

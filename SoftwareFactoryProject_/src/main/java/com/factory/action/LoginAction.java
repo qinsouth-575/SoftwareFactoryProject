@@ -1,4 +1,4 @@
-package com.factory.Action;
+package com.factory.action;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,17 +24,19 @@ import com.factory.entity.Staff;
  */
 @Controller
 @RequestMapping("/staffs")
+//@CrossOrigin(allowCredentials ="true")	//设置是否允许客户端发送cookie信息。默认是false 
 public class LoginAction {
 	
 	private static Logger log = Logger.getLogger(LoginAction.class);
 	
 	@Autowired
 	private StaffBiz sb;
-	
+
+	//1.登录查询
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> queryNameAndPwd(@RequestBody Staff user, HttpSession session) {
-		log.debug("1.进入登录，页面传回的user对象为：" + user);
+		log.debug("SoftwareFactoryProject_ - LoginAction - queryNameAndPwd - 1.进入登录，页面传回的user对象为：" + user);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		
@@ -47,8 +49,8 @@ public class LoginAction {
 			return map;
 		}
 		
-		session.setAttribute("account", user);
-		System.out.println("保存进session：" + user);
+		//session.setAttribute("account", user);
+		//System.out.println("保存进session：" + user);
 
 		log.info("登录成功！");
 		map.put("code", "2");
@@ -56,14 +58,27 @@ public class LoginAction {
 		return map;			//			*/
 	}
 	
-	//安全退出
+	//2.读取登录用户信息
+	@RequestMapping(value = "queryLoginUser", method = RequestMethod.POST)
+	@ResponseBody
+	public Staff queryLoginUser(@RequestBody Staff user, HttpSession session) {
+		log.debug("SoftwareFactoryProject_ - LoginAction - queryLoginUser - 2.读取登录用户信息，staffId为：" + user.getStaffId());
+		//Staff user = (Staff) session.getAttribute("account");
+		user = sb.selectByPrimaryKey(user.getStaffId());
+		log.info("当前登录用户为：" + user);
+		return user;
+	}
+	
+	//3.安全退出
 	@RequestMapping(value = "loginOut", method = RequestMethod.GET)
 	@ResponseBody
 	public Staff loginOut(HttpSession session) {
-		log.debug("BambooForestQuicksand - LoginAction - loginOut - 退出登录");
+		log.debug("SoftwareFactoryProject_ - LoginAction - loginOut - 3.退出登录");
 		session.invalidate();
 		
 		return new Staff("0");
 	}
+	
+	
 	
 }
