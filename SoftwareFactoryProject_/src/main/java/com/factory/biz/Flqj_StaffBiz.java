@@ -7,7 +7,7 @@ import com.factory.entity.Staff;
 import com.factory.mapper.StaffMapper;
 
 @Service
-public class StaffBiz {
+public class Flqj_StaffBiz {
 	
 	@Autowired
 	private StaffMapper dao;

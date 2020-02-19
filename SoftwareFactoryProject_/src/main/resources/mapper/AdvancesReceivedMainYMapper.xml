@@ -35,6 +35,14 @@
     <result column="priabill_custom2" property="priabillCustom2" jdbcType="VARCHAR" />
     <result column="priabill_custom3" property="priabillCustom3" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="selectAdvancesReceivedMainYAllDESC" resultMap="BaseResultMap">
+  	SELECT * 
+	FROM `advances_received_main_y`
+	ORDER BY `priabill_payablestime` DESC
+  </select>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

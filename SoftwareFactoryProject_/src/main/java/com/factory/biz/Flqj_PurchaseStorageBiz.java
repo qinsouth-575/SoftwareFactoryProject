@@ -6,7 +6,7 @@ package com.factory.biz;
  * @version v1.0 2020年2月5日 上午12:42:23
  * - 表/功能：
  */
-public class PurchaseStorageBiz {
+public class Flqj_PurchaseStorageBiz {
 	
 	
 	

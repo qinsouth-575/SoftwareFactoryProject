@@ -1,704 +1,721 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
 		<link rel="stylesheet" href="css/layui.css" media="all" />
 		<style>
-			.dayo{
+			.dayo {
 				margin: 0 auto;
 			}
-			.layui-form-item{
+			
+			.layui-form-item {
 				height: 20px;
-			}	
+			}
+			
 			.layui-tab-title li {
-			    display: inline-block;
-			    vertical-align: middle;
-			    font-size: 14px;
-			    transition: all .2s;
-			    -webkit-transition: all .2s;
-			    position: relative;
-			    line-height: 40px;
-			    min-width: 52.5px;
-			    padding: 0 15px;
-			    text-align: center;
-			}		
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 14px;
+				transition: all .2s;
+				-webkit-transition: all .2s;
+				position: relative;
+				line-height: 40px;
+				min-width: 52.5px;
+				padding: 0 15px;
+				text-align: center;
+			}
 		</style>
-		
-		 <style>
-		 /* 防止下拉框的下拉列表被隐藏---必须设置--- */
-		.layui-table-cell {
-			overflow: visible !important;
-		}
-		/* 设置下拉框的高度与表格单元相同 */
-		.layui-input, .layui-select, .layui-textarea{
-		height: 30px !important;
-		}
-		
-		.layui-textarea {
-		    min-height: 200px;
-		    height: auto;
-		    line-height: 20px;
-		    padding: 6px 10px;
-		    resize: vertical;
-		}
-		/*超出文本转为...*/
-		table{
-            width: 100%;
-            table-layout: fixed;
-         }
-		td{
-         	white-space: nowrap;/*控制单行显示*/
-			overflow: hidden;/*超出隐藏*/
-			text-overflow: ellipsis;/*隐藏的字符用省略号表示*/
-         }
-		th{
-			white-space:nowrap;
-			/*text-align: center !important;*/
-		}
+
+		<style>
+			/* 防止下拉框的下拉列表被隐藏---必须设置--- */
+			
+			.layui-table-cell {
+				overflow: visible !important;
+			}
+			/* 设置下拉框的高度与表格单元相同 */
+			
+			.layui-input,
+			.layui-select,
+			.layui-textarea {
+				height: 30px !important;
+			}
+			
+			.layui-textarea {
+				min-height: 200px;
+				height: auto;
+				line-height: 20px;
+				padding: 6px 10px;
+				resize: vertical;
+			}
+			/*超出文本转为...*/
+			
+			table {
+				width: 100%;
+				table-layout: fixed;
+			}
+			
+			td {
+				white-space: nowrap;
+				/*控制单行显示*/
+				overflow: hidden;
+				/*超出隐藏*/
+				text-overflow: ellipsis;
+				/*隐藏的字符用省略号表示*/
+			}
+			
+			th {
+				white-space: nowrap;
+				/*text-align: center !important;*/
+			}
 		</style>
 		<style>
-			.fudong{
+			.fudong {
 				width: 100%;
 				height: 140%;
 				border: solid #000000;
 				position: absolute;
-				top:0px;
+				top: 0px;
 				visibility: visible;
 			}
 		</style>
 	</head>
-		<body>
-			<div class="layui-container app" style="width: 800px;margin-top: 30px;">
-			  <div style="margin-left: -20px;" v-if="list!=undefined">
-			  	<form class="layui-form" action="">
-						<!--1-->
-						<div class="layui-row">
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">客户名称</label>
-								    <div class="layui-input-inline">
-								      <input v-model="list.customerId" id="customerId" title="按4F可以快速查找客户资料" @keyup.f4="add()" type="text" name="title"  required  lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
-								    </div>
+
+	<body>
+		<div class="layui-container app" style="width: 800px;margin-top: 30px;">
+			<div style="margin-left: -20px;" v-if="list!=undefined">
+				<form class="layui-form" action="">
+					<!--1-->
+					<div class="layui-row">
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">客户名称</label>
+								<div class="layui-input-inline">
+									<input v-model="list.customerId" id="customerId" title="按4F可以快速查找客户资料" @keyup.f4="add()" type="text" name="title" required lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
 								</div>
 							</div>
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">单据日期</label>
-								      <div class="layui-input-inline">
-								        <input type="text" v-model="list.sowDocumentDate" @click="fu()"  name="date" id="test1" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
-								      </div>
-							 	</div>
+						</div>
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">单据日期</label>
+								<div class="layui-input-inline">
+									<input type="text" v-model="list.sowDocumentDate" @click="fu()" name="date" id="test1" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+								</div>
 							</div>
-				 		</div>
-				 		 <!--2-->
-						<div class="layui-row">
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">送货地址</label>
-								    <div class="layui-input-inline" style="width: 60px;">
-								      <input type="text" name="title" v-model="list.sowAddress" required  lay-verify="required"  autocomplete="off" class="layui-input">
-								    </div>
-								    <div class="layui-input-inline" style="width: 120px;">
-								      <input type="text" name="title" v-model="list.sowAddress" required  lay-verify="required"  autocomplete="off" class="layui-input">
-								    </div>
-							 	</div>
+						</div>
+					</div>
+					<!--2-->
+					<div class="layui-row">
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">送货地址</label>
+								<div class="layui-input-inline" style="width: 60px;">
+									<input type="text" name="title" v-model="list.sowAddress" required lay-verify="required" autocomplete="off" class="layui-input">
+								</div>
+								<div class="layui-input-inline" style="width: 120px;">
+									<input type="text" name="title" v-model="list.sowAddress" required lay-verify="required" autocomplete="off" class="layui-input">
+								</div>
 							</div>
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">单据号码</label>
-								    <div class="layui-input-inline">
-								      <input type="text" name="title" v-model="list.sowId" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-								    </div>
-							 	</div>
+						</div>
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">单据号码</label>
+								<div class="layui-input-inline">
+									<input type="text" name="title" v-model="list.sowId" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								</div>
 							</div>
-				 		</div>
-				 		<!--3-->
-				 		<div class="layui-row">
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">销售类型</label>
-								    <div class="layui-input-inline">
-								      <input type="text" name="title" v-model="list.sowtId"  required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-								    </div>
-							 	</div>
+						</div>
+					</div>
+					<!--3-->
+					<div class="layui-row">
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">销售类型</label>
+								<div class="layui-input-inline">
+									<input type="text" name="title" v-model="list.sowtId" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								</div>
 							</div>
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">币别</label>
-								    <div class="layui-input-inline">
-								      <input type="text" name="title" v-model="list.currencyId" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-								    </div>
-							 	</div>
+						</div>
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">币别</label>
+								<div class="layui-input-inline">
+									<input type="text" name="title" v-model="list.currencyId" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								</div>
 							</div>
-				 		</div>
-				 		<!--4-->
-				 		<div class="layui-row">
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">单价是税否</label>
-								    <div class="layui-input-block" style="width:190px;">
-								      <select name="city" v-model="list.sowPriceIncludeTax"  lay-verify="required">
-								        <option value="未税">未税</option>
-								        <option value="含税">含税</option>
-								      </select>
-								    </div>								  
-							 	</div>
+						</div>
+					</div>
+					<!--4-->
+					<div class="layui-row">
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">单价是税否</label>
+								<div class="layui-input-block" style="width:190px;">
+									<select name="city" v-model="list.sowPriceIncludeTax" lay-verify="required">
+										<option value="未税">未税</option>
+										<option value="含税">含税</option>
+									</select>
+								</div>
 							</div>
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">汇率</label>
-								    <div class="layui-input-inline">
-								      <input type="text" v-model="list.sowExchangeRate" name="title" required  lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
-								    </div>
-							 	</div>
+						</div>
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">汇率</label>
+								<div class="layui-input-inline">
+									<input type="text" v-model="list.sowExchangeRate" name="title" required lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
+								</div>
 							</div>
-				 		</div>
-				 		<!--5-->
-				 		<div class="layui-row">
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">仓库</label>
-								   <div class="layui-input-inline">
-								      <input type="text" name="title" v-model="list.warehouseId" required  lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
-								    </div>
-							 	</div>
+						</div>
+					</div>
+					<!--5-->
+					<div class="layui-row">
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">仓库</label>
+								<div class="layui-input-inline">
+									<input type="text" name="title" v-model="list.warehouseId" required lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
+								</div>
 							</div>
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">国外贸易</label>
-								    <div class="layui-input-block" style="width:190px;">
-								      <select name="city" v-model="list.sowForeignTrade" lay-verify="required">
-								        <option value="是">是</option>
-								        <option value="否">否</option>
-								      </select>
-								    </div>
-							 	</div>
+						</div>
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">国外贸易</label>
+								<div class="layui-input-block" style="width:190px;">
+									<select name="city" v-model="list.sowForeignTrade" lay-verify="required">
+										<option value="是">是</option>
+										<option value="否">否</option>
+									</select>
+								</div>
 							</div>
-				 		</div>
-				 		<!--5-->
-				 		<div class="layui-row">
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">凭证编号</label>
-								   <div class="layui-input-inline">
-								      <input type="text" name="title" v-model="list.sowCertificateNumber"  required  lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
-								    </div>
-							 	</div>
+						</div>
+					</div>
+					<!--5-->
+					<div class="layui-row">
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">凭证编号</label>
+								<div class="layui-input-inline">
+									<input type="text" name="title" v-model="list.sowCertificateNumber" required lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
+								</div>
 							</div>
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <div class="layui-input-inline" style="width: 50px;margin-left: 75px;">
-								       <input type="checkbox" name="like1[write]" lay-skin="primary"  checked="">
-								    </div>
-								    <div class="layui-form-mid layui-word-aux" style="margin-left: 5px;color: #000000!important;">复核后自动生成发票</div>
-							  </div>
+						</div>
+						<div class="layui-col-sm6">
+							<div class="layui-form-item">
+								<div class="layui-input-inline" style="width: 50px;margin-left: 75px;">
+									<input type="checkbox" name="like1[write]" lay-skin="primary" checked="">
+								</div>
+								<div class="layui-form-mid layui-word-aux" style="margin-left: 5px;color: #000000!important;">复核后自动生成发票</div>
 							</div>
-				 		</div>
-						<!-- <div class="layui-form-item">
+						</div>
+					</div>
+					<!-- <div class="layui-form-item">
 						    <div class="layui-input-block">
 						      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
 						      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						    </div>
 						 </div>-->
 				</form>
-			  </div>	
-			  <div class="layui-row">
-			  		 <div class="layui-col-sm12">
-			  		 	 	 <div class="layui-tab layui-tab-card">
-								  <ul class="layui-tab-title">
-								    <li class="layui-this">内容</li>
-								    <li>账款</li>
-								    <li>备注</li>
-								  </ul>
-								  <div class="layui-tab-content">
-								    <div class="layui-tab-item layui-show" style="margin:-20px 0px -20px -11px;width: 760px;height: 311px;overflow:auto;">
-								    	<!--表单-->
-								    	<table class="layui-table single" lay-size="sm" style="empty-cells:show;min-width:760px">
-											  <colgroup>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											    <col width="70"></col>
-											  </colgroup>
-											  <thead>
-													<tr>
-													  <th>栏号</th>
-													  <th>物料编号</th>
-													  <th>物料名称</th>
-													  <th>规格型号</th>
-													  <th>单位名称</th>
-													  <th>数量</th>
-													  <th>折前单价</th>
-													  <th>折数(%)</th>
-													  <th>单价</th>
-													  <th>金额</th>
-													  <th>税率</th>
-													  <th>税额</th>
-													  <th>含税金额</th>
-													  <th>批号</th>
-													  <th>物料组合</th>
-													  <th>赠品</th>
-													  <th>发票明细</th>
-													  <th>未开票数量</th>
-													  <th>分录备注</th>
-													  <th>(来源单别)</th>
-													  <th>(来源单号)</th>
-													  <th>客户订单</th>
-													  <th style="white-space:nowrap" class="sli">物料编号</th>
-													</tr> 
-											  </thead>
-											  <tbody>
-												    <tr v-for="item,index in list.sowd">
-												      <td>{{item.sowdId}}</td>	
-												      <td>{{item.sowId}}</td>
-												      <td>{{item.sowdEngname}}</td>
-												      <td>{{item.sowdRemark}}</td>
-												      <td>{{item.sowdPriceIncludeTax}}</td>
-												      <td>{{item.sowdSingleStatus}}</td>
-												      <td>{{item.sowdDocumentDate}}</td>
-												      <td>{{item.sowdDocumentNumber}}</td>
-												      <td>{{item.sowdPrice}}</td>
-												      <td>{{item.sowdMoney}}</td>
-												      <td>{{item.sowdTaxRate}}</td>
-												      <td>{{item.sowdTaxAmount}}</td>
-												      <td>{{item.sowdIncludingTaxAmount}}</td>
-												      <td>
-													     <div class="layui-form">
-														    <div class="layui-input-inline" style="width: 50px;margin-left:15px;" v-on:click="wd(item,index)">
-														       <input type="checkbox"  v-model="item.sowdCustom1"   lay-skin="primary" >
-														    </div>
-														  </div>
-												      </td>
-												      <td>
-													     <div class="layui-form">
-														    <div class="layui-input-inline" style="width: 50px;margin-left:15px;">
-														       <input type="checkbox" name="like1[write]" lay-skin="primary"  checked="">
-														    </div>
-														  </div>
-												      </td>
-												      <td>
-													     <div class="layui-form">
-														    <div class="layui-input-inline" style="width: 50px;margin-left:15px;">
-														       <input type="checkbox" name="like1[write]" lay-skin="primary"  checked="">
-														    </div>
-														  </div>
-												      </td>
-												      <td>
-													     <div class="layui-form">
-														    <div class="layui-input-inline" style="width: 50px;margin-left:15px;">
-														       <input type="checkbox" name="like1[write]" lay-skin="primary"  checked="">
-														    </div>
-														  </div>
-												      </td>
-												      <td>{{item.sowdNomakeInvoiceNum}}</td>
-												      <td>{{item.sowdRemarks}}</td>
-												      <td>{{item.sowdSourceOrder}}</td>
-												      <td>{{item.sowdSourceNo}}</td>
-												      <td>{{item.sowdSourceNo}}</td>
-												      <td>{{item.matterId}}</td>
-												    </tr>
-											  </tbody>
-										</table>
-								    	<!---->
-										<script type="text/html" id="barDemo">
-										    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-										    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-										    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-										</script>
-								    	<!---->
-								    </div>
-								    <!--账款-->
-								    <div class="layui-tab-item layui-form" style="height: 311px;">
-								    	<!--3-->
-								 		<div class="layui-row">
-											<div class="layui-col-sm6">
-												<div class="layui-form-item">
-												    <label class="layui-form-label">账款归属</label>
-												    <div class="layui-input-inline" style="width: 160px;">
-												       <input type="text"  v-model="list.sowSaleszkgs" name="title" required  lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
-												    </div>
-												    <div class="layui-form-mid layui-word-aux">辅助文字</div>
-											 	</div>
-											</div>
-											<div class="layui-col-sm6">
-												<div class="layui-form-item">
-												    <label class="layui-form-label">收款日期</label>
-												    <div class="layui-input-inline" style="width: 160px;">
-												        <input type="text" v-model="list.sowSalesdate"  name="date" id="test3" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
-												    </div>
-											 	</div>
-											</div>
-								 		</div>
-								 		<!--4-->
-								 		<div class="layui-row">
-											<div class="layui-col-sm6">
-												<div class="layui-form-item">
-												    <label class="layui-form-label">收款条件</label>
-												    <div class="layui-input-inline" style="width:80px;">
-												      <select name="city" v-model="list.sowSalessktj" lay-verify="required">
-												        <option value="0">到货</option>
-												        <option value="1">次月</option>
-												        <option value="1">月结</option>
-												        <option value="1">其他</option>
-												      </select>
-												    </div>
-												     <div class="layui-input-inline" style="width: 70px;">
-												        <input type="text" v-model="list.sowSalesday" name="title" required  lay-verify="required" placeholder="1" autocomplete="off" class="layui-input">
-												    </div>							  
-											 		<div class="layui-form-mid layui-word-aux" style="color: #000000!important;">天</div>
+			</div>
+			<div class="layui-row">
+				<div class="layui-col-sm12">
+					<div class="layui-tab layui-tab-card">
+						<ul class="layui-tab-title">
+							<li class="layui-this">内容</li>
+							<li>账款</li>
+							<li>备注</li>
+						</ul>
+						<div class="layui-tab-content">
+							<div class="layui-tab-item layui-show" style="margin:-20px 0px -20px -11px;width: 760px;height: 311px;overflow:auto;">
+								<!--表单-->
+								<table class="layui-table single" lay-size="sm" style="empty-cells:show;min-width:760px">
+									<colgroup>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+										<col width="70"></col>
+									</colgroup>
+									<thead>
+										<tr>
+											<th>栏号</th>
+											<th>物料编号</th>
+											<th>物料名称</th>
+											<th>规格型号</th>
+											<th>单位名称</th>
+											<th>数量</th>
+											<th>折前单价</th>
+											<th>折数(%)</th>
+											<th>单价</th>
+											<th>金额</th>
+											<th>税率</th>
+											<th>税额</th>
+											<th>含税金额</th>
+											<th>批号</th>
+											<th>物料组合</th>
+											<th>赠品</th>
+											<th>发票明细</th>
+											<th>未开票数量</th>
+											<th>分录备注</th>
+											<th>(来源单别)</th>
+											<th>(来源单号)</th>
+											<th>客户订单</th>
+											<th style="white-space:nowrap" class="sli">物料编号</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="item,index in list.sowd">
+											<td>{{item.sowdId}}</td>
+											<td>{{item.sowId}}</td>
+											<td>{{item.sowdEngname}}</td>
+											<td>{{item.sowdRemark}}</td>
+											<td>{{item.sowdPriceIncludeTax}}</td>
+											<td>{{item.sowdSingleStatus}}</td>
+											<td>{{item.sowdDocumentDate}}</td>
+											<td>{{item.sowdDocumentNumber}}</td>
+											<td>{{item.sowdPrice}}</td>
+											<td>{{item.sowdMoney}}</td>
+											<td>{{item.sowdTaxRate}}</td>
+											<td>{{item.sowdTaxAmount}}</td>
+											<td>{{item.sowdIncludingTaxAmount}}</td>
+											<td>
+												<div class="layui-form">
+													<div class="layui-input-inline" style="width: 50px;margin-left:15px;" v-on:click="wd(item,index)">
+														<input type="checkbox" v-model="item.sowdCustom1" lay-skin="primary">
+													</div>
 												</div>
+											</td>
+											<td>
+												<div class="layui-form">
+													<div class="layui-input-inline" style="width: 50px;margin-left:15px;">
+														<input type="checkbox" name="like1[write]" lay-skin="primary" checked="">
+													</div>
+												</div>
+											</td>
+											<td>
+												<div class="layui-form">
+													<div class="layui-input-inline" style="width: 50px;margin-left:15px;">
+														<input type="checkbox" name="like1[write]" lay-skin="primary" checked="">
+													</div>
+												</div>
+											</td>
+											<td>
+												<div class="layui-form">
+													<div class="layui-input-inline" style="width: 50px;margin-left:15px;">
+														<input type="checkbox" name="like1[write]" lay-skin="primary" checked="">
+													</div>
+												</div>
+											</td>
+											<td>{{item.sowdNomakeInvoiceNum}}</td>
+											<td>{{item.sowdRemarks}}</td>
+											<td>{{item.sowdSourceOrder}}</td>
+											<td>{{item.sowdSourceNo}}</td>
+											<td>{{item.sowdSourceNo}}</td>
+											<td>{{item.matterId}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<!---->
+								<script type="text/html" id="barDemo">
+									<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+									<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+									<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+								</script>
+								<!---->
+							</div>
+							<!--账款-->
+							<div class="layui-tab-item layui-form" style="height: 311px;">
+								<!--3-->
+								<div class="layui-row">
+									<div class="layui-col-sm6">
+										<div class="layui-form-item">
+											<label class="layui-form-label">账款归属</label>
+											<div class="layui-input-inline" style="width: 160px;">
+												<input type="text" v-model="list.sowSaleszkgs" name="title" required lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
 											</div>
-											<div class="layui-col-sm6">
-												<div class="layui-form-item">
-												    <label class="layui-form-label">账款月份</label>
-												    <div class="layui-input-inline" style="width: 160px;">
-												        <input type="text" v-model="list.sowSalesyue"  name="date" id="test4" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
-												    </div>
-												    	
-											 	</div>
-											</div>
-								 		</div>
-										
-								    </div>
-								    <!---->
-								    <div class="layui-tab-item layui-form" style="height: 311px;">
-								    	<!--3-->
-								 		<div class="layui-row">
-											<div class="layui-col-sm6">
-												<div class="layui-form-item">
-												    <label class="layui-form-label">自定义栏一</label>
-												   <div class="layui-input-inline">
-												      <input type="text" name="title" required  lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
-												    </div>
-											 	</div>
-											</div>
-											<div class="layui-col-sm6">
-												<div class="layui-form-item">
-												    <label class="layui-form-label">自定义栏一</label>
-												   <div class="layui-input-inline">
-												      <input type="text" name="title" required  lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
-												    </div>
-											 	</div>
-											</div>
-								 		</div>
-										<!--3-->
-										<div class="layui-row">
-											<div class="layui-col-sm12">
-												<div class="layui-form-item layui-form-text">
-												    <label class="layui-form-label">备注</label>
-												    <div class="layui-input-block">
-												      <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 565px;"></textarea>
-												    </div>
-												  </div>
+											<div class="layui-form-mid layui-word-aux">辅助文字</div>
+										</div>
+									</div>
+									<div class="layui-col-sm6">
+										<div class="layui-form-item">
+											<label class="layui-form-label">收款日期</label>
+											<div class="layui-input-inline" style="width: 160px;">
+												<input type="text" v-model="list.sowSalesdate" name="date" id="test3" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
 											</div>
 										</div>
-								    </div>
-								  </div>
-							  </div>
-			  		 </div> 
-			  </div>
-			  <!--1-->
-						<div class="layui-row">
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">业务人员</label>
-								    <div class="layui-input-inline">
-								      <input type="text" v-model="list.sowForm" name="title" required  lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
-								    </div>
-							 	<div class="layui-form-mid layui-word-aux" @click="kh($event,'业务人员','业务人员.html')">选择客户</div>
-								</div>
-							</div>
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">制单人员</label>
-								      <div class="layui-input-inline">
-								        <input type="text" v-model="list.sowForm" name="title" required  lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
-								      </div>
-							 	</div>
-							</div>
-				 		</div>
-				 		<!--2-->
-						<div class="layui-row">
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">所属部门</label>
-								    <div class="layui-input-inline">
-								      <input type="text" v-model="list.sowBelongsSection" name="title" required  lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
-								    </div>
-							 	<div class="layui-form-mid layui-word-aux" @click="kh($event,'所属部门','所属部门.html')">选择客户</div>
-								</div>
-							</div>
-							<div class="layui-col-sm6">
-								<div class="layui-form-item">
-								    <label class="layui-form-label">复核人员</label>
-								      <div class="layui-input-inline">
-								        <input type="text" v-model="list.sowCheckagainStaff" name="title" required  lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
-								      </div>
-							 	</div>
-							</div>
-				 		</div>
-				 		<!---->
-				 		<div class="layui-row layui-form">
-							<div class="layui-col-sm12">
-								<div class="layui-form-item">
-									<div class="layui-input-inline" style="width:100px;">
-										<select name="city" lay-verify="required">
-											<option value="">查询</option>
-											<option value="0">历史交易查询</option>
-											<option value="1">单据状态查询</option>
-										</select>
 									</div>
-									<div class="layui-input-inline" style="width:100px;">
-										<select name="city" lay-verify="required">
-											<option value="">转单</option>
-											<option value="0">销售报价转入</option>
-											<option value="1">销售订单转入</option>
-											<option value="2">商业发票转入</option>
-										</select>
+								</div>
+								<!--4-->
+								<div class="layui-row">
+									<div class="layui-col-sm6">
+										<div class="layui-form-item">
+											<label class="layui-form-label">收款条件</label>
+											<div class="layui-input-inline" style="width:80px;">
+												<select name="city" v-model="list.sowSalessktj" lay-verify="required">
+													<option value="0">到货</option>
+													<option value="1">次月</option>
+													<option value="1">月结</option>
+													<option value="1">其他</option>
+												</select>
+											</div>
+											<div class="layui-input-inline" style="width: 70px;">
+												<input type="text" v-model="list.sowSalesday" name="title" required lay-verify="required" placeholder="1" autocomplete="off" class="layui-input">
+											</div>
+											<div class="layui-form-mid layui-word-aux" style="color: #000000!important;">天</div>
+										</div>
 									</div>
-									<div class="layui-input-inline" style="width:100px;">
-										<select name="city" lay-verify="required">
-											<option value="">功能</option>
-											<option value="0">物料组合设定</option>
-											<option value="1">批号设定</option>
-											<option value="2">条码打印</option>
-											<option value="3">批次变更单价</option>
-										</select>
+									<div class="layui-col-sm6">
+										<div class="layui-form-item">
+											<label class="layui-form-label">账款月份</label>
+											<div class="layui-input-inline" style="width: 160px;">
+												<input type="text" v-model="list.sowSalesyue" name="date" id="test4" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<!---->
+							<div class="layui-tab-item layui-form" style="height: 311px;">
+								<!--3-->
+								<div class="layui-row">
+									<div class="layui-col-sm6">
+										<div class="layui-form-item">
+											<label class="layui-form-label">自定义栏一</label>
+											<div class="layui-input-inline">
+												<input type="text" name="title" required lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
+											</div>
+										</div>
+									</div>
+									<div class="layui-col-sm6">
+										<div class="layui-form-item">
+											<label class="layui-form-label">自定义栏一</label>
+											<div class="layui-input-inline">
+												<input type="text" name="title" required lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--3-->
+								<div class="layui-row">
+									<div class="layui-col-sm12">
+										<div class="layui-form-item layui-form-text">
+											<label class="layui-form-label">备注</label>
+											<div class="layui-input-block">
+												<textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 565px;"></textarea>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-				 		</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--1-->
+			<div class="layui-row">
+				<div class="layui-col-sm6">
+					<div class="layui-form-item">
+						<label class="layui-form-label">业务人员</label>
+						<div class="layui-input-inline">
+							<input type="text" v-model="list.sowForm" name="title" required lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-mid layui-word-aux" @click="kh($event,'业务人员','业务人员.html')">选择客户</div>
+					</div>
+				</div>
+				<div class="layui-col-sm6">
+					<div class="layui-form-item">
+						<label class="layui-form-label">制单人员</label>
+						<div class="layui-input-inline">
+							<input type="text" v-model="list.sowForm" name="title" required lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--2-->
+			<div class="layui-row">
+				<div class="layui-col-sm6">
+					<div class="layui-form-item">
+						<label class="layui-form-label">所属部门</label>
+						<div class="layui-input-inline">
+							<input type="text" v-model="list.sowBelongsSection" name="title" required lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-mid layui-word-aux" @click="kh($event,'所属部门','所属部门.html')">选择客户</div>
+					</div>
+				</div>
+				<div class="layui-col-sm6">
+					<div class="layui-form-item">
+						<label class="layui-form-label">复核人员</label>
+						<div class="layui-input-inline">
+							<input type="text" v-model="list.sowCheckagainStaff" name="title" required lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!---->
+			<div class="layui-row layui-form">
+				<div class="layui-col-sm12">
+					<div class="layui-form-item">
+						<div class="layui-input-inline" style="width:100px;">
+							<select name="city" lay-verify="required">
+								<option value="">查询</option>
+								<option value="0">历史交易查询</option>
+								<option value="1">单据状态查询</option>
+							</select>
+						</div>
+						<div class="layui-input-inline" style="width:100px;">
+							<select name="city" lay-verify="required">
+								<option value="">转单</option>
+								<option value="0">销售报价转入</option>
+								<option value="1">销售订单转入</option>
+								<option value="2">商业发票转入</option>
+							</select>
+						</div>
+						<div class="layui-input-inline" style="width:100px;">
+							<select name="city" lay-verify="required">
+								<option value="">功能</option>
+								<option value="0">物料组合设定</option>
+								<option value="1">批号设定</option>
+								<option value="2">条码打印</option>
+								<option value="3">批次变更单价</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		，<button onclick="dww(name)">111111111111</button>
+		<button onclick="dww(name)">111111111111</button>
 		<!---->
 		<!--<div class="fudong">
 			<img style="margin-left:70%;" src="../images/qwdasdasd.jpg" alt="Smiley face" width="20%" height="20%">
 		</div>-->
 		<!---->
-		</body>
-	<script type="text/javascript" src="../js/jquery-1.12.4.js" ></script>
-	<script type="text/javascript" src="layui.all.js" ></script>
-	<script type="text/javascript" src="layui.js" ></script>
-	<script type="text/javascript" src="../js/vue.js" ></script>
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="layui.all.js"></script>
+	<script type="text/javascript" src="layui.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
 	<script>
-		var name='';
-		function dww(){
-			alert(name)
+		var name = '';
+
+		function dww() {
+			alert(name);
 		}
+
 		//等子页面调用
-		var sw=0;
-		var id=0;
-		var xsbj_vue=new Vue({   
-			el:'.app',
-			data(){
-				return{
-					danju:'',
-					list:{
-					  sowId:'',
-					  customerId:''
-					},
-					adw:false
-				}
-			}
-			,methods:{
-             	add:function(){//开启F4查询
-				layer.open({
-				  type: 2,
-				  title: false,
-				  closeBtn: 1,//右上角
-				  area: ['350px'],
-				  shade:0,
-				  content: '../基本资料/客户资料.html'
-				});
-             	},
-             	kh:function(e,title,url){
-             		parent.procurementVue.show(null,title,url);
-              },
-              wd(s,index){//按钮
-              	if(s.sowdCustom1==false){
-	    				this.list.sowd[index].sowdCustom1=true;
-	    			}else{
-	    				s.sowdCustom1=false;
-	    			}
-		        console.log(this.list.sowd);
-              },
-              	fu:function(){
-              	
-				},
-				xz:function(id){//新增
-//					this.list={}
-					this.emptyData(this.list)
-					var that = this;
-					$(".fudong").css('visibility','hidden');
-					//Object.assign(this.$data.list, this.$options.data().list);
-					var sowDocumentDate = new Date();
-					xsbj_vue.list.sowDocumentDate=sowDocumentDate.toLocaleString();
-					var value1=xsbj_vue.list.sowDocumentDate.replace(/-/g,'');
-			        $.ajax({
-			        	type:"get",
-			        	async:false,
-			        	url:"http://localhost:8080/t_sow/wx?da="+value1,
-			        	success:function(rel){
-			        		that.list.sowId=rel;
-			        	}
-			        });
-				},
-				xg:function(id){//修改
-					parent.layer.msg('销售出库修改成功');
-				},
-				emptyData(ojb){
-					for(var o in ojb){
-						ojb[o] = "";
+		var sw = 0;
+		var id = 0;
+		var xsbj_vue = new Vue({
+				el: '.app',
+				data() {
+					return {
+						danju: '',
+						list: {
+							sowId: '',
+							customerId: ''
+						},
+						adw: false
 					}
 				},
-				sc:function(id){//删除
-					layer.confirm('确认要删除吗？', {
-					  btn: ['确定','取消'] ,//按钮
-					  shade: 0
-					}, function(){
+				methods: {
+					add: function() {
+						//开启F4查询
+						layer.open({
+							type: 2,
+							title: false,
+							closeBtn: 1, //右上角
+							area: ['350px'],
+							shade: 0,
+							content: '../基本资料/客户资料.html'
+						});
+					},
+					kh: function(e, title, url) {
+						parent.procurementVue.show(null, title, url);
+					},
+					wd(s, index) {
+						//按钮
+						if(s.sowdCustom1 == false) {
+							this.list.sowd[index].sowdCustom1 = true;
+						} else {
+							s.sowdCustom1 = false;
+						}
+						console.log(this.list.sowd);
+					},
+					fu: function() {},
+					xz: function(id) {
+						//新增
+						//					this.list={}
+						this.emptyData(this.list);
+						var that = this;
+						$(".fudong").css('visibility', 'hidden');
+						//Object.assign(this.$data.list, this.$options.data().list);
+						var sowDocumentDate = new Date();
+						xsbj_vue.list.sowDocumentDate = sowDocumentDate.toLocaleString();
+						var value1 = xsbj_vue.list.sowDocumentDate.replace(/-/g, '');
 						$.ajax({
-							type:'get',
-							url:'http://localhost:8080/t_sow/d?sowId='+xsbj_vue.list.sowId,
-							success:function(ret){
-								layer.msg('销售出库修改成功');
-								ins();
+							type: "get",
+							async: false,
+							url: "http://localhost:8080/t_sow/wx?da=" + value1,
+							success: function(rel) {
+								that.list.sowId = rel;
 							}
-						})	
-                       
-					}, function(){
-					  /*layer.msg('也可以这样', {
-					    time: 20000, //20s后自动关闭
-					    btn: ['明白了', '知道了']
-					  });*/ 	
-					});
+						});
+					},
+					xg: function(id) {
+						//修改
+						parent.layer.msg('销售出库修改成功');
+					},
+					emptyData(ojb) {
+						for(var o in ojb) {
+							ojb[o] = "";
+						}
+					},
+					sc: function(id) {
+						//删除
+						layer.confirm('确认要删除吗？', {
+							btn: ['确定', '取消'], //按钮
+							shade: 0
+						}, function() {
+							$.ajax({
+								type: 'get',
+								url: 'http://localhost:8080/t_sow/d?sowId=' + xsbj_vue.list.sowId,
+								success: function(ret) {
+									layer.msg('销售出库修改成功');
+									ins();
+								}
+							})
+						}, function() {
+							/*layer.msg('也可以这样', {
+							  time: 20000, //20s后自动关闭
+							  btn: ['明白了', '知道了']
+							});*/
+						});
+					},
+					bc: function(id) {
+						var SalesOutWarehouse = JSON.stringify(xsbj_vue.list);
+						console.log(SalesOutWarehouse);
+						$.ajax({
+							type: "POST",
+							url: "http://localhost:8080/t_sow/w",
+							data: SalesOutWarehouse,
+							contentType: "application/json;charset=utf-8",
+							success: function(ret) {
+								if(1 == 1) {
+									ins();
+									parent.layer.msg('新增成功！！');
+								}
+							}
+						});
+					}
 				},
-				bc:function(id){
-					var SalesOutWarehouse=JSON.stringify(xsbj_vue.list)
-	              		console.log(SalesOutWarehouse)
-	              		$.ajax({
-	              			type:"POST",
-	              			url:"http://localhost:8080/t_sow/w",
-	              			data:SalesOutWarehouse,
-	              			contentType:"application/json;charset=utf-8",
-	              			success:function(ret){
-	              				 if(1==1){
-	              				 	ins();
-	              				 	parent.layer.msg('新增成功！！');
-	              				 }
-	              			}
-	              		});
-				}
-				
-			}
-			,created:function(){	
-			}
-		})
-		
-		
+				created: function() {}
+			});
+
 		Date.prototype.toLocaleString = function() {
-			return this.getFullYear() +"-"+ (this.getMonth() + 1)  +"-"+ this.getDate();
+			return this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + this.getDate();
 		};
+		
 		//初始化就执行获取后台数据
-		function ins(){
+		function ins() {
 			$.ajax({
-			    type: 'GET',
-			    dataType: "json",  //json text 服务器返回的数据类型
-			    url: 'http://localhost:8080/t_sow/x',
-			    success: function (result) {
-			    	console.log(result)
-			    	var unixTimestamp = new Date(result.sowDocumentDate) ;
+				type: 'GET',
+				dataType: "json", //json text 服务器返回的数据类型
+				url: 'http://localhost:8080/t_sow/x',
+				success: function(result) {
+					console.log(result);
+					var unixTimestamp = new Date(result.sowDocumentDate);
 					result.sowDocumentDate = unixTimestamp.toLocaleString();
-					var unixTimestamp1=new Date(result.sowSalesdate)
-					result.sowSalesdate=unixTimestamp1.toLocaleString();
-					var unixTimestamp2=new Date(result.sowSalesyue)
-					result.sowSalesyue=unixTimestamp2.getMonth()+1;
-		    		xsbj_vue.list=result
-		    		$.each(result.sowd,function(i,s) {
-		    			if(s.sowdCustom1==0){
-		    				s.sowdCustom1=false;
-		    			}else{
-		    				s.sowdCustom1=true;
-		    			}
-		    		});
-		    		
-		 		}
+					var unixTimestamp1 = new Date(result.sowSalesdate);
+					result.sowSalesdate = unixTimestamp1.toLocaleString();
+					var unixTimestamp2 = new Date(result.sowSalesyue);
+					result.sowSalesyue = unixTimestamp2.getMonth() + 1;
+					xsbj_vue.list = result;
+					$.each(result.sowd, function(i, s) {
+						if(s.sowdCustom1 == 0) {
+							s.sowdCustom1 = false;
+						} else {
+							s.sowdCustom1 = true;
+						}
+					});
+				}
 			});
 		}
-		$(function(){
+
+		$(function() {
 			ins();
-		})
+		});
+
+		layui.use('element', function() {
+				var element = layui.element;
+		});
 		
-layui.use('element', function(){
-	var element = layui.element;			
-});
+		//form表单提交
+		layui.use('form', function() {
+				var form = layui.form;
+				//监听提交
+				form.on('submit(formDemo)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+			}
+		);
+		//单据日期
+		layui.use('laydate', function() {
+				var laydate = layui.laydate;
+				laydate.render({
+					elem: '#test1',
+					done: function(value, date, endDate) {
+						//value, date, endDate点击日期、清空、现在、确定均会触发。回调返回三个参数，分别代表：生成的值、日期时间对象、结束的日期时间对象
+						xsbj_vue.list.sowDocumentDate = value;
+						var value1 = value.replace(/-/g, '');
+						$.ajax({
+							type: "get",
+							url: "http://localhost:8080/t_sow/wx?da=" + value1,
+							success: function(rel) {
+								xsbj_vue.list.sowId = rel;
+								alert(rel);
+							}
+						});
+					}
+				});
+				laydate.render({
+					elem: '#test2'
+				});
+				laydate.render({
+					elem: '#test3'
+				});
+				//年月选择器
+				laydate.render({
+					elem: '#test4',
+					type: 'month'
+				});
+			}
 
-//form表单提交
-layui.use('form', function(){
-  var form = layui.form;
-  
-  //监听提交
-  form.on('submit(formDemo)', function(data){
-    layer.msg(JSON.stringify(data.field));
-    return false;
-  });
-});
-//单据日期
-layui.use('laydate', function(){
-	var laydate = layui.laydate;
-	laydate.render({
-	    elem: '#test1',
-	    done:function(value,date,endDate){//value, date, endDate点击日期、清空、现在、确定均会触发。回调返回三个参数，分别代表：生成的值、日期时间对象、结束的日期时间对象
-        xsbj_vue.list.sowDocumentDate=value;
-        var value1=value.replace(/-/g,'');
-	        $.ajax({
-	        	type:"get",
-	        	url:"http://localhost:8080/t_sow/wx?da="+value1,
-	        	success:function(rel){
-	        		alert(rel)
-	        		xsbj_vue.list.sowId=rel;
-	        	}
-	        });
-    	}
-	  });
-	  laydate.render({
-	    elem: '#test2'
-	  });
-	  laydate.render({
-	    elem: '#test3'
-	  });
-	  //年月选择器
-	  laydate.render({
-	  	elem: '#test4'
-	  	,type: 'month'
-	});
-});
+		);
 
-
-
-		function childToParent(xsbj_vue){
-           	name=xsbj_vue; 
-           	xsbj_vue.list.
-    	}
-</script>
+		function childToParent(xsbj_vue) {
+			name = xsbj_vue;
+			//xsbj_vue.list.
+		}
+	</script>
 
 </html>

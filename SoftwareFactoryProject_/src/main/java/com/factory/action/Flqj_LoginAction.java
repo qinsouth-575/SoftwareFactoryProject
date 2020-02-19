@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.factory.biz.StaffBiz;
+import com.factory.biz.Flqj_StaffBiz;
 import com.factory.entity.Staff;
 
 /**
@@ -25,12 +25,12 @@ import com.factory.entity.Staff;
 @Controller
 @RequestMapping("/staffs")
 //@CrossOrigin(allowCredentials ="true")	//设置是否允许客户端发送cookie信息。默认是false 
-public class LoginAction {
+public class Flqj_LoginAction {
 	
-	private static Logger log = Logger.getLogger(LoginAction.class);
+	private static Logger log = Logger.getLogger(Flqj_LoginAction.class);
 	
 	@Autowired
-	private StaffBiz sb;
+	private Flqj_StaffBiz sb;
 
 	//1.登录查询
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

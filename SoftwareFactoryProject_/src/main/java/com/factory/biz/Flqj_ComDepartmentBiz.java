@@ -12,13 +12,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 /**
- * - 数据访问层 - 部门类
+ * - 业务逻辑层 - 部门类
  * @author south wind
  * @version v1.0 2020年2月17日 上午10:17:49
  * - 表/功能：
  */
 @Service
-public class ComDepartmentBiz {
+public class Flqj_ComDepartmentBiz {
 	
 	@Autowired
 	private ComdepartmentMapper dao;

@@ -3,70 +3,45 @@ package com.factory.entity;
 import java.util.Date;
 
 public class AdvancesReceivedMainY {
+	
     private String priabillId;
-
     private String customerId;
-
     private String priabillCustomerName;
-
     private Integer scsId;
-
     private Integer priabillSatName1;
-
     private Float priabillPrice1;
-
     private Integer priabillSatName2;
-
     private Float priabillPrice2;
-
     private Integer priabillSatName3;
-
     private Float priabillPrice3;
-
     private Integer priabillZhekou;
-
     private Date priabillEndtime;
-
     private Date priabillPayablestime;
-
     private String currencyId;
-
     private String priabillCurrencyName;
-
     private String priabillCurrencyInexchange;
-
     private Float payablesExchangeRate;
-
     private String priabillType;
-
     private String priabillVoucherno;
-
     private String staffId;
-
     private String priabillTeamName;
-
     private String projectId;
-
     private String priabillProjectName;
-
     private String priabillBillpersonnel;
-
     private String priabillReviewers;
-
     private String priabillRemarks;
-
     private Integer priabillAuditstatus;
-
     private String priabillAuditing;
-
     private String priabillYn;
-
     private String priabillCustom1;
-
     private String priabillCustom2;
-
     private String priabillCustom3;
 
+    private Integer pageNum;				//当前页
+    private final Integer pageSize = 1;		//每页显示条数
+    
+    
+    
     public String getPriabillId() {
         return priabillId;
     }
@@ -322,4 +297,36 @@ public class AdvancesReceivedMainY {
     public void setPriabillCustom3(String priabillCustom3) {
         this.priabillCustom3 = priabillCustom3;
     }
+	
+	public Integer getPageNum() {
+		return pageNum;
+	}
+	
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
+	}
+	
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	@Override
+	public String toString() {
+		return "AdvancesReceivedMainY [priabillId=" + priabillId + ", customerId=" + customerId
+				+ ", priabillCustomerName=" + priabillCustomerName + ", scsId=" + scsId + ", priabillSatName1="
+				+ priabillSatName1 + ", priabillPrice1=" + priabillPrice1 + ", priabillSatName2=" + priabillSatName2
+				+ ", priabillPrice2=" + priabillPrice2 + ", priabillSatName3=" + priabillSatName3 + ", priabillPrice3="
+				+ priabillPrice3 + ", priabillZhekou=" + priabillZhekou + ", priabillEndtime=" + priabillEndtime
+				+ ", priabillPayablestime=" + priabillPayablestime + ", currencyId=" + currencyId
+				+ ", priabillCurrencyName=" + priabillCurrencyName + ", priabillCurrencyInexchange="
+				+ priabillCurrencyInexchange + ", payablesExchangeRate=" + payablesExchangeRate + ", priabillType="
+				+ priabillType + ", priabillVoucherno=" + priabillVoucherno + ", staffId=" + staffId
+				+ ", priabillTeamName=" + priabillTeamName + ", projectId=" + projectId + ", priabillProjectName="
+				+ priabillProjectName + ", priabillBillpersonnel=" + priabillBillpersonnel + ", priabillReviewers="
+				+ priabillReviewers + ", priabillRemarks=" + priabillRemarks + ", priabillAuditstatus="
+				+ priabillAuditstatus + ", priabillAuditing=" + priabillAuditing + ", priabillYn=" + priabillYn
+				+ ", priabillCustom1=" + priabillCustom1 + ", priabillCustom2=" + priabillCustom2 + ", priabillCustom3="
+				+ priabillCustom3 + ", pageNum=" + pageNum + ", pageSize=" + pageSize + "]";
+	}
+	
 }

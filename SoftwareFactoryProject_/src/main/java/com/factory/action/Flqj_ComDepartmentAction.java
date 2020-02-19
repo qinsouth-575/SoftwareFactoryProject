@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.factory.biz.ComDepartmentBiz;
+import com.factory.biz.Flqj_ComDepartmentBiz;
 import com.factory.entity.Comdepartment;
 import com.github.pagehelper.PageInfo;
 
@@ -24,12 +24,12 @@ import com.github.pagehelper.PageInfo;
  */
 @Controller
 @RequestMapping("/departments")
-public class ComDepartmentAction {
+public class Flqj_ComDepartmentAction {
 	
-	private static Logger log = Logger.getLogger(ComDepartmentAction.class);
+	private static Logger log = Logger.getLogger(Flqj_ComDepartmentAction.class);
 	
 	@Autowired
-	private ComDepartmentBiz cdb;
+	private Flqj_ComDepartmentBiz cdb;
 	
 	//部门设定 - 1.分页查询单个部门信息
 	@RequestMapping(value = "cd", method = RequestMethod.POST)
