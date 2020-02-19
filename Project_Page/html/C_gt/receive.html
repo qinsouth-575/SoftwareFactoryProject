@@ -70,7 +70,7 @@
 	</head>
 
 	<body>
-		<div class="x-body">
+		<div id="vue_fw" class="x-body">
 			<div class="layui-container" style="padding: 8px;">
 				<div class="layui-row">
 					<div class="layui-col-md12">
@@ -85,78 +85,81 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">客户</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">单据日期</label>
-								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" id="date" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								<div class="layui-input-block">								
+									<input v-model="advances_received_main_y.priabill_payablestime" id="date" type="text" name="title"  required  lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">结算方式一</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="转账" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">单据号码</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" v-model="advances_received_main_y.priabill_id" name="title" required lay-verify="required" placeholder="" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">结算方式二</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="汇票" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">币别</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">结算方式三</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="现金" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">汇率</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="1.0000" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">折扣率（%）</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="0.00" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">应收冲款类型</label>
 								<div class="layui-input-block">
+									<input type="text" readonly="readonly" name="title" required lay-verify="required" placeholder="预收冲款" autocomplete="off" class="layui-input">
+									<!-- 
 									<select name="city" lay-verify="required">
 										<option value=""></option>
 										<option value="0">预收款</option>
 										<option value="1">收款冲款</option>
 										<option value="2">预收冲应收</option>
 									</select>
-								</div>
+									-->
+								</div>							
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">终止账月</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="date" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">凭证编号</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" readonly="readonly" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 						</form>
@@ -289,17 +292,69 @@
 			</div>
 		</div>
 
-		<script src="../../layui.all.js"></script>
 		<script src="../../js/jquery.min.js"></script>
-		<script>
-			var date = layui.laydate;
-			//执行一个laydate实例
-			date.render({
-				elem: '#date' //指定元素
-			});
-			date.render({
-				elem: '#date',
-				format: 'yyyyMMdd'
+		<script src="../../layui.all.js"></script>
+		<script src="../../layui.js"></script>
+		<script src="../../js/vue.js"></script>
+
+		<script type="text/javascript">
+			var vue=new Vue({
+			  el:"#vue_fw",
+			  data:{
+				  advances_received_main_y:{}
+			  },
+			  methods:{
+				 gt_select_payablestime:function(payablestime){
+				 	  var vue_ = this;
+				 	
+					  $.ajax({
+					  	type:"get",				  	
+					  	url:"http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_select_payablestime?payablestime="+payablestime,
+						async: false,					  	
+					  	success:function(result){
+					  		vue_.advances_received_main_y.priabill_id = result;
+					  	}
+					  })
+				 },
+				 gt_on_select_payablestime:function(){
+				 	this.gt_select_payablestime(this.advances_received_main_y.priabill_payablestime);				 	
+				 }
+			  },
+			  created:function(){
+			  	var now = new Date();
+				//格式化日，如果小于9，前面补0  
+				var day = ("0" + now.getDate()).slice(-2);  
+				//格式化月，如果小于9，前面补0  
+				var month = ("0" + (now.getMonth() + 1)).slice(-2);  
+				//拼装完整日 期格式  
+				var today = now.getFullYear()+"-"+(month)+"-"+(day) ;  
+				//将获取的当前日期赋值给主表的单据日期
+				this.advances_received_main_y.priabill_payablestime = today;
+			  	//调用根据单据日期查询赋值单据号码方法（传参单据日期）
+			  	this.gt_select_payablestime(this.advances_received_main_y.priabill_payablestime);
+			  }
+		  })
+			
+			layui.use(['laydate','element','form'], function(){
+				var laydate = layui.laydate;
+				var element = layui.element;
+				var form = layui.form;
+				laydate.render({
+	   				elem: '#date',
+	    			done:function(value,date,endDate){//value, date, endDate点击日期、清空、现在、确定均会触发。回调返回三个参数，分别代表：生成的值、日期时间对象、结束的日期时间对象
+	       			alert(1111)
+        			vue.advances_received_main_y.priabill_payablestime=value;
+        			//var value1=value.replace(/-/g,'');
+	       			 $.ajax({
+					  	type:"get",				  	
+					  	url:"http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_select_payablestime?payablestime="+value,
+						async: false,					  	
+					  	success:function(result){alert("sb");
+					  		vue.advances_received_main_y.priabill_id = result;
+					  	}
+					  })
+	    			}
+			 	});
 			});
 		</script>
 	</body>
