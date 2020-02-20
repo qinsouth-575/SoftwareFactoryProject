@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.ChartofaccountsbillMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.Chartofaccountsbill" >
+    <id column="coabid" property="coabid" jdbcType="INTEGER" />
+    <result column="coaname" property="coaname" jdbcType="VARCHAR" />
+    <result column="standby1" property="standby1" jdbcType="VARCHAR" />
+    <result column="standby2" property="standby2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    coabid, coaname, standby1, standby2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.ChartofaccountsbillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from chartofaccountsbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from chartofaccountsbill
+    where coabid = #{coabid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from chartofaccountsbill
+    where coabid = #{coabid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.ChartofaccountsbillExample" >
+    delete from chartofaccountsbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.Chartofaccountsbill" >
+    insert into chartofaccountsbill (coabid, coaname, standby1, 
+      standby2)
+    values (#{coabid,jdbcType=INTEGER}, #{coaname,jdbcType=VARCHAR}, #{standby1,jdbcType=VARCHAR}, 
+      #{standby2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.Chartofaccountsbill" >
+    insert into chartofaccountsbill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coabid != null" >
+        coabid,
+      </if>
+      <if test="coaname != null" >
+        coaname,
+      </if>
+      <if test="standby1 != null" >
+        standby1,
+      </if>
+      <if test="standby2 != null" >
+        standby2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coabid != null" >
+        #{coabid,jdbcType=INTEGER},
+      </if>
+      <if test="coaname != null" >
+        #{coaname,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.ChartofaccountsbillExample" resultType="java.lang.Integer" >
+    select count(*) from chartofaccountsbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update chartofaccountsbill
+    <set >
+      <if test="record.coabid != null" >
+        coabid = #{record.coabid,jdbcType=INTEGER},
+      </if>
+      <if test="record.coaname != null" >
+        coaname = #{record.coaname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standby1 != null" >
+        standby1 = #{record.standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standby2 != null" >
+        standby2 = #{record.standby2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update chartofaccountsbill
+    set coabid = #{record.coabid,jdbcType=INTEGER},
+      coaname = #{record.coaname,jdbcType=VARCHAR},
+      standby1 = #{record.standby1,jdbcType=VARCHAR},
+      standby2 = #{record.standby2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.Chartofaccountsbill" >
+    update chartofaccountsbill
+    <set >
+      <if test="coaname != null" >
+        coaname = #{coaname,jdbcType=VARCHAR},
+      </if>
+      <if test="standby1 != null" >
+        standby1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        standby2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where coabid = #{coabid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.Chartofaccountsbill" >
+    update chartofaccountsbill
+    set coaname = #{coaname,jdbcType=VARCHAR},
+      standby1 = #{standby1,jdbcType=VARCHAR},
+      standby2 = #{standby2,jdbcType=VARCHAR}
+    where coabid = #{coabid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.StockprimarybillMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.Stockprimarybill" >
+    <id column="spbid" property="spbid" jdbcType="INTEGER" />
+    <result column="spbDate" property="spbdate" jdbcType="DATE" />
+    <result column="warehouseid" property="warehouseid" jdbcType="INTEGER" />
+    <result column="stocktype" property="stocktype" jdbcType="VARCHAR" />
+    <result column="standby" property="standby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    spbid, spbDate, warehouseid, stocktype, standby
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.StockprimarybillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stockprimarybill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stockprimarybill
+    where spbid = #{spbid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stockprimarybill
+    where spbid = #{spbid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.StockprimarybillExample" >
+    delete from stockprimarybill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.Stockprimarybill" >
+    insert into stockprimarybill (spbid, spbDate, warehouseid, 
+      stocktype, standby)
+    values (#{spbid,jdbcType=INTEGER}, #{spbdate,jdbcType=DATE}, #{warehouseid,jdbcType=INTEGER}, 
+      #{stocktype,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.Stockprimarybill" >
+    insert into stockprimarybill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spbid != null" >
+        spbid,
+      </if>
+      <if test="spbdate != null" >
+        spbDate,
+      </if>
+      <if test="warehouseid != null" >
+        warehouseid,
+      </if>
+      <if test="stocktype != null" >
+        stocktype,
+      </if>
+      <if test="standby != null" >
+        standby,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spbid != null" >
+        #{spbid,jdbcType=INTEGER},
+      </if>
+      <if test="spbdate != null" >
+        #{spbdate,jdbcType=DATE},
+      </if>
+      <if test="warehouseid != null" >
+        #{warehouseid,jdbcType=INTEGER},
+      </if>
+      <if test="stocktype != null" >
+        #{stocktype,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null" >
+        #{standby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.StockprimarybillExample" resultType="java.lang.Integer" >
+    select count(*) from stockprimarybill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stockprimarybill
+    <set >
+      <if test="record.spbid != null" >
+        spbid = #{record.spbid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spbdate != null" >
+        spbDate = #{record.spbdate,jdbcType=DATE},
+      </if>
+      <if test="record.warehouseid != null" >
+        warehouseid = #{record.warehouseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.stocktype != null" >
+        stocktype = #{record.stocktype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standby != null" >
+        standby = #{record.standby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stockprimarybill
+    set spbid = #{record.spbid,jdbcType=INTEGER},
+      spbDate = #{record.spbdate,jdbcType=DATE},
+      warehouseid = #{record.warehouseid,jdbcType=INTEGER},
+      stocktype = #{record.stocktype,jdbcType=VARCHAR},
+      standby = #{record.standby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.Stockprimarybill" >
+    update stockprimarybill
+    <set >
+      <if test="spbdate != null" >
+        spbDate = #{spbdate,jdbcType=DATE},
+      </if>
+      <if test="warehouseid != null" >
+        warehouseid = #{warehouseid,jdbcType=INTEGER},
+      </if>
+      <if test="stocktype != null" >
+        stocktype = #{stocktype,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null" >
+        standby = #{standby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where spbid = #{spbid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.Stockprimarybill" >
+    update stockprimarybill
+    set spbDate = #{spbdate,jdbcType=DATE},
+      warehouseid = #{warehouseid,jdbcType=INTEGER},
+      stocktype = #{stocktype,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR}
+    where spbid = #{spbid,jdbcType=INTEGER}
+  </update>
+</mapper>

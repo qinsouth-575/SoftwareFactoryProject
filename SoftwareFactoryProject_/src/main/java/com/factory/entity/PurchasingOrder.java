@@ -46,8 +46,42 @@ public class PurchasingOrder {
     private String poCustom2;
 
     private String poCustom3;
+private String pureExecutor;
+private String pureCheckagainStaff;
+	public String getPureExecutor() {
+	return pureExecutor;
+}
 
-    public String getPoId() {
+public void setPureExecutor(String pureExecutor) {
+	this.pureExecutor = pureExecutor;
+}
+
+public String getPureCheckagainStaff() {
+	return pureCheckagainStaff;
+}
+
+public void setPureCheckagainStaff(String pureCheckagainStaff) {
+	this.pureCheckagainStaff = pureCheckagainStaff;
+}
+
+	public PurchasingOrder() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "PurchasingOrder [poId=" + poId + ", supplierId=" + supplierId + ", poEngname=" + poEngname + ", potId="
+				+ potId + ", poPriceIncludeTax=" + poPriceIncludeTax + ", poSingleStatus=" + poSingleStatus
+				+ ", poDocumentDate=" + poDocumentDate + ", poDocumentNumber=" + poDocumentNumber + ", currencyId="
+				+ currencyId + ", poExchangeRate=" + poExchangeRate + ", poDeliveryAddress=" + poDeliveryAddress
+				+ ", poBuyer=" + poBuyer + ", poBelongsSection=" + poBelongsSection + ", poBelongsProject="
+				+ poBelongsProject + ", poHeaderProvision=" + poHeaderProvision + ", poEndClause=" + poEndClause
+				+ ", poRemark=" + poRemark + ", poAudition=" + poAudition + ", poYn=" + poYn + ", poCustom1="
+				+ poCustom1 + ", poCustom2=" + poCustom2 + ", poCustom3=" + poCustom3 + ", pureExecutor=" + pureExecutor
+				+ ", pureCheckagainStaff=" + pureCheckagainStaff + "]";
+	}
+
+	public String getPoId() {
         return poId;
     }
 
@@ -222,4 +256,5 @@ public class PurchasingOrder {
     public void setPoCustom3(String poCustom3) {
         this.poCustom3 = poCustom3;
     }
+    
 }

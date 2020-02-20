@@ -14,7 +14,8 @@
     	c.andNameLike("%"+name+"%");
     	c.andParentidEqualTo(parentId); -->
     	
-	<classPathEntry location="D:\SelfStudy\SMSVerification\local-repositoty\mysql\mysql-connector-java\5.1.47\mysql-connector-java-5.1.47.jar" />
+	<classPathEntry
+		location="D:\software\cangku\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar" />
 	<context id="context1">
 		<!-- 注释 -->
 		<commentGenerator>
@@ -31,7 +32,7 @@
 		<javaClientGenerator targetPackage="com.factory.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 			
 			
-			<!-- 
+			 
 			
 			<table schema="Comdepartment" tableName="comdepartment"></table>
 			<table schema="HumSchooling" tableName="hum_schooling"></table>
@@ -89,7 +90,7 @@
 			<table schema="Stockprimarybill" tableName="stockprimarybill"></table>
 			<table schema="Stockschedulebill" tableName="stockschedulebill"></table>
 			
-			 -->
+			
 			
 			
 <!-- 		<table schema="Sys_permissions" tableName="sys_permissions"></table> -->

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.ComfaremeansMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.Comfaremeans" >
+    <result column="FareClassID" property="fareclassid" jdbcType="VARCHAR" />
+    <result column="FareClassName" property="fareclassname" jdbcType="VARCHAR" />
+    <result column="EngName" property="engname" jdbcType="VARCHAR" />
+    <result column="AccSubjectID" property="accsubjectid" jdbcType="VARCHAR" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="Flag" property="flag" jdbcType="SMALLINT" />
+    <result column="MergeOutState" property="mergeoutstate" jdbcType="SMALLINT" />
+    <result column="InvoProdName" property="invoprodname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FareClassID, FareClassName, EngName, AccSubjectID, Memo, Flag, MergeOutState, InvoProdName
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.ComfaremeansExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comfaremeans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.factory.entity.ComfaremeansExample" >
+    delete from comfaremeans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.Comfaremeans" >
+    insert into comfaremeans (FareClassID, FareClassName, EngName, 
+      AccSubjectID, Memo, Flag, 
+      MergeOutState, InvoProdName)
+    values (#{fareclassid,jdbcType=VARCHAR}, #{fareclassname,jdbcType=VARCHAR}, #{engname,jdbcType=VARCHAR}, 
+      #{accsubjectid,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{flag,jdbcType=SMALLINT}, 
+      #{mergeoutstate,jdbcType=SMALLINT}, #{invoprodname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.Comfaremeans" >
+    insert into comfaremeans
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fareclassid != null" >
+        FareClassID,
+      </if>
+      <if test="fareclassname != null" >
+        FareClassName,
+      </if>
+      <if test="engname != null" >
+        EngName,
+      </if>
+      <if test="accsubjectid != null" >
+        AccSubjectID,
+      </if>
+      <if test="memo != null" >
+        Memo,
+      </if>
+      <if test="flag != null" >
+        Flag,
+      </if>
+      <if test="mergeoutstate != null" >
+        MergeOutState,
+      </if>
+      <if test="invoprodname != null" >
+        InvoProdName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fareclassid != null" >
+        #{fareclassid,jdbcType=VARCHAR},
+      </if>
+      <if test="fareclassname != null" >
+        #{fareclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="engname != null" >
+        #{engname,jdbcType=VARCHAR},
+      </if>
+      <if test="accsubjectid != null" >
+        #{accsubjectid,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=SMALLINT},
+      </if>
+      <if test="mergeoutstate != null" >
+        #{mergeoutstate,jdbcType=SMALLINT},
+      </if>
+      <if test="invoprodname != null" >
+        #{invoprodname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.ComfaremeansExample" resultType="java.lang.Integer" >
+    select count(*) from comfaremeans
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comfaremeans
+    <set >
+      <if test="record.fareclassid != null" >
+        FareClassID = #{record.fareclassid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fareclassname != null" >
+        FareClassName = #{record.fareclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.engname != null" >
+        EngName = #{record.engname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accsubjectid != null" >
+        AccSubjectID = #{record.accsubjectid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        Memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        Flag = #{record.flag,jdbcType=SMALLINT},
+      </if>
+      <if test="record.mergeoutstate != null" >
+        MergeOutState = #{record.mergeoutstate,jdbcType=SMALLINT},
+      </if>
+      <if test="record.invoprodname != null" >
+        InvoProdName = #{record.invoprodname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comfaremeans
+    set FareClassID = #{record.fareclassid,jdbcType=VARCHAR},
+      FareClassName = #{record.fareclassname,jdbcType=VARCHAR},
+      EngName = #{record.engname,jdbcType=VARCHAR},
+      AccSubjectID = #{record.accsubjectid,jdbcType=VARCHAR},
+      Memo = #{record.memo,jdbcType=VARCHAR},
+      Flag = #{record.flag,jdbcType=SMALLINT},
+      MergeOutState = #{record.mergeoutstate,jdbcType=SMALLINT},
+      InvoProdName = #{record.invoprodname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

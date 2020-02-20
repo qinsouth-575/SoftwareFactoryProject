@@ -188,7 +188,7 @@
 		   					return false;
 		   				
 						var this_ = this;
-		   				//数据无误			/	alert("参数：" + this.department.departid);
+		   				//数据无误			alert("参数：" + this.department.departid);
 		   				axios.delete(`http://localhost:8080/SoftwareFactoryProject_/departments/cd/` + this.department.departid).then(function(res){
 							//数据正常		/alert(JSON.stringify(res));
 							if(res.data.code == "1"){

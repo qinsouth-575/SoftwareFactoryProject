@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.TPurchaseRequisitionsDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.TPurchaseRequisitionsDetails" >
+    <result column="SerNO" property="serno" jdbcType="VARCHAR" />
+    <result column="ProdID" property="prodid" jdbcType="INTEGER" />
+    <result column="ProdName" property="prodname" jdbcType="VARCHAR" />
+    <result column="ProdSize" property="prodsize" jdbcType="VARCHAR" />
+    <result column="SUnitID" property="sunitid" jdbcType="INTEGER" />
+    <result column="sQuantity" property="squantity" jdbcType="INTEGER" />
+    <result column="CurrID" property="currid" jdbcType="INTEGER" />
+    <result column="sPrice" property="sprice" jdbcType="REAL" />
+    <result column="Amount" property="amount" jdbcType="REAL" />
+    <result column="LastestCurrID" property="lastestcurrid" jdbcType="INTEGER" />
+    <result column="LastestPrice" property="lastestprice" jdbcType="REAL" />
+    <result column="LastestAmount" property="lastestamount" jdbcType="REAL" />
+    <result column="PreInDate" property="preindate" jdbcType="DATE" />
+    <result column="SuggestPurDate" property="suggestpurdate" jdbcType="DATE" />
+    <result column="QtyRemain" property="qtyremain" jdbcType="INTEGER" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="TranType" property="trantype" jdbcType="VARCHAR" />
+    <result column="FromNo" property="fromno" jdbcType="VARCHAR" />
+    <result column="ItemRemark" property="itemremark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SerNO, ProdID, ProdName, ProdSize, SUnitID, sQuantity, CurrID, sPrice, Amount, LastestCurrID, 
+    LastestPrice, LastestAmount, PreInDate, SuggestPurDate, QtyRemain, Remark, TranType, 
+    FromNo, ItemRemark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.TPurchaseRequisitionsDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_purchase_requisitions_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.factory.entity.TPurchaseRequisitionsDetailsExample" >
+    delete from t_purchase_requisitions_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.TPurchaseRequisitionsDetails" >
+    insert into t_purchase_requisitions_details (SerNO, ProdID, ProdName, 
+      ProdSize, SUnitID, sQuantity, 
+      CurrID, sPrice, Amount, LastestCurrID, 
+      LastestPrice, LastestAmount, PreInDate, 
+      SuggestPurDate, QtyRemain, Remark, 
+      TranType, FromNo, ItemRemark
+      )
+    values (#{serno,jdbcType=VARCHAR}, #{prodid,jdbcType=INTEGER}, #{prodname,jdbcType=VARCHAR}, 
+      #{prodsize,jdbcType=VARCHAR}, #{sunitid,jdbcType=INTEGER}, #{squantity,jdbcType=INTEGER}, 
+      #{currid,jdbcType=INTEGER}, #{sprice,jdbcType=REAL}, #{amount,jdbcType=REAL}, #{lastestcurrid,jdbcType=INTEGER}, 
+      #{lastestprice,jdbcType=REAL}, #{lastestamount,jdbcType=REAL}, #{preindate,jdbcType=DATE}, 
+      #{suggestpurdate,jdbcType=DATE}, #{qtyremain,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{trantype,jdbcType=VARCHAR}, #{fromno,jdbcType=VARCHAR}, #{itemremark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.TPurchaseRequisitionsDetails" >
+    insert into t_purchase_requisitions_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serno != null" >
+        SerNO,
+      </if>
+      <if test="prodid != null" >
+        ProdID,
+      </if>
+      <if test="prodname != null" >
+        ProdName,
+      </if>
+      <if test="prodsize != null" >
+        ProdSize,
+      </if>
+      <if test="sunitid != null" >
+        SUnitID,
+      </if>
+      <if test="squantity != null" >
+        sQuantity,
+      </if>
+      <if test="currid != null" >
+        CurrID,
+      </if>
+      <if test="sprice != null" >
+        sPrice,
+      </if>
+      <if test="amount != null" >
+        Amount,
+      </if>
+      <if test="lastestcurrid != null" >
+        LastestCurrID,
+      </if>
+      <if test="lastestprice != null" >
+        LastestPrice,
+      </if>
+      <if test="lastestamount != null" >
+        LastestAmount,
+      </if>
+      <if test="preindate != null" >
+        PreInDate,
+      </if>
+      <if test="suggestpurdate != null" >
+        SuggestPurDate,
+      </if>
+      <if test="qtyremain != null" >
+        QtyRemain,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="trantype != null" >
+        TranType,
+      </if>
+      <if test="fromno != null" >
+        FromNo,
+      </if>
+      <if test="itemremark != null" >
+        ItemRemark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serno != null" >
+        #{serno,jdbcType=VARCHAR},
+      </if>
+      <if test="prodid != null" >
+        #{prodid,jdbcType=INTEGER},
+      </if>
+      <if test="prodname != null" >
+        #{prodname,jdbcType=VARCHAR},
+      </if>
+      <if test="prodsize != null" >
+        #{prodsize,jdbcType=VARCHAR},
+      </if>
+      <if test="sunitid != null" >
+        #{sunitid,jdbcType=INTEGER},
+      </if>
+      <if test="squantity != null" >
+        #{squantity,jdbcType=INTEGER},
+      </if>
+      <if test="currid != null" >
+        #{currid,jdbcType=INTEGER},
+      </if>
+      <if test="sprice != null" >
+        #{sprice,jdbcType=REAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=REAL},
+      </if>
+      <if test="lastestcurrid != null" >
+        #{lastestcurrid,jdbcType=INTEGER},
+      </if>
+      <if test="lastestprice != null" >
+        #{lastestprice,jdbcType=REAL},
+      </if>
+      <if test="lastestamount != null" >
+        #{lastestamount,jdbcType=REAL},
+      </if>
+      <if test="preindate != null" >
+        #{preindate,jdbcType=DATE},
+      </if>
+      <if test="suggestpurdate != null" >
+        #{suggestpurdate,jdbcType=DATE},
+      </if>
+      <if test="qtyremain != null" >
+        #{qtyremain,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="trantype != null" >
+        #{trantype,jdbcType=VARCHAR},
+      </if>
+      <if test="fromno != null" >
+        #{fromno,jdbcType=VARCHAR},
+      </if>
+      <if test="itemremark != null" >
+        #{itemremark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.TPurchaseRequisitionsDetailsExample" resultType="java.lang.Integer" >
+    select count(*) from t_purchase_requisitions_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_purchase_requisitions_details
+    <set >
+      <if test="record.serno != null" >
+        SerNO = #{record.serno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodid != null" >
+        ProdID = #{record.prodid,jdbcType=INTEGER},
+      </if>
+      <if test="record.prodname != null" >
+        ProdName = #{record.prodname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodsize != null" >
+        ProdSize = #{record.prodsize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sunitid != null" >
+        SUnitID = #{record.sunitid,jdbcType=INTEGER},
+      </if>
+      <if test="record.squantity != null" >
+        sQuantity = #{record.squantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.currid != null" >
+        CurrID = #{record.currid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sprice != null" >
+        sPrice = #{record.sprice,jdbcType=REAL},
+      </if>
+      <if test="record.amount != null" >
+        Amount = #{record.amount,jdbcType=REAL},
+      </if>
+      <if test="record.lastestcurrid != null" >
+        LastestCurrID = #{record.lastestcurrid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastestprice != null" >
+        LastestPrice = #{record.lastestprice,jdbcType=REAL},
+      </if>
+      <if test="record.lastestamount != null" >
+        LastestAmount = #{record.lastestamount,jdbcType=REAL},
+      </if>
+      <if test="record.preindate != null" >
+        PreInDate = #{record.preindate,jdbcType=DATE},
+      </if>
+      <if test="record.suggestpurdate != null" >
+        SuggestPurDate = #{record.suggestpurdate,jdbcType=DATE},
+      </if>
+      <if test="record.qtyremain != null" >
+        QtyRemain = #{record.qtyremain,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        Remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trantype != null" >
+        TranType = #{record.trantype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromno != null" >
+        FromNo = #{record.fromno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemremark != null" >
+        ItemRemark = #{record.itemremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_purchase_requisitions_details
+    set SerNO = #{record.serno,jdbcType=VARCHAR},
+      ProdID = #{record.prodid,jdbcType=INTEGER},
+      ProdName = #{record.prodname,jdbcType=VARCHAR},
+      ProdSize = #{record.prodsize,jdbcType=VARCHAR},
+      SUnitID = #{record.sunitid,jdbcType=INTEGER},
+      sQuantity = #{record.squantity,jdbcType=INTEGER},
+      CurrID = #{record.currid,jdbcType=INTEGER},
+      sPrice = #{record.sprice,jdbcType=REAL},
+      Amount = #{record.amount,jdbcType=REAL},
+      LastestCurrID = #{record.lastestcurrid,jdbcType=INTEGER},
+      LastestPrice = #{record.lastestprice,jdbcType=REAL},
+      LastestAmount = #{record.lastestamount,jdbcType=REAL},
+      PreInDate = #{record.preindate,jdbcType=DATE},
+      SuggestPurDate = #{record.suggestpurdate,jdbcType=DATE},
+      QtyRemain = #{record.qtyremain,jdbcType=INTEGER},
+      Remark = #{record.remark,jdbcType=VARCHAR},
+      TranType = #{record.trantype,jdbcType=VARCHAR},
+      FromNo = #{record.fromno,jdbcType=VARCHAR},
+      ItemRemark = #{record.itemremark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

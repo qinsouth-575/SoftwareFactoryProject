@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.PurchasingOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.PurchasingOrder" >
+    <id column="po_id" property="poId" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="po_engname" property="poEngname" jdbcType="VARCHAR" />
+    <result column="pot_id" property="potId" jdbcType="VARCHAR" />
+    <result column="po_price_include_tax" property="poPriceIncludeTax" jdbcType="VARCHAR" />
+    <result column="po_single_status" property="poSingleStatus" jdbcType="VARCHAR" />
+    <result column="po_document_date" property="poDocumentDate" jdbcType="DATE" />
+    <result column="po_document_number" property="poDocumentNumber" jdbcType="VARCHAR" />
+    <result column="currency_id" property="currencyId" jdbcType="VARCHAR" />
+    <result column="po_exchange_rate" property="poExchangeRate" jdbcType="REAL" />
+    <result column="po_delivery_address" property="poDeliveryAddress" jdbcType="VARCHAR" />
+    <result column="po_buyer" property="poBuyer" jdbcType="VARCHAR" />
+    <result column="po_belongs_section" property="poBelongsSection" jdbcType="VARCHAR" />
+    <result column="po_belongs_project" property="poBelongsProject" jdbcType="VARCHAR" />
+    <result column="po_header_provision" property="poHeaderProvision" jdbcType="VARCHAR" />
+    <result column="po_end_clause" property="poEndClause" jdbcType="VARCHAR" />
+    <result column="po_remark" property="poRemark" jdbcType="VARCHAR" />
+    <result column="po_audition" property="poAudition" jdbcType="VARCHAR" />
+    <result column="po_yn" property="poYn" jdbcType="VARCHAR" />
+    <result column="po_custom1" property="poCustom1" jdbcType="VARCHAR" />
+    <result column="po_custom2" property="poCustom2" jdbcType="VARCHAR" />
+    <result column="po_custom3" property="poCustom3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    po_id, supplier_id, po_engname, pot_id, po_price_include_tax, po_single_status, po_document_date, 
+    po_document_number, currency_id, po_exchange_rate, po_delivery_address, po_buyer, 
+    po_belongs_section, po_belongs_project, po_header_provision, po_end_clause, po_remark, 
+    po_audition, po_yn, po_custom1, po_custom2, po_custom3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.PurchasingOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purchasing_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchasing_order
+    where po_id = #{poId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from purchasing_order
+    where po_id = #{poId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.PurchasingOrderExample" >
+    delete from purchasing_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.PurchasingOrder" >
+    insert into purchasing_order (po_id, supplier_id, po_engname, 
+      pot_id, po_price_include_tax, po_single_status, 
+      po_document_date, po_document_number, currency_id, 
+      po_exchange_rate, po_delivery_address, po_buyer, 
+      po_belongs_section, po_belongs_project, po_header_provision, 
+      po_end_clause, po_remark, po_audition, 
+      po_yn, po_custom1, po_custom2, 
+      po_custom3)
+    values (#{poId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{poEngname,jdbcType=VARCHAR}, 
+      #{potId,jdbcType=VARCHAR}, #{poPriceIncludeTax,jdbcType=VARCHAR}, #{poSingleStatus,jdbcType=VARCHAR}, 
+      #{poDocumentDate,jdbcType=DATE}, #{poDocumentNumber,jdbcType=VARCHAR}, #{currencyId,jdbcType=VARCHAR}, 
+      #{poExchangeRate,jdbcType=REAL}, #{poDeliveryAddress,jdbcType=VARCHAR}, #{poBuyer,jdbcType=VARCHAR}, 
+      #{poBelongsSection,jdbcType=VARCHAR}, #{poBelongsProject,jdbcType=VARCHAR}, #{poHeaderProvision,jdbcType=VARCHAR}, 
+      #{poEndClause,jdbcType=VARCHAR}, #{poRemark,jdbcType=VARCHAR}, #{poAudition,jdbcType=VARCHAR}, 
+      #{poYn,jdbcType=VARCHAR}, #{poCustom1,jdbcType=VARCHAR}, #{poCustom2,jdbcType=VARCHAR}, 
+      #{poCustom3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.PurchasingOrder" >
+    insert into purchasing_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="poId != null" >
+        po_id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="poEngname != null" >
+        po_engname,
+      </if>
+      <if test="potId != null" >
+        pot_id,
+      </if>
+      <if test="poPriceIncludeTax != null" >
+        po_price_include_tax,
+      </if>
+      <if test="poSingleStatus != null" >
+        po_single_status,
+      </if>
+      <if test="poDocumentDate != null" >
+        po_document_date,
+      </if>
+      <if test="poDocumentNumber != null" >
+        po_document_number,
+      </if>
+      <if test="currencyId != null" >
+        currency_id,
+      </if>
+      <if test="poExchangeRate != null" >
+        po_exchange_rate,
+      </if>
+      <if test="poDeliveryAddress != null" >
+        po_delivery_address,
+      </if>
+      <if test="poBuyer != null" >
+        po_buyer,
+      </if>
+      <if test="poBelongsSection != null" >
+        po_belongs_section,
+      </if>
+      <if test="poBelongsProject != null" >
+        po_belongs_project,
+      </if>
+      <if test="poHeaderProvision != null" >
+        po_header_provision,
+      </if>
+      <if test="poEndClause != null" >
+        po_end_clause,
+      </if>
+      <if test="poRemark != null" >
+        po_remark,
+      </if>
+      <if test="poAudition != null" >
+        po_audition,
+      </if>
+      <if test="poYn != null" >
+        po_yn,
+      </if>
+      <if test="poCustom1 != null" >
+        po_custom1,
+      </if>
+      <if test="poCustom2 != null" >
+        po_custom2,
+      </if>
+      <if test="poCustom3 != null" >
+        po_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="poId != null" >
+        #{poId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="poEngname != null" >
+        #{poEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="potId != null" >
+        #{potId,jdbcType=VARCHAR},
+      </if>
+      <if test="poPriceIncludeTax != null" >
+        #{poPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="poSingleStatus != null" >
+        #{poSingleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="poDocumentDate != null" >
+        #{poDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="poDocumentNumber != null" >
+        #{poDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="poExchangeRate != null" >
+        #{poExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="poDeliveryAddress != null" >
+        #{poDeliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="poBuyer != null" >
+        #{poBuyer,jdbcType=VARCHAR},
+      </if>
+      <if test="poBelongsSection != null" >
+        #{poBelongsSection,jdbcType=VARCHAR},
+      </if>
+      <if test="poBelongsProject != null" >
+        #{poBelongsProject,jdbcType=VARCHAR},
+      </if>
+      <if test="poHeaderProvision != null" >
+        #{poHeaderProvision,jdbcType=VARCHAR},
+      </if>
+      <if test="poEndClause != null" >
+        #{poEndClause,jdbcType=VARCHAR},
+      </if>
+      <if test="poRemark != null" >
+        #{poRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="poAudition != null" >
+        #{poAudition,jdbcType=VARCHAR},
+      </if>
+      <if test="poYn != null" >
+        #{poYn,jdbcType=VARCHAR},
+      </if>
+      <if test="poCustom1 != null" >
+        #{poCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="poCustom2 != null" >
+        #{poCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="poCustom3 != null" >
+        #{poCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.PurchasingOrderExample" resultType="java.lang.Integer" >
+    select count(*) from purchasing_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update purchasing_order
+    <set >
+      <if test="record.poId != null" >
+        po_id = #{record.poId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierId != null" >
+        supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poEngname != null" >
+        po_engname = #{record.poEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.potId != null" >
+        pot_id = #{record.potId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poPriceIncludeTax != null" >
+        po_price_include_tax = #{record.poPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poSingleStatus != null" >
+        po_single_status = #{record.poSingleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poDocumentDate != null" >
+        po_document_date = #{record.poDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="record.poDocumentNumber != null" >
+        po_document_number = #{record.poDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyId != null" >
+        currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poExchangeRate != null" >
+        po_exchange_rate = #{record.poExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="record.poDeliveryAddress != null" >
+        po_delivery_address = #{record.poDeliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poBuyer != null" >
+        po_buyer = #{record.poBuyer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poBelongsSection != null" >
+        po_belongs_section = #{record.poBelongsSection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poBelongsProject != null" >
+        po_belongs_project = #{record.poBelongsProject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poHeaderProvision != null" >
+        po_header_provision = #{record.poHeaderProvision,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poEndClause != null" >
+        po_end_clause = #{record.poEndClause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poRemark != null" >
+        po_remark = #{record.poRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poAudition != null" >
+        po_audition = #{record.poAudition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poYn != null" >
+        po_yn = #{record.poYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poCustom1 != null" >
+        po_custom1 = #{record.poCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poCustom2 != null" >
+        po_custom2 = #{record.poCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poCustom3 != null" >
+        po_custom3 = #{record.poCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update purchasing_order
+    set po_id = #{record.poId,jdbcType=VARCHAR},
+      supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      po_engname = #{record.poEngname,jdbcType=VARCHAR},
+      pot_id = #{record.potId,jdbcType=VARCHAR},
+      po_price_include_tax = #{record.poPriceIncludeTax,jdbcType=VARCHAR},
+      po_single_status = #{record.poSingleStatus,jdbcType=VARCHAR},
+      po_document_date = #{record.poDocumentDate,jdbcType=DATE},
+      po_document_number = #{record.poDocumentNumber,jdbcType=VARCHAR},
+      currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      po_exchange_rate = #{record.poExchangeRate,jdbcType=REAL},
+      po_delivery_address = #{record.poDeliveryAddress,jdbcType=VARCHAR},
+      po_buyer = #{record.poBuyer,jdbcType=VARCHAR},
+      po_belongs_section = #{record.poBelongsSection,jdbcType=VARCHAR},
+      po_belongs_project = #{record.poBelongsProject,jdbcType=VARCHAR},
+      po_header_provision = #{record.poHeaderProvision,jdbcType=VARCHAR},
+      po_end_clause = #{record.poEndClause,jdbcType=VARCHAR},
+      po_remark = #{record.poRemark,jdbcType=VARCHAR},
+      po_audition = #{record.poAudition,jdbcType=VARCHAR},
+      po_yn = #{record.poYn,jdbcType=VARCHAR},
+      po_custom1 = #{record.poCustom1,jdbcType=VARCHAR},
+      po_custom2 = #{record.poCustom2,jdbcType=VARCHAR},
+      po_custom3 = #{record.poCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.PurchasingOrder" >
+    update purchasing_order
+    <set >
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="poEngname != null" >
+        po_engname = #{poEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="potId != null" >
+        pot_id = #{potId,jdbcType=VARCHAR},
+      </if>
+      <if test="poPriceIncludeTax != null" >
+        po_price_include_tax = #{poPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="poSingleStatus != null" >
+        po_single_status = #{poSingleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="poDocumentDate != null" >
+        po_document_date = #{poDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="poDocumentNumber != null" >
+        po_document_number = #{poDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        currency_id = #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="poExchangeRate != null" >
+        po_exchange_rate = #{poExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="poDeliveryAddress != null" >
+        po_delivery_address = #{poDeliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="poBuyer != null" >
+        po_buyer = #{poBuyer,jdbcType=VARCHAR},
+      </if>
+      <if test="poBelongsSection != null" >
+        po_belongs_section = #{poBelongsSection,jdbcType=VARCHAR},
+      </if>
+      <if test="poBelongsProject != null" >
+        po_belongs_project = #{poBelongsProject,jdbcType=VARCHAR},
+      </if>
+      <if test="poHeaderProvision != null" >
+        po_header_provision = #{poHeaderProvision,jdbcType=VARCHAR},
+      </if>
+      <if test="poEndClause != null" >
+        po_end_clause = #{poEndClause,jdbcType=VARCHAR},
+      </if>
+      <if test="poRemark != null" >
+        po_remark = #{poRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="poAudition != null" >
+        po_audition = #{poAudition,jdbcType=VARCHAR},
+      </if>
+      <if test="poYn != null" >
+        po_yn = #{poYn,jdbcType=VARCHAR},
+      </if>
+      <if test="poCustom1 != null" >
+        po_custom1 = #{poCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="poCustom2 != null" >
+        po_custom2 = #{poCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="poCustom3 != null" >
+        po_custom3 = #{poCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where po_id = #{poId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.PurchasingOrder" >
+    update purchasing_order
+    set supplier_id = #{supplierId,jdbcType=VARCHAR},
+      po_engname = #{poEngname,jdbcType=VARCHAR},
+      pot_id = #{potId,jdbcType=VARCHAR},
+      po_price_include_tax = #{poPriceIncludeTax,jdbcType=VARCHAR},
+      po_single_status = #{poSingleStatus,jdbcType=VARCHAR},
+      po_document_date = #{poDocumentDate,jdbcType=DATE},
+      po_document_number = #{poDocumentNumber,jdbcType=VARCHAR},
+      currency_id = #{currencyId,jdbcType=VARCHAR},
+      po_exchange_rate = #{poExchangeRate,jdbcType=REAL},
+      po_delivery_address = #{poDeliveryAddress,jdbcType=VARCHAR},
+      po_buyer = #{poBuyer,jdbcType=VARCHAR},
+      po_belongs_section = #{poBelongsSection,jdbcType=VARCHAR},
+      po_belongs_project = #{poBelongsProject,jdbcType=VARCHAR},
+      po_header_provision = #{poHeaderProvision,jdbcType=VARCHAR},
+      po_end_clause = #{poEndClause,jdbcType=VARCHAR},
+      po_remark = #{poRemark,jdbcType=VARCHAR},
+      po_audition = #{poAudition,jdbcType=VARCHAR},
+      po_yn = #{poYn,jdbcType=VARCHAR},
+      po_custom1 = #{poCustom1,jdbcType=VARCHAR},
+      po_custom2 = #{poCustom2,jdbcType=VARCHAR},
+      po_custom3 = #{poCustom3,jdbcType=VARCHAR}
+    where po_id = #{poId,jdbcType=VARCHAR}
+  </update>
+</mapper>

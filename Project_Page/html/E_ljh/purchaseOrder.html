@@ -85,7 +85,7 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">供应商</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poid">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
@@ -97,31 +97,31 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">供应商地址</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poengname">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">单据号码</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="podocumentnumber">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">采购订单类型</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="potid">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">币别</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="currencyid">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">单价是否含税</label>
 								<div class="layui-input-block">
-									<select name="city" lay-verify="required">
+									<select name="city" lay-verify="required" id="popriceincludetax">
 										<option value=""></option>
 										<option value="0">未税</option>
 										<option value="1">含税</option>
@@ -131,13 +131,13 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">汇率</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poexchangerate">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">单况</label>
 								<div class="layui-input-block">
-									<select name="city" lay-verify="required">
+									<select name="city" lay-verify="required" id="posinglestatus">
 										<option value=""></option>
 										<option value="0">未结案</option>
 										<option value="1">已结案</option>
@@ -148,7 +148,7 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">送货地址</label>
 								<div class="layui-input-block">
-									<select name="city" lay-verify="required">
+									<select name="city" lay-verify="required" id="podeliveryaddress">
 										<option value=""></option>
 									</select>
 								</div>
@@ -189,10 +189,9 @@
 														<td>(来源单号)</td>
 													</tr>
 												</thead>
-												<tbody>
-													<tr>
-														<td colspan="18" align="center">内容</td>
-													</tr>
+												<tbody id="np">
+													
+													
 												</tbody>
 												<tfoot>
 													<tr>
@@ -213,31 +212,31 @@
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">表头条文</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"id="poheaderprovision">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">自定栏一</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"id="pocustom1">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">表尾条文</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poendclause">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">自定栏二</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pocustom2">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md12">
 											<label class="layui-form-label">备注</label>
 											<div class="layui-input-block">
-												<textarea rows="12" name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+												<textarea rows="12" name="desc" placeholder="请输入内容" class="layui-textarea" id="poremark"></textarea>
 											</div>
 										</div>
 									</form>
@@ -250,31 +249,31 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">采购人员</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"  id="pobuyer">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">制单人员</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pureexecutor">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">所属部门</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pobelongssection">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">复核人员</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"id="purecheckagainstaff">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">所属项目</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"id="pobelongsproject">
 								</div>
 							</div>
 						</form>
@@ -291,6 +290,11 @@
 		<script src="../../layui.all.js"></script>
 		<script src="../../js/jquery.min.js"></script>
 		<script>
+			
+	var pageNum=1;
+	var pageSize=1;
+	var wei=0;
+	cc();
 			var date = layui.laydate;
 			//执行一个laydate实例
 			date.render({
@@ -300,6 +304,185 @@
 				elem: '#date',
 				format: 'yyyyMMdd'
 			});
+			
+			
+			var state = "";
+			
+			function subpageTriggerEvent(incident){
+				//alert("部门设定页 - 触发事件：" + incident);
+				
+				if(incident == "goFirstPage"){
+					//第一笔
+					
+					so()
+					
+				} else if(incident == "goPrePage"){
+					shang()
+					
+					//上一笔
+				} else if(incident == "goNextPage"){
+					xia()
+					//下一笔
+				} else if(incident == "goLastPage"){
+					we()
+					//后一笔
+				} else if(incident == "goInsert"){
+					
+					//新增
+				} else if(incident == "save"){
+					
+					//保存
+				} else if(incident == "cancel"){
+					
+					//放弃
+				} else if(incident == "goUpdate"){
+					
+					//修改
+				} else if(incident == "delete"){
+					
+					//删除
+				} else if(incident == "refresh"){
+					
+					//刷新
+				}
+				
+				state = incident;
+			}
+		
+			//创建vue实例
+		
+			//进去加载
+			function cc(){
+				
+			
+				
+				$.ajax({
+			url : "//localhost:8080/SoftwareFactoryProject_/stu/selectb",
+			type : "post",
+			data : {
+				pageNum:pageNum,
+				pageSize:pageSize
+			},
+			dataType : "json",
+			"success":function(res){
+				$.each(res.list,function(i,obj){
+				$("[id=poid]").val(obj.poId);
+				$("[id=date]").val(obj.poDocumentDate);
+				$("[id=poengname]").val(obj.poEngname);
+				$("[id=podocumentnumber]").val(obj.poDocumentNumber);
+				$("[id=potid]").val(obj.potId);
+				$("[id=currencyid]").val(obj.currencyId);
+				$("[id=popriceincludetax]").val(obj.poPriceIncludeTax);
+				$("[id=poexchangerate]").val(obj.poExchangeRate);
+				$("[id=posinglestatus]").val(obj.poSingleStatus);
+				$("[id=podeliveryaddress]").val(obj.poDeliveryAddress);
+				$("[id=poheaderprovision]").val(obj.poHeaderProvision);
+				$("[id=pocustom1]").val(obj.poHeaderProvision);
+				$("[id=poendclause]").val(obj.poEndClause);
+				$("[id=pocustom2]").val(obj.poCustom2);
+				$("[id=poremark]").text(obj.poRemark);
+				$("[id=pobuyer]").val(obj.poBuyer);
+				$("[id=pobelongssection]").val(obj.poBelongsSection);
+				$("[id=pobelongsproject]").val(obj.poBelongsProject);
+				alert(obj.pureExecutor)
+				$("[id=pureexecutor]").val(obj.pureExecutor);
+				$("[id=purecheckagainstaff]").val(obj.pureCheckagainStaff);
+				var obk = {
+						poId : $("[id=poid]").val()
+					}
+					
+					$.ajax({
+						url : "//localhost:8080/SoftwareFactoryProject_/stu/selecttb_de",
+						type : "post",
+						data : JSON.stringify(obk),
+						contentType : "application/json",
+						dataType : "json",
+						
+						"success":function(res){
+							$("#np").html("");
+							$.each(res,function(i,obj){
+								
+								$("#np").append("<tr>"+
+			                              "<td>"+obj.podId+"</td>"+
+														 "<td>"+obj.podMatterName+"</td>"+
+														 "<td>"+obj.podSpecifications+"</td>"+
+														 "<td>"+obj.podCompanyName+"</td>"+
+														 "<td>"+obj.podAmount+"</td>"+
+														 "<td>"+obj.podMoneyDiscountBefore+"</td>"+
+														 "<td>"+obj.podDiscountNumber+"</td>"+
+														 "<td>"+obj.podPrice+"</td>"+
+														 "<td>"+obj.podMoney+"</td>"+
+														 "<td>"+obj.podTaxRate+"</td>"+
+														 "<td>"+obj.podTaxAmount+"</td>"+
+														 "<td>"+obj.podIncludeTaxAmount+"</td>"+
+														 "<td>"+obj.podBeforehandLaidupDate+"</td>"+
+														 "<td>"+obj.podNotLaiupNum+"</td>"+
+														 "<td>"+obj.podIfgift+"</td>"+
+														 "<td>"+obj.podRemarks+"</td>"+
+														  "<td>"+obj.podSourceOrder+"</td>"+
+														 "<td>"+obj.podSourceNo+"</td>"+
+														 
+										"</tr>");
+							})
+						}
+					}); 
+					
+				})
+			}
+		  });
+			}
+			
+			
+			function shang(){
+		if(pageNum-1==0){
+			
+		}else{
+			
+			pageNum=pageNum-1;
+			cc();
+		}
+		
+	}
+	function xia(){
+		
+		if(pageNum+1>wei){
+			
+			pageNum=pageNum+1;
+			
+			cc();
+		}else{
+			
+		}
+		
+	}
+	
+	
+	
+	function so(){
+		
+		if(pageNum-1==0){
+			cc();
+		}else{
+			
+			pageNum=1;
+			cc();
+			
+		}
+		
+	}
+	
+	function we(){
+		/*if (pageNum<pageNum+1) {
+		
+			alert(pageNum)
+			pageNum=pageNum+1;
+			cc();
+		} else{
+			alert("002")
+			cc()
+		}*/
+	}
+	
 		</script>
 	</body>
 
