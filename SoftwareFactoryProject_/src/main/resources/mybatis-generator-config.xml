@@ -31,7 +31,8 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.factory.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 			
-			<table schema="ComwareHouse" tableName="comware_house"></table>
+			<table schema="SaleQuotation" tableName="sale_quotation"></table>
+			<table schema="SaleQuotationDetails" tableName="sale_quotation_details"></table>
 			
 			 
 			
@@ -59,6 +60,7 @@
 			<table schema="Ordbillstyle" tableName="ordbillstyle"></table>
 			<table schema="Assusestate" tableName="assusestate"></table>
 			<table schema="Asssource" tableName="asssource"></table>
+			
 			<table schema="SaleQuotation" tableName="sale_quotation"></table>
 			<table schema="SaleQuotationDetails" tableName="sale_quotation_details"></table>
 			<table schema="SaleOutWarehouse" tableName="sale_out_warehouse"></table>
@@ -67,6 +69,7 @@
 			<table schema="SaleOrderDetail" tableName="sale_order_detail"></table>
 			<table schema="SaleReturnWarehouse" tableName="sale_return_warehouse"></table>
 			<table schema="SaleReturnWarehouseDetails" tableName="sale_return_warehouse_details"></table>
+			
 			<table schema="AdvancesReceivedMain" tableName="advances_received_main"></table>
 			<table schema="AdvancesReceivedDetails" tableName="advances_received_details"></table>
 			<table schema="AdvancesReceivedMainY" tableName="advances_received_main_y"></table>
