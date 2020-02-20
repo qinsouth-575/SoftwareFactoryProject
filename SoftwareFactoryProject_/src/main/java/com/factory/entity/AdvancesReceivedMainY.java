@@ -1,6 +1,7 @@
 package com.factory.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class AdvancesReceivedMainY {
 	
@@ -36,11 +37,17 @@ public class AdvancesReceivedMainY {
     private String priabillCustom1;
     private String priabillCustom2;
     private String priabillCustom3;
-
     private Integer pageNum;				//当前页
     private final Integer pageSize = 1;		//每页显示条数
-    
-    
+    private List<AdvancesReceivedDetailsY> ardy;//预收款详表
+
+    public List<AdvancesReceivedDetailsY> getArdy() {
+		return ardy;
+	}
+
+	public void setArdy(List<AdvancesReceivedDetailsY> ardy) {
+		this.ardy = ardy;
+	}
     
     public String getPriabillId() {
         return priabillId;

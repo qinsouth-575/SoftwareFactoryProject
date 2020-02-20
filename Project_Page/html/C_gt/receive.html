@@ -91,7 +91,7 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">单据日期</label>
 								<div class="layui-input-block">
-									<input type="text" v-model="advances_received_main_y.priabillPayablestime" id="date1" name="title" required lay-verify="date" placeholder="请输入客户名称" autocomplete="off" class="layui-input" disabled="disabled">
+									<input type="text" v-model="advances_received_main_y.priabillPayablestime" id="date1" name="title" required lay-verify="date" placeholder="" autocomplete="off" class="layui-input" disabled="disabled">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
@@ -177,40 +177,28 @@
 											<table class="layui-table" lay-size="sm" style="width: 150%;">
 												<thead>
 													<tr>
-														<td>(栏号)</td>
-														<td class="color">物料编号</td>
-														<td>(物料名称)</td>
-														<td>(规格型号)</td>
-														<td>(单位名称)</td>
-														<td>数量</td>
-														<td>折扣前单价</td>
-														<td>折数(%)</td>
-														<td>单价</td>
-														<td>金额</td>
-														<td>(税率)</td>
-														<td>(税额)</td>
-														<td>(含税金额)</td>
-														<td>预入库日</td>
-														<td>(未入库量)</td>
-														<td>赠品</td>
-														<td>分录备注</td>
-														<td>(来源单别)</td>
-														<td>(来源单号)</td>
+														<td>预收金额</td>
+														<td>来源单别</td>
+														<td>来源单号</td>
+														<td>摘要</td>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td colspan="18" align="center">内容</td>
+													<tr v-for="a in advances_received_main_y.ardy">
+														<td>{{a.priabillPrice}}</td>
+														<td>{{a.priabillType}}</td>
+														<td>{{a.priabillNumber}}</td>
+														<td>{{a.priabillRemarks}}</td>
 													</tr>
 												</tbody>
 												<tfoot>
 													<tr>
-														<td colspan="5">合计:</td>
-														<td colspan="4">55</td>
-														<td colspan="2">97.55</td>
-														<td>16.55</td>
-														<td colspan="2">114.55</td>
-														<td colspan="5">0</td>
+														<td colspan="">合计:</td>
+														<td colspan="">0</td>
+														<td colspan="">0</td>
+														<td>0</td>
+														<td colspan="">0</td>
+														<td colspan="">0</td>
 													</tr>
 												</tfoot>
 											</table>
@@ -220,19 +208,7 @@
 								<div class="layui-tab-item">
 									<form class="layui-form" action="">
 										<div class="layui-form-item layui-col-md6">
-											<label class="layui-form-label">表头条文</label>
-											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">自定栏一</label>
-											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-form-item layui-col-md6">
-											<label class="layui-form-label">表尾条文</label>
 											<div class="layui-input-block">
 												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
 											</div>
@@ -321,31 +297,57 @@
 					vue.goUpdate();
 				} else if(incident == "delete"){
 					vue.delete_();
-				} else if(incident == "refresh"){
-					vue.refresh();
-				}
-				
-				state = incident;
-			}
-			
-			
-			var vue = new Vue({
-				el: "#vue_fw",
-				data: {
-					pageCd : {},
-					advances_received_main_y: {
-						priabillId : 2020020201,
-						priabillPayablestime : '2020-02-02',
-						pageNum : 1
-					},
-					state : ""
+				} else if(incident == "refresh") {
+	vue.refresh();
+}
+
+state = incident;
+}
+
+var vue = new Vue({
+			el: "#vue_fw",
+			/*data: {
+				pageCd: {},
+				advances_received_main_y: {
+					priabillId: 2020020201,
+					priabillPayablestime: '2020-02-02',
+					pageNum: 1
 				},
-				methods: {
-					gt_select_payablestime: function(payablestime) {
+				state: ""
+			},*/
+			data() {
+				return{
+					pageCd: {},
+					advances_received_main_y: {
+						priabillId: 2020020201,
+						priabillPayablestime: '2020-02-02',
+						pageNum: 1
+					},
+					state: ""
+				}
+			},
+			methods: {
+				//时间格式化函数，此处仅针对yyyy-MM-dd hh:mm:ss 的格式进行格式化
+				dateFormat: function(time) {
+					var date = new Date(time);
+					var year = date.getFullYear();
+					/* 在日期格式中，月份是从0开始的，因此要加0
+					 * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+					 * */
+					var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+					var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+					var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+					var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+					var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+					// 拼接
+					return year + "-" + month + "-" + day;
+					//return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+				},
+				gt_select_payablestime: function(payablestime) {
 						var vue_ = this;
 
 						$.ajax({
-							type : "get",
+							type:"get",
 							async : false,
 							url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_select_payablestime?payablestime=" + payablestime,
             				dataType : "json",
@@ -369,9 +371,11 @@
 							contentType : 'application/json;charset=UTF-8',
             				dataType : "json",
 							success : function(result) {
-								//数据正常		/alert(JSON.stringify(result));
+								//	alert(JSON.stringify(result));
 								this_.pageCd = result;
 								this_.advances_received_main_y = this_.pageCd.list[0];
+								//时间格式默认为UTC地区时间格式，调用手写的时间格式转换方式转换成yyyy-MM-dd hh:mm:ss/**/
+								this_.advances_received_main_y.priabillPayablestime = this_.dateFormat(this_.advances_received_main_y.priabillPayablestime);
 							}
 						});
 					},
@@ -392,8 +396,23 @@
 					goInsert : function(){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
 						this.state = "goInsert";
-						
 						this.department = {};
+						
+						Object.assign(this.$data, this.$options.data())
+						
+						var now = new Date();
+						//格式化日，如果小于9，前面补0  
+						var day = ("0" + now.getDate()).slice(-2);
+						//格式化月，如果小于9，前面补0  
+						var month = ("0" + (now.getMonth() + 1)).slice(-2);
+						//拼装完整日 期格式  
+						var today = now.getFullYear() + "-" + (month) + "-" + (day);
+						//将获取的当前日期赋值给主表的单据日期
+						this.advances_received_main_y.priabillPayablestime = today;
+						//调用根据单据日期查询赋值单据号码方法（传参单据日期）
+						this.gt_select_payablestime(this.advances_received_main_y.priabillPayablestime);
+						
+						
 					},
 					save : function(){
 						//alert("执行" + this.state + "操作！");
@@ -431,8 +450,8 @@
 				created: function() {
 					this.queryPage(1);
 					
-					
-					/*var now = new Date();
+					/*							
+					var now = new Date();
 					//格式化日，如果小于9，前面补0  
 					var day = ("0" + now.getDate()).slice(-2);
 					//格式化月，如果小于9，前面补0  
@@ -442,7 +461,7 @@
 					//将获取的当前日期赋值给主表的单据日期
 					this.advances_received_main_y.priabillPayablestime = today;
 					//调用根据单据日期查询赋值单据号码方法（传参单据日期）
-					this.gt_select_payablestime(this.advances_received_main_y.priabillPayablestime);*/
+					this.gt_select_payablestime(this.advances_received_main_y.priabillPayablestime);		//		*/
 				},
 				mounted : function(){
 					var vue_ = this;
@@ -454,6 +473,7 @@
 						laydate.render({
 							elem : '#date1',	//指向元素
 							done : function(value){
+								//alert(value);
 								vue_.advances_received_main_y.priabillPayablestime = value;
 								console.log("分别输出两个值：" + value + " - " + vue_.advances_received_main_y.priabillPayablestime);
 								

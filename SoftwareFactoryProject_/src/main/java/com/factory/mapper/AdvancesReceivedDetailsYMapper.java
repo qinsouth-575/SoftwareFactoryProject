@@ -4,8 +4,13 @@ import com.factory.entity.AdvancesReceivedDetailsY;
 import com.factory.entity.AdvancesReceivedDetailsYExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface AdvancesReceivedDetailsYMapper {
+	
+	//@Select("SELECT * FROM `advances_received_details_y` WHERE `priabill_id` = #{priabillid}")
+	List<AdvancesReceivedDetailsY> gt_selectBypriabill_id(@Param("priabill_id") String priabill_id);
+	
     int countByExample(AdvancesReceivedDetailsYExample example);
 
     int deleteByExample(AdvancesReceivedDetailsYExample example);

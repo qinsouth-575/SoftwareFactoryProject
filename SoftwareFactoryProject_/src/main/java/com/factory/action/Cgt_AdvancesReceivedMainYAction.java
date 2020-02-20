@@ -29,6 +29,7 @@ public class Cgt_AdvancesReceivedMainYAction {
 		return army.gt_select_payablestime(payablestime);
 	}
 
+	//2.分页查询
 	@PostMapping("/gt_queryPage_AdvancesReceivedMainY")
 	@ResponseBody
 	public PageInfo<AdvancesReceivedMainY> queryPage(@RequestBody AdvancesReceivedMainY adrmy){

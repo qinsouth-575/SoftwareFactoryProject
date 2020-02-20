@@ -14,9 +14,6 @@ public interface AdvancesReceivedMainYMapper {
 	
 	public List<AdvancesReceivedMainY> selectAdvancesReceivedMainYAllDESC();
 	
-	
-	
-	
     int countByExample(AdvancesReceivedMainYExample example);
 
     int deleteByExample(AdvancesReceivedMainYExample example);

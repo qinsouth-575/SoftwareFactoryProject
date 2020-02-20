@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.factory.entity.AdvancesReceivedMainY;
+import com.factory.mapper.AdvancesReceivedDetailsYMapper;
 import com.factory.mapper.AdvancesReceivedMainYMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,6 +16,8 @@ public class Cgt_AdvancesReceivedMainYBiz {
 
 	@Autowired
 	private AdvancesReceivedMainYMapper dao;
+	@Autowired
+	private AdvancesReceivedDetailsYMapper dao2;
 
 	// 根据当前日期查询单据号码
 	public String gt_select_payablestime(String payablestime) {
@@ -37,7 +40,12 @@ public class Cgt_AdvancesReceivedMainYBiz {
 	public PageInfo<AdvancesReceivedMainY> queryAdvancesReceivedMainYAllDESC(AdvancesReceivedMainY record){
     	PageHelper.startPage(record.getPageNum(), record.getPageSize());
     	List<AdvancesReceivedMainY> adrmyList = dao.selectAdvancesReceivedMainYAllDESC();
-    	PageInfo<AdvancesReceivedMainY> page = new PageInfo<AdvancesReceivedMainY>(adrmyList); 
+    	PageInfo<AdvancesReceivedMainY> page = new PageInfo<AdvancesReceivedMainY>(adrmyList);
+    	/*for (AdvancesReceivedMainY army : page.getList()) {
+			List<AdvancesReceivedDetailsY> ardyList = dao2.gt_selectBypriabill_id(army.getPriabillId());
+			army.setArdy(ardyList);
+		}*/
+    	page.getList().get(0).setArdy(dao2.gt_selectBypriabill_id(page.getList().get(0).getPriabillId()));
     	return page;
     }
 	
