@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.PurchasingOrderDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.PurchasingOrderDetails" >
+    <id column="pod_id" property="podId" jdbcType="VARCHAR" />
+    <result column="po_id" property="poId" jdbcType="VARCHAR" />
+    <result column="po_matter_id" property="poMatterId" jdbcType="VARCHAR" />
+    <result column="pod_matter_name" property="podMatterName" jdbcType="VARCHAR" />
+    <result column="pod_specifications" property="podSpecifications" jdbcType="VARCHAR" />
+    <result column="pod_company_name" property="podCompanyName" jdbcType="VARCHAR" />
+    <result column="pod_amount" property="podAmount" jdbcType="INTEGER" />
+    <result column="pod_money_discount_before" property="podMoneyDiscountBefore" jdbcType="REAL" />
+    <result column="pod_discount_number" property="podDiscountNumber" jdbcType="VARCHAR" />
+    <result column="pod_price" property="podPrice" jdbcType="REAL" />
+    <result column="pod_money" property="podMoney" jdbcType="REAL" />
+    <result column="pod_tax_rate" property="podTaxRate" jdbcType="REAL" />
+    <result column="pod_tax_amount" property="podTaxAmount" jdbcType="REAL" />
+    <result column="pod_include_tax_amount" property="podIncludeTaxAmount" jdbcType="REAL" />
+    <result column="pod_beforehand_laidup_date" property="podBeforehandLaidupDate" jdbcType="VARCHAR" />
+    <result column="pod_not_laiup_num" property="podNotLaiupNum" jdbcType="INTEGER" />
+    <result column="pod_ifgift" property="podIfgift" jdbcType="VARCHAR" />
+    <result column="pod_remarks" property="podRemarks" jdbcType="VARCHAR" />
+    <result column="pod_source_order" property="podSourceOrder" jdbcType="VARCHAR" />
+    <result column="pod_source_no" property="podSourceNo" jdbcType="VARCHAR" />
+    <result column="pod_audition" property="podAudition" jdbcType="VARCHAR" />
+    <result column="pod_yn" property="podYn" jdbcType="VARCHAR" />
+    <result column="pod_custom1" property="podCustom1" jdbcType="VARCHAR" />
+    <result column="pod_custom2" property="podCustom2" jdbcType="VARCHAR" />
+    <result column="pod_custom3" property="podCustom3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pod_id, po_id, po_matter_id, pod_matter_name, pod_specifications, pod_company_name, 
+    pod_amount, pod_money_discount_before, pod_discount_number, pod_price, pod_money, 
+    pod_tax_rate, pod_tax_amount, pod_include_tax_amount, pod_beforehand_laidup_date, 
+    pod_not_laiup_num, pod_ifgift, pod_remarks, pod_source_order, pod_source_no, pod_audition, 
+    pod_yn, pod_custom1, pod_custom2, pod_custom3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.PurchasingOrderDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purchasing_order_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchasing_order_details
+    where pod_id = #{podId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from purchasing_order_details
+    where pod_id = #{podId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.PurchasingOrderDetailsExample" >
+    delete from purchasing_order_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.PurchasingOrderDetails" >
+    insert into purchasing_order_details (pod_id, po_id, po_matter_id, 
+      pod_matter_name, pod_specifications, pod_company_name, 
+      pod_amount, pod_money_discount_before, pod_discount_number, 
+      pod_price, pod_money, pod_tax_rate, 
+      pod_tax_amount, pod_include_tax_amount, pod_beforehand_laidup_date, 
+      pod_not_laiup_num, pod_ifgift, pod_remarks, 
+      pod_source_order, pod_source_no, pod_audition, 
+      pod_yn, pod_custom1, pod_custom2, 
+      pod_custom3)
+    values (#{podId,jdbcType=VARCHAR}, #{poId,jdbcType=VARCHAR}, #{poMatterId,jdbcType=VARCHAR}, 
+      #{podMatterName,jdbcType=VARCHAR}, #{podSpecifications,jdbcType=VARCHAR}, #{podCompanyName,jdbcType=VARCHAR}, 
+      #{podAmount,jdbcType=INTEGER}, #{podMoneyDiscountBefore,jdbcType=REAL}, #{podDiscountNumber,jdbcType=VARCHAR}, 
+      #{podPrice,jdbcType=REAL}, #{podMoney,jdbcType=REAL}, #{podTaxRate,jdbcType=REAL}, 
+      #{podTaxAmount,jdbcType=REAL}, #{podIncludeTaxAmount,jdbcType=REAL}, #{podBeforehandLaidupDate,jdbcType=VARCHAR}, 
+      #{podNotLaiupNum,jdbcType=INTEGER}, #{podIfgift,jdbcType=VARCHAR}, #{podRemarks,jdbcType=VARCHAR}, 
+      #{podSourceOrder,jdbcType=VARCHAR}, #{podSourceNo,jdbcType=VARCHAR}, #{podAudition,jdbcType=VARCHAR}, 
+      #{podYn,jdbcType=VARCHAR}, #{podCustom1,jdbcType=VARCHAR}, #{podCustom2,jdbcType=VARCHAR}, 
+      #{podCustom3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.PurchasingOrderDetails" >
+    insert into purchasing_order_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="podId != null" >
+        pod_id,
+      </if>
+      <if test="poId != null" >
+        po_id,
+      </if>
+      <if test="poMatterId != null" >
+        po_matter_id,
+      </if>
+      <if test="podMatterName != null" >
+        pod_matter_name,
+      </if>
+      <if test="podSpecifications != null" >
+        pod_specifications,
+      </if>
+      <if test="podCompanyName != null" >
+        pod_company_name,
+      </if>
+      <if test="podAmount != null" >
+        pod_amount,
+      </if>
+      <if test="podMoneyDiscountBefore != null" >
+        pod_money_discount_before,
+      </if>
+      <if test="podDiscountNumber != null" >
+        pod_discount_number,
+      </if>
+      <if test="podPrice != null" >
+        pod_price,
+      </if>
+      <if test="podMoney != null" >
+        pod_money,
+      </if>
+      <if test="podTaxRate != null" >
+        pod_tax_rate,
+      </if>
+      <if test="podTaxAmount != null" >
+        pod_tax_amount,
+      </if>
+      <if test="podIncludeTaxAmount != null" >
+        pod_include_tax_amount,
+      </if>
+      <if test="podBeforehandLaidupDate != null" >
+        pod_beforehand_laidup_date,
+      </if>
+      <if test="podNotLaiupNum != null" >
+        pod_not_laiup_num,
+      </if>
+      <if test="podIfgift != null" >
+        pod_ifgift,
+      </if>
+      <if test="podRemarks != null" >
+        pod_remarks,
+      </if>
+      <if test="podSourceOrder != null" >
+        pod_source_order,
+      </if>
+      <if test="podSourceNo != null" >
+        pod_source_no,
+      </if>
+      <if test="podAudition != null" >
+        pod_audition,
+      </if>
+      <if test="podYn != null" >
+        pod_yn,
+      </if>
+      <if test="podCustom1 != null" >
+        pod_custom1,
+      </if>
+      <if test="podCustom2 != null" >
+        pod_custom2,
+      </if>
+      <if test="podCustom3 != null" >
+        pod_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="podId != null" >
+        #{podId,jdbcType=VARCHAR},
+      </if>
+      <if test="poId != null" >
+        #{poId,jdbcType=VARCHAR},
+      </if>
+      <if test="poMatterId != null" >
+        #{poMatterId,jdbcType=VARCHAR},
+      </if>
+      <if test="podMatterName != null" >
+        #{podMatterName,jdbcType=VARCHAR},
+      </if>
+      <if test="podSpecifications != null" >
+        #{podSpecifications,jdbcType=VARCHAR},
+      </if>
+      <if test="podCompanyName != null" >
+        #{podCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="podAmount != null" >
+        #{podAmount,jdbcType=INTEGER},
+      </if>
+      <if test="podMoneyDiscountBefore != null" >
+        #{podMoneyDiscountBefore,jdbcType=REAL},
+      </if>
+      <if test="podDiscountNumber != null" >
+        #{podDiscountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="podPrice != null" >
+        #{podPrice,jdbcType=REAL},
+      </if>
+      <if test="podMoney != null" >
+        #{podMoney,jdbcType=REAL},
+      </if>
+      <if test="podTaxRate != null" >
+        #{podTaxRate,jdbcType=REAL},
+      </if>
+      <if test="podTaxAmount != null" >
+        #{podTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="podIncludeTaxAmount != null" >
+        #{podIncludeTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="podBeforehandLaidupDate != null" >
+        #{podBeforehandLaidupDate,jdbcType=VARCHAR},
+      </if>
+      <if test="podNotLaiupNum != null" >
+        #{podNotLaiupNum,jdbcType=INTEGER},
+      </if>
+      <if test="podIfgift != null" >
+        #{podIfgift,jdbcType=VARCHAR},
+      </if>
+      <if test="podRemarks != null" >
+        #{podRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="podSourceOrder != null" >
+        #{podSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="podSourceNo != null" >
+        #{podSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="podAudition != null" >
+        #{podAudition,jdbcType=VARCHAR},
+      </if>
+      <if test="podYn != null" >
+        #{podYn,jdbcType=VARCHAR},
+      </if>
+      <if test="podCustom1 != null" >
+        #{podCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="podCustom2 != null" >
+        #{podCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="podCustom3 != null" >
+        #{podCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.PurchasingOrderDetailsExample" resultType="java.lang.Integer" >
+    select count(*) from purchasing_order_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update purchasing_order_details
+    <set >
+      <if test="record.podId != null" >
+        pod_id = #{record.podId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poId != null" >
+        po_id = #{record.poId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poMatterId != null" >
+        po_matter_id = #{record.poMatterId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podMatterName != null" >
+        pod_matter_name = #{record.podMatterName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podSpecifications != null" >
+        pod_specifications = #{record.podSpecifications,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podCompanyName != null" >
+        pod_company_name = #{record.podCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podAmount != null" >
+        pod_amount = #{record.podAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.podMoneyDiscountBefore != null" >
+        pod_money_discount_before = #{record.podMoneyDiscountBefore,jdbcType=REAL},
+      </if>
+      <if test="record.podDiscountNumber != null" >
+        pod_discount_number = #{record.podDiscountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podPrice != null" >
+        pod_price = #{record.podPrice,jdbcType=REAL},
+      </if>
+      <if test="record.podMoney != null" >
+        pod_money = #{record.podMoney,jdbcType=REAL},
+      </if>
+      <if test="record.podTaxRate != null" >
+        pod_tax_rate = #{record.podTaxRate,jdbcType=REAL},
+      </if>
+      <if test="record.podTaxAmount != null" >
+        pod_tax_amount = #{record.podTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="record.podIncludeTaxAmount != null" >
+        pod_include_tax_amount = #{record.podIncludeTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="record.podBeforehandLaidupDate != null" >
+        pod_beforehand_laidup_date = #{record.podBeforehandLaidupDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podNotLaiupNum != null" >
+        pod_not_laiup_num = #{record.podNotLaiupNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.podIfgift != null" >
+        pod_ifgift = #{record.podIfgift,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podRemarks != null" >
+        pod_remarks = #{record.podRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podSourceOrder != null" >
+        pod_source_order = #{record.podSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podSourceNo != null" >
+        pod_source_no = #{record.podSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podAudition != null" >
+        pod_audition = #{record.podAudition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podYn != null" >
+        pod_yn = #{record.podYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podCustom1 != null" >
+        pod_custom1 = #{record.podCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podCustom2 != null" >
+        pod_custom2 = #{record.podCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.podCustom3 != null" >
+        pod_custom3 = #{record.podCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update purchasing_order_details
+    set pod_id = #{record.podId,jdbcType=VARCHAR},
+      po_id = #{record.poId,jdbcType=VARCHAR},
+      po_matter_id = #{record.poMatterId,jdbcType=VARCHAR},
+      pod_matter_name = #{record.podMatterName,jdbcType=VARCHAR},
+      pod_specifications = #{record.podSpecifications,jdbcType=VARCHAR},
+      pod_company_name = #{record.podCompanyName,jdbcType=VARCHAR},
+      pod_amount = #{record.podAmount,jdbcType=INTEGER},
+      pod_money_discount_before = #{record.podMoneyDiscountBefore,jdbcType=REAL},
+      pod_discount_number = #{record.podDiscountNumber,jdbcType=VARCHAR},
+      pod_price = #{record.podPrice,jdbcType=REAL},
+      pod_money = #{record.podMoney,jdbcType=REAL},
+      pod_tax_rate = #{record.podTaxRate,jdbcType=REAL},
+      pod_tax_amount = #{record.podTaxAmount,jdbcType=REAL},
+      pod_include_tax_amount = #{record.podIncludeTaxAmount,jdbcType=REAL},
+      pod_beforehand_laidup_date = #{record.podBeforehandLaidupDate,jdbcType=VARCHAR},
+      pod_not_laiup_num = #{record.podNotLaiupNum,jdbcType=INTEGER},
+      pod_ifgift = #{record.podIfgift,jdbcType=VARCHAR},
+      pod_remarks = #{record.podRemarks,jdbcType=VARCHAR},
+      pod_source_order = #{record.podSourceOrder,jdbcType=VARCHAR},
+      pod_source_no = #{record.podSourceNo,jdbcType=VARCHAR},
+      pod_audition = #{record.podAudition,jdbcType=VARCHAR},
+      pod_yn = #{record.podYn,jdbcType=VARCHAR},
+      pod_custom1 = #{record.podCustom1,jdbcType=VARCHAR},
+      pod_custom2 = #{record.podCustom2,jdbcType=VARCHAR},
+      pod_custom3 = #{record.podCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.PurchasingOrderDetails" >
+    update purchasing_order_details
+    <set >
+      <if test="poId != null" >
+        po_id = #{poId,jdbcType=VARCHAR},
+      </if>
+      <if test="poMatterId != null" >
+        po_matter_id = #{poMatterId,jdbcType=VARCHAR},
+      </if>
+      <if test="podMatterName != null" >
+        pod_matter_name = #{podMatterName,jdbcType=VARCHAR},
+      </if>
+      <if test="podSpecifications != null" >
+        pod_specifications = #{podSpecifications,jdbcType=VARCHAR},
+      </if>
+      <if test="podCompanyName != null" >
+        pod_company_name = #{podCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="podAmount != null" >
+        pod_amount = #{podAmount,jdbcType=INTEGER},
+      </if>
+      <if test="podMoneyDiscountBefore != null" >
+        pod_money_discount_before = #{podMoneyDiscountBefore,jdbcType=REAL},
+      </if>
+      <if test="podDiscountNumber != null" >
+        pod_discount_number = #{podDiscountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="podPrice != null" >
+        pod_price = #{podPrice,jdbcType=REAL},
+      </if>
+      <if test="podMoney != null" >
+        pod_money = #{podMoney,jdbcType=REAL},
+      </if>
+      <if test="podTaxRate != null" >
+        pod_tax_rate = #{podTaxRate,jdbcType=REAL},
+      </if>
+      <if test="podTaxAmount != null" >
+        pod_tax_amount = #{podTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="podIncludeTaxAmount != null" >
+        pod_include_tax_amount = #{podIncludeTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="podBeforehandLaidupDate != null" >
+        pod_beforehand_laidup_date = #{podBeforehandLaidupDate,jdbcType=VARCHAR},
+      </if>
+      <if test="podNotLaiupNum != null" >
+        pod_not_laiup_num = #{podNotLaiupNum,jdbcType=INTEGER},
+      </if>
+      <if test="podIfgift != null" >
+        pod_ifgift = #{podIfgift,jdbcType=VARCHAR},
+      </if>
+      <if test="podRemarks != null" >
+        pod_remarks = #{podRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="podSourceOrder != null" >
+        pod_source_order = #{podSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="podSourceNo != null" >
+        pod_source_no = #{podSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="podAudition != null" >
+        pod_audition = #{podAudition,jdbcType=VARCHAR},
+      </if>
+      <if test="podYn != null" >
+        pod_yn = #{podYn,jdbcType=VARCHAR},
+      </if>
+      <if test="podCustom1 != null" >
+        pod_custom1 = #{podCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="podCustom2 != null" >
+        pod_custom2 = #{podCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="podCustom3 != null" >
+        pod_custom3 = #{podCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pod_id = #{podId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.PurchasingOrderDetails" >
+    update purchasing_order_details
+    set po_id = #{poId,jdbcType=VARCHAR},
+      po_matter_id = #{poMatterId,jdbcType=VARCHAR},
+      pod_matter_name = #{podMatterName,jdbcType=VARCHAR},
+      pod_specifications = #{podSpecifications,jdbcType=VARCHAR},
+      pod_company_name = #{podCompanyName,jdbcType=VARCHAR},
+      pod_amount = #{podAmount,jdbcType=INTEGER},
+      pod_money_discount_before = #{podMoneyDiscountBefore,jdbcType=REAL},
+      pod_discount_number = #{podDiscountNumber,jdbcType=VARCHAR},
+      pod_price = #{podPrice,jdbcType=REAL},
+      pod_money = #{podMoney,jdbcType=REAL},
+      pod_tax_rate = #{podTaxRate,jdbcType=REAL},
+      pod_tax_amount = #{podTaxAmount,jdbcType=REAL},
+      pod_include_tax_amount = #{podIncludeTaxAmount,jdbcType=REAL},
+      pod_beforehand_laidup_date = #{podBeforehandLaidupDate,jdbcType=VARCHAR},
+      pod_not_laiup_num = #{podNotLaiupNum,jdbcType=INTEGER},
+      pod_ifgift = #{podIfgift,jdbcType=VARCHAR},
+      pod_remarks = #{podRemarks,jdbcType=VARCHAR},
+      pod_source_order = #{podSourceOrder,jdbcType=VARCHAR},
+      pod_source_no = #{podSourceNo,jdbcType=VARCHAR},
+      pod_audition = #{podAudition,jdbcType=VARCHAR},
+      pod_yn = #{podYn,jdbcType=VARCHAR},
+      pod_custom1 = #{podCustom1,jdbcType=VARCHAR},
+      pod_custom2 = #{podCustom2,jdbcType=VARCHAR},
+      pod_custom3 = #{podCustom3,jdbcType=VARCHAR}
+    where pod_id = #{podId,jdbcType=VARCHAR}
+  </update>
+</mapper>

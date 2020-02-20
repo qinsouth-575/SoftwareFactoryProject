@@ -27,4 +27,7 @@ public interface PurchasingOrderMapper {
     int updateByPrimaryKeySelective(PurchasingOrder record);
 
     int updateByPrimaryKey(PurchasingOrder record);
+    
+    
+    List<PurchasingOrder> selectpo_document_date();
 }

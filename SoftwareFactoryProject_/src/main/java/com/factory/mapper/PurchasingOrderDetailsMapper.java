@@ -27,4 +27,6 @@ public interface PurchasingOrderDetailsMapper {
     int updateByPrimaryKeySelective(PurchasingOrderDetails record);
 
     int updateByPrimaryKey(PurchasingOrderDetails record);
+	public List<PurchasingOrderDetails> selecttb_detail(PurchasingOrderDetails bi);
+
 }
