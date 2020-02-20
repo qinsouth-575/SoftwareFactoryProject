@@ -10,13 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-import com.factory.biz.ComDepartmentBiz;
 import com.factory.biz.purchasingorderBiz;
-import com.factory.entity.Comdepartment;
 import com.factory.entity.PurchasingOrder;
 import com.factory.entity.PurchasingOrderDetails;
-import com.factory.entity.PurchasingOrderDetailsExample;
 import com.github.pagehelper.PageInfo;
 
 @Controller  
