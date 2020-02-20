@@ -31,8 +31,14 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.factory.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 			
+			<table schema="ComwareHouse" tableName="comware_house"></table>
 			
 			 
+			
+			<table schema="Ajurisdiction" tableName="a_jurisdiction"></table>
+			<table schema="Aposition" tableName="a_position"></table>
+			<table schema="AjurPosRelation" tableName="a_jur_pos_relation"></table>
+			<table schema="AstaPosRelation" tableName="a_sta_pos_relation"></table>
 			
 			<table schema="Comdepartment" tableName="comdepartment"></table>
 			<table schema="HumSchooling" tableName="hum_schooling"></table>

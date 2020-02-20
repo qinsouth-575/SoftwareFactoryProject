@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.factory.biz.Flqj_StaffBiz;
+import com.factory.biz.UserService;
 import com.factory.entity.Staff;
 
 /**
@@ -32,15 +36,45 @@ public class Flqj_LoginAction {
 	@Autowired
 	private Flqj_StaffBiz sb;
 
+	@Autowired
+	private UserService us;
+
 	//1.登录查询
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> queryNameAndPwd(@RequestBody Staff user, HttpSession session) {
-		log.debug("SoftwareFactoryProject_ - LoginAction - queryNameAndPwd - 1.进入登录，页面传回的user对象为：" + user);
+		log.debug("SoftwareFactoryProject_ - Flqj_LoginAction - queryNameAndPwd - 1.进入登录，页面传回的user对象为：" + user);
 		
 		Map<String, String> map = new HashMap<String, String>();
+
+		/*	1.shiro框架						*/
+		try{
+            Subject subject = SecurityUtils.getSubject();
+            UsernamePasswordToken token = new UsernamePasswordToken(user.getJobNumber(), user.getPassword());
+            subject.login(token);
+            log.info("登录成功");
+            
+            //Session subjectSession = subject.getSession();
+            Staff userr = us.findUserByName(user.getJobNumber());
+            userr.setPassword(user.getPassword());
+            log.info("登录成功后查询：" + userr);
+            session.setAttribute("account", userr);
+            
+    		map.put("code", userr.getStaffId() + "");
+    		map.put("message", "登录成功！");
+    		return map;
+    		
+            //return "redirect:/finduser";
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info("登录失败！");
+        
+		map.put("code", "0");
+		map.put("message", "登录失败，用户名或密码输入错误！");
+		return map;			//			*/
 		
-		/*	执行查询，验证用户名和密码		*/
+		/*	2.普通方法：执行查询，验证用户名和密码		*
 		user = sb.queryNameAndPwd(user);
 		if (user == null) {
 			log.info("登录失败！");
@@ -76,7 +110,7 @@ public class Flqj_LoginAction {
 		log.debug("SoftwareFactoryProject_ - LoginAction - loginOut - 3.退出登录");
 		session.invalidate();
 		
-		return new Staff("0");
+		return new Staff(0);
 	}
 	
 	

@@ -6,11 +6,26 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface StaffMapper {
+
+    List<Integer> listRoleIdsByUserId(Integer id);
+    
+    Staff findUserByName(@Param("name")String name);
+    
+    Staff login(@Param("jobNumber")String jobNumber, @Param("password")String password);
+    
+
+    //查询账户密码登录
+    Staff queryNameAndPwd(Staff account);
+    
+    
+    
+    
+    
     int countByExample(StaffExample example);
 
     int deleteByExample(StaffExample example);
 
-    int deleteByPrimaryKey(String staffId);
+    int deleteByPrimaryKey(Integer staffId);
 
     int insert(Staff record);
 
@@ -18,7 +33,7 @@ public interface StaffMapper {
 
     List<Staff> selectByExample(StaffExample example);
 
-    Staff selectByPrimaryKey(String staffId);
+    Staff selectByPrimaryKey(Integer staffId);
 
     int updateByExampleSelective(@Param("record") Staff record, @Param("example") StaffExample example);
 
@@ -27,8 +42,4 @@ public interface StaffMapper {
     int updateByPrimaryKeySelective(Staff record);
 
     int updateByPrimaryKey(Staff record);
-    
-    
-    //查询账户密码登录
-    Staff queryNameAndPwd(Staff account);
 }

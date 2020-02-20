@@ -18,7 +18,7 @@ public class Flqj_StaffBiz {
 	}
 
 	//按Id查询当前登录用户信息
-    public Staff selectByPrimaryKey(String staffId) {
+    public Staff selectByPrimaryKey(Integer staffId) {
     	return dao.selectByPrimaryKey(staffId);
     };
 	
