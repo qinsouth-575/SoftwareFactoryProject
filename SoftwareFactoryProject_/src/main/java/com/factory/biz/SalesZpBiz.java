@@ -30,14 +30,14 @@ public class SalesZpBiz {
 	public PageInfo<SaleQuotation> querybaojia(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<SaleQuotation> list = sq.selectByExample(null);
-		for (SaleQuotation saleQuotation2 : list) {
+		/*for (SaleQuotation saleQuotation2 : list) {
 			SaleQuotationDetailsExample example=new SaleQuotationDetailsExample();
 			 example.createCriteria().andSqlIdEqualTo(saleQuotation2.getSqId());
 			 saleQuotation2.setList(sqd.selectByExample(example));
 			 if(c.selectByPrimaryKey(saleQuotation2.getCustomerId())!=null)
 			 saleQuotation2.setCustomerName(c.selectByPrimaryKey(saleQuotation2.getCustomerId()).getCustomerName());
 			 
-		}
+		}*/
 		PageInfo<SaleQuotation> page = new PageInfo<SaleQuotation>(list);
 		return page;
 	}
