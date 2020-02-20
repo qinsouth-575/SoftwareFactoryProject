@@ -4,16 +4,19 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
+import com.factory.interceptor.CommonIntercepter;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -22,24 +25,25 @@ public class MvcConfig implements WebMvcConfigurer {
 	/*		解决跨域方法 - 2、处理跨域请求的Configuration	
 	 * 		CrossOriginConfig.java
 	 * 		继承WebMvcConfigurerAdapter或者实现WebMvcConfigurer接口		*/
-    private static final String ORIGINS[] = new String[] { "GET", "POST", "PUT", "DELETE" };
+    private static final String ORIGINS[] = new String[] { "OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE", "PATCH" };
     
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         /*														*/
-    	registry.addMapping("/**")
-        		.allowedOrigins("*")
-        		.allowCredentials(true)
-        		.allowedMethods(ORIGINS)
-        		.maxAge(3600);								//	*/
+    	registry.addMapping("/**") 			//添加映射路径
+        		.allowedOrigins("*") 		//放行哪些原始域
+                .allowedHeaders("*")		//放行哪些原始域(头部信息)
+        		.allowCredentials(true)		//是否是否允许跨域传cookie(发送cookie信息)
+        		.allowedMethods(ORIGINS)	//放行哪些原始域(请求方式) 
+        		.maxAge(3600);		//设置缓存时间，减少重复响应	*/
         
     	/*														*
-        registry.addMapping("/**") 							//添加映射路径
-        		.allowedOrigins("http://localhost:8080") 	//放行哪些原始域
-        		.allowedMethods(ORIGINS) 					//放行哪些原始域(请求方式) 
+        registry.addMapping("/**")
+        		.allowedOrigins("http://localhost:8080")
+        		.allowedMethods(ORIGINS) 
         									//"GET","POST", "PUT", "DELETE", "OPTIONS"
-        		.allowedHeaders("*") 						//放行哪些原始域(头部信息)
-        		.allowCredentials(true) 					//是否发送Cookie信息
+        		.allowedHeaders("*") 
+        		.allowCredentials(true) 
 //      		.exposedHeaders("access-control-allow-headers",
 //                      		"access-control-allow-methods",
 //                      		"access-control-allow-origin",
@@ -50,6 +54,26 @@ public class MvcConfig implements WebMvcConfigurer {
     
 	//extends WebMvcConfigurationSupport
 	
+    @Autowired
+	CommonIntercepter commonI;
+    
+    @Override
+	public void addInterceptors(InterceptorRegistry registry) {
+        // 多个拦截器组成一个拦截器链
+        // addPathPatterns 用于添加拦截规则，/**表示拦截所有请求
+        // excludePathPatterns 用户排除拦截
+
+    	List<String> pathPattern = new ArrayList<String>();
+    	pathPattern.add("/login");
+    	
+		registry.addInterceptor(commonI).addPathPatterns("/**").excludePathPatterns(pathPattern);
+    	WebMvcConfigurer.super.addInterceptors(registry);
+    	
+        //registry.addInterceptor(loginInterceptor).addPathPatterns("/**")
+        //.excludePathPatterns("/stuInfo/getAllStuInfoA","/account/register");    
+        //super.addInterceptors(registry);
+    }
+    
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //和页面有关的静态目录都放在项目的static目录下
@@ -60,8 +84,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		//super.addResourceHandlers(registry);	改为实现WebMvcConfigurer接口后必须 注释/删除 这一句
 	}
 
-	/*@Autowired
-	LoginInterceptor loginI;
+	/*
 	
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

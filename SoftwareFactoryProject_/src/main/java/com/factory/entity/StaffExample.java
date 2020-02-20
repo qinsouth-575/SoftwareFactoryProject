@@ -142,63 +142,123 @@ public class StaffExample {
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdEqualTo(String value) {
+        public Criteria andStaffIdEqualTo(Integer value) {
             addCriterion("staff_id =", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotEqualTo(String value) {
+        public Criteria andStaffIdNotEqualTo(Integer value) {
             addCriterion("staff_id <>", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdGreaterThan(String value) {
+        public Criteria andStaffIdGreaterThan(Integer value) {
             addCriterion("staff_id >", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdGreaterThanOrEqualTo(String value) {
+        public Criteria andStaffIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("staff_id >=", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdLessThan(String value) {
+        public Criteria andStaffIdLessThan(Integer value) {
             addCriterion("staff_id <", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdLessThanOrEqualTo(String value) {
+        public Criteria andStaffIdLessThanOrEqualTo(Integer value) {
             addCriterion("staff_id <=", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdLike(String value) {
-            addCriterion("staff_id like", value, "staffId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffIdNotLike(String value) {
-            addCriterion("staff_id not like", value, "staffId");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffIdIn(List<String> values) {
+        public Criteria andStaffIdIn(List<Integer> values) {
             addCriterion("staff_id in", values, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotIn(List<String> values) {
+        public Criteria andStaffIdNotIn(List<Integer> values) {
             addCriterion("staff_id not in", values, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdBetween(String value1, String value2) {
+        public Criteria andStaffIdBetween(Integer value1, Integer value2) {
             addCriterion("staff_id between", value1, value2, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotBetween(String value1, String value2) {
+        public Criteria andStaffIdNotBetween(Integer value1, Integer value2) {
             addCriterion("staff_id not between", value1, value2, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberIsNull() {
+            addCriterion("job_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberIsNotNull() {
+            addCriterion("job_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberEqualTo(String value) {
+            addCriterion("job_number =", value, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberNotEqualTo(String value) {
+            addCriterion("job_number <>", value, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberGreaterThan(String value) {
+            addCriterion("job_number >", value, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("job_number >=", value, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberLessThan(String value) {
+            addCriterion("job_number <", value, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberLessThanOrEqualTo(String value) {
+            addCriterion("job_number <=", value, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberLike(String value) {
+            addCriterion("job_number like", value, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberNotLike(String value) {
+            addCriterion("job_number not like", value, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberIn(List<String> values) {
+            addCriterion("job_number in", values, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberNotIn(List<String> values) {
+            addCriterion("job_number not in", values, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberBetween(String value1, String value2) {
+            addCriterion("job_number between", value1, value2, "jobNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNumberNotBetween(String value1, String value2) {
+            addCriterion("job_number not between", value1, value2, "jobNumber");
             return (Criteria) this;
         }
 
@@ -1343,62 +1403,62 @@ public class StaffExample {
         }
 
         public Criteria andStaffBecomeaRegularworkerIsNull() {
-            addCriterion("\"staff_becomea regularworker\" is null");
+            addCriterion("staff_becomea_regularworker is null");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerIsNotNull() {
-            addCriterion("\"staff_becomea regularworker\" is not null");
+            addCriterion("staff_becomea_regularworker is not null");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerEqualTo(Date value) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" =", value, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker =", value, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerNotEqualTo(Date value) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" <>", value, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker <>", value, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerGreaterThan(Date value) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" >", value, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker >", value, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" >=", value, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker >=", value, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerLessThan(Date value) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" <", value, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker <", value, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" <=", value, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker <=", value, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerIn(List<Date> values) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" in", values, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker in", values, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerNotIn(List<Date> values) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" not in", values, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker not in", values, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" between", value1, value2, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker between", value1, value2, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
         public Criteria andStaffBecomeaRegularworkerNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("\"staff_becomea regularworker\" not between", value1, value2, "staffBecomeaRegularworker");
+            addCriterionForJDBCDate("staff_becomea_regularworker not between", value1, value2, "staffBecomeaRegularworker");
             return (Criteria) this;
         }
 
@@ -2163,62 +2223,62 @@ public class StaffExample {
         }
 
         public Criteria andStaffPhysicalExaminationdateIsNull() {
-            addCriterion("\"staff_physical examinationdate\" is null");
+            addCriterion("staff_physical_examinationdate is null");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateIsNotNull() {
-            addCriterion("\"staff_physical examinationdate\" is not null");
+            addCriterion("staff_physical_examinationdate is not null");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateEqualTo(Date value) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" =", value, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate =", value, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" <>", value, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate <>", value, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateGreaterThan(Date value) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" >", value, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate >", value, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" >=", value, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate >=", value, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateLessThan(Date value) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" <", value, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate <", value, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" <=", value, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate <=", value, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateIn(List<Date> values) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" in", values, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate in", values, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" not in", values, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate not in", values, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" between", value1, value2, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate between", value1, value2, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
         public Criteria andStaffPhysicalExaminationdateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("\"staff_physical examinationdate\" not between", value1, value2, "staffPhysicalExaminationdate");
+            addCriterionForJDBCDate("staff_physical_examinationdate not between", value1, value2, "staffPhysicalExaminationdate");
             return (Criteria) this;
         }
 
@@ -3789,6 +3849,76 @@ public class StaffExample {
 
         public Criteria andStaffYnNotBetween(String value1, String value2) {
             addCriterion("staff_yn not between", value1, value2, "staffYn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIsNull() {
+            addCriterion("salt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIsNotNull() {
+            addCriterion("salt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltEqualTo(String value) {
+            addCriterion("salt =", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotEqualTo(String value) {
+            addCriterion("salt <>", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltGreaterThan(String value) {
+            addCriterion("salt >", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltGreaterThanOrEqualTo(String value) {
+            addCriterion("salt >=", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltLessThan(String value) {
+            addCriterion("salt <", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltLessThanOrEqualTo(String value) {
+            addCriterion("salt <=", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltLike(String value) {
+            addCriterion("salt like", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotLike(String value) {
+            addCriterion("salt not like", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIn(List<String> values) {
+            addCriterion("salt in", values, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotIn(List<String> values) {
+            addCriterion("salt not in", values, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltBetween(String value1, String value2) {
+            addCriterion("salt between", value1, value2, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotBetween(String value1, String value2) {
+            addCriterion("salt not between", value1, value2, "salt");
             return (Criteria) this;
         }
 

@@ -3,6 +3,62 @@ DROP DATABASE `Factory_Data`;
 CREATE DATABASE `Factory_Data`;
 USE `Factory_Data`;
 
+#						权限五张表
+#新建表1： 权限表 jurisdiction	#	DROP TABLE `a_jurisdiction`;
+CREATE TABLE `a_jurisdiction`(
+	`jur_id`  		INT 		NOT NULL  AUTO_INCREMENT COMMENT '权限编号' PRIMARY KEY,
+	`description` 		VARCHAR(255) 	DEFAULT NULL COMMENT '权限名称',
+	`parent_jur_id`		INT  		NOT NULL COMMENT '权限父级编号',
+	`jur_name` 		VARCHAR(100) 	NOT NULL COMMENT '权限url'
+)ENGINE=INNODB COMMENT="权限表";
+INSERT INTO `a_jurisdiction`(description,parent_jur_id,jur_name)
+VALUES('基本资料',0,''),('物料资料',0,''),('往来资料',0,''),('采购管理',0,''),('销售管理',0,''),('库存管理',0,''),('帐款管理',0,''),
+('部门设定',1,'html/departmentSet.html'),('人员设定',1,'html/personSet.html'),
+('仓库',2,'html/entrepotSet.html'),('物料类别',2,'html/materialTypeSet.html'),('物料',2,'html/materialSet.html'),('计量单位',2,'html/metreingUnitSet.html'),
+('客户类别',3,'html/clientTypeSet.html'),('客户',3,'html/clientSet.html'),('供应商类别',3,'html/supplierType.html'),('供应商',3,'html/supplierSet.html'),
+('请购',4,'html/D_sww/purchaseRequest.html'),('询价',4,'html/D_sww/purchaseEnquiry.html'),('订单',4,'html/E_ljh/purchaseOrder.html'),('入库',4,'html/F_lqj/purchaseStorage.html'),('退货',4,'html/F_lqj/purchaseReturn.html'),('分摊',4,'html/E_ljh/purchaseApportion.html'),
+('报价',5,'html/A_zp/salesPrice.html'),('订单',5,'html/B_dsh/salesOrder.html'),('出库',5,'html/A_zp/salesOutbound.html'),('退货',5,'html/B_dsh/salesReturn.html'),
+('调拨',6,'html/H_yw/transferring.html'),('盘点',6,'html/H_yw/blitem.html'),('调价',6,'html/H_yw/changePriceBill.html'),
+('预收',7,'html/C_gt/receive.html'),('应收',7,'html/C_gt/receivable.html'),('预付',7,'html/G_cyh/payment.html'),('应付',7,'html/G_cyh/copewith.html');
+#新建表2： 职位表 position	#	DROP TABLE `a_position`;
+CREATE TABLE `a_position`(
+	`pos_id` 		INT 		NOT NULL AUTO_INCREMENT COMMENT '职位编号' PRIMARY KEY,
+	`pos_name`		VARCHAR(50)	NOT NULL COMMENT '职位名称',
+	`description` 		VARCHAR(255) 	DEFAULT NULL COMMENT '拼音简称'
+)ENGINE=INNODB COMMENT="职位表";
+INSERT INTO `a_position`(`pos_name`,`description`)
+VALUES('总经理','zongjingli'),('直销部经理','zhishoubujingli'),('采购部经理','caigoubujingli'),
+('储运部经理','chuyunbujingli'),('直销部员工','zhishoubuyuangong'),('采购部员工','caigoubuyuangong'),
+('储运部员工','chuyunbuyuangong'),('会计','kuaiji'),('出纳','chuna');
+#新建表： 员工表 staff		在下面
+#新建表3： 权限职位关系表 jur_pos_relation	#	DROP TABLE `a_jur_pos_relation`;
+CREATE TABLE `a_jur_pos_relation`(
+	`pos_id`		INT 		NOT NULL COMMENT '职位编号',
+	`jur_id`		INT    		NOT NULL COMMENT '权限编号'
+)ENGINE=INNODB COMMENT="权限职位关系表";
+INSERT INTO `a_jur_pos_relation`(pos_id, jur_id)
+VALUES
+(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),	#总经理
+(2,14),(2,15),(2,5),				#直销部经理
+(3,16),(3,17),(3,4),				#采购部经理
+(4,2),(4,6),					#储运部经理
+(5,5),						#直销部员工
+(6,4),						#采购部员工
+(7,6),						#储运部员工
+(8,7);						#会计		#本项目中，出纳暂无权限
+#新建表4： 用户职位关系表 sta_pos_relation	#	DROP TABLE `a_sta_pos_relation`;
+CREATE TABLE `a_sta_pos_relation`(
+	`staff_id` 		INT 		NOT NULL COMMENT '员工编号（主键 唯一）',
+	`pos_id`		INT 		NOT NULL COMMENT '职位编号'
+)ENGINE=INNODB COMMENT="用户职位关系表";
+INSERT INTO `a_sta_pos_relation`(staff_id,pos_id)
+VALUES(1,1),(2,1),(3,8),(4,9),
+(5,2),(6,5),(7,5),		#直销部
+(8,3),(9,6),(10,6),		#采购部
+(11,4),(12,7),(13,7);		#储运部
+
+
+
 ##1.共用管理开账（共九步）
 #第一步：人员资料（3） - 1.部门设定	# DROP TABLE `comdepartment`;
 CREATE TABLE `comdepartment` (
@@ -19,8 +75,8 @@ CREATE TABLE `comdepartment` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 INSERT  INTO `comdepartment`(`DepartID`,`DepartName`,`EngName`,`Memo`,`Female`,`Male`,`JobSch`,`MergeOutState`,`CalID`,`SalaryTypeID`) 
 VALUES ('01','财务部','accounting department','',0,0,'',0,'002',''),('02','直销部','','',0,0,'',0,'002',''),('03','渠道部','','',0,0,'',0,'002',''),
-('04','服务中心','service center','',0,0,'',0,'002',''),('05','综合管理部','','',0,0,'',0,'002',''),('06','生产部','','',0,0,'',0,'001',''),
-('07','研发部','Research and Development Department','',0,0,'',0,'002',''),('08','储运部','','',0,0,'',0,'001',''),('09','采购部','','',0,0,'',0,'002','');
+('04','服务中心','service center','',0,0,'',0,'002',''),('05','采购部','','',0,0,'',0,'002',''),('06','生产部','','',0,0,'',0,'001',''),
+('07','研发部','Research and Development Department','',0,0,'',0,'002',''),('08','储运部','','',0,0,'',0,'001',''),('09','综合管理部','','',0,0,'',0,'002','');
 #第一步：人员资料（3） - 2.学历设定	# DROP TABLE `hum_schooling`;
 CREATE TABLE `hum_schooling` (
   `SchoolingID` 	VARCHAR(10) 	DEFAULT NULL 	COMMENT '学历编号',
@@ -33,7 +89,8 @@ INSERT  INTO `hum_schooling`(`SchoolingID`,`SchoolingName`,`EngName`,`Memo`,`Mer
 VALUES ('01','高中/中专','','',0),('02','大专','','',0),('03','本科','','',0),('04','硕士','','',0),('05','博士','','',0);
 #第一步：人员资料（3） - 3.人员主文件设定	# DROP TABLE `staff`;
 CREATE TABLE `staff` (
-  `staff_id` 		VARCHAR(50) 	NOT NULL 	COMMENT '员工编号（主键 唯一）',
+  `staff_id`		INT 		NOT NULL AUTO_INCREMENT COMMENT '员工编号' PRIMARY KEY,
+  `job_number` 		VARCHAR(50)	NOT NULL 	COMMENT '工号（用于登录..）',
   `staff_name` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '员工名称',
   `staff_english_name` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '英文名称',
   `team_id`		VARCHAR(50) 	DEFAULT NULL 	COMMENT '所属部门（部门id）',
@@ -51,7 +108,7 @@ CREATE TABLE `staff` (
   `staff_Mobilephone` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '联系电话',
   `staff_politicalstatus` VARCHAR(50) 	DEFAULT NULL 	COMMENT '政治面貌',
   `staff_entrydate` 	DATE 		DEFAULT NULL 	COMMENT '入职日期',
-  `staff_becomea regularworker` DATE 	DEFAULT NULL 	COMMENT '转正日期',
+  `staff_becomea_regularworker` DATE 	DEFAULT NULL 	COMMENT '转正日期',
   `staff_probationperiod` VARCHAR(50) 	DEFAULT NULL 	COMMENT '试用期长',
   `staff_dimissiondate` DATE 		DEFAULT NULL 	COMMENT '离职日期',
   `staff_technicaltitle` VARCHAR(50) 	DEFAULT NULL 	COMMENT '技术职称',
@@ -63,7 +120,7 @@ CREATE TABLE `staff` (
   `staff_graduateschool` VARCHAR(50) 	DEFAULT NULL 	COMMENT '毕业学校',
   `staff_major` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '所学专业',
   `staff_foreignlanguagelevel` VARCHAR(50) DEFAULT NULL COMMENT '外语水平',
-  `staff_physical examinationdate` DATE DEFAULT NULL 	COMMENT '体检日期',
+  `staff_physical_examinationdate` DATE DEFAULT NULL 	COMMENT '体检日期',
   `staff_atmaturitydate` DATE 		DEFAULT NULL 	COMMENT '到期日期',
   `staff_entercountry` 	DATE 		DEFAULT NULL 	COMMENT '入境日期',
   `staff_passport_number` VARCHAR(50) 	DEFAULT NULL 	COMMENT '护照号码',
@@ -87,30 +144,26 @@ CREATE TABLE `staff` (
   `staff_remark` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '备注',
   `staff_Auditing` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '是否审核',
   `staff_yn` 		VARCHAR(50) 	DEFAULT '0' 	COMMENT '是否删除（0 否 1 是 ，默认0）',
+  `salt` 		VARCHAR(150) 	DEFAULT NULL 	COMMENT '解密密码',
   `staff_custom1` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏',
   `staff_custom2` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏',
-  `staff_custom3` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏',
-  PRIMARY KEY (`staff_id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;#	,  员工名称  ,     身份证号   ,性别(1:男,2:女),    出生日期   ,     入职日期    )
-INSERT INTO `staff`(`staff_id`,`team_id`,`staff_name`,`staff_idnumber`,`password`,`staff_gender`,`staff_birthday`,`staff_entrydate`)
-VALUES ('10001','05','王总','43000019711203001x','123123',1,'1971-12-03','2001-04-05'),
-('10002','05','林副总','430000197401090021','123123',0,'1974-01-09','2001-04-05'),
-('10003','05','陈助理','43000019691204001x','123123',1,'1969-12-04','2003-06-21'),
-('10005','01','曾会计','430000197410010001','123123',0,'1974-10-01','2001-04-05'),
-('10006','01','陈出纳','430000198010230001','123123',0,'1980-10-23','2001-05-08'),
-('10007','02','王经理','430000197612080019','123123',1,'1976-12-08','2003-12-05'),
-('10008','02','刘直销','43000019811124002x','123123',0,'1981-11-12','2006-08-12'),
-('10009','02','周直销','430000197905080013','123123',1,'1979-05-08','2005-03-05'),
-('10010','03','戴经理','430000197502160015','123123',1,'1975-02-16','2008-04-21'),
-('10011','06','欧经理','430000197108190010','123123',1,'1971-08-19','2001-06-01'),
-('10012','0601','洪主任','430000198503150029','123123',0,'1985-03-15','2008-12-03'),
-('10013','0602','龚主任','403000198404080019','123123',1,'1984-04-08','2007-06-21'),
-('10014','0603','杨主任','430000198304190022','123123',0,'1983-04-19','2007-04-21'),
-('10015','07','邓工','43000019770924001x','123123',1,'1977-09-24','2007-03-05'),
-('10016','08','王保管','430000197112030020','123123',0,'1971-12-03','2001-12-01'),
-('10017','08','胡保管','430000198012040045','123123',0,'1980-12-04','2005-01-02'),
-('10018','09','朱采购','43000019720516001x','123123',1,'1972-05-16','2004-12-01'),
-('10019','0604','牛质检','430000197404290013','123123',1,'1974-04-29','2006-04-01');
+  `staff_custom3` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏'
+) ENGINE=INNODB DEFAULT CHARSET=utf8;#	,  员工名称  ,     身份证号   ,   密码   ,性别(1:男,2:女),    出生日期   ,     入职日期    , 大概：解密密码)
+INSERT INTO `staff`(`job_number`,`team_id`,`staff_name`,`staff_idnumber`,`password`,`staff_gender`,`staff_birthday`,`staff_entrydate`,`salt`)
+VALUES 
+('10001','09','王总',  '43000019711203001x','5e95aa59025a27b11d85021bc371114b',1,'1971-12-03','2001-04-05','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),
+('10002','09','林副总','430000197401090021','5e95aa59025a27b11d85021bc371114b',0,'1974-01-09','2001-04-05','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),
+('10003','01','曾会计','430000197410010001','5e95aa59025a27b11d85021bc371114b',0,'1974-10-01','2001-04-05','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),	#财务
+('10004','01','陈出纳','430000198010230001','5e95aa59025a27b11d85021bc371114b',0,'1980-10-23','2001-05-08','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),
+('10005','02','王经理','430000197612080019','5e95aa59025a27b11d85021bc371114b',1,'1976-12-08','2003-12-05','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),	#销售
+('10006','02','刘直销','43000019811124002x','5e95aa59025a27b11d85021bc371114b',0,'1981-11-12','2006-08-12','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),
+('10007','02','周直销','430000197905080013','5e95aa59025a27b11d85021bc371114b',1,'1979-05-08','2005-03-05','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),
+('10008','05','戴经理','430000197502160015','5e95aa59025a27b11d85021bc371114b',1,'1975-02-16','2008-04-21','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),	#采购
+('10009','05','朱采购','43000019720516001x','5e95aa59025a27b11d85021bc371114b',1,'1972-05-16','2004-12-01','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),
+('10010','05','邓采购','43000019770924001x','5e95aa59025a27b11d85021bc371114b',1,'1977-09-24','2007-03-05','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),
+('10011','08','欧经理','430000197108190010','5e95aa59025a27b11d85021bc371114b',1,'1971-08-19','2001-06-01','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),	#储运
+('10012','08','王保管','430000197112030020','5e95aa59025a27b11d85021bc371114b',0,'1971-12-03','2001-12-01','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9'),
+('10013','08','胡保管','430000198012040045','5e95aa59025a27b11d85021bc371114b',0,'1980-12-04','2005-01-02','db788fe7-59b5-4fdb-a04f-5cc0301a5dc9');
 #第二步：会计科目（4） - 1.币别设定	# DROP TABLE `comcurren_cysys`;
 CREATE TABLE `comcurren_cysys` (									#数据表37 C14 有数据8
   `CurrencyID` 		VARCHAR(3) 	DEFAULT NULL 	COMMENT '币别编号',
@@ -423,7 +476,7 @@ CREATE TABLE `combank_cls` (
   `Memo` 		VARCHAR(4000) 	DEFAULT NULL 	COMMENT '备注',
   `MergeOutState` 	SMALLINT(6) 	DEFAULT NULL 	COMMENT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-INSERT  INTO `combankcls`(`BankClsID`,`BankClsName`,`EngName`,`Memo`,`MergeOutState`) VALUES ('01','开户行','','',0);
+INSERT  INTO `combank_cls`(`BankClsID`,`BankClsName`,`EngName`,`Memo`,`MergeOutState`) VALUES ('01','开户行','','',0);
 #第八步：其他资料（4） - 1.收入费用类别设定
 CREATE TABLE `comfaremeans` (
   `FareClassID` 	VARCHAR(6) 	DEFAULT NULL 	COMMENT '编号',
@@ -829,7 +882,7 @@ CREATE TABLE `advances_received_main` (
   `payables_custom3` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏三',
   PRIMARY KEY (`payables_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='应收冲款单（收款冲款+预收冲应收）主表';
-#应收冲款单（预收冲应收、收款冲款） 详表
+#应收冲款单（预收冲应收、收款冲款） 详表	#	DROP TABLE `advances_received_details`;
 CREATE TABLE `advances_received_details` (
   `paydetail_id` 	VARCHAR(50) 	NOT NULL 	COMMENT '应收冲款单明细表ID,主键行号',
   `Payables_id` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '应收冲款单主表ID, 外键',
@@ -860,7 +913,7 @@ CREATE TABLE `advances_received_details` (
   `pade_custom3` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏三',
   PRIMARY KEY (`paydetail_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='应收冲款单（收款冲款+预收冲应收）详表';
-#应收冲款单（预收款） 主表
+#应收冲款单（预收款） 主表	#	DROP TABLE `advances_received_main_y`;
 CREATE TABLE `advances_received_main_y` (
   `priabill_id` 	VARCHAR(50) 	NOT NULL 	COMMENT '预收款单主表ID，主键',
   `customer_id` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '客户表id，外键',
@@ -890,17 +943,21 @@ CREATE TABLE `advances_received_main_y` (
   `priabill_reviewers` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '复核人员',
   `priabill_remarks` 	VARCHAR(200) 	DEFAULT NULL 	COMMENT '备注',
   `priabill_auditstatus` INT(4) 	DEFAULT NULL 	COMMENT '审核状态0:未审核1:已结案',
-  `priabill_Auditing` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '是否审核',
+  `priabill_Auditing` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '是否审核（）',
   `priabill_yn` 	VARCHAR(50) 	DEFAULT '0' 	COMMENT '是否删除（0 否 1 是 ，默认0）',
   `priabill_custom1` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏一',
   `priabill_custom2` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏二',
   `priabill_custom3` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '自定栏三',
   PRIMARY KEY (`priabill_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='应收冲款单（预收款）主表';
+INSERT INTO `advances_received_main_y`(`priabill_id`,`customer_id`,`priabill_customer_name`,`priabill_Price1`,`priabill_Price2`,`priabill_Price3`,`priabill_zhekou`,`priabill_endtime`,`priabill_payablestime`,`currency_id`,`priabill_currency_name`,`payables_exchange_rate`,`priabill_type`,`priabill_voucherNo`,`staff_id`,`priabill_team_name`,`project_id`,`priabill_project_name`,`priabill_billpersonnel`,`priabill_reviewers`,`priabill_remarks`,`priabill_auditstatus`,`priabill_yn`)
+VALUES('2019121701','1001','长沙旺牛食品',30000.00,0.00,0.00,0,'2019-12-01','2019-12-17','RMB','人民币','1.0000','预付冲款','','02','直销部','','','当前登录者','当前登录者','',0,0),
+('2019121702','1002','郴州正帆',60000.00,0.00,0.00,0,'2019-12-01','2019-12-17','RMB','人民币','1.0000','预付冲款','','02','直销部','','','当前登录者','当前登录者','',0,0),
+('2019121801','1003','株洲大为实业',50000.00,0.00,0.00,0,'2019-12-01','2019-12-18','RMB','人民币','1.0000','预付冲款','','02','直销部','','','当前登录者','当前登录者','',0,0);
 #应收冲款单（预收款） 详表
 CREATE TABLE `advances_received_details_y` (
-  `priadetails_id` 	VARCHAR(50) 	NOT NULL 	COMMENT '预收款单明细表ID, 主键行号',
-  `priabill_id` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '预收款单主表ID,   外键',
+  `priadetails_id` 	VARCHAR(50) 	NOT NULL 	COMMENT '预收款单明细表ID,主键行号',
+  `priabill_id` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '预收款单主表ID,外键',
   `priabill_price` 	FLOAT 		DEFAULT NULL 	COMMENT '预收金额',
   `priabill_type` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '来源单别',
   `priabill_number` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '来源单号',

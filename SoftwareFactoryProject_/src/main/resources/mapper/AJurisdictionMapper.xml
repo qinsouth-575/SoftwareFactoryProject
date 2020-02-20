@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.AJurisdictionMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.AJurisdiction" >
+    <id column="jur_id" property="jurId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="parent_jur_id" property="parentJurId" jdbcType="INTEGER" />
+    <result column="jur_name" property="jurName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+  
+  
+  
+  <select id="listPermissionIdsByRoleIds"  parameterType="java.util.List" resultType="java.lang.Integer">
+    SELECT p.`jur_id` 
+	FROM `a_jur_pos_relation` p 
+	WHERE p.`pos_id` IN 
+    <foreach  item="item" collection="list" index="index"  open="(" separator="," close=")">#{item}</foreach>
+  </select>
+
+  <select id="listPermissionsByPermissionIds"  parameterType="java.util.List" resultMap="BaseResultMap">
+    SELECT * 
+	FROM `a_jurisdiction` p 
+	WHERE p.`jur_id` IN
+    	<foreach  item="item" collection="list" index="index"  open="(" separator="," close=")">#{item}</foreach>
+    	OR p.`parent_jur_id` IN
+    	<foreach  item="item" collection="list" index="index"  open="(" separator="," close=")">#{item}</foreach>
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    jur_id, description, parent_jur_id, jur_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.AJurisdictionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from a_jurisdiction
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from a_jurisdiction
+    where jur_id = #{jurId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from a_jurisdiction
+    where jur_id = #{jurId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.AJurisdictionExample" >
+    delete from a_jurisdiction
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.AJurisdiction" >
+    insert into a_jurisdiction (jur_id, description, parent_jur_id, 
+      jur_name)
+    values (#{jurId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{parentJurId,jdbcType=INTEGER}, 
+      #{jurName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.AJurisdiction" >
+    insert into a_jurisdiction
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jurId != null" >
+        jur_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="parentJurId != null" >
+        parent_jur_id,
+      </if>
+      <if test="jurName != null" >
+        jur_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jurId != null" >
+        #{jurId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="parentJurId != null" >
+        #{parentJurId,jdbcType=INTEGER},
+      </if>
+      <if test="jurName != null" >
+        #{jurName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.AJurisdictionExample" resultType="java.lang.Integer" >
+    select count(*) from a_jurisdiction
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update a_jurisdiction
+    <set >
+      <if test="record.jurId != null" >
+        jur_id = #{record.jurId,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentJurId != null" >
+        parent_jur_id = #{record.parentJurId,jdbcType=INTEGER},
+      </if>
+      <if test="record.jurName != null" >
+        jur_name = #{record.jurName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update a_jurisdiction
+    set jur_id = #{record.jurId,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      parent_jur_id = #{record.parentJurId,jdbcType=INTEGER},
+      jur_name = #{record.jurName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.AJurisdiction" >
+    update a_jurisdiction
+    <set >
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="parentJurId != null" >
+        parent_jur_id = #{parentJurId,jdbcType=INTEGER},
+      </if>
+      <if test="jurName != null" >
+        jur_name = #{jurName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jur_id = #{jurId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.AJurisdiction" >
+    update a_jurisdiction
+    set description = #{description,jdbcType=VARCHAR},
+      parent_jur_id = #{parentJurId,jdbcType=INTEGER},
+      jur_name = #{jurName,jdbcType=VARCHAR}
+    where jur_id = #{jurId,jdbcType=INTEGER}
+  </update>
+</mapper>

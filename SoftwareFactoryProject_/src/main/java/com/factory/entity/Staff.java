@@ -3,7 +3,9 @@ package com.factory.entity;
 import java.util.Date;
 
 public class Staff {
-    private String staffId;
+    private Integer staffId;
+
+    private String jobNumber;
 
     private String staffName;
 
@@ -111,23 +113,25 @@ public class Staff {
 
     private String staffYn;
 
+    private String salt;
+
     private String staffCustom1;
 
     private String staffCustom2;
 
     private String staffCustom3;
-    
+
     public Staff() {
 		super();
 	}
 
-	public Staff(String staffId) {
+	public Staff(Integer staffId) {
 		super();
 		this.staffId = staffId;
 	}
 
-	public Staff(String staffId, String staffName, String staffEnglishName, String teamId, Boolean staffGender,
-			String staffIdnumber, String password, Date staffBirthday, Integer staffMaritalstatus,
+	public Staff(Integer staffId, String jobNumber, String staffName, String staffEnglishName, String teamId,
+			Boolean staffGender, String staffIdnumber, String password, Date staffBirthday, Integer staffMaritalstatus,
 			Integer staffNativePlace, String staffNativeplace2, String staffNationality, String staffNation,
 			String staffChineseposition, String staffZipcode, String staffMobilephone, String staffPoliticalstatus,
 			Date staffEntrydate, Date staffBecomeaRegularworker, String staffProbationperiod, Date staffDimissiondate,
@@ -140,9 +144,11 @@ public class Staff {
 			String staffHomezipcode, String staffHomeaddress, String staffNewphone, String staffNewzipcode,
 			String staffNewaddress, String staffEmergencycontact, String staffUrgentcontactzipcode,
 			String staffEmergencycontactnumber, String staffEmergencycontactaddress, String staffRemark,
-			String staffAuditing, String staffYn, String staffCustom1, String staffCustom2, String staffCustom3) {
+			String staffAuditing, String staffYn, String salt, String staffCustom1, String staffCustom2,
+			String staffCustom3) {
 		super();
 		this.staffId = staffId;
+		this.jobNumber = jobNumber;
 		this.staffName = staffName;
 		this.staffEnglishName = staffEnglishName;
 		this.teamId = teamId;
@@ -196,17 +202,26 @@ public class Staff {
 		this.staffRemark = staffRemark;
 		this.staffAuditing = staffAuditing;
 		this.staffYn = staffYn;
+		this.salt = salt;
 		this.staffCustom1 = staffCustom1;
 		this.staffCustom2 = staffCustom2;
 		this.staffCustom3 = staffCustom3;
 	}
 
-	public String getStaffId() {
+	public Integer getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(String staffId) {
+    public void setStaffId(Integer staffId) {
         this.staffId = staffId;
+    }
+
+    public String getJobNumber() {
+        return jobNumber;
+    }
+
+    public void setJobNumber(String jobNumber) {
+        this.jobNumber = jobNumber;
     }
 
     public String getStaffName() {
@@ -633,6 +648,14 @@ public class Staff {
         this.staffYn = staffYn;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public String getStaffCustom1() {
         return staffCustom1;
     }
@@ -659,12 +682,12 @@ public class Staff {
 
 	@Override
 	public String toString() {
-		return "Staff [staffId=" + staffId + ", staffName=" + staffName + ", staffEnglishName=" + staffEnglishName
-				+ ", teamId=" + teamId + ", staffGender=" + staffGender + ", staffIdnumber=" + staffIdnumber
-				+ ", password=" + password + ", staffBirthday=" + staffBirthday + ", staffMaritalstatus="
-				+ staffMaritalstatus + ", staffNativePlace=" + staffNativePlace + ", staffNativeplace="
-				+ staffNativeplace + ", staffNationality=" + staffNationality + ", staffNation=" + staffNation
-				+ ", staffChineseposition=" + staffChineseposition + ", staffZipcode=" + staffZipcode
+		return "Staff [staffId=" + staffId + ", jobNumber=" + jobNumber + ", staffName=" + staffName
+				+ ", staffEnglishName=" + staffEnglishName + ", teamId=" + teamId + ", staffGender=" + staffGender
+				+ ", staffIdnumber=" + staffIdnumber + ", password=" + password + ", staffBirthday=" + staffBirthday
+				+ ", staffMaritalstatus=" + staffMaritalstatus + ", staffNativePlace=" + staffNativePlace
+				+ ", staffNativeplace=" + staffNativeplace + ", staffNationality=" + staffNationality + ", staffNation="
+				+ staffNation + ", staffChineseposition=" + staffChineseposition + ", staffZipcode=" + staffZipcode
 				+ ", staffMobilephone=" + staffMobilephone + ", staffPoliticalstatus=" + staffPoliticalstatus
 				+ ", staffEntrydate=" + staffEntrydate + ", staffBecomeaRegularworker=" + staffBecomeaRegularworker
 				+ ", staffProbationperiod=" + staffProbationperiod + ", staffDimissiondate=" + staffDimissiondate
@@ -684,8 +707,8 @@ public class Staff {
 				+ ", staffEmergencycontact=" + staffEmergencycontact + ", staffUrgentcontactzipcode="
 				+ staffUrgentcontactzipcode + ", staffEmergencycontactnumber=" + staffEmergencycontactnumber
 				+ ", staffEmergencycontactaddress=" + staffEmergencycontactaddress + ", staffRemark=" + staffRemark
-				+ ", staffAuditing=" + staffAuditing + ", staffYn=" + staffYn + ", staffCustom1=" + staffCustom1
-				+ ", staffCustom2=" + staffCustom2 + ", staffCustom3=" + staffCustom3 + "]";
+				+ ", staffAuditing=" + staffAuditing + ", staffYn=" + staffYn + ", salt=" + salt + ", staffCustom1="
+				+ staffCustom1 + ", staffCustom2=" + staffCustom2 + ", staffCustom3=" + staffCustom3 + "]";
 	}
     
 }
