@@ -59,23 +59,23 @@
 				<div class="layui-col-md10 layui-col-md-offset2"></div>
 				<div class="layui-row">
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3">客户</span>
-						<input type="text" class="layui-col-md-offset1" readonly="readonly" />
+						<span class="layui-col-md3" class="">客户</span>
+						<input id="customerName" type="text" class="layui-col-md-offset1" readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2">单据日期</span> <input type="date" style="width: 157px;" class="layui-col-md-offset1" readonly="readonly" />
+						<span class="layui-col-md2" >单据日期</span> <input id="sqDocumentTime" type="date" style="width: 157px;" class="layui-col-md-offset1" readonly="readonly" />
 					</div><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3">送货地址</span> <input type="text" class="layui-col-md-offset1 " readonly="readonly" />
+						<span class="layui-col-md3">送货地址</span> <input id="sqDeliveryAddress" type="text" class="layui-col-md-offset1 " readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2">单据号码</span> <input type="text" class="layui-col-md-offset1 " readonly="readonly" />
+						<span class="layui-col-md2">单据号码</span> <input id="sqId" type="text" class="layui-col-md-offset1 " readonly="readonly" />
 					</div><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3">有效日期</span> <input type="date" style="width: 157px;" class="layui-col-md-offset1" readonly="readonly" />
+						<span class="layui-col-md3">有效日期</span> <input id="sqEffectiveTime" type="date" style="width: 157px;" class="layui-col-md-offset1" readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2">币别</span> <input type="text" class="layui-col-md-offset1 " readonly="readonly" />
+						<span class="layui-col-md2" id="">币别</span> <input id="currencyName" type="text" class="layui-col-md-offset1 " readonly="readonly" />
 					</div><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3">单价是否含税</span>
@@ -84,13 +84,13 @@
 						</select>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2">汇率</span> <input type="text" class="layui-col-md-offset1" readonly="readonly" />
+						<span class="layui-col-md2" id="sqDocumentTime">汇率</span> <input type="text" class="layui-col-md-offset1" readonly="readonly" />
 					</div><br /><br />
 
 					<div class="layui-tab layui-col-md10 layui-col-md-offset2">
 						<ul class="layui-tab-title layui-col-md10 layui-col-md-offset2">
 							<li class="layui-this">内容</li>
-							<li>备注</li>
+							<li id="sqDocumentTime">备注</li>
 
 						</ul>
 						<div class="layui-tab-content layui-col-md10 layui-col-md-offset2">
@@ -173,6 +173,47 @@
 			</div>
 		</div>
 		<script>
+			var pageNum=1;
+			var pageSize=1;
+			jz()
+			function jz(){
+				/*axios({
+              		url:"http://localhost:8080/SoftwareFactoryProject_/zp/querybaojia",
+             		params:{
+                  		pageNum:pageNum,
+                  		pageSize:pageSize
+              		}
+	          	}).then(response=>{
+	              		console.log(response);
+	          	}).catch(error=>{
+	
+	          	});*/
+				$.ajax({
+					url:"//localhost:8080/SoftwareFactoryProject_/zp/querybaojia",
+					data:{
+						pageNum:pageNum,
+                  		pageSize:pageSize
+					},
+					dataType: "json",
+					success:function(r){
+						console.log(r)
+						$(r.list).each(function(i,obj){
+							console.log(obj)
+							$("#sqId").val(obj.sqId)
+							$("#sqDocumentTime").val(obj.sqDocumentTime)
+							$("#sqEffectiveTime").val(obj.sqEffectiveTime)
+							$("#customerName").val(obj.customerName)
+							
+							
+							
+							
+							$("#currencyName").val(obj.currencyName)
+							$("#sqDeliveryAddress").val(obj.sqDeliveryAddress)
+						})
+						
+					}
+				});
+			}
 		</script>
 
 	</body>
