@@ -3,10 +3,10 @@ package com.factory.biz;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.factory.entity.Comdepartment;
-import com.factory.entity.ComdepartmentExample;
 import com.factory.entity.ComwareHouse;
+import com.factory.entity.ComwareHouseExample;
 import com.factory.mapper.ComwareHouseMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -17,39 +17,38 @@ import com.github.pagehelper.PageInfo;
  * @version v1.0 2020年2月21日 下午5:18:34
  * - 表/功能：
  */
+@Service
 public class Flqj_ComwareHouseBiz {
 	
 	@Autowired
 	private ComwareHouseMapper dao;
 	
-	//部门设定 - 1.分页查询一条部门
-    /*public PageInfo<ComwareHouse> queryCDAll(ComwareHouse record){
+	//仓库设定 - 1.分页查询一条仓库
+    public PageInfo<ComwareHouse> queryCDAll(ComwareHouse record){
+    	//ComwareHouseExample example = new ComwareHouseExample();
     	PageHelper.startPage(record.getPageNum(), record.getPageSize());
-    	List<ComwareHouse> cdList = dao.queryCDAll(record);
-    	PageInfo<ComwareHouse> page = new PageInfo<ComwareHouse>(cdList); 
+    	List<ComwareHouse> chList = dao.selectByExample(null);
+    	PageInfo<ComwareHouse> page = new PageInfo<ComwareHouse>(chList);
     	return page;
     }
 
-    //部门设定 - 2.新增部门
-    public boolean insertComDepartment(Comdepartment record) {
+    //仓库设定 - 2.新增仓库
+    public boolean insertComwareHouse(ComwareHouse record) {
     	return dao.insert(record) > 0;
     };
 
-    //部门设定 - 3.删除部门
-    public boolean deleteComDepartment(String departID) {
-    	ComdepartmentExample example = new ComdepartmentExample();
-    	example.createCriteria().andDepartidEqualTo(departID);
+    //仓库设定 - 3.删除仓库
+    public boolean deleteComwareHouse(String warehouseid) {
+    	ComwareHouseExample example = new ComwareHouseExample();
+    	example.createCriteria().andWarehouseidEqualTo(warehouseid);
     	return dao.deleteByExample(example) > 0;
     };
 
-    //部门设定 - 4.修改部门
-    public boolean updateComDepartment(Comdepartment record) {
-    	ComdepartmentExample example = new ComdepartmentExample();
-    	example.createCriteria().andDepartidEqualTo(record.getDepartid());
+    //仓库设定 - 4.修改仓库
+    public boolean updateComwareHouse(ComwareHouse record) {
+    	ComwareHouseExample example = new ComwareHouseExample();
+    	example.createCriteria().andWarehouseidEqualTo(record.getWarehouseid());
     	return dao.updateByExample(record, example) > 0;
-    };*/
-	
-	
-	
+    };
 	
 }

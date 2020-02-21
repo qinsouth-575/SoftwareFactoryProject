@@ -1,7 +1,7 @@
 package com.factory.entity;
 
 /**
- * - 实体层 - 部门类
+ * - 实体层 - 仓库类
  * @author south wind
  * @version v1.0 2020年2月21日 下午5:16:48
  * - 表/功能：
@@ -12,10 +12,10 @@ public class ComwareHouse {
     private String warehousename;
     private String shortname;
     private String engname;
-    private String linkman;
-    private String telephone;
-    private String warehouseaddress;
-    private String memo;
+    private String linkman;					//联系人员
+    private String telephone;				//联系电话
+    private String warehouseaddress;		//仓库地址
+    private String memo;					//备注
     private Short mergeoutstate;
     private Integer dataver;
     

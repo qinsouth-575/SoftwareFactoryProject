@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.AllocationScheduleBillMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.AllocationScheduleBill" >
+    <id column="asbid" property="asbid" jdbcType="INTEGER" />
+    <result column="apbid" property="apbid" jdbcType="VARCHAR" />
+    <result column="stockNumber" property="stocknumber" jdbcType="VARCHAR" />
+    <result column="amout" property="amout" jdbcType="VARCHAR" />
+    <result column="standby" property="standby" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.factory.entity.AllocationScheduleBill" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    asbid, apbid, stockNumber, amout, standby
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.factory.entity.AllocationScheduleBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from allocation_schedule_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.AllocationScheduleBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from allocation_schedule_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from allocation_schedule_bill
+    where asbid = #{asbid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from allocation_schedule_bill
+    where asbid = #{asbid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.AllocationScheduleBillExample" >
+    delete from allocation_schedule_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.AllocationScheduleBill" >
+    insert into allocation_schedule_bill (asbid, apbid, stockNumber, 
+      amout, standby, remark
+      )
+    values (#{asbid,jdbcType=INTEGER}, #{apbid,jdbcType=VARCHAR}, #{stocknumber,jdbcType=VARCHAR}, 
+      #{amout,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.AllocationScheduleBill" >
+    insert into allocation_schedule_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="asbid != null" >
+        asbid,
+      </if>
+      <if test="apbid != null" >
+        apbid,
+      </if>
+      <if test="stocknumber != null" >
+        stockNumber,
+      </if>
+      <if test="amout != null" >
+        amout,
+      </if>
+      <if test="standby != null" >
+        standby,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="asbid != null" >
+        #{asbid,jdbcType=INTEGER},
+      </if>
+      <if test="apbid != null" >
+        #{apbid,jdbcType=VARCHAR},
+      </if>
+      <if test="stocknumber != null" >
+        #{stocknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="amout != null" >
+        #{amout,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null" >
+        #{standby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.AllocationScheduleBillExample" resultType="java.lang.Integer" >
+    select count(*) from allocation_schedule_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update allocation_schedule_bill
+    <set >
+      <if test="record.asbid != null" >
+        asbid = #{record.asbid,jdbcType=INTEGER},
+      </if>
+      <if test="record.apbid != null" >
+        apbid = #{record.apbid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stocknumber != null" >
+        stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amout != null" >
+        amout = #{record.amout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standby != null" >
+        standby = #{record.standby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update allocation_schedule_bill
+    set asbid = #{record.asbid,jdbcType=INTEGER},
+      apbid = #{record.apbid,jdbcType=VARCHAR},
+      stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
+      amout = #{record.amout,jdbcType=VARCHAR},
+      standby = #{record.standby,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update allocation_schedule_bill
+    set asbid = #{record.asbid,jdbcType=INTEGER},
+      apbid = #{record.apbid,jdbcType=VARCHAR},
+      stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
+      amout = #{record.amout,jdbcType=VARCHAR},
+      standby = #{record.standby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.AllocationScheduleBill" >
+    update allocation_schedule_bill
+    <set >
+      <if test="apbid != null" >
+        apbid = #{apbid,jdbcType=VARCHAR},
+      </if>
+      <if test="stocknumber != null" >
+        stockNumber = #{stocknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="amout != null" >
+        amout = #{amout,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null" >
+        standby = #{standby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where asbid = #{asbid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.factory.entity.AllocationScheduleBill" >
+    update allocation_schedule_bill
+    set apbid = #{apbid,jdbcType=VARCHAR},
+      stockNumber = #{stocknumber,jdbcType=VARCHAR},
+      amout = #{amout,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where asbid = #{asbid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.AllocationScheduleBill" >
+    update allocation_schedule_bill
+    set apbid = #{apbid,jdbcType=VARCHAR},
+      stockNumber = #{stocknumber,jdbcType=VARCHAR},
+      amout = #{amout,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR}
+    where asbid = #{asbid,jdbcType=INTEGER}
+  </update>
+</mapper>
