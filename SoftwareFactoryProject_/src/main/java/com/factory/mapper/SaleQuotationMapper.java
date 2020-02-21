@@ -4,6 +4,7 @@ import com.factory.entity.SaleQuotation;
 import com.factory.entity.SaleQuotationExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface SaleQuotationMapper {
     int countByExample(SaleQuotationExample example);
@@ -17,7 +18,7 @@ public interface SaleQuotationMapper {
     int insertSelective(SaleQuotation record);
 
     List<SaleQuotation> selectByExample(SaleQuotationExample example);
-
+    
     SaleQuotation selectByPrimaryKey(String sqId);
 
     int updateByExampleSelective(@Param("record") SaleQuotation record, @Param("example") SaleQuotationExample example);

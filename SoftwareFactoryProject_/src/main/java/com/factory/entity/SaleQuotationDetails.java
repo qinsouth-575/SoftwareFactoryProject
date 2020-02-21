@@ -31,7 +31,7 @@ public class SaleQuotationDetails {
 
     private String sqdItemremark;
 
-    private String sqlId;
+    private String sqId;
 
     private String sqdAuditing;
 
@@ -163,12 +163,12 @@ public class SaleQuotationDetails {
         this.sqdItemremark = sqdItemremark;
     }
 
-    public String getSqlId() {
-        return sqlId;
+    public String getSqId() {
+        return sqId;
     }
 
-    public void setSqlId(String sqlId) {
-        this.sqlId = sqlId;
+    public void setSqId(String sqId) {
+        this.sqId = sqId;
     }
 
     public String getSqdAuditing() {

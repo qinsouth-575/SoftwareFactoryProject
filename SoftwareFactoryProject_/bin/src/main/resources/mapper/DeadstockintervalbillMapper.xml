@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.DeadstockintervalbillMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.Deadstockintervalbill" >
+    <id column="dsibid" property="dsibid" jdbcType="INTEGER" />
+    <result column="startDay" property="startday" jdbcType="INTEGER" />
+    <result column="overDay" property="overday" jdbcType="INTEGER" />
+    <result column="dsiexplain" property="dsiexplain" jdbcType="VARCHAR" />
+    <result column="standby" property="standby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    dsibid, startDay, overDay, dsiexplain, standby
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.DeadstockintervalbillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from deadstockintervalbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from deadstockintervalbill
+    where dsibid = #{dsibid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from deadstockintervalbill
+    where dsibid = #{dsibid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.DeadstockintervalbillExample" >
+    delete from deadstockintervalbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.Deadstockintervalbill" >
+    insert into deadstockintervalbill (dsibid, startDay, overDay, 
+      dsiexplain, standby)
+    values (#{dsibid,jdbcType=INTEGER}, #{startday,jdbcType=INTEGER}, #{overday,jdbcType=INTEGER}, 
+      #{dsiexplain,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.Deadstockintervalbill" >
+    insert into deadstockintervalbill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dsibid != null" >
+        dsibid,
+      </if>
+      <if test="startday != null" >
+        startDay,
+      </if>
+      <if test="overday != null" >
+        overDay,
+      </if>
+      <if test="dsiexplain != null" >
+        dsiexplain,
+      </if>
+      <if test="standby != null" >
+        standby,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dsibid != null" >
+        #{dsibid,jdbcType=INTEGER},
+      </if>
+      <if test="startday != null" >
+        #{startday,jdbcType=INTEGER},
+      </if>
+      <if test="overday != null" >
+        #{overday,jdbcType=INTEGER},
+      </if>
+      <if test="dsiexplain != null" >
+        #{dsiexplain,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null" >
+        #{standby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.DeadstockintervalbillExample" resultType="java.lang.Integer" >
+    select count(*) from deadstockintervalbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update deadstockintervalbill
+    <set >
+      <if test="record.dsibid != null" >
+        dsibid = #{record.dsibid,jdbcType=INTEGER},
+      </if>
+      <if test="record.startday != null" >
+        startDay = #{record.startday,jdbcType=INTEGER},
+      </if>
+      <if test="record.overday != null" >
+        overDay = #{record.overday,jdbcType=INTEGER},
+      </if>
+      <if test="record.dsiexplain != null" >
+        dsiexplain = #{record.dsiexplain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standby != null" >
+        standby = #{record.standby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update deadstockintervalbill
+    set dsibid = #{record.dsibid,jdbcType=INTEGER},
+      startDay = #{record.startday,jdbcType=INTEGER},
+      overDay = #{record.overday,jdbcType=INTEGER},
+      dsiexplain = #{record.dsiexplain,jdbcType=VARCHAR},
+      standby = #{record.standby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.Deadstockintervalbill" >
+    update deadstockintervalbill
+    <set >
+      <if test="startday != null" >
+        startDay = #{startday,jdbcType=INTEGER},
+      </if>
+      <if test="overday != null" >
+        overDay = #{overday,jdbcType=INTEGER},
+      </if>
+      <if test="dsiexplain != null" >
+        dsiexplain = #{dsiexplain,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null" >
+        standby = #{standby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dsibid = #{dsibid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.Deadstockintervalbill" >
+    update deadstockintervalbill
+    set startDay = #{startday,jdbcType=INTEGER},
+      overDay = #{overday,jdbcType=INTEGER},
+      dsiexplain = #{dsiexplain,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR}
+    where dsibid = #{dsibid,jdbcType=INTEGER}
+  </update>
+</mapper>

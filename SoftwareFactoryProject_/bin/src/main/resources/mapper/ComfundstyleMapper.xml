@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.ComfundstyleMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.Comfundstyle" >
+    <result column="ClassID" property="classid" jdbcType="VARCHAR" />
+    <result column="ClassName" property="classname" jdbcType="VARCHAR" />
+    <result column="AccBankID" property="accbankid" jdbcType="VARCHAR" />
+    <result column="EngClassName" property="engclassname" jdbcType="VARCHAR" />
+    <result column="PosAcc" property="posacc" jdbcType="VARCHAR" />
+    <result column="NegAcc" property="negacc" jdbcType="VARCHAR" />
+    <result column="IsCash" property="iscash" jdbcType="INTEGER" />
+    <result column="MergeOutState" property="mergeoutstate" jdbcType="SMALLINT" />
+    <result column="DataVer" property="dataver" jdbcType="INTEGER" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="AccSubjectID" property="accsubjectid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ClassID, ClassName, AccBankID, EngClassName, PosAcc, NegAcc, IsCash, MergeOutState, 
+    DataVer, Memo, AccSubjectID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.ComfundstyleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comfundstyle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.factory.entity.ComfundstyleExample" >
+    delete from comfundstyle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.Comfundstyle" >
+    insert into comfundstyle (ClassID, ClassName, AccBankID, 
+      EngClassName, PosAcc, NegAcc, 
+      IsCash, MergeOutState, DataVer, 
+      Memo, AccSubjectID)
+    values (#{classid,jdbcType=VARCHAR}, #{classname,jdbcType=VARCHAR}, #{accbankid,jdbcType=VARCHAR}, 
+      #{engclassname,jdbcType=VARCHAR}, #{posacc,jdbcType=VARCHAR}, #{negacc,jdbcType=VARCHAR}, 
+      #{iscash,jdbcType=INTEGER}, #{mergeoutstate,jdbcType=SMALLINT}, #{dataver,jdbcType=INTEGER}, 
+      #{memo,jdbcType=VARCHAR}, #{accsubjectid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.Comfundstyle" >
+    insert into comfundstyle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        ClassID,
+      </if>
+      <if test="classname != null" >
+        ClassName,
+      </if>
+      <if test="accbankid != null" >
+        AccBankID,
+      </if>
+      <if test="engclassname != null" >
+        EngClassName,
+      </if>
+      <if test="posacc != null" >
+        PosAcc,
+      </if>
+      <if test="negacc != null" >
+        NegAcc,
+      </if>
+      <if test="iscash != null" >
+        IsCash,
+      </if>
+      <if test="mergeoutstate != null" >
+        MergeOutState,
+      </if>
+      <if test="dataver != null" >
+        DataVer,
+      </if>
+      <if test="memo != null" >
+        Memo,
+      </if>
+      <if test="accsubjectid != null" >
+        AccSubjectID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        #{classid,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null" >
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="accbankid != null" >
+        #{accbankid,jdbcType=VARCHAR},
+      </if>
+      <if test="engclassname != null" >
+        #{engclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="posacc != null" >
+        #{posacc,jdbcType=VARCHAR},
+      </if>
+      <if test="negacc != null" >
+        #{negacc,jdbcType=VARCHAR},
+      </if>
+      <if test="iscash != null" >
+        #{iscash,jdbcType=INTEGER},
+      </if>
+      <if test="mergeoutstate != null" >
+        #{mergeoutstate,jdbcType=SMALLINT},
+      </if>
+      <if test="dataver != null" >
+        #{dataver,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="accsubjectid != null" >
+        #{accsubjectid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.ComfundstyleExample" resultType="java.lang.Integer" >
+    select count(*) from comfundstyle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comfundstyle
+    <set >
+      <if test="record.classid != null" >
+        ClassID = #{record.classid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classname != null" >
+        ClassName = #{record.classname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accbankid != null" >
+        AccBankID = #{record.accbankid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.engclassname != null" >
+        EngClassName = #{record.engclassname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posacc != null" >
+        PosAcc = #{record.posacc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.negacc != null" >
+        NegAcc = #{record.negacc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iscash != null" >
+        IsCash = #{record.iscash,jdbcType=INTEGER},
+      </if>
+      <if test="record.mergeoutstate != null" >
+        MergeOutState = #{record.mergeoutstate,jdbcType=SMALLINT},
+      </if>
+      <if test="record.dataver != null" >
+        DataVer = #{record.dataver,jdbcType=INTEGER},
+      </if>
+      <if test="record.memo != null" >
+        Memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accsubjectid != null" >
+        AccSubjectID = #{record.accsubjectid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comfundstyle
+    set ClassID = #{record.classid,jdbcType=VARCHAR},
+      ClassName = #{record.classname,jdbcType=VARCHAR},
+      AccBankID = #{record.accbankid,jdbcType=VARCHAR},
+      EngClassName = #{record.engclassname,jdbcType=VARCHAR},
+      PosAcc = #{record.posacc,jdbcType=VARCHAR},
+      NegAcc = #{record.negacc,jdbcType=VARCHAR},
+      IsCash = #{record.iscash,jdbcType=INTEGER},
+      MergeOutState = #{record.mergeoutstate,jdbcType=SMALLINT},
+      DataVer = #{record.dataver,jdbcType=INTEGER},
+      Memo = #{record.memo,jdbcType=VARCHAR},
+      AccSubjectID = #{record.accsubjectid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

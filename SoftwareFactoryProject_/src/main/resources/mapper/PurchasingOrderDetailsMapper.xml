@@ -526,4 +526,10 @@
       pod_custom3 = #{podCustom3,jdbcType=VARCHAR}
     where pod_id = #{podId,jdbcType=VARCHAR}
   </update>
+  
+  
+  <select id="selecttb_detail" resultType="com.factory.entity.PurchasingOrderDetails" resultMap="BaseResultMap">
+SELECT * FROM `purchasing_order_details` 
+WHERE `po_id`=#{poId}
+</select>
 </mapper>

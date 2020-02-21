@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.SaleOutWarehouseDetailedMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.SaleOutWarehouseDetailed" >
+    <id column="sowd_id" property="sowdId" jdbcType="VARCHAR" />
+    <result column="sow_id" property="sowId" jdbcType="VARCHAR" />
+    <result column="matter_id" property="matterId" jdbcType="VARCHAR" />
+    <result column="sowd_engname" property="sowdEngname" jdbcType="VARCHAR" />
+    <result column="sowd_remark" property="sowdRemark" jdbcType="VARCHAR" />
+    <result column="sowd_price_include_tax" property="sowdPriceIncludeTax" jdbcType="VARCHAR" />
+    <result column="sowd_single_status" property="sowdSingleStatus" jdbcType="INTEGER" />
+    <result column="sowd_document_date" property="sowdDocumentDate" jdbcType="DATE" />
+    <result column="sowd_document_number" property="sowdDocumentNumber" jdbcType="REAL" />
+    <result column="sowd_price" property="sowdPrice" jdbcType="REAL" />
+    <result column="sowd_money" property="sowdMoney" jdbcType="REAL" />
+    <result column="sowd_tax_rate" property="sowdTaxRate" jdbcType="REAL" />
+    <result column="sowd_tax_amount" property="sowdTaxAmount" jdbcType="REAL" />
+    <result column="sowd_including_tax_amount" property="sowdIncludingTaxAmount" jdbcType="REAL" />
+    <result column="sowd_batch_number" property="sowdBatchNumber" jdbcType="VARCHAR" />
+    <result column="sowd_material_combination" property="sowdMaterialCombination" jdbcType="VARCHAR" />
+    <result column="sowd_ifgift" property="sowdIfgift" jdbcType="VARCHAR" />
+    <result column="sowd_invoice_details" property="sowdInvoiceDetails" jdbcType="VARCHAR" />
+    <result column="sowd_nomake_invoice_num" property="sowdNomakeInvoiceNum" jdbcType="INTEGER" />
+    <result column="sowd_remarks" property="sowdRemarks" jdbcType="VARCHAR" />
+    <result column="sowd_source_order" property="sowdSourceOrder" jdbcType="VARCHAR" />
+    <result column="sowd_source_no" property="sowdSourceNo" jdbcType="VARCHAR" />
+    <result column="sowd_auditing" property="sowdAuditing" jdbcType="VARCHAR" />
+    <result column="sowd_yn" property="sowdYn" jdbcType="VARCHAR" />
+    <result column="sowd_custom1" property="sowdCustom1" jdbcType="VARCHAR" />
+    <result column="sowd_custom2" property="sowdCustom2" jdbcType="VARCHAR" />
+    <result column="sowd_custom3" property="sowdCustom3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sowd_id, sow_id, matter_id, sowd_engname, sowd_remark, sowd_price_include_tax, sowd_single_status, 
+    sowd_document_date, sowd_document_number, sowd_price, sowd_money, sowd_tax_rate, 
+    sowd_tax_amount, sowd_including_tax_amount, sowd_batch_number, sowd_material_combination, 
+    sowd_ifgift, sowd_invoice_details, sowd_nomake_invoice_num, sowd_remarks, sowd_source_order, 
+    sowd_source_no, sowd_auditing, sowd_yn, sowd_custom1, sowd_custom2, sowd_custom3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.SaleOutWarehouseDetailedExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sale_out_warehouse_detailed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sale_out_warehouse_detailed
+    where sowd_id = #{sowdId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sale_out_warehouse_detailed
+    where sowd_id = #{sowdId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.SaleOutWarehouseDetailedExample" >
+    delete from sale_out_warehouse_detailed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.SaleOutWarehouseDetailed" >
+    insert into sale_out_warehouse_detailed (sowd_id, sow_id, matter_id, 
+      sowd_engname, sowd_remark, sowd_price_include_tax, 
+      sowd_single_status, sowd_document_date, sowd_document_number, 
+      sowd_price, sowd_money, sowd_tax_rate, 
+      sowd_tax_amount, sowd_including_tax_amount, sowd_batch_number, 
+      sowd_material_combination, sowd_ifgift, sowd_invoice_details, 
+      sowd_nomake_invoice_num, sowd_remarks, sowd_source_order, 
+      sowd_source_no, sowd_auditing, sowd_yn, 
+      sowd_custom1, sowd_custom2, sowd_custom3
+      )
+    values (#{sowdId,jdbcType=VARCHAR}, #{sowId,jdbcType=VARCHAR}, #{matterId,jdbcType=VARCHAR}, 
+      #{sowdEngname,jdbcType=VARCHAR}, #{sowdRemark,jdbcType=VARCHAR}, #{sowdPriceIncludeTax,jdbcType=VARCHAR}, 
+      #{sowdSingleStatus,jdbcType=INTEGER}, #{sowdDocumentDate,jdbcType=DATE}, #{sowdDocumentNumber,jdbcType=REAL}, 
+      #{sowdPrice,jdbcType=REAL}, #{sowdMoney,jdbcType=REAL}, #{sowdTaxRate,jdbcType=REAL}, 
+      #{sowdTaxAmount,jdbcType=REAL}, #{sowdIncludingTaxAmount,jdbcType=REAL}, #{sowdBatchNumber,jdbcType=VARCHAR}, 
+      #{sowdMaterialCombination,jdbcType=VARCHAR}, #{sowdIfgift,jdbcType=VARCHAR}, #{sowdInvoiceDetails,jdbcType=VARCHAR}, 
+      #{sowdNomakeInvoiceNum,jdbcType=INTEGER}, #{sowdRemarks,jdbcType=VARCHAR}, #{sowdSourceOrder,jdbcType=VARCHAR}, 
+      #{sowdSourceNo,jdbcType=VARCHAR}, #{sowdAuditing,jdbcType=VARCHAR}, #{sowdYn,jdbcType=VARCHAR}, 
+      #{sowdCustom1,jdbcType=VARCHAR}, #{sowdCustom2,jdbcType=VARCHAR}, #{sowdCustom3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.SaleOutWarehouseDetailed" >
+    insert into sale_out_warehouse_detailed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sowdId != null" >
+        sowd_id,
+      </if>
+      <if test="sowId != null" >
+        sow_id,
+      </if>
+      <if test="matterId != null" >
+        matter_id,
+      </if>
+      <if test="sowdEngname != null" >
+        sowd_engname,
+      </if>
+      <if test="sowdRemark != null" >
+        sowd_remark,
+      </if>
+      <if test="sowdPriceIncludeTax != null" >
+        sowd_price_include_tax,
+      </if>
+      <if test="sowdSingleStatus != null" >
+        sowd_single_status,
+      </if>
+      <if test="sowdDocumentDate != null" >
+        sowd_document_date,
+      </if>
+      <if test="sowdDocumentNumber != null" >
+        sowd_document_number,
+      </if>
+      <if test="sowdPrice != null" >
+        sowd_price,
+      </if>
+      <if test="sowdMoney != null" >
+        sowd_money,
+      </if>
+      <if test="sowdTaxRate != null" >
+        sowd_tax_rate,
+      </if>
+      <if test="sowdTaxAmount != null" >
+        sowd_tax_amount,
+      </if>
+      <if test="sowdIncludingTaxAmount != null" >
+        sowd_including_tax_amount,
+      </if>
+      <if test="sowdBatchNumber != null" >
+        sowd_batch_number,
+      </if>
+      <if test="sowdMaterialCombination != null" >
+        sowd_material_combination,
+      </if>
+      <if test="sowdIfgift != null" >
+        sowd_ifgift,
+      </if>
+      <if test="sowdInvoiceDetails != null" >
+        sowd_invoice_details,
+      </if>
+      <if test="sowdNomakeInvoiceNum != null" >
+        sowd_nomake_invoice_num,
+      </if>
+      <if test="sowdRemarks != null" >
+        sowd_remarks,
+      </if>
+      <if test="sowdSourceOrder != null" >
+        sowd_source_order,
+      </if>
+      <if test="sowdSourceNo != null" >
+        sowd_source_no,
+      </if>
+      <if test="sowdAuditing != null" >
+        sowd_auditing,
+      </if>
+      <if test="sowdYn != null" >
+        sowd_yn,
+      </if>
+      <if test="sowdCustom1 != null" >
+        sowd_custom1,
+      </if>
+      <if test="sowdCustom2 != null" >
+        sowd_custom2,
+      </if>
+      <if test="sowdCustom3 != null" >
+        sowd_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sowdId != null" >
+        #{sowdId,jdbcType=VARCHAR},
+      </if>
+      <if test="sowId != null" >
+        #{sowId,jdbcType=VARCHAR},
+      </if>
+      <if test="matterId != null" >
+        #{matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdEngname != null" >
+        #{sowdEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdRemark != null" >
+        #{sowdRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdPriceIncludeTax != null" >
+        #{sowdPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdSingleStatus != null" >
+        #{sowdSingleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sowdDocumentDate != null" >
+        #{sowdDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="sowdDocumentNumber != null" >
+        #{sowdDocumentNumber,jdbcType=REAL},
+      </if>
+      <if test="sowdPrice != null" >
+        #{sowdPrice,jdbcType=REAL},
+      </if>
+      <if test="sowdMoney != null" >
+        #{sowdMoney,jdbcType=REAL},
+      </if>
+      <if test="sowdTaxRate != null" >
+        #{sowdTaxRate,jdbcType=REAL},
+      </if>
+      <if test="sowdTaxAmount != null" >
+        #{sowdTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="sowdIncludingTaxAmount != null" >
+        #{sowdIncludingTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="sowdBatchNumber != null" >
+        #{sowdBatchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdMaterialCombination != null" >
+        #{sowdMaterialCombination,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdIfgift != null" >
+        #{sowdIfgift,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdInvoiceDetails != null" >
+        #{sowdInvoiceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdNomakeInvoiceNum != null" >
+        #{sowdNomakeInvoiceNum,jdbcType=INTEGER},
+      </if>
+      <if test="sowdRemarks != null" >
+        #{sowdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdSourceOrder != null" >
+        #{sowdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdSourceNo != null" >
+        #{sowdSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdAuditing != null" >
+        #{sowdAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdYn != null" >
+        #{sowdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdCustom1 != null" >
+        #{sowdCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdCustom2 != null" >
+        #{sowdCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdCustom3 != null" >
+        #{sowdCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.SaleOutWarehouseDetailedExample" resultType="java.lang.Integer" >
+    select count(*) from sale_out_warehouse_detailed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sale_out_warehouse_detailed
+    <set >
+      <if test="record.sowdId != null" >
+        sowd_id = #{record.sowdId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowId != null" >
+        sow_id = #{record.sowId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matterId != null" >
+        matter_id = #{record.matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdEngname != null" >
+        sowd_engname = #{record.sowdEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdRemark != null" >
+        sowd_remark = #{record.sowdRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdPriceIncludeTax != null" >
+        sowd_price_include_tax = #{record.sowdPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdSingleStatus != null" >
+        sowd_single_status = #{record.sowdSingleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.sowdDocumentDate != null" >
+        sowd_document_date = #{record.sowdDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="record.sowdDocumentNumber != null" >
+        sowd_document_number = #{record.sowdDocumentNumber,jdbcType=REAL},
+      </if>
+      <if test="record.sowdPrice != null" >
+        sowd_price = #{record.sowdPrice,jdbcType=REAL},
+      </if>
+      <if test="record.sowdMoney != null" >
+        sowd_money = #{record.sowdMoney,jdbcType=REAL},
+      </if>
+      <if test="record.sowdTaxRate != null" >
+        sowd_tax_rate = #{record.sowdTaxRate,jdbcType=REAL},
+      </if>
+      <if test="record.sowdTaxAmount != null" >
+        sowd_tax_amount = #{record.sowdTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="record.sowdIncludingTaxAmount != null" >
+        sowd_including_tax_amount = #{record.sowdIncludingTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="record.sowdBatchNumber != null" >
+        sowd_batch_number = #{record.sowdBatchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdMaterialCombination != null" >
+        sowd_material_combination = #{record.sowdMaterialCombination,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdIfgift != null" >
+        sowd_ifgift = #{record.sowdIfgift,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdInvoiceDetails != null" >
+        sowd_invoice_details = #{record.sowdInvoiceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdNomakeInvoiceNum != null" >
+        sowd_nomake_invoice_num = #{record.sowdNomakeInvoiceNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.sowdRemarks != null" >
+        sowd_remarks = #{record.sowdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdSourceOrder != null" >
+        sowd_source_order = #{record.sowdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdSourceNo != null" >
+        sowd_source_no = #{record.sowdSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdAuditing != null" >
+        sowd_auditing = #{record.sowdAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdYn != null" >
+        sowd_yn = #{record.sowdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdCustom1 != null" >
+        sowd_custom1 = #{record.sowdCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdCustom2 != null" >
+        sowd_custom2 = #{record.sowdCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sowdCustom3 != null" >
+        sowd_custom3 = #{record.sowdCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sale_out_warehouse_detailed
+    set sowd_id = #{record.sowdId,jdbcType=VARCHAR},
+      sow_id = #{record.sowId,jdbcType=VARCHAR},
+      matter_id = #{record.matterId,jdbcType=VARCHAR},
+      sowd_engname = #{record.sowdEngname,jdbcType=VARCHAR},
+      sowd_remark = #{record.sowdRemark,jdbcType=VARCHAR},
+      sowd_price_include_tax = #{record.sowdPriceIncludeTax,jdbcType=VARCHAR},
+      sowd_single_status = #{record.sowdSingleStatus,jdbcType=INTEGER},
+      sowd_document_date = #{record.sowdDocumentDate,jdbcType=DATE},
+      sowd_document_number = #{record.sowdDocumentNumber,jdbcType=REAL},
+      sowd_price = #{record.sowdPrice,jdbcType=REAL},
+      sowd_money = #{record.sowdMoney,jdbcType=REAL},
+      sowd_tax_rate = #{record.sowdTaxRate,jdbcType=REAL},
+      sowd_tax_amount = #{record.sowdTaxAmount,jdbcType=REAL},
+      sowd_including_tax_amount = #{record.sowdIncludingTaxAmount,jdbcType=REAL},
+      sowd_batch_number = #{record.sowdBatchNumber,jdbcType=VARCHAR},
+      sowd_material_combination = #{record.sowdMaterialCombination,jdbcType=VARCHAR},
+      sowd_ifgift = #{record.sowdIfgift,jdbcType=VARCHAR},
+      sowd_invoice_details = #{record.sowdInvoiceDetails,jdbcType=VARCHAR},
+      sowd_nomake_invoice_num = #{record.sowdNomakeInvoiceNum,jdbcType=INTEGER},
+      sowd_remarks = #{record.sowdRemarks,jdbcType=VARCHAR},
+      sowd_source_order = #{record.sowdSourceOrder,jdbcType=VARCHAR},
+      sowd_source_no = #{record.sowdSourceNo,jdbcType=VARCHAR},
+      sowd_auditing = #{record.sowdAuditing,jdbcType=VARCHAR},
+      sowd_yn = #{record.sowdYn,jdbcType=VARCHAR},
+      sowd_custom1 = #{record.sowdCustom1,jdbcType=VARCHAR},
+      sowd_custom2 = #{record.sowdCustom2,jdbcType=VARCHAR},
+      sowd_custom3 = #{record.sowdCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.SaleOutWarehouseDetailed" >
+    update sale_out_warehouse_detailed
+    <set >
+      <if test="sowId != null" >
+        sow_id = #{sowId,jdbcType=VARCHAR},
+      </if>
+      <if test="matterId != null" >
+        matter_id = #{matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdEngname != null" >
+        sowd_engname = #{sowdEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdRemark != null" >
+        sowd_remark = #{sowdRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdPriceIncludeTax != null" >
+        sowd_price_include_tax = #{sowdPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdSingleStatus != null" >
+        sowd_single_status = #{sowdSingleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sowdDocumentDate != null" >
+        sowd_document_date = #{sowdDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="sowdDocumentNumber != null" >
+        sowd_document_number = #{sowdDocumentNumber,jdbcType=REAL},
+      </if>
+      <if test="sowdPrice != null" >
+        sowd_price = #{sowdPrice,jdbcType=REAL},
+      </if>
+      <if test="sowdMoney != null" >
+        sowd_money = #{sowdMoney,jdbcType=REAL},
+      </if>
+      <if test="sowdTaxRate != null" >
+        sowd_tax_rate = #{sowdTaxRate,jdbcType=REAL},
+      </if>
+      <if test="sowdTaxAmount != null" >
+        sowd_tax_amount = #{sowdTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="sowdIncludingTaxAmount != null" >
+        sowd_including_tax_amount = #{sowdIncludingTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="sowdBatchNumber != null" >
+        sowd_batch_number = #{sowdBatchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdMaterialCombination != null" >
+        sowd_material_combination = #{sowdMaterialCombination,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdIfgift != null" >
+        sowd_ifgift = #{sowdIfgift,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdInvoiceDetails != null" >
+        sowd_invoice_details = #{sowdInvoiceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdNomakeInvoiceNum != null" >
+        sowd_nomake_invoice_num = #{sowdNomakeInvoiceNum,jdbcType=INTEGER},
+      </if>
+      <if test="sowdRemarks != null" >
+        sowd_remarks = #{sowdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdSourceOrder != null" >
+        sowd_source_order = #{sowdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdSourceNo != null" >
+        sowd_source_no = #{sowdSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdAuditing != null" >
+        sowd_auditing = #{sowdAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdYn != null" >
+        sowd_yn = #{sowdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdCustom1 != null" >
+        sowd_custom1 = #{sowdCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdCustom2 != null" >
+        sowd_custom2 = #{sowdCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="sowdCustom3 != null" >
+        sowd_custom3 = #{sowdCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sowd_id = #{sowdId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.SaleOutWarehouseDetailed" >
+    update sale_out_warehouse_detailed
+    set sow_id = #{sowId,jdbcType=VARCHAR},
+      matter_id = #{matterId,jdbcType=VARCHAR},
+      sowd_engname = #{sowdEngname,jdbcType=VARCHAR},
+      sowd_remark = #{sowdRemark,jdbcType=VARCHAR},
+      sowd_price_include_tax = #{sowdPriceIncludeTax,jdbcType=VARCHAR},
+      sowd_single_status = #{sowdSingleStatus,jdbcType=INTEGER},
+      sowd_document_date = #{sowdDocumentDate,jdbcType=DATE},
+      sowd_document_number = #{sowdDocumentNumber,jdbcType=REAL},
+      sowd_price = #{sowdPrice,jdbcType=REAL},
+      sowd_money = #{sowdMoney,jdbcType=REAL},
+      sowd_tax_rate = #{sowdTaxRate,jdbcType=REAL},
+      sowd_tax_amount = #{sowdTaxAmount,jdbcType=REAL},
+      sowd_including_tax_amount = #{sowdIncludingTaxAmount,jdbcType=REAL},
+      sowd_batch_number = #{sowdBatchNumber,jdbcType=VARCHAR},
+      sowd_material_combination = #{sowdMaterialCombination,jdbcType=VARCHAR},
+      sowd_ifgift = #{sowdIfgift,jdbcType=VARCHAR},
+      sowd_invoice_details = #{sowdInvoiceDetails,jdbcType=VARCHAR},
+      sowd_nomake_invoice_num = #{sowdNomakeInvoiceNum,jdbcType=INTEGER},
+      sowd_remarks = #{sowdRemarks,jdbcType=VARCHAR},
+      sowd_source_order = #{sowdSourceOrder,jdbcType=VARCHAR},
+      sowd_source_no = #{sowdSourceNo,jdbcType=VARCHAR},
+      sowd_auditing = #{sowdAuditing,jdbcType=VARCHAR},
+      sowd_yn = #{sowdYn,jdbcType=VARCHAR},
+      sowd_custom1 = #{sowdCustom1,jdbcType=VARCHAR},
+      sowd_custom2 = #{sowdCustom2,jdbcType=VARCHAR},
+      sowd_custom3 = #{sowdCustom3,jdbcType=VARCHAR}
+    where sowd_id = #{sowdId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.SaleReturnWarehouseMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.SaleReturnWarehouse" >
+    <id column="srw_id" property="srwId" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="srw_address" property="srwAddress" jdbcType="VARCHAR" />
+    <result column="srwt_id" property="srwtId" jdbcType="VARCHAR" />
+    <result column="srw_price_include_tax" property="srwPriceIncludeTax" jdbcType="VARCHAR" />
+    <result column="salescxrk" property="salescxrk" jdbcType="INTEGER" />
+    <result column="warehouse_id" property="warehouseId" jdbcType="VARCHAR" />
+    <result column="srw_certificate_number" property="srwCertificateNumber" jdbcType="VARCHAR" />
+    <result column="srw_document_date" property="srwDocumentDate" jdbcType="DATE" />
+    <result column="srw_document_number" property="srwDocumentNumber" jdbcType="VARCHAR" />
+    <result column="currency_id" property="currencyId" jdbcType="VARCHAR" />
+    <result column="srw_exchange_rate" property="srwExchangeRate" jdbcType="REAL" />
+    <result column="srw_foreign_trade" property="srwForeignTrade" jdbcType="INTEGER" />
+    <result column="srw_sunnum" property="srwSunnum" jdbcType="REAL" />
+    <result column="srw_sunmoney" property="srwSunmoney" jdbcType="REAL" />
+    <result column="srw_tax" property="srwTax" jdbcType="REAL" />
+    <result column="srw_including_tax_amount" property="srwIncludingTaxAmount" jdbcType="VARCHAR" />
+    <result column="srw_saleszkgs" property="srwSaleszkgs" jdbcType="DATE" />
+    <result column="srw_salesdate" property="srwSalesdate" jdbcType="VARCHAR" />
+    <result column="srw_salessktj" property="srwSalessktj" jdbcType="INTEGER" />
+    <result column="srw_salesday" property="srwSalesday" jdbcType="DATE" />
+    <result column="srw_salesyue" property="srwSalesyue" jdbcType="VARCHAR" />
+    <result column="srw_buyer" property="srwBuyer" jdbcType="VARCHAR" />
+    <result column="srw_belongs_section" property="srwBelongsSection" jdbcType="VARCHAR" />
+    <result column="srw_belongs_project" property="srwBelongsProject" jdbcType="VARCHAR" />
+    <result column="srw_form" property="srwForm" jdbcType="VARCHAR" />
+    <result column="srw_checkagain_staff" property="srwCheckagainStaff" jdbcType="VARCHAR" />
+    <result column="srw_header_provision" property="srwHeaderProvision" jdbcType="VARCHAR" />
+    <result column="srw_end_clause" property="srwEndClause" jdbcType="VARCHAR" />
+    <result column="srw_remark" property="srwRemark" jdbcType="VARCHAR" />
+    <result column="srw_auditing" property="srwAuditing" jdbcType="VARCHAR" />
+    <result column="srw_yn" property="srwYn" jdbcType="VARCHAR" />
+    <result column="srw_custom1" property="srwCustom1" jdbcType="VARCHAR" />
+    <result column="srw_custom2" property="srwCustom2" jdbcType="VARCHAR" />
+    <result column="srw_custom3" property="srwCustom3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    srw_id, customer_id, srw_address, srwt_id, srw_price_include_tax, salescxrk, warehouse_id, 
+    srw_certificate_number, srw_document_date, srw_document_number, currency_id, srw_exchange_rate, 
+    srw_foreign_trade, srw_sunnum, srw_sunmoney, srw_tax, srw_including_tax_amount, srw_saleszkgs, 
+    srw_salesdate, srw_salessktj, srw_salesday, srw_salesyue, srw_buyer, srw_belongs_section, 
+    srw_belongs_project, srw_form, srw_checkagain_staff, srw_header_provision, srw_end_clause, 
+    srw_remark, srw_auditing, srw_yn, srw_custom1, srw_custom2, srw_custom3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.SaleReturnWarehouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sale_return_warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sale_return_warehouse
+    where srw_id = #{srwId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sale_return_warehouse
+    where srw_id = #{srwId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.SaleReturnWarehouseExample" >
+    delete from sale_return_warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.SaleReturnWarehouse" >
+    insert into sale_return_warehouse (srw_id, customer_id, srw_address, 
+      srwt_id, srw_price_include_tax, salescxrk, 
+      warehouse_id, srw_certificate_number, srw_document_date, 
+      srw_document_number, currency_id, srw_exchange_rate, 
+      srw_foreign_trade, srw_sunnum, srw_sunmoney, 
+      srw_tax, srw_including_tax_amount, srw_saleszkgs, 
+      srw_salesdate, srw_salessktj, srw_salesday, 
+      srw_salesyue, srw_buyer, srw_belongs_section, 
+      srw_belongs_project, srw_form, srw_checkagain_staff, 
+      srw_header_provision, srw_end_clause, srw_remark, 
+      srw_auditing, srw_yn, srw_custom1, 
+      srw_custom2, srw_custom3)
+    values (#{srwId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{srwAddress,jdbcType=VARCHAR}, 
+      #{srwtId,jdbcType=VARCHAR}, #{srwPriceIncludeTax,jdbcType=VARCHAR}, #{salescxrk,jdbcType=INTEGER}, 
+      #{warehouseId,jdbcType=VARCHAR}, #{srwCertificateNumber,jdbcType=VARCHAR}, #{srwDocumentDate,jdbcType=DATE}, 
+      #{srwDocumentNumber,jdbcType=VARCHAR}, #{currencyId,jdbcType=VARCHAR}, #{srwExchangeRate,jdbcType=REAL}, 
+      #{srwForeignTrade,jdbcType=INTEGER}, #{srwSunnum,jdbcType=REAL}, #{srwSunmoney,jdbcType=REAL}, 
+      #{srwTax,jdbcType=REAL}, #{srwIncludingTaxAmount,jdbcType=VARCHAR}, #{srwSaleszkgs,jdbcType=DATE}, 
+      #{srwSalesdate,jdbcType=VARCHAR}, #{srwSalessktj,jdbcType=INTEGER}, #{srwSalesday,jdbcType=DATE}, 
+      #{srwSalesyue,jdbcType=VARCHAR}, #{srwBuyer,jdbcType=VARCHAR}, #{srwBelongsSection,jdbcType=VARCHAR}, 
+      #{srwBelongsProject,jdbcType=VARCHAR}, #{srwForm,jdbcType=VARCHAR}, #{srwCheckagainStaff,jdbcType=VARCHAR}, 
+      #{srwHeaderProvision,jdbcType=VARCHAR}, #{srwEndClause,jdbcType=VARCHAR}, #{srwRemark,jdbcType=VARCHAR}, 
+      #{srwAuditing,jdbcType=VARCHAR}, #{srwYn,jdbcType=VARCHAR}, #{srwCustom1,jdbcType=VARCHAR}, 
+      #{srwCustom2,jdbcType=VARCHAR}, #{srwCustom3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.SaleReturnWarehouse" >
+    insert into sale_return_warehouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="srwId != null" >
+        srw_id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="srwAddress != null" >
+        srw_address,
+      </if>
+      <if test="srwtId != null" >
+        srwt_id,
+      </if>
+      <if test="srwPriceIncludeTax != null" >
+        srw_price_include_tax,
+      </if>
+      <if test="salescxrk != null" >
+        salescxrk,
+      </if>
+      <if test="warehouseId != null" >
+        warehouse_id,
+      </if>
+      <if test="srwCertificateNumber != null" >
+        srw_certificate_number,
+      </if>
+      <if test="srwDocumentDate != null" >
+        srw_document_date,
+      </if>
+      <if test="srwDocumentNumber != null" >
+        srw_document_number,
+      </if>
+      <if test="currencyId != null" >
+        currency_id,
+      </if>
+      <if test="srwExchangeRate != null" >
+        srw_exchange_rate,
+      </if>
+      <if test="srwForeignTrade != null" >
+        srw_foreign_trade,
+      </if>
+      <if test="srwSunnum != null" >
+        srw_sunnum,
+      </if>
+      <if test="srwSunmoney != null" >
+        srw_sunmoney,
+      </if>
+      <if test="srwTax != null" >
+        srw_tax,
+      </if>
+      <if test="srwIncludingTaxAmount != null" >
+        srw_including_tax_amount,
+      </if>
+      <if test="srwSaleszkgs != null" >
+        srw_saleszkgs,
+      </if>
+      <if test="srwSalesdate != null" >
+        srw_salesdate,
+      </if>
+      <if test="srwSalessktj != null" >
+        srw_salessktj,
+      </if>
+      <if test="srwSalesday != null" >
+        srw_salesday,
+      </if>
+      <if test="srwSalesyue != null" >
+        srw_salesyue,
+      </if>
+      <if test="srwBuyer != null" >
+        srw_buyer,
+      </if>
+      <if test="srwBelongsSection != null" >
+        srw_belongs_section,
+      </if>
+      <if test="srwBelongsProject != null" >
+        srw_belongs_project,
+      </if>
+      <if test="srwForm != null" >
+        srw_form,
+      </if>
+      <if test="srwCheckagainStaff != null" >
+        srw_checkagain_staff,
+      </if>
+      <if test="srwHeaderProvision != null" >
+        srw_header_provision,
+      </if>
+      <if test="srwEndClause != null" >
+        srw_end_clause,
+      </if>
+      <if test="srwRemark != null" >
+        srw_remark,
+      </if>
+      <if test="srwAuditing != null" >
+        srw_auditing,
+      </if>
+      <if test="srwYn != null" >
+        srw_yn,
+      </if>
+      <if test="srwCustom1 != null" >
+        srw_custom1,
+      </if>
+      <if test="srwCustom2 != null" >
+        srw_custom2,
+      </if>
+      <if test="srwCustom3 != null" >
+        srw_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="srwId != null" >
+        #{srwId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwAddress != null" >
+        #{srwAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="srwtId != null" >
+        #{srwtId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwPriceIncludeTax != null" >
+        #{srwPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="salescxrk != null" >
+        #{salescxrk,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseId != null" >
+        #{warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCertificateNumber != null" >
+        #{srwCertificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="srwDocumentDate != null" >
+        #{srwDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="srwDocumentNumber != null" >
+        #{srwDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwExchangeRate != null" >
+        #{srwExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="srwForeignTrade != null" >
+        #{srwForeignTrade,jdbcType=INTEGER},
+      </if>
+      <if test="srwSunnum != null" >
+        #{srwSunnum,jdbcType=REAL},
+      </if>
+      <if test="srwSunmoney != null" >
+        #{srwSunmoney,jdbcType=REAL},
+      </if>
+      <if test="srwTax != null" >
+        #{srwTax,jdbcType=REAL},
+      </if>
+      <if test="srwIncludingTaxAmount != null" >
+        #{srwIncludingTaxAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="srwSaleszkgs != null" >
+        #{srwSaleszkgs,jdbcType=DATE},
+      </if>
+      <if test="srwSalesdate != null" >
+        #{srwSalesdate,jdbcType=VARCHAR},
+      </if>
+      <if test="srwSalessktj != null" >
+        #{srwSalessktj,jdbcType=INTEGER},
+      </if>
+      <if test="srwSalesday != null" >
+        #{srwSalesday,jdbcType=DATE},
+      </if>
+      <if test="srwSalesyue != null" >
+        #{srwSalesyue,jdbcType=VARCHAR},
+      </if>
+      <if test="srwBuyer != null" >
+        #{srwBuyer,jdbcType=VARCHAR},
+      </if>
+      <if test="srwBelongsSection != null" >
+        #{srwBelongsSection,jdbcType=VARCHAR},
+      </if>
+      <if test="srwBelongsProject != null" >
+        #{srwBelongsProject,jdbcType=VARCHAR},
+      </if>
+      <if test="srwForm != null" >
+        #{srwForm,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCheckagainStaff != null" >
+        #{srwCheckagainStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="srwHeaderProvision != null" >
+        #{srwHeaderProvision,jdbcType=VARCHAR},
+      </if>
+      <if test="srwEndClause != null" >
+        #{srwEndClause,jdbcType=VARCHAR},
+      </if>
+      <if test="srwRemark != null" >
+        #{srwRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="srwAuditing != null" >
+        #{srwAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="srwYn != null" >
+        #{srwYn,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCustom1 != null" >
+        #{srwCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCustom2 != null" >
+        #{srwCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCustom3 != null" >
+        #{srwCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.SaleReturnWarehouseExample" resultType="java.lang.Integer" >
+    select count(*) from sale_return_warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sale_return_warehouse
+    <set >
+      <if test="record.srwId != null" >
+        srw_id = #{record.srwId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwAddress != null" >
+        srw_address = #{record.srwAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwtId != null" >
+        srwt_id = #{record.srwtId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwPriceIncludeTax != null" >
+        srw_price_include_tax = #{record.srwPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salescxrk != null" >
+        salescxrk = #{record.salescxrk,jdbcType=INTEGER},
+      </if>
+      <if test="record.warehouseId != null" >
+        warehouse_id = #{record.warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwCertificateNumber != null" >
+        srw_certificate_number = #{record.srwCertificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwDocumentDate != null" >
+        srw_document_date = #{record.srwDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="record.srwDocumentNumber != null" >
+        srw_document_number = #{record.srwDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyId != null" >
+        currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwExchangeRate != null" >
+        srw_exchange_rate = #{record.srwExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="record.srwForeignTrade != null" >
+        srw_foreign_trade = #{record.srwForeignTrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.srwSunnum != null" >
+        srw_sunnum = #{record.srwSunnum,jdbcType=REAL},
+      </if>
+      <if test="record.srwSunmoney != null" >
+        srw_sunmoney = #{record.srwSunmoney,jdbcType=REAL},
+      </if>
+      <if test="record.srwTax != null" >
+        srw_tax = #{record.srwTax,jdbcType=REAL},
+      </if>
+      <if test="record.srwIncludingTaxAmount != null" >
+        srw_including_tax_amount = #{record.srwIncludingTaxAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwSaleszkgs != null" >
+        srw_saleszkgs = #{record.srwSaleszkgs,jdbcType=DATE},
+      </if>
+      <if test="record.srwSalesdate != null" >
+        srw_salesdate = #{record.srwSalesdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwSalessktj != null" >
+        srw_salessktj = #{record.srwSalessktj,jdbcType=INTEGER},
+      </if>
+      <if test="record.srwSalesday != null" >
+        srw_salesday = #{record.srwSalesday,jdbcType=DATE},
+      </if>
+      <if test="record.srwSalesyue != null" >
+        srw_salesyue = #{record.srwSalesyue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwBuyer != null" >
+        srw_buyer = #{record.srwBuyer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwBelongsSection != null" >
+        srw_belongs_section = #{record.srwBelongsSection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwBelongsProject != null" >
+        srw_belongs_project = #{record.srwBelongsProject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwForm != null" >
+        srw_form = #{record.srwForm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwCheckagainStaff != null" >
+        srw_checkagain_staff = #{record.srwCheckagainStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwHeaderProvision != null" >
+        srw_header_provision = #{record.srwHeaderProvision,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwEndClause != null" >
+        srw_end_clause = #{record.srwEndClause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwRemark != null" >
+        srw_remark = #{record.srwRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwAuditing != null" >
+        srw_auditing = #{record.srwAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwYn != null" >
+        srw_yn = #{record.srwYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwCustom1 != null" >
+        srw_custom1 = #{record.srwCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwCustom2 != null" >
+        srw_custom2 = #{record.srwCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwCustom3 != null" >
+        srw_custom3 = #{record.srwCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sale_return_warehouse
+    set srw_id = #{record.srwId,jdbcType=VARCHAR},
+      customer_id = #{record.customerId,jdbcType=VARCHAR},
+      srw_address = #{record.srwAddress,jdbcType=VARCHAR},
+      srwt_id = #{record.srwtId,jdbcType=VARCHAR},
+      srw_price_include_tax = #{record.srwPriceIncludeTax,jdbcType=VARCHAR},
+      salescxrk = #{record.salescxrk,jdbcType=INTEGER},
+      warehouse_id = #{record.warehouseId,jdbcType=VARCHAR},
+      srw_certificate_number = #{record.srwCertificateNumber,jdbcType=VARCHAR},
+      srw_document_date = #{record.srwDocumentDate,jdbcType=DATE},
+      srw_document_number = #{record.srwDocumentNumber,jdbcType=VARCHAR},
+      currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      srw_exchange_rate = #{record.srwExchangeRate,jdbcType=REAL},
+      srw_foreign_trade = #{record.srwForeignTrade,jdbcType=INTEGER},
+      srw_sunnum = #{record.srwSunnum,jdbcType=REAL},
+      srw_sunmoney = #{record.srwSunmoney,jdbcType=REAL},
+      srw_tax = #{record.srwTax,jdbcType=REAL},
+      srw_including_tax_amount = #{record.srwIncludingTaxAmount,jdbcType=VARCHAR},
+      srw_saleszkgs = #{record.srwSaleszkgs,jdbcType=DATE},
+      srw_salesdate = #{record.srwSalesdate,jdbcType=VARCHAR},
+      srw_salessktj = #{record.srwSalessktj,jdbcType=INTEGER},
+      srw_salesday = #{record.srwSalesday,jdbcType=DATE},
+      srw_salesyue = #{record.srwSalesyue,jdbcType=VARCHAR},
+      srw_buyer = #{record.srwBuyer,jdbcType=VARCHAR},
+      srw_belongs_section = #{record.srwBelongsSection,jdbcType=VARCHAR},
+      srw_belongs_project = #{record.srwBelongsProject,jdbcType=VARCHAR},
+      srw_form = #{record.srwForm,jdbcType=VARCHAR},
+      srw_checkagain_staff = #{record.srwCheckagainStaff,jdbcType=VARCHAR},
+      srw_header_provision = #{record.srwHeaderProvision,jdbcType=VARCHAR},
+      srw_end_clause = #{record.srwEndClause,jdbcType=VARCHAR},
+      srw_remark = #{record.srwRemark,jdbcType=VARCHAR},
+      srw_auditing = #{record.srwAuditing,jdbcType=VARCHAR},
+      srw_yn = #{record.srwYn,jdbcType=VARCHAR},
+      srw_custom1 = #{record.srwCustom1,jdbcType=VARCHAR},
+      srw_custom2 = #{record.srwCustom2,jdbcType=VARCHAR},
+      srw_custom3 = #{record.srwCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.SaleReturnWarehouse" >
+    update sale_return_warehouse
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwAddress != null" >
+        srw_address = #{srwAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="srwtId != null" >
+        srwt_id = #{srwtId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwPriceIncludeTax != null" >
+        srw_price_include_tax = #{srwPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="salescxrk != null" >
+        salescxrk = #{salescxrk,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseId != null" >
+        warehouse_id = #{warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCertificateNumber != null" >
+        srw_certificate_number = #{srwCertificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="srwDocumentDate != null" >
+        srw_document_date = #{srwDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="srwDocumentNumber != null" >
+        srw_document_number = #{srwDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyId != null" >
+        currency_id = #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwExchangeRate != null" >
+        srw_exchange_rate = #{srwExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="srwForeignTrade != null" >
+        srw_foreign_trade = #{srwForeignTrade,jdbcType=INTEGER},
+      </if>
+      <if test="srwSunnum != null" >
+        srw_sunnum = #{srwSunnum,jdbcType=REAL},
+      </if>
+      <if test="srwSunmoney != null" >
+        srw_sunmoney = #{srwSunmoney,jdbcType=REAL},
+      </if>
+      <if test="srwTax != null" >
+        srw_tax = #{srwTax,jdbcType=REAL},
+      </if>
+      <if test="srwIncludingTaxAmount != null" >
+        srw_including_tax_amount = #{srwIncludingTaxAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="srwSaleszkgs != null" >
+        srw_saleszkgs = #{srwSaleszkgs,jdbcType=DATE},
+      </if>
+      <if test="srwSalesdate != null" >
+        srw_salesdate = #{srwSalesdate,jdbcType=VARCHAR},
+      </if>
+      <if test="srwSalessktj != null" >
+        srw_salessktj = #{srwSalessktj,jdbcType=INTEGER},
+      </if>
+      <if test="srwSalesday != null" >
+        srw_salesday = #{srwSalesday,jdbcType=DATE},
+      </if>
+      <if test="srwSalesyue != null" >
+        srw_salesyue = #{srwSalesyue,jdbcType=VARCHAR},
+      </if>
+      <if test="srwBuyer != null" >
+        srw_buyer = #{srwBuyer,jdbcType=VARCHAR},
+      </if>
+      <if test="srwBelongsSection != null" >
+        srw_belongs_section = #{srwBelongsSection,jdbcType=VARCHAR},
+      </if>
+      <if test="srwBelongsProject != null" >
+        srw_belongs_project = #{srwBelongsProject,jdbcType=VARCHAR},
+      </if>
+      <if test="srwForm != null" >
+        srw_form = #{srwForm,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCheckagainStaff != null" >
+        srw_checkagain_staff = #{srwCheckagainStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="srwHeaderProvision != null" >
+        srw_header_provision = #{srwHeaderProvision,jdbcType=VARCHAR},
+      </if>
+      <if test="srwEndClause != null" >
+        srw_end_clause = #{srwEndClause,jdbcType=VARCHAR},
+      </if>
+      <if test="srwRemark != null" >
+        srw_remark = #{srwRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="srwAuditing != null" >
+        srw_auditing = #{srwAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="srwYn != null" >
+        srw_yn = #{srwYn,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCustom1 != null" >
+        srw_custom1 = #{srwCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCustom2 != null" >
+        srw_custom2 = #{srwCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="srwCustom3 != null" >
+        srw_custom3 = #{srwCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where srw_id = #{srwId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.SaleReturnWarehouse" >
+    update sale_return_warehouse
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      srw_address = #{srwAddress,jdbcType=VARCHAR},
+      srwt_id = #{srwtId,jdbcType=VARCHAR},
+      srw_price_include_tax = #{srwPriceIncludeTax,jdbcType=VARCHAR},
+      salescxrk = #{salescxrk,jdbcType=INTEGER},
+      warehouse_id = #{warehouseId,jdbcType=VARCHAR},
+      srw_certificate_number = #{srwCertificateNumber,jdbcType=VARCHAR},
+      srw_document_date = #{srwDocumentDate,jdbcType=DATE},
+      srw_document_number = #{srwDocumentNumber,jdbcType=VARCHAR},
+      currency_id = #{currencyId,jdbcType=VARCHAR},
+      srw_exchange_rate = #{srwExchangeRate,jdbcType=REAL},
+      srw_foreign_trade = #{srwForeignTrade,jdbcType=INTEGER},
+      srw_sunnum = #{srwSunnum,jdbcType=REAL},
+      srw_sunmoney = #{srwSunmoney,jdbcType=REAL},
+      srw_tax = #{srwTax,jdbcType=REAL},
+      srw_including_tax_amount = #{srwIncludingTaxAmount,jdbcType=VARCHAR},
+      srw_saleszkgs = #{srwSaleszkgs,jdbcType=DATE},
+      srw_salesdate = #{srwSalesdate,jdbcType=VARCHAR},
+      srw_salessktj = #{srwSalessktj,jdbcType=INTEGER},
+      srw_salesday = #{srwSalesday,jdbcType=DATE},
+      srw_salesyue = #{srwSalesyue,jdbcType=VARCHAR},
+      srw_buyer = #{srwBuyer,jdbcType=VARCHAR},
+      srw_belongs_section = #{srwBelongsSection,jdbcType=VARCHAR},
+      srw_belongs_project = #{srwBelongsProject,jdbcType=VARCHAR},
+      srw_form = #{srwForm,jdbcType=VARCHAR},
+      srw_checkagain_staff = #{srwCheckagainStaff,jdbcType=VARCHAR},
+      srw_header_provision = #{srwHeaderProvision,jdbcType=VARCHAR},
+      srw_end_clause = #{srwEndClause,jdbcType=VARCHAR},
+      srw_remark = #{srwRemark,jdbcType=VARCHAR},
+      srw_auditing = #{srwAuditing,jdbcType=VARCHAR},
+      srw_yn = #{srwYn,jdbcType=VARCHAR},
+      srw_custom1 = #{srwCustom1,jdbcType=VARCHAR},
+      srw_custom2 = #{srwCustom2,jdbcType=VARCHAR},
+      srw_custom3 = #{srwCustom3,jdbcType=VARCHAR}
+    where srw_id = #{srwId,jdbcType=VARCHAR}
+  </update>
+</mapper>

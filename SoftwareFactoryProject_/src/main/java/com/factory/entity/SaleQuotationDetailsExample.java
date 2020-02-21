@@ -1064,73 +1064,73 @@ public class SaleQuotationDetailsExample {
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdIsNull() {
-            addCriterion("sql_id is null");
+        public Criteria andSqIdIsNull() {
+            addCriterion("sq_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdIsNotNull() {
-            addCriterion("sql_id is not null");
+        public Criteria andSqIdIsNotNull() {
+            addCriterion("sq_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdEqualTo(String value) {
-            addCriterion("sql_id =", value, "sqlId");
+        public Criteria andSqIdEqualTo(String value) {
+            addCriterion("sq_id =", value, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdNotEqualTo(String value) {
-            addCriterion("sql_id <>", value, "sqlId");
+        public Criteria andSqIdNotEqualTo(String value) {
+            addCriterion("sq_id <>", value, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdGreaterThan(String value) {
-            addCriterion("sql_id >", value, "sqlId");
+        public Criteria andSqIdGreaterThan(String value) {
+            addCriterion("sq_id >", value, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdGreaterThanOrEqualTo(String value) {
-            addCriterion("sql_id >=", value, "sqlId");
+        public Criteria andSqIdGreaterThanOrEqualTo(String value) {
+            addCriterion("sq_id >=", value, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdLessThan(String value) {
-            addCriterion("sql_id <", value, "sqlId");
+        public Criteria andSqIdLessThan(String value) {
+            addCriterion("sq_id <", value, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdLessThanOrEqualTo(String value) {
-            addCriterion("sql_id <=", value, "sqlId");
+        public Criteria andSqIdLessThanOrEqualTo(String value) {
+            addCriterion("sq_id <=", value, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdLike(String value) {
-            addCriterion("sql_id like", value, "sqlId");
+        public Criteria andSqIdLike(String value) {
+            addCriterion("sq_id like", value, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdNotLike(String value) {
-            addCriterion("sql_id not like", value, "sqlId");
+        public Criteria andSqIdNotLike(String value) {
+            addCriterion("sq_id not like", value, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdIn(List<String> values) {
-            addCriterion("sql_id in", values, "sqlId");
+        public Criteria andSqIdIn(List<String> values) {
+            addCriterion("sq_id in", values, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdNotIn(List<String> values) {
-            addCriterion("sql_id not in", values, "sqlId");
+        public Criteria andSqIdNotIn(List<String> values) {
+            addCriterion("sq_id not in", values, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdBetween(String value1, String value2) {
-            addCriterion("sql_id between", value1, value2, "sqlId");
+        public Criteria andSqIdBetween(String value1, String value2) {
+            addCriterion("sq_id between", value1, value2, "sqId");
             return (Criteria) this;
         }
 
-        public Criteria andSqlIdNotBetween(String value1, String value2) {
-            addCriterion("sql_id not between", value1, value2, "sqlId");
+        public Criteria andSqIdNotBetween(String value1, String value2) {
+            addCriterion("sq_id not between", value1, value2, "sqId");
             return (Criteria) this;
         }
 

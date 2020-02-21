@@ -16,7 +16,7 @@
 			<div id="login_form" class="form" style="margin-bottom: 5px;">
 				<form class="register-form">
 					<h2>管理注册</h2>
-					<input type="text" placeholder="用户名" id="r_staffId" />
+					<input type="text" placeholder="用户名" id="r_jobNumber" />
 					<input type="password" placeholder="密码" id="r_password" />
 					<input type="text" placeholder="电子邮件" id="r_emial" />
 					<button id="create">创建账户</button>
@@ -27,7 +27,7 @@
 				
 				<form class="login-form">
 					<h2 style="text-align: center;">管理登录</h2>
-					<input type="text" placeholder="用户名" id="staffId" />
+					<input type="text" placeholder="用户名" id="jobNumber" />
 					<input type="password" placeholder="密码" id="password" />
 					<button id="login">登　录</button>
 					<p class="message">
@@ -46,7 +46,7 @@
 			
 			function check_login() {
 				var user = {
-						staffId : $("#staffId").val(),
+						jobNumber : $("#jobNumber").val(),
 						password : $("#password").val()
 					};
 				//alert(JSON.stringify(user));		数据正常
@@ -54,27 +54,27 @@
 				axios.post(`http://localhost:8080/SoftwareFactoryProject_/staffs/login`, user).then(function(res){
 					//弹框：返回的东西蛮多哈		/alert(JSON.stringify(res));
 					
-					if(res.data.code == "2") {
+					if(res.data.code != "0") {
 						//alert("登录成功！");
-						$("#staffId").val("");
+						$("#jobNumber").val("");
 						$("#password").val("");
-						$(location).attr('href', 'index.html?staffId=' + user.staffId);
+						$(location).attr('href', 'index.html?staffId=' + res.data.code);
 					} else {
 						$("#login_form").removeClass('shake_effect');
 						setTimeout(function() {
-							$("#login_form").addClass('shake_effect')
+							$("#login_form").addClass('shake_effect');
 						}, 1);
 					}
 				});
 			}
 
 			function check_register() {
-				var name = $("#r_staffId").val();
+				var name = $("#r_jobNumber").val();
 				var pass = $("#r_password").val();
 				var email = $("r_email").val();
 				if(name != "" && pass == "" && email != "") {
 					alert("注册成功！");
-					$("#staffId").val("");
+					$("#jobNumber").val("");
 					$("#password").val("");
 				} else {
 					$("#login_form").removeClass('shake_effect');

@@ -478,4 +478,10 @@
       po_custom3 = #{poCustom3,jdbcType=VARCHAR}
     where po_id = #{poId,jdbcType=VARCHAR}
   </update>
+  
+  
+  <select id="selectpo_document_date" resultMap="BaseResultMap">
+SELECT * FROM `purchasing_order` ORDER BY po_document_date DESC 
+</select>
+  
 </mapper>
