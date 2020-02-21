@@ -11,9 +11,13 @@ public class Matter {
 
     private String matterEnglishName;
 
-    private String mtId;
+    private String classid;
 
-    private String muId;
+    private String classname;
+
+    private String unitid;
+
+    private String unitname;
 
     private String matterBarno;
 
@@ -31,13 +35,25 @@ public class Matter {
 
     private Float matterStandardPrice;
 
-    private String currencyId;
+    private String currencyid;
 
-    private Integer matterIftax;
+    private String currencyname;
+
+    private String matterMaterialType;
+
+    private String matterIftax;
 
     private Float matterTaxno;
 
     private Float matterTaxpoint;
+
+    private Float matterPurchaseLeadTime;
+
+    private String supplierId;
+
+    private String supplierName;
+
+    private Integer matterSetWithBatchNumber;
 
     private Integer matterSafestock;
 
@@ -71,23 +87,19 @@ public class Matter {
 
     private Date matterStopdate;
 
+    private String matterCustom1;
+
+    private String matterCustom2;
+
     private String matterMdecoration;
 
     private String matterAuditing;
 
     private String matterYn;
 
-    private String matterCustom1;
+    private String matterPrepare1;
 
-    private String matterCustom2;
-
-    private String matterCustom3;
-
-    private String matterCustom4;
-
-    private String matterCustom5;
-
-    private String matterCustom6;
+    private String matterPrepare2;
 
     public String getMatterId() {
         return matterId;
@@ -121,20 +133,36 @@ public class Matter {
         this.matterEnglishName = matterEnglishName;
     }
 
-    public String getMtId() {
-        return mtId;
+    public String getClassid() {
+        return classid;
     }
 
-    public void setMtId(String mtId) {
-        this.mtId = mtId;
+    public void setClassid(String classid) {
+        this.classid = classid;
     }
 
-    public String getMuId() {
-        return muId;
+    public String getClassname() {
+        return classname;
     }
 
-    public void setMuId(String muId) {
-        this.muId = muId;
+    public void setClassname(String classname) {
+        this.classname = classname;
+    }
+
+    public String getUnitid() {
+        return unitid;
+    }
+
+    public void setUnitid(String unitid) {
+        this.unitid = unitid;
+    }
+
+    public String getUnitname() {
+        return unitname;
+    }
+
+    public void setUnitname(String unitname) {
+        this.unitname = unitname;
     }
 
     public String getMatterBarno() {
@@ -201,19 +229,35 @@ public class Matter {
         this.matterStandardPrice = matterStandardPrice;
     }
 
-    public String getCurrencyId() {
-        return currencyId;
+    public String getCurrencyid() {
+        return currencyid;
     }
 
-    public void setCurrencyId(String currencyId) {
-        this.currencyId = currencyId;
+    public void setCurrencyid(String currencyid) {
+        this.currencyid = currencyid;
     }
 
-    public Integer getMatterIftax() {
+    public String getCurrencyname() {
+        return currencyname;
+    }
+
+    public void setCurrencyname(String currencyname) {
+        this.currencyname = currencyname;
+    }
+
+    public String getMatterMaterialType() {
+        return matterMaterialType;
+    }
+
+    public void setMatterMaterialType(String matterMaterialType) {
+        this.matterMaterialType = matterMaterialType;
+    }
+
+    public String getMatterIftax() {
         return matterIftax;
     }
 
-    public void setMatterIftax(Integer matterIftax) {
+    public void setMatterIftax(String matterIftax) {
         this.matterIftax = matterIftax;
     }
 
@@ -231,6 +275,38 @@ public class Matter {
 
     public void setMatterTaxpoint(Float matterTaxpoint) {
         this.matterTaxpoint = matterTaxpoint;
+    }
+
+    public Float getMatterPurchaseLeadTime() {
+        return matterPurchaseLeadTime;
+    }
+
+    public void setMatterPurchaseLeadTime(Float matterPurchaseLeadTime) {
+        this.matterPurchaseLeadTime = matterPurchaseLeadTime;
+    }
+
+    public String getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public Integer getMatterSetWithBatchNumber() {
+        return matterSetWithBatchNumber;
+    }
+
+    public void setMatterSetWithBatchNumber(Integer matterSetWithBatchNumber) {
+        this.matterSetWithBatchNumber = matterSetWithBatchNumber;
     }
 
     public Integer getMatterSafestock() {
@@ -361,6 +437,22 @@ public class Matter {
         this.matterStopdate = matterStopdate;
     }
 
+    public String getMatterCustom1() {
+        return matterCustom1;
+    }
+
+    public void setMatterCustom1(String matterCustom1) {
+        this.matterCustom1 = matterCustom1;
+    }
+
+    public String getMatterCustom2() {
+        return matterCustom2;
+    }
+
+    public void setMatterCustom2(String matterCustom2) {
+        this.matterCustom2 = matterCustom2;
+    }
+
     public String getMatterMdecoration() {
         return matterMdecoration;
     }
@@ -385,51 +477,19 @@ public class Matter {
         this.matterYn = matterYn;
     }
 
-    public String getMatterCustom1() {
-        return matterCustom1;
+    public String getMatterPrepare1() {
+        return matterPrepare1;
     }
 
-    public void setMatterCustom1(String matterCustom1) {
-        this.matterCustom1 = matterCustom1;
+    public void setMatterPrepare1(String matterPrepare1) {
+        this.matterPrepare1 = matterPrepare1;
     }
 
-    public String getMatterCustom2() {
-        return matterCustom2;
+    public String getMatterPrepare2() {
+        return matterPrepare2;
     }
 
-    public void setMatterCustom2(String matterCustom2) {
-        this.matterCustom2 = matterCustom2;
-    }
-
-    public String getMatterCustom3() {
-        return matterCustom3;
-    }
-
-    public void setMatterCustom3(String matterCustom3) {
-        this.matterCustom3 = matterCustom3;
-    }
-
-    public String getMatterCustom4() {
-        return matterCustom4;
-    }
-
-    public void setMatterCustom4(String matterCustom4) {
-        this.matterCustom4 = matterCustom4;
-    }
-
-    public String getMatterCustom5() {
-        return matterCustom5;
-    }
-
-    public void setMatterCustom5(String matterCustom5) {
-        this.matterCustom5 = matterCustom5;
-    }
-
-    public String getMatterCustom6() {
-        return matterCustom6;
-    }
-
-    public void setMatterCustom6(String matterCustom6) {
-        this.matterCustom6 = matterCustom6;
+    public void setMatterPrepare2(String matterPrepare2) {
+        this.matterPrepare2 = matterPrepare2;
     }
 }
