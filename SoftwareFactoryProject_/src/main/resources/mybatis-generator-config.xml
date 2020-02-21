@@ -34,8 +34,7 @@
 			<table schema="SaleQuotation" tableName="sale_quotation"></table>
 			<table schema="SaleQuotationDetails" tableName="sale_quotation_details"></table>
 			
-			 
-			
+			<!-- 
 			<table schema="Ajurisdiction" tableName="a_jurisdiction"></table>
 			<table schema="Aposition" tableName="a_position"></table>
 			<table schema="AjurPosRelation" tableName="a_jur_pos_relation"></table>
@@ -98,6 +97,7 @@
 			<table schema="Discountschedulebill" tableName="discountschedulebill"></table>
 			<table schema="Stockprimarybill" tableName="stockprimarybill"></table>
 			<table schema="Stockschedulebill" tableName="stockschedulebill"></table>
+			 -->
 			
 			
 			
