@@ -14,8 +14,7 @@
     	c.andNameLike("%"+name+"%");
     	c.andParentidEqualTo(parentId); -->
     	
-	<classPathEntry
-		location="D:\software\cangku\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar" />
+	<classPathEntry location="D:\SelfStudy\SMSVerification\local-repositoty\mysql\mysql-connector-java\5.1.47\mysql-connector-java-5.1.47.jar" />
 	<context id="context1">
 		<!-- 注释 -->
 		<commentGenerator>
@@ -31,10 +30,10 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.factory.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 			
-			<table schema="SaleQuotation" tableName="sale_quotation"></table>
-			<table schema="SaleQuotationDetails" tableName="sale_quotation_details"></table>
+			<table schema="InventoryLedger" tableName="inventoryLedger"></table>
 			
 			<!-- 
+			
 			<table schema="Ajurisdiction" tableName="a_jurisdiction"></table>
 			<table schema="Aposition" tableName="a_position"></table>
 			<table schema="AjurPosRelation" tableName="a_jur_pos_relation"></table>
@@ -59,7 +58,6 @@
 			<table schema="Ordbillstyle" tableName="ordbillstyle"></table>
 			<table schema="Assusestate" tableName="assusestate"></table>
 			<table schema="Asssource" tableName="asssource"></table>
-			
 			<table schema="SaleQuotation" tableName="sale_quotation"></table>
 			<table schema="SaleQuotationDetails" tableName="sale_quotation_details"></table>
 			<table schema="SaleOutWarehouse" tableName="sale_out_warehouse"></table>
@@ -68,7 +66,6 @@
 			<table schema="SaleOrderDetail" tableName="sale_order_detail"></table>
 			<table schema="SaleReturnWarehouse" tableName="sale_return_warehouse"></table>
 			<table schema="SaleReturnWarehouseDetails" tableName="sale_return_warehouse_details"></table>
-			
 			<table schema="AdvancesReceivedMain" tableName="advances_received_main"></table>
 			<table schema="AdvancesReceivedDetails" tableName="advances_received_details"></table>
 			<table schema="AdvancesReceivedMainY" tableName="advances_received_main_y"></table>
@@ -97,9 +94,8 @@
 			<table schema="Discountschedulebill" tableName="discountschedulebill"></table>
 			<table schema="Stockprimarybill" tableName="stockprimarybill"></table>
 			<table schema="Stockschedulebill" tableName="stockschedulebill"></table>
+			
 			 -->
-			
-			
 			
 			
 <!-- 		<table schema="Sys_permissions" tableName="sys_permissions"></table> -->
