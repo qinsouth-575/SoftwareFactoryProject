@@ -30,7 +30,12 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.factory.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 			
-			<table schema="Matter" tableName="matter"></table>
+			<table schema="PurchaseStorage" tableName="purchase_storage"></table>
+			<table schema="PurchaseStorageDetails" tableName="purchase_storage_details"></table>
+			<table schema="BlitemPrimaryBill" tableName="blitem_primary_bill"></table>
+			<table schema="BlitemScheduleBill" tableName="blitem_schedule_bill"></table>
+			<table schema="AllocationPrimaryBill" tableName="allocation_primary_bill"></table>
+			<table schema="AllocationScheduleBill" tableName="allocation_schedule_bill"></table>
 			
 			<!-- 
 			

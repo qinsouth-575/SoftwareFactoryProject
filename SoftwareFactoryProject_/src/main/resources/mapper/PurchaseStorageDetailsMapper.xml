@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.PurchaseStorageDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.PurchaseStorageDetails" >
+    <id column="psd_id" property="psdId" jdbcType="INTEGER" />
+    <result column="psd_column_no" property="psdColumnNo" jdbcType="VARCHAR" />
+    <result column="psd_document_number" property="psdDocumentNumber" jdbcType="VARCHAR" />
+    <result column="matter_id" property="matterId" jdbcType="VARCHAR" />
+    <result column="matter_name" property="matterName" jdbcType="VARCHAR" />
+    <result column="psd_specifications" property="psdSpecifications" jdbcType="VARCHAR" />
+    <result column="psd_company_name" property="psdCompanyName" jdbcType="VARCHAR" />
+    <result column="psd_amount" property="psdAmount" jdbcType="INTEGER" />
+    <result column="psd_money_discount_before" property="psdMoneyDiscountBefore" jdbcType="REAL" />
+    <result column="psd_fold_number" property="psdFoldNumber" jdbcType="VARCHAR" />
+    <result column="psd_price" property="psdPrice" jdbcType="REAL" />
+    <result column="psd_money" property="psdMoney" jdbcType="REAL" />
+    <result column="psd_tax_rate" property="psdTaxRate" jdbcType="REAL" />
+    <result column="psd_tax_amount" property="psdTaxAmount" jdbcType="REAL" />
+    <result column="psd_including_tax_amount" property="psdIncludingTaxAmount" jdbcType="REAL" />
+    <result column="psd_lot_number" property="psdLotNumber" jdbcType="VARCHAR" />
+    <result column="psd_gift" property="psdGift" jdbcType="VARCHAR" />
+    <result column="psd_invoice_details" property="psdInvoiceDetails" jdbcType="VARCHAR" />
+    <result column="psd_uninvoiced_quantity" property="psdUninvoicedQuantity" jdbcType="VARCHAR" />
+    <result column="psd_remarks" property="psdRemarks" jdbcType="VARCHAR" />
+    <result column="psd_source_order" property="psdSourceOrder" jdbcType="VARCHAR" />
+    <result column="psd_source_no" property="psdSourceNo" jdbcType="VARCHAR" />
+    <result column="psd_went_dutch" property="psdWentDutch" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    psd_id, psd_column_no, psd_document_number, matter_id, matter_name, psd_specifications, 
+    psd_company_name, psd_amount, psd_money_discount_before, psd_fold_number, psd_price, 
+    psd_money, psd_tax_rate, psd_tax_amount, psd_including_tax_amount, psd_lot_number, 
+    psd_gift, psd_invoice_details, psd_uninvoiced_quantity, psd_remarks, psd_source_order, 
+    psd_source_no, psd_went_dutch
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.PurchaseStorageDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purchase_storage_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchase_storage_details
+    where psd_id = #{psdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from purchase_storage_details
+    where psd_id = #{psdId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.PurchaseStorageDetailsExample" >
+    delete from purchase_storage_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.PurchaseStorageDetails" >
+    insert into purchase_storage_details (psd_id, psd_column_no, psd_document_number, 
+      matter_id, matter_name, psd_specifications, 
+      psd_company_name, psd_amount, psd_money_discount_before, 
+      psd_fold_number, psd_price, psd_money, 
+      psd_tax_rate, psd_tax_amount, psd_including_tax_amount, 
+      psd_lot_number, psd_gift, psd_invoice_details, 
+      psd_uninvoiced_quantity, psd_remarks, psd_source_order, 
+      psd_source_no, psd_went_dutch)
+    values (#{psdId,jdbcType=INTEGER}, #{psdColumnNo,jdbcType=VARCHAR}, #{psdDocumentNumber,jdbcType=VARCHAR}, 
+      #{matterId,jdbcType=VARCHAR}, #{matterName,jdbcType=VARCHAR}, #{psdSpecifications,jdbcType=VARCHAR}, 
+      #{psdCompanyName,jdbcType=VARCHAR}, #{psdAmount,jdbcType=INTEGER}, #{psdMoneyDiscountBefore,jdbcType=REAL}, 
+      #{psdFoldNumber,jdbcType=VARCHAR}, #{psdPrice,jdbcType=REAL}, #{psdMoney,jdbcType=REAL}, 
+      #{psdTaxRate,jdbcType=REAL}, #{psdTaxAmount,jdbcType=REAL}, #{psdIncludingTaxAmount,jdbcType=REAL}, 
+      #{psdLotNumber,jdbcType=VARCHAR}, #{psdGift,jdbcType=VARCHAR}, #{psdInvoiceDetails,jdbcType=VARCHAR}, 
+      #{psdUninvoicedQuantity,jdbcType=VARCHAR}, #{psdRemarks,jdbcType=VARCHAR}, #{psdSourceOrder,jdbcType=VARCHAR}, 
+      #{psdSourceNo,jdbcType=VARCHAR}, #{psdWentDutch,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.PurchaseStorageDetails" >
+    insert into purchase_storage_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="psdId != null" >
+        psd_id,
+      </if>
+      <if test="psdColumnNo != null" >
+        psd_column_no,
+      </if>
+      <if test="psdDocumentNumber != null" >
+        psd_document_number,
+      </if>
+      <if test="matterId != null" >
+        matter_id,
+      </if>
+      <if test="matterName != null" >
+        matter_name,
+      </if>
+      <if test="psdSpecifications != null" >
+        psd_specifications,
+      </if>
+      <if test="psdCompanyName != null" >
+        psd_company_name,
+      </if>
+      <if test="psdAmount != null" >
+        psd_amount,
+      </if>
+      <if test="psdMoneyDiscountBefore != null" >
+        psd_money_discount_before,
+      </if>
+      <if test="psdFoldNumber != null" >
+        psd_fold_number,
+      </if>
+      <if test="psdPrice != null" >
+        psd_price,
+      </if>
+      <if test="psdMoney != null" >
+        psd_money,
+      </if>
+      <if test="psdTaxRate != null" >
+        psd_tax_rate,
+      </if>
+      <if test="psdTaxAmount != null" >
+        psd_tax_amount,
+      </if>
+      <if test="psdIncludingTaxAmount != null" >
+        psd_including_tax_amount,
+      </if>
+      <if test="psdLotNumber != null" >
+        psd_lot_number,
+      </if>
+      <if test="psdGift != null" >
+        psd_gift,
+      </if>
+      <if test="psdInvoiceDetails != null" >
+        psd_invoice_details,
+      </if>
+      <if test="psdUninvoicedQuantity != null" >
+        psd_uninvoiced_quantity,
+      </if>
+      <if test="psdRemarks != null" >
+        psd_remarks,
+      </if>
+      <if test="psdSourceOrder != null" >
+        psd_source_order,
+      </if>
+      <if test="psdSourceNo != null" >
+        psd_source_no,
+      </if>
+      <if test="psdWentDutch != null" >
+        psd_went_dutch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="psdId != null" >
+        #{psdId,jdbcType=INTEGER},
+      </if>
+      <if test="psdColumnNo != null" >
+        #{psdColumnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="psdDocumentNumber != null" >
+        #{psdDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="matterId != null" >
+        #{matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="matterName != null" >
+        #{matterName,jdbcType=VARCHAR},
+      </if>
+      <if test="psdSpecifications != null" >
+        #{psdSpecifications,jdbcType=VARCHAR},
+      </if>
+      <if test="psdCompanyName != null" >
+        #{psdCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="psdAmount != null" >
+        #{psdAmount,jdbcType=INTEGER},
+      </if>
+      <if test="psdMoneyDiscountBefore != null" >
+        #{psdMoneyDiscountBefore,jdbcType=REAL},
+      </if>
+      <if test="psdFoldNumber != null" >
+        #{psdFoldNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="psdPrice != null" >
+        #{psdPrice,jdbcType=REAL},
+      </if>
+      <if test="psdMoney != null" >
+        #{psdMoney,jdbcType=REAL},
+      </if>
+      <if test="psdTaxRate != null" >
+        #{psdTaxRate,jdbcType=REAL},
+      </if>
+      <if test="psdTaxAmount != null" >
+        #{psdTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="psdIncludingTaxAmount != null" >
+        #{psdIncludingTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="psdLotNumber != null" >
+        #{psdLotNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="psdGift != null" >
+        #{psdGift,jdbcType=VARCHAR},
+      </if>
+      <if test="psdInvoiceDetails != null" >
+        #{psdInvoiceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="psdUninvoicedQuantity != null" >
+        #{psdUninvoicedQuantity,jdbcType=VARCHAR},
+      </if>
+      <if test="psdRemarks != null" >
+        #{psdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="psdSourceOrder != null" >
+        #{psdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="psdSourceNo != null" >
+        #{psdSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="psdWentDutch != null" >
+        #{psdWentDutch,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.PurchaseStorageDetailsExample" resultType="java.lang.Integer" >
+    select count(*) from purchase_storage_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update purchase_storage_details
+    <set >
+      <if test="record.psdId != null" >
+        psd_id = #{record.psdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.psdColumnNo != null" >
+        psd_column_no = #{record.psdColumnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdDocumentNumber != null" >
+        psd_document_number = #{record.psdDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matterId != null" >
+        matter_id = #{record.matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matterName != null" >
+        matter_name = #{record.matterName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdSpecifications != null" >
+        psd_specifications = #{record.psdSpecifications,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdCompanyName != null" >
+        psd_company_name = #{record.psdCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdAmount != null" >
+        psd_amount = #{record.psdAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.psdMoneyDiscountBefore != null" >
+        psd_money_discount_before = #{record.psdMoneyDiscountBefore,jdbcType=REAL},
+      </if>
+      <if test="record.psdFoldNumber != null" >
+        psd_fold_number = #{record.psdFoldNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdPrice != null" >
+        psd_price = #{record.psdPrice,jdbcType=REAL},
+      </if>
+      <if test="record.psdMoney != null" >
+        psd_money = #{record.psdMoney,jdbcType=REAL},
+      </if>
+      <if test="record.psdTaxRate != null" >
+        psd_tax_rate = #{record.psdTaxRate,jdbcType=REAL},
+      </if>
+      <if test="record.psdTaxAmount != null" >
+        psd_tax_amount = #{record.psdTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="record.psdIncludingTaxAmount != null" >
+        psd_including_tax_amount = #{record.psdIncludingTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="record.psdLotNumber != null" >
+        psd_lot_number = #{record.psdLotNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdGift != null" >
+        psd_gift = #{record.psdGift,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdInvoiceDetails != null" >
+        psd_invoice_details = #{record.psdInvoiceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdUninvoicedQuantity != null" >
+        psd_uninvoiced_quantity = #{record.psdUninvoicedQuantity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdRemarks != null" >
+        psd_remarks = #{record.psdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdSourceOrder != null" >
+        psd_source_order = #{record.psdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdSourceNo != null" >
+        psd_source_no = #{record.psdSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psdWentDutch != null" >
+        psd_went_dutch = #{record.psdWentDutch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update purchase_storage_details
+    set psd_id = #{record.psdId,jdbcType=INTEGER},
+      psd_column_no = #{record.psdColumnNo,jdbcType=VARCHAR},
+      psd_document_number = #{record.psdDocumentNumber,jdbcType=VARCHAR},
+      matter_id = #{record.matterId,jdbcType=VARCHAR},
+      matter_name = #{record.matterName,jdbcType=VARCHAR},
+      psd_specifications = #{record.psdSpecifications,jdbcType=VARCHAR},
+      psd_company_name = #{record.psdCompanyName,jdbcType=VARCHAR},
+      psd_amount = #{record.psdAmount,jdbcType=INTEGER},
+      psd_money_discount_before = #{record.psdMoneyDiscountBefore,jdbcType=REAL},
+      psd_fold_number = #{record.psdFoldNumber,jdbcType=VARCHAR},
+      psd_price = #{record.psdPrice,jdbcType=REAL},
+      psd_money = #{record.psdMoney,jdbcType=REAL},
+      psd_tax_rate = #{record.psdTaxRate,jdbcType=REAL},
+      psd_tax_amount = #{record.psdTaxAmount,jdbcType=REAL},
+      psd_including_tax_amount = #{record.psdIncludingTaxAmount,jdbcType=REAL},
+      psd_lot_number = #{record.psdLotNumber,jdbcType=VARCHAR},
+      psd_gift = #{record.psdGift,jdbcType=VARCHAR},
+      psd_invoice_details = #{record.psdInvoiceDetails,jdbcType=VARCHAR},
+      psd_uninvoiced_quantity = #{record.psdUninvoicedQuantity,jdbcType=VARCHAR},
+      psd_remarks = #{record.psdRemarks,jdbcType=VARCHAR},
+      psd_source_order = #{record.psdSourceOrder,jdbcType=VARCHAR},
+      psd_source_no = #{record.psdSourceNo,jdbcType=VARCHAR},
+      psd_went_dutch = #{record.psdWentDutch,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.PurchaseStorageDetails" >
+    update purchase_storage_details
+    <set >
+      <if test="psdColumnNo != null" >
+        psd_column_no = #{psdColumnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="psdDocumentNumber != null" >
+        psd_document_number = #{psdDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="matterId != null" >
+        matter_id = #{matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="matterName != null" >
+        matter_name = #{matterName,jdbcType=VARCHAR},
+      </if>
+      <if test="psdSpecifications != null" >
+        psd_specifications = #{psdSpecifications,jdbcType=VARCHAR},
+      </if>
+      <if test="psdCompanyName != null" >
+        psd_company_name = #{psdCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="psdAmount != null" >
+        psd_amount = #{psdAmount,jdbcType=INTEGER},
+      </if>
+      <if test="psdMoneyDiscountBefore != null" >
+        psd_money_discount_before = #{psdMoneyDiscountBefore,jdbcType=REAL},
+      </if>
+      <if test="psdFoldNumber != null" >
+        psd_fold_number = #{psdFoldNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="psdPrice != null" >
+        psd_price = #{psdPrice,jdbcType=REAL},
+      </if>
+      <if test="psdMoney != null" >
+        psd_money = #{psdMoney,jdbcType=REAL},
+      </if>
+      <if test="psdTaxRate != null" >
+        psd_tax_rate = #{psdTaxRate,jdbcType=REAL},
+      </if>
+      <if test="psdTaxAmount != null" >
+        psd_tax_amount = #{psdTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="psdIncludingTaxAmount != null" >
+        psd_including_tax_amount = #{psdIncludingTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="psdLotNumber != null" >
+        psd_lot_number = #{psdLotNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="psdGift != null" >
+        psd_gift = #{psdGift,jdbcType=VARCHAR},
+      </if>
+      <if test="psdInvoiceDetails != null" >
+        psd_invoice_details = #{psdInvoiceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="psdUninvoicedQuantity != null" >
+        psd_uninvoiced_quantity = #{psdUninvoicedQuantity,jdbcType=VARCHAR},
+      </if>
+      <if test="psdRemarks != null" >
+        psd_remarks = #{psdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="psdSourceOrder != null" >
+        psd_source_order = #{psdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="psdSourceNo != null" >
+        psd_source_no = #{psdSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="psdWentDutch != null" >
+        psd_went_dutch = #{psdWentDutch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where psd_id = #{psdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.PurchaseStorageDetails" >
+    update purchase_storage_details
+    set psd_column_no = #{psdColumnNo,jdbcType=VARCHAR},
+      psd_document_number = #{psdDocumentNumber,jdbcType=VARCHAR},
+      matter_id = #{matterId,jdbcType=VARCHAR},
+      matter_name = #{matterName,jdbcType=VARCHAR},
+      psd_specifications = #{psdSpecifications,jdbcType=VARCHAR},
+      psd_company_name = #{psdCompanyName,jdbcType=VARCHAR},
+      psd_amount = #{psdAmount,jdbcType=INTEGER},
+      psd_money_discount_before = #{psdMoneyDiscountBefore,jdbcType=REAL},
+      psd_fold_number = #{psdFoldNumber,jdbcType=VARCHAR},
+      psd_price = #{psdPrice,jdbcType=REAL},
+      psd_money = #{psdMoney,jdbcType=REAL},
+      psd_tax_rate = #{psdTaxRate,jdbcType=REAL},
+      psd_tax_amount = #{psdTaxAmount,jdbcType=REAL},
+      psd_including_tax_amount = #{psdIncludingTaxAmount,jdbcType=REAL},
+      psd_lot_number = #{psdLotNumber,jdbcType=VARCHAR},
+      psd_gift = #{psdGift,jdbcType=VARCHAR},
+      psd_invoice_details = #{psdInvoiceDetails,jdbcType=VARCHAR},
+      psd_uninvoiced_quantity = #{psdUninvoicedQuantity,jdbcType=VARCHAR},
+      psd_remarks = #{psdRemarks,jdbcType=VARCHAR},
+      psd_source_order = #{psdSourceOrder,jdbcType=VARCHAR},
+      psd_source_no = #{psdSourceNo,jdbcType=VARCHAR},
+      psd_went_dutch = #{psdWentDutch,jdbcType=VARCHAR}
+    where psd_id = #{psdId,jdbcType=INTEGER}
+  </update>
+</mapper>

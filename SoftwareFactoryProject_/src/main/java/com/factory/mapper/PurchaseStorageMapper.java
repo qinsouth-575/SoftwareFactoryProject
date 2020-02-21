@@ -10,7 +10,7 @@ public interface PurchaseStorageMapper {
 
     int deleteByExample(PurchaseStorageExample example);
 
-    int deleteByPrimaryKey(String psId);
+    int deleteByPrimaryKey(String psDocumentNumber);
 
     int insert(PurchaseStorage record);
 
@@ -18,7 +18,7 @@ public interface PurchaseStorageMapper {
 
     List<PurchaseStorage> selectByExample(PurchaseStorageExample example);
 
-    PurchaseStorage selectByPrimaryKey(String psId);
+    PurchaseStorage selectByPrimaryKey(String psDocumentNumber);
 
     int updateByExampleSelective(@Param("record") PurchaseStorage record, @Param("example") PurchaseStorageExample example);
 

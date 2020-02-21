@@ -3,29 +3,31 @@ package com.factory.entity;
 import java.util.Date;
 
 public class PurchaseStorage {
-    private String psId;
+    private String psDocumentNumber;
+
+    private Date psDocumentDate;
+
+    private String currencyName;
+
+    private Float psExchangeRate;
+
+    private String psForeignTrade;
 
     private String supplierId;
 
-    private String psEngname;
+    private String supplierName;
+
+    private String supplierEngname;
 
     private String pstId;
 
     private String psPriceIncludeTax;
 
-    private Integer warehouseId;
+    private String warehouseid;
+
+    private String warehousename;
 
     private String psSingleStatus;
-
-    private Date psDocumentDate;
-
-    private String psDocumentNumber;
-
-    private String currencyId;
-
-    private Float psExchangeRate;
-
-    private Integer psForeignTrade;
 
     private Integer psSunnum;
 
@@ -35,11 +37,31 @@ public class PurchaseStorage {
 
     private Float psIncludeTaxAmount;
 
-    private String psDeliveryAddress;
+    private Float psWentDutch;
 
-    private String psBuyer;
+    private String psAccountOwnershipId;
 
-    private String psBelongsSection;
+    private String psAccountOwnershipName;
+
+    private Short psPaymentClause;
+
+    private Date psPaymentDate;
+
+    private String psAccountReceivable;
+
+    private String psCustom1;
+
+    private String psCustom2;
+
+    private String psRemark;
+
+    private Integer staffId;
+
+    private String staffName;
+
+    private String teamId;
+
+    private String departName;
 
     private String psBelongsProject;
 
@@ -47,34 +69,48 @@ public class PurchaseStorage {
 
     private String psCheckagainStaff;
 
-    private String psHeaderProvision;
-
-    private String psEndClause;
-
-    private String psRemark;
-
     private String psAudition;
 
     private String psYn;
 
-    private String psCustom1;
-
-    private String psCustom2;
-
-    private String psCustom3;
-
-    private String psCustom4;
-
-    private String psCustom5;
-
-    private String psCustom6;
-
-    public String getPsId() {
-        return psId;
+    public String getPsDocumentNumber() {
+        return psDocumentNumber;
     }
 
-    public void setPsId(String psId) {
-        this.psId = psId;
+    public void setPsDocumentNumber(String psDocumentNumber) {
+        this.psDocumentNumber = psDocumentNumber;
+    }
+
+    public Date getPsDocumentDate() {
+        return psDocumentDate;
+    }
+
+    public void setPsDocumentDate(Date psDocumentDate) {
+        this.psDocumentDate = psDocumentDate;
+    }
+
+    public String getCurrencyName() {
+        return currencyName;
+    }
+
+    public void setCurrencyName(String currencyName) {
+        this.currencyName = currencyName;
+    }
+
+    public Float getPsExchangeRate() {
+        return psExchangeRate;
+    }
+
+    public void setPsExchangeRate(Float psExchangeRate) {
+        this.psExchangeRate = psExchangeRate;
+    }
+
+    public String getPsForeignTrade() {
+        return psForeignTrade;
+    }
+
+    public void setPsForeignTrade(String psForeignTrade) {
+        this.psForeignTrade = psForeignTrade;
     }
 
     public String getSupplierId() {
@@ -85,12 +121,20 @@ public class PurchaseStorage {
         this.supplierId = supplierId;
     }
 
-    public String getPsEngname() {
-        return psEngname;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setPsEngname(String psEngname) {
-        this.psEngname = psEngname;
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public String getSupplierEngname() {
+        return supplierEngname;
+    }
+
+    public void setSupplierEngname(String supplierEngname) {
+        this.supplierEngname = supplierEngname;
     }
 
     public String getPstId() {
@@ -109,12 +153,20 @@ public class PurchaseStorage {
         this.psPriceIncludeTax = psPriceIncludeTax;
     }
 
-    public Integer getWarehouseId() {
-        return warehouseId;
+    public String getWarehouseid() {
+        return warehouseid;
     }
 
-    public void setWarehouseId(Integer warehouseId) {
-        this.warehouseId = warehouseId;
+    public void setWarehouseid(String warehouseid) {
+        this.warehouseid = warehouseid;
+    }
+
+    public String getWarehousename() {
+        return warehousename;
+    }
+
+    public void setWarehousename(String warehousename) {
+        this.warehousename = warehousename;
     }
 
     public String getPsSingleStatus() {
@@ -123,46 +175,6 @@ public class PurchaseStorage {
 
     public void setPsSingleStatus(String psSingleStatus) {
         this.psSingleStatus = psSingleStatus;
-    }
-
-    public Date getPsDocumentDate() {
-        return psDocumentDate;
-    }
-
-    public void setPsDocumentDate(Date psDocumentDate) {
-        this.psDocumentDate = psDocumentDate;
-    }
-
-    public String getPsDocumentNumber() {
-        return psDocumentNumber;
-    }
-
-    public void setPsDocumentNumber(String psDocumentNumber) {
-        this.psDocumentNumber = psDocumentNumber;
-    }
-
-    public String getCurrencyId() {
-        return currencyId;
-    }
-
-    public void setCurrencyId(String currencyId) {
-        this.currencyId = currencyId;
-    }
-
-    public Float getPsExchangeRate() {
-        return psExchangeRate;
-    }
-
-    public void setPsExchangeRate(Float psExchangeRate) {
-        this.psExchangeRate = psExchangeRate;
-    }
-
-    public Integer getPsForeignTrade() {
-        return psForeignTrade;
-    }
-
-    public void setPsForeignTrade(Integer psForeignTrade) {
-        this.psForeignTrade = psForeignTrade;
     }
 
     public Integer getPsSunnum() {
@@ -197,28 +209,108 @@ public class PurchaseStorage {
         this.psIncludeTaxAmount = psIncludeTaxAmount;
     }
 
-    public String getPsDeliveryAddress() {
-        return psDeliveryAddress;
+    public Float getPsWentDutch() {
+        return psWentDutch;
     }
 
-    public void setPsDeliveryAddress(String psDeliveryAddress) {
-        this.psDeliveryAddress = psDeliveryAddress;
+    public void setPsWentDutch(Float psWentDutch) {
+        this.psWentDutch = psWentDutch;
     }
 
-    public String getPsBuyer() {
-        return psBuyer;
+    public String getPsAccountOwnershipId() {
+        return psAccountOwnershipId;
     }
 
-    public void setPsBuyer(String psBuyer) {
-        this.psBuyer = psBuyer;
+    public void setPsAccountOwnershipId(String psAccountOwnershipId) {
+        this.psAccountOwnershipId = psAccountOwnershipId;
     }
 
-    public String getPsBelongsSection() {
-        return psBelongsSection;
+    public String getPsAccountOwnershipName() {
+        return psAccountOwnershipName;
     }
 
-    public void setPsBelongsSection(String psBelongsSection) {
-        this.psBelongsSection = psBelongsSection;
+    public void setPsAccountOwnershipName(String psAccountOwnershipName) {
+        this.psAccountOwnershipName = psAccountOwnershipName;
+    }
+
+    public Short getPsPaymentClause() {
+        return psPaymentClause;
+    }
+
+    public void setPsPaymentClause(Short psPaymentClause) {
+        this.psPaymentClause = psPaymentClause;
+    }
+
+    public Date getPsPaymentDate() {
+        return psPaymentDate;
+    }
+
+    public void setPsPaymentDate(Date psPaymentDate) {
+        this.psPaymentDate = psPaymentDate;
+    }
+
+    public String getPsAccountReceivable() {
+        return psAccountReceivable;
+    }
+
+    public void setPsAccountReceivable(String psAccountReceivable) {
+        this.psAccountReceivable = psAccountReceivable;
+    }
+
+    public String getPsCustom1() {
+        return psCustom1;
+    }
+
+    public void setPsCustom1(String psCustom1) {
+        this.psCustom1 = psCustom1;
+    }
+
+    public String getPsCustom2() {
+        return psCustom2;
+    }
+
+    public void setPsCustom2(String psCustom2) {
+        this.psCustom2 = psCustom2;
+    }
+
+    public String getPsRemark() {
+        return psRemark;
+    }
+
+    public void setPsRemark(String psRemark) {
+        this.psRemark = psRemark;
+    }
+
+    public Integer getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(Integer staffId) {
+        this.staffId = staffId;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
+    public String getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
+    }
+
+    public String getDepartName() {
+        return departName;
+    }
+
+    public void setDepartName(String departName) {
+        this.departName = departName;
     }
 
     public String getPsBelongsProject() {
@@ -245,30 +337,6 @@ public class PurchaseStorage {
         this.psCheckagainStaff = psCheckagainStaff;
     }
 
-    public String getPsHeaderProvision() {
-        return psHeaderProvision;
-    }
-
-    public void setPsHeaderProvision(String psHeaderProvision) {
-        this.psHeaderProvision = psHeaderProvision;
-    }
-
-    public String getPsEndClause() {
-        return psEndClause;
-    }
-
-    public void setPsEndClause(String psEndClause) {
-        this.psEndClause = psEndClause;
-    }
-
-    public String getPsRemark() {
-        return psRemark;
-    }
-
-    public void setPsRemark(String psRemark) {
-        this.psRemark = psRemark;
-    }
-
     public String getPsAudition() {
         return psAudition;
     }
@@ -283,53 +351,5 @@ public class PurchaseStorage {
 
     public void setPsYn(String psYn) {
         this.psYn = psYn;
-    }
-
-    public String getPsCustom1() {
-        return psCustom1;
-    }
-
-    public void setPsCustom1(String psCustom1) {
-        this.psCustom1 = psCustom1;
-    }
-
-    public String getPsCustom2() {
-        return psCustom2;
-    }
-
-    public void setPsCustom2(String psCustom2) {
-        this.psCustom2 = psCustom2;
-    }
-
-    public String getPsCustom3() {
-        return psCustom3;
-    }
-
-    public void setPsCustom3(String psCustom3) {
-        this.psCustom3 = psCustom3;
-    }
-
-    public String getPsCustom4() {
-        return psCustom4;
-    }
-
-    public void setPsCustom4(String psCustom4) {
-        this.psCustom4 = psCustom4;
-    }
-
-    public String getPsCustom5() {
-        return psCustom5;
-    }
-
-    public void setPsCustom5(String psCustom5) {
-        this.psCustom5 = psCustom5;
-    }
-
-    public String getPsCustom6() {
-        return psCustom6;
-    }
-
-    public void setPsCustom6(String psCustom6) {
-        this.psCustom6 = psCustom6;
     }
 }

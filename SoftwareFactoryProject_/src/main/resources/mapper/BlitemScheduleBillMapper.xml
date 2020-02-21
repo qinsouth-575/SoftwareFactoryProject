@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.BlitemScheduleBillMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.BlitemScheduleBill" >
+    <id column="bsbid" property="bsbid" jdbcType="INTEGER" />
+    <result column="bpbid" property="bpbid" jdbcType="VARCHAR" />
+    <result column="stockNumber" property="stocknumber" jdbcType="VARCHAR" />
+    <result column="bookAmout" property="bookamout" jdbcType="VARCHAR" />
+    <result column="blitemAmout" property="blitemamout" jdbcType="VARCHAR" />
+    <result column="PALAmout" property="palamout" jdbcType="VARCHAR" />
+    <result column="cause" property="cause" jdbcType="VARCHAR" />
+    <result column="standby" property="standby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bsbid, bpbid, stockNumber, bookAmout, blitemAmout, PALAmout, cause, standby
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.BlitemScheduleBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blitem_schedule_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from blitem_schedule_bill
+    where bsbid = #{bsbid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from blitem_schedule_bill
+    where bsbid = #{bsbid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.BlitemScheduleBillExample" >
+    delete from blitem_schedule_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.BlitemScheduleBill" >
+    insert into blitem_schedule_bill (bsbid, bpbid, stockNumber, 
+      bookAmout, blitemAmout, PALAmout, 
+      cause, standby)
+    values (#{bsbid,jdbcType=INTEGER}, #{bpbid,jdbcType=VARCHAR}, #{stocknumber,jdbcType=VARCHAR}, 
+      #{bookamout,jdbcType=VARCHAR}, #{blitemamout,jdbcType=VARCHAR}, #{palamout,jdbcType=VARCHAR}, 
+      #{cause,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.BlitemScheduleBill" >
+    insert into blitem_schedule_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bsbid != null" >
+        bsbid,
+      </if>
+      <if test="bpbid != null" >
+        bpbid,
+      </if>
+      <if test="stocknumber != null" >
+        stockNumber,
+      </if>
+      <if test="bookamout != null" >
+        bookAmout,
+      </if>
+      <if test="blitemamout != null" >
+        blitemAmout,
+      </if>
+      <if test="palamout != null" >
+        PALAmout,
+      </if>
+      <if test="cause != null" >
+        cause,
+      </if>
+      <if test="standby != null" >
+        standby,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bsbid != null" >
+        #{bsbid,jdbcType=INTEGER},
+      </if>
+      <if test="bpbid != null" >
+        #{bpbid,jdbcType=VARCHAR},
+      </if>
+      <if test="stocknumber != null" >
+        #{stocknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bookamout != null" >
+        #{bookamout,jdbcType=VARCHAR},
+      </if>
+      <if test="blitemamout != null" >
+        #{blitemamout,jdbcType=VARCHAR},
+      </if>
+      <if test="palamout != null" >
+        #{palamout,jdbcType=VARCHAR},
+      </if>
+      <if test="cause != null" >
+        #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null" >
+        #{standby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.BlitemScheduleBillExample" resultType="java.lang.Integer" >
+    select count(*) from blitem_schedule_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update blitem_schedule_bill
+    <set >
+      <if test="record.bsbid != null" >
+        bsbid = #{record.bsbid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bpbid != null" >
+        bpbid = #{record.bpbid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stocknumber != null" >
+        stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookamout != null" >
+        bookAmout = #{record.bookamout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blitemamout != null" >
+        blitemAmout = #{record.blitemamout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.palamout != null" >
+        PALAmout = #{record.palamout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cause != null" >
+        cause = #{record.cause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standby != null" >
+        standby = #{record.standby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update blitem_schedule_bill
+    set bsbid = #{record.bsbid,jdbcType=INTEGER},
+      bpbid = #{record.bpbid,jdbcType=VARCHAR},
+      stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
+      bookAmout = #{record.bookamout,jdbcType=VARCHAR},
+      blitemAmout = #{record.blitemamout,jdbcType=VARCHAR},
+      PALAmout = #{record.palamout,jdbcType=VARCHAR},
+      cause = #{record.cause,jdbcType=VARCHAR},
+      standby = #{record.standby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.BlitemScheduleBill" >
+    update blitem_schedule_bill
+    <set >
+      <if test="bpbid != null" >
+        bpbid = #{bpbid,jdbcType=VARCHAR},
+      </if>
+      <if test="stocknumber != null" >
+        stockNumber = #{stocknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bookamout != null" >
+        bookAmout = #{bookamout,jdbcType=VARCHAR},
+      </if>
+      <if test="blitemamout != null" >
+        blitemAmout = #{blitemamout,jdbcType=VARCHAR},
+      </if>
+      <if test="palamout != null" >
+        PALAmout = #{palamout,jdbcType=VARCHAR},
+      </if>
+      <if test="cause != null" >
+        cause = #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null" >
+        standby = #{standby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bsbid = #{bsbid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.BlitemScheduleBill" >
+    update blitem_schedule_bill
+    set bpbid = #{bpbid,jdbcType=VARCHAR},
+      stockNumber = #{stocknumber,jdbcType=VARCHAR},
+      bookAmout = #{bookamout,jdbcType=VARCHAR},
+      blitemAmout = #{blitemamout,jdbcType=VARCHAR},
+      PALAmout = #{palamout,jdbcType=VARCHAR},
+      cause = #{cause,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR}
+    where bsbid = #{bsbid,jdbcType=INTEGER}
+  </update>
+</mapper>
