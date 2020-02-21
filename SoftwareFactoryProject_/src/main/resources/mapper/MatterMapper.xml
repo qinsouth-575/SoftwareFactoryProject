@@ -6,8 +6,10 @@
     <result column="matter_name" property="matterName" jdbcType="VARCHAR" />
     <result column="matter_size" property="matterSize" jdbcType="VARCHAR" />
     <result column="matter_english_name" property="matterEnglishName" jdbcType="VARCHAR" />
-    <result column="mt_id" property="mtId" jdbcType="VARCHAR" />
-    <result column="mu_id" property="muId" jdbcType="VARCHAR" />
+    <result column="ClassID" property="classid" jdbcType="VARCHAR" />
+    <result column="ClassName" property="classname" jdbcType="VARCHAR" />
+    <result column="UnitID" property="unitid" jdbcType="VARCHAR" />
+    <result column="UnitName" property="unitname" jdbcType="VARCHAR" />
     <result column="matter_barno" property="matterBarno" jdbcType="VARCHAR" />
     <result column="matter_msale" property="matterMsale" jdbcType="REAL" />
     <result column="matter_msale_a" property="matterMsaleA" jdbcType="REAL" />
@@ -16,10 +18,16 @@
     <result column="matter_msale_d" property="matterMsaleD" jdbcType="REAL" />
     <result column="matter_msale_e" property="matterMsaleE" jdbcType="REAL" />
     <result column="matter_standard_price" property="matterStandardPrice" jdbcType="REAL" />
-    <result column="currency_id" property="currencyId" jdbcType="VARCHAR" />
-    <result column="matter_iftax" property="matterIftax" jdbcType="INTEGER" />
+    <result column="CurrencyID" property="currencyid" jdbcType="VARCHAR" />
+    <result column="CurrencyName" property="currencyname" jdbcType="VARCHAR" />
+    <result column="matter_material_type" property="matterMaterialType" jdbcType="VARCHAR" />
+    <result column="matter_iftax" property="matterIftax" jdbcType="VARCHAR" />
     <result column="matter_taxno" property="matterTaxno" jdbcType="REAL" />
     <result column="matter_taxpoint" property="matterTaxpoint" jdbcType="REAL" />
+    <result column="matter_purchase_lead_time" property="matterPurchaseLeadTime" jdbcType="REAL" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="matter_set_with_batch_number" property="matterSetWithBatchNumber" jdbcType="INTEGER" />
     <result column="matter_safestock" property="matterSafestock" jdbcType="INTEGER" />
     <result column="matter_daystartcount" property="matterDaystartcount" jdbcType="INTEGER" />
     <result column="matter_avgcost" property="matterAvgcost" jdbcType="REAL" />
@@ -36,15 +44,13 @@
     <result column="matter_recentout" property="matterRecentout" jdbcType="DATE" />
     <result column="matter_recentin" property="matterRecentin" jdbcType="DATE" />
     <result column="matter_stopdate" property="matterStopdate" jdbcType="DATE" />
+    <result column="matter_custom1" property="matterCustom1" jdbcType="VARCHAR" />
+    <result column="matter_custom2" property="matterCustom2" jdbcType="VARCHAR" />
     <result column="matter_mdecoration" property="matterMdecoration" jdbcType="VARCHAR" />
     <result column="matter_Auditing" property="matterAuditing" jdbcType="VARCHAR" />
     <result column="matter_yn" property="matterYn" jdbcType="VARCHAR" />
-    <result column="matter_custom1" property="matterCustom1" jdbcType="VARCHAR" />
-    <result column="matter_custom2" property="matterCustom2" jdbcType="VARCHAR" />
-    <result column="matter_custom3" property="matterCustom3" jdbcType="VARCHAR" />
-    <result column="matter_custom4" property="matterCustom4" jdbcType="VARCHAR" />
-    <result column="matter_custom5" property="matterCustom5" jdbcType="VARCHAR" />
-    <result column="matter_custom6" property="matterCustom6" jdbcType="VARCHAR" />
+    <result column="matter_prepare1" property="matterPrepare1" jdbcType="VARCHAR" />
+    <result column="matter_prepare2" property="matterPrepare2" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -105,14 +111,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    matter_id, matter_name, matter_size, matter_english_name, mt_id, mu_id, matter_barno, 
-    matter_msale, matter_msale_a, matter_msale_b, matter_msale_c, matter_msale_d, matter_msale_e, 
-    matter_standard_price, currency_id, matter_iftax, matter_taxno, matter_taxpoint, 
-    matter_safestock, matter_daystartcount, matter_avgcost, matter_standardcost, matter_daystartallcost, 
-    matter_lowsafestock, matter_nowcount, matter_nowavgcost, matter_standardallcost, 
-    matter_nowallcost, matter_firstin, matter_firstout, matter_appearstartday, matter_recentout, 
-    matter_recentin, matter_stopdate, matter_mdecoration, matter_Auditing, matter_yn, 
-    matter_custom1, matter_custom2, matter_custom3, matter_custom4, matter_custom5, matter_custom6
+    matter_id, matter_name, matter_size, matter_english_name, ClassID, ClassName, UnitID, 
+    UnitName, matter_barno, matter_msale, matter_msale_a, matter_msale_b, matter_msale_c, 
+    matter_msale_d, matter_msale_e, matter_standard_price, CurrencyID, CurrencyName, 
+    matter_material_type, matter_iftax, matter_taxno, matter_taxpoint, matter_purchase_lead_time, 
+    supplier_id, supplier_name, matter_set_with_batch_number, matter_safestock, matter_daystartcount, 
+    matter_avgcost, matter_standardcost, matter_daystartallcost, matter_lowsafestock, 
+    matter_nowcount, matter_nowavgcost, matter_standardallcost, matter_nowallcost, matter_firstin, 
+    matter_firstout, matter_appearstartday, matter_recentout, matter_recentin, matter_stopdate, 
+    matter_custom1, matter_custom2, matter_mdecoration, matter_Auditing, matter_yn, matter_prepare1, 
+    matter_prepare2
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.MatterExample" >
     select
@@ -146,35 +154,39 @@
   </delete>
   <insert id="insert" parameterType="com.factory.entity.Matter" >
     insert into matter (matter_id, matter_name, matter_size, 
-      matter_english_name, mt_id, mu_id, 
-      matter_barno, matter_msale, matter_msale_a, 
-      matter_msale_b, matter_msale_c, matter_msale_d, 
-      matter_msale_e, matter_standard_price, currency_id, 
-      matter_iftax, matter_taxno, matter_taxpoint, 
+      matter_english_name, ClassID, ClassName, 
+      UnitID, UnitName, matter_barno, 
+      matter_msale, matter_msale_a, matter_msale_b, 
+      matter_msale_c, matter_msale_d, matter_msale_e, 
+      matter_standard_price, CurrencyID, CurrencyName, 
+      matter_material_type, matter_iftax, matter_taxno, 
+      matter_taxpoint, matter_purchase_lead_time, supplier_id, 
+      supplier_name, matter_set_with_batch_number, 
       matter_safestock, matter_daystartcount, matter_avgcost, 
       matter_standardcost, matter_daystartallcost, matter_lowsafestock, 
       matter_nowcount, matter_nowavgcost, matter_standardallcost, 
       matter_nowallcost, matter_firstin, matter_firstout, 
       matter_appearstartday, matter_recentout, matter_recentin, 
-      matter_stopdate, matter_mdecoration, matter_Auditing, 
-      matter_yn, matter_custom1, matter_custom2, 
-      matter_custom3, matter_custom4, matter_custom5, 
-      matter_custom6)
+      matter_stopdate, matter_custom1, matter_custom2, 
+      matter_mdecoration, matter_Auditing, matter_yn, 
+      matter_prepare1, matter_prepare2)
     values (#{matterId,jdbcType=VARCHAR}, #{matterName,jdbcType=VARCHAR}, #{matterSize,jdbcType=VARCHAR}, 
-      #{matterEnglishName,jdbcType=VARCHAR}, #{mtId,jdbcType=VARCHAR}, #{muId,jdbcType=VARCHAR}, 
-      #{matterBarno,jdbcType=VARCHAR}, #{matterMsale,jdbcType=REAL}, #{matterMsaleA,jdbcType=REAL}, 
-      #{matterMsaleB,jdbcType=REAL}, #{matterMsaleC,jdbcType=REAL}, #{matterMsaleD,jdbcType=REAL}, 
-      #{matterMsaleE,jdbcType=REAL}, #{matterStandardPrice,jdbcType=REAL}, #{currencyId,jdbcType=VARCHAR}, 
-      #{matterIftax,jdbcType=INTEGER}, #{matterTaxno,jdbcType=REAL}, #{matterTaxpoint,jdbcType=REAL}, 
+      #{matterEnglishName,jdbcType=VARCHAR}, #{classid,jdbcType=VARCHAR}, #{classname,jdbcType=VARCHAR}, 
+      #{unitid,jdbcType=VARCHAR}, #{unitname,jdbcType=VARCHAR}, #{matterBarno,jdbcType=VARCHAR}, 
+      #{matterMsale,jdbcType=REAL}, #{matterMsaleA,jdbcType=REAL}, #{matterMsaleB,jdbcType=REAL}, 
+      #{matterMsaleC,jdbcType=REAL}, #{matterMsaleD,jdbcType=REAL}, #{matterMsaleE,jdbcType=REAL}, 
+      #{matterStandardPrice,jdbcType=REAL}, #{currencyid,jdbcType=VARCHAR}, #{currencyname,jdbcType=VARCHAR}, 
+      #{matterMaterialType,jdbcType=VARCHAR}, #{matterIftax,jdbcType=VARCHAR}, #{matterTaxno,jdbcType=REAL}, 
+      #{matterTaxpoint,jdbcType=REAL}, #{matterPurchaseLeadTime,jdbcType=REAL}, #{supplierId,jdbcType=VARCHAR}, 
+      #{supplierName,jdbcType=VARCHAR}, #{matterSetWithBatchNumber,jdbcType=INTEGER}, 
       #{matterSafestock,jdbcType=INTEGER}, #{matterDaystartcount,jdbcType=INTEGER}, #{matterAvgcost,jdbcType=REAL}, 
       #{matterStandardcost,jdbcType=REAL}, #{matterDaystartallcost,jdbcType=REAL}, #{matterLowsafestock,jdbcType=INTEGER}, 
       #{matterNowcount,jdbcType=INTEGER}, #{matterNowavgcost,jdbcType=REAL}, #{matterStandardallcost,jdbcType=REAL}, 
       #{matterNowallcost,jdbcType=REAL}, #{matterFirstin,jdbcType=DATE}, #{matterFirstout,jdbcType=DATE}, 
       #{matterAppearstartday,jdbcType=INTEGER}, #{matterRecentout,jdbcType=DATE}, #{matterRecentin,jdbcType=DATE}, 
-      #{matterStopdate,jdbcType=DATE}, #{matterMdecoration,jdbcType=VARCHAR}, #{matterAuditing,jdbcType=VARCHAR}, 
-      #{matterYn,jdbcType=VARCHAR}, #{matterCustom1,jdbcType=VARCHAR}, #{matterCustom2,jdbcType=VARCHAR}, 
-      #{matterCustom3,jdbcType=VARCHAR}, #{matterCustom4,jdbcType=VARCHAR}, #{matterCustom5,jdbcType=VARCHAR}, 
-      #{matterCustom6,jdbcType=VARCHAR})
+      #{matterStopdate,jdbcType=DATE}, #{matterCustom1,jdbcType=VARCHAR}, #{matterCustom2,jdbcType=VARCHAR}, 
+      #{matterMdecoration,jdbcType=VARCHAR}, #{matterAuditing,jdbcType=VARCHAR}, #{matterYn,jdbcType=VARCHAR}, 
+      #{matterPrepare1,jdbcType=VARCHAR}, #{matterPrepare2,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.factory.entity.Matter" >
     insert into matter
@@ -191,11 +203,17 @@
       <if test="matterEnglishName != null" >
         matter_english_name,
       </if>
-      <if test="mtId != null" >
-        mt_id,
+      <if test="classid != null" >
+        ClassID,
       </if>
-      <if test="muId != null" >
-        mu_id,
+      <if test="classname != null" >
+        ClassName,
+      </if>
+      <if test="unitid != null" >
+        UnitID,
+      </if>
+      <if test="unitname != null" >
+        UnitName,
       </if>
       <if test="matterBarno != null" >
         matter_barno,
@@ -221,8 +239,14 @@
       <if test="matterStandardPrice != null" >
         matter_standard_price,
       </if>
-      <if test="currencyId != null" >
-        currency_id,
+      <if test="currencyid != null" >
+        CurrencyID,
+      </if>
+      <if test="currencyname != null" >
+        CurrencyName,
+      </if>
+      <if test="matterMaterialType != null" >
+        matter_material_type,
       </if>
       <if test="matterIftax != null" >
         matter_iftax,
@@ -232,6 +256,18 @@
       </if>
       <if test="matterTaxpoint != null" >
         matter_taxpoint,
+      </if>
+      <if test="matterPurchaseLeadTime != null" >
+        matter_purchase_lead_time,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="supplierName != null" >
+        supplier_name,
+      </if>
+      <if test="matterSetWithBatchNumber != null" >
+        matter_set_with_batch_number,
       </if>
       <if test="matterSafestock != null" >
         matter_safestock,
@@ -281,6 +317,12 @@
       <if test="matterStopdate != null" >
         matter_stopdate,
       </if>
+      <if test="matterCustom1 != null" >
+        matter_custom1,
+      </if>
+      <if test="matterCustom2 != null" >
+        matter_custom2,
+      </if>
       <if test="matterMdecoration != null" >
         matter_mdecoration,
       </if>
@@ -290,23 +332,11 @@
       <if test="matterYn != null" >
         matter_yn,
       </if>
-      <if test="matterCustom1 != null" >
-        matter_custom1,
+      <if test="matterPrepare1 != null" >
+        matter_prepare1,
       </if>
-      <if test="matterCustom2 != null" >
-        matter_custom2,
-      </if>
-      <if test="matterCustom3 != null" >
-        matter_custom3,
-      </if>
-      <if test="matterCustom4 != null" >
-        matter_custom4,
-      </if>
-      <if test="matterCustom5 != null" >
-        matter_custom5,
-      </if>
-      <if test="matterCustom6 != null" >
-        matter_custom6,
+      <if test="matterPrepare2 != null" >
+        matter_prepare2,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -322,11 +352,17 @@
       <if test="matterEnglishName != null" >
         #{matterEnglishName,jdbcType=VARCHAR},
       </if>
-      <if test="mtId != null" >
-        #{mtId,jdbcType=VARCHAR},
+      <if test="classid != null" >
+        #{classid,jdbcType=VARCHAR},
       </if>
-      <if test="muId != null" >
-        #{muId,jdbcType=VARCHAR},
+      <if test="classname != null" >
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null" >
+        #{unitname,jdbcType=VARCHAR},
       </if>
       <if test="matterBarno != null" >
         #{matterBarno,jdbcType=VARCHAR},
@@ -352,17 +388,35 @@
       <if test="matterStandardPrice != null" >
         #{matterStandardPrice,jdbcType=REAL},
       </if>
-      <if test="currencyId != null" >
-        #{currencyId,jdbcType=VARCHAR},
+      <if test="currencyid != null" >
+        #{currencyid,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyname != null" >
+        #{currencyname,jdbcType=VARCHAR},
+      </if>
+      <if test="matterMaterialType != null" >
+        #{matterMaterialType,jdbcType=VARCHAR},
       </if>
       <if test="matterIftax != null" >
-        #{matterIftax,jdbcType=INTEGER},
+        #{matterIftax,jdbcType=VARCHAR},
       </if>
       <if test="matterTaxno != null" >
         #{matterTaxno,jdbcType=REAL},
       </if>
       <if test="matterTaxpoint != null" >
         #{matterTaxpoint,jdbcType=REAL},
+      </if>
+      <if test="matterPurchaseLeadTime != null" >
+        #{matterPurchaseLeadTime,jdbcType=REAL},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null" >
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="matterSetWithBatchNumber != null" >
+        #{matterSetWithBatchNumber,jdbcType=INTEGER},
       </if>
       <if test="matterSafestock != null" >
         #{matterSafestock,jdbcType=INTEGER},
@@ -412,6 +466,12 @@
       <if test="matterStopdate != null" >
         #{matterStopdate,jdbcType=DATE},
       </if>
+      <if test="matterCustom1 != null" >
+        #{matterCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="matterCustom2 != null" >
+        #{matterCustom2,jdbcType=VARCHAR},
+      </if>
       <if test="matterMdecoration != null" >
         #{matterMdecoration,jdbcType=VARCHAR},
       </if>
@@ -421,23 +481,11 @@
       <if test="matterYn != null" >
         #{matterYn,jdbcType=VARCHAR},
       </if>
-      <if test="matterCustom1 != null" >
-        #{matterCustom1,jdbcType=VARCHAR},
+      <if test="matterPrepare1 != null" >
+        #{matterPrepare1,jdbcType=VARCHAR},
       </if>
-      <if test="matterCustom2 != null" >
-        #{matterCustom2,jdbcType=VARCHAR},
-      </if>
-      <if test="matterCustom3 != null" >
-        #{matterCustom3,jdbcType=VARCHAR},
-      </if>
-      <if test="matterCustom4 != null" >
-        #{matterCustom4,jdbcType=VARCHAR},
-      </if>
-      <if test="matterCustom5 != null" >
-        #{matterCustom5,jdbcType=VARCHAR},
-      </if>
-      <if test="matterCustom6 != null" >
-        #{matterCustom6,jdbcType=VARCHAR},
+      <if test="matterPrepare2 != null" >
+        #{matterPrepare2,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -462,11 +510,17 @@
       <if test="record.matterEnglishName != null" >
         matter_english_name = #{record.matterEnglishName,jdbcType=VARCHAR},
       </if>
-      <if test="record.mtId != null" >
-        mt_id = #{record.mtId,jdbcType=VARCHAR},
+      <if test="record.classid != null" >
+        ClassID = #{record.classid,jdbcType=VARCHAR},
       </if>
-      <if test="record.muId != null" >
-        mu_id = #{record.muId,jdbcType=VARCHAR},
+      <if test="record.classname != null" >
+        ClassName = #{record.classname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitid != null" >
+        UnitID = #{record.unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitname != null" >
+        UnitName = #{record.unitname,jdbcType=VARCHAR},
       </if>
       <if test="record.matterBarno != null" >
         matter_barno = #{record.matterBarno,jdbcType=VARCHAR},
@@ -492,17 +546,35 @@
       <if test="record.matterStandardPrice != null" >
         matter_standard_price = #{record.matterStandardPrice,jdbcType=REAL},
       </if>
-      <if test="record.currencyId != null" >
-        currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      <if test="record.currencyid != null" >
+        CurrencyID = #{record.currencyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currencyname != null" >
+        CurrencyName = #{record.currencyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matterMaterialType != null" >
+        matter_material_type = #{record.matterMaterialType,jdbcType=VARCHAR},
       </if>
       <if test="record.matterIftax != null" >
-        matter_iftax = #{record.matterIftax,jdbcType=INTEGER},
+        matter_iftax = #{record.matterIftax,jdbcType=VARCHAR},
       </if>
       <if test="record.matterTaxno != null" >
         matter_taxno = #{record.matterTaxno,jdbcType=REAL},
       </if>
       <if test="record.matterTaxpoint != null" >
         matter_taxpoint = #{record.matterTaxpoint,jdbcType=REAL},
+      </if>
+      <if test="record.matterPurchaseLeadTime != null" >
+        matter_purchase_lead_time = #{record.matterPurchaseLeadTime,jdbcType=REAL},
+      </if>
+      <if test="record.supplierId != null" >
+        supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierName != null" >
+        supplier_name = #{record.supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matterSetWithBatchNumber != null" >
+        matter_set_with_batch_number = #{record.matterSetWithBatchNumber,jdbcType=INTEGER},
       </if>
       <if test="record.matterSafestock != null" >
         matter_safestock = #{record.matterSafestock,jdbcType=INTEGER},
@@ -552,6 +624,12 @@
       <if test="record.matterStopdate != null" >
         matter_stopdate = #{record.matterStopdate,jdbcType=DATE},
       </if>
+      <if test="record.matterCustom1 != null" >
+        matter_custom1 = #{record.matterCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matterCustom2 != null" >
+        matter_custom2 = #{record.matterCustom2,jdbcType=VARCHAR},
+      </if>
       <if test="record.matterMdecoration != null" >
         matter_mdecoration = #{record.matterMdecoration,jdbcType=VARCHAR},
       </if>
@@ -561,23 +639,11 @@
       <if test="record.matterYn != null" >
         matter_yn = #{record.matterYn,jdbcType=VARCHAR},
       </if>
-      <if test="record.matterCustom1 != null" >
-        matter_custom1 = #{record.matterCustom1,jdbcType=VARCHAR},
+      <if test="record.matterPrepare1 != null" >
+        matter_prepare1 = #{record.matterPrepare1,jdbcType=VARCHAR},
       </if>
-      <if test="record.matterCustom2 != null" >
-        matter_custom2 = #{record.matterCustom2,jdbcType=VARCHAR},
-      </if>
-      <if test="record.matterCustom3 != null" >
-        matter_custom3 = #{record.matterCustom3,jdbcType=VARCHAR},
-      </if>
-      <if test="record.matterCustom4 != null" >
-        matter_custom4 = #{record.matterCustom4,jdbcType=VARCHAR},
-      </if>
-      <if test="record.matterCustom5 != null" >
-        matter_custom5 = #{record.matterCustom5,jdbcType=VARCHAR},
-      </if>
-      <if test="record.matterCustom6 != null" >
-        matter_custom6 = #{record.matterCustom6,jdbcType=VARCHAR},
+      <if test="record.matterPrepare2 != null" >
+        matter_prepare2 = #{record.matterPrepare2,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -590,8 +656,10 @@
       matter_name = #{record.matterName,jdbcType=VARCHAR},
       matter_size = #{record.matterSize,jdbcType=VARCHAR},
       matter_english_name = #{record.matterEnglishName,jdbcType=VARCHAR},
-      mt_id = #{record.mtId,jdbcType=VARCHAR},
-      mu_id = #{record.muId,jdbcType=VARCHAR},
+      ClassID = #{record.classid,jdbcType=VARCHAR},
+      ClassName = #{record.classname,jdbcType=VARCHAR},
+      UnitID = #{record.unitid,jdbcType=VARCHAR},
+      UnitName = #{record.unitname,jdbcType=VARCHAR},
       matter_barno = #{record.matterBarno,jdbcType=VARCHAR},
       matter_msale = #{record.matterMsale,jdbcType=REAL},
       matter_msale_a = #{record.matterMsaleA,jdbcType=REAL},
@@ -600,10 +668,16 @@
       matter_msale_d = #{record.matterMsaleD,jdbcType=REAL},
       matter_msale_e = #{record.matterMsaleE,jdbcType=REAL},
       matter_standard_price = #{record.matterStandardPrice,jdbcType=REAL},
-      currency_id = #{record.currencyId,jdbcType=VARCHAR},
-      matter_iftax = #{record.matterIftax,jdbcType=INTEGER},
+      CurrencyID = #{record.currencyid,jdbcType=VARCHAR},
+      CurrencyName = #{record.currencyname,jdbcType=VARCHAR},
+      matter_material_type = #{record.matterMaterialType,jdbcType=VARCHAR},
+      matter_iftax = #{record.matterIftax,jdbcType=VARCHAR},
       matter_taxno = #{record.matterTaxno,jdbcType=REAL},
       matter_taxpoint = #{record.matterTaxpoint,jdbcType=REAL},
+      matter_purchase_lead_time = #{record.matterPurchaseLeadTime,jdbcType=REAL},
+      supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      supplier_name = #{record.supplierName,jdbcType=VARCHAR},
+      matter_set_with_batch_number = #{record.matterSetWithBatchNumber,jdbcType=INTEGER},
       matter_safestock = #{record.matterSafestock,jdbcType=INTEGER},
       matter_daystartcount = #{record.matterDaystartcount,jdbcType=INTEGER},
       matter_avgcost = #{record.matterAvgcost,jdbcType=REAL},
@@ -620,15 +694,13 @@
       matter_recentout = #{record.matterRecentout,jdbcType=DATE},
       matter_recentin = #{record.matterRecentin,jdbcType=DATE},
       matter_stopdate = #{record.matterStopdate,jdbcType=DATE},
+      matter_custom1 = #{record.matterCustom1,jdbcType=VARCHAR},
+      matter_custom2 = #{record.matterCustom2,jdbcType=VARCHAR},
       matter_mdecoration = #{record.matterMdecoration,jdbcType=VARCHAR},
       matter_Auditing = #{record.matterAuditing,jdbcType=VARCHAR},
       matter_yn = #{record.matterYn,jdbcType=VARCHAR},
-      matter_custom1 = #{record.matterCustom1,jdbcType=VARCHAR},
-      matter_custom2 = #{record.matterCustom2,jdbcType=VARCHAR},
-      matter_custom3 = #{record.matterCustom3,jdbcType=VARCHAR},
-      matter_custom4 = #{record.matterCustom4,jdbcType=VARCHAR},
-      matter_custom5 = #{record.matterCustom5,jdbcType=VARCHAR},
-      matter_custom6 = #{record.matterCustom6,jdbcType=VARCHAR}
+      matter_prepare1 = #{record.matterPrepare1,jdbcType=VARCHAR},
+      matter_prepare2 = #{record.matterPrepare2,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -645,11 +717,17 @@
       <if test="matterEnglishName != null" >
         matter_english_name = #{matterEnglishName,jdbcType=VARCHAR},
       </if>
-      <if test="mtId != null" >
-        mt_id = #{mtId,jdbcType=VARCHAR},
+      <if test="classid != null" >
+        ClassID = #{classid,jdbcType=VARCHAR},
       </if>
-      <if test="muId != null" >
-        mu_id = #{muId,jdbcType=VARCHAR},
+      <if test="classname != null" >
+        ClassName = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        UnitID = #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null" >
+        UnitName = #{unitname,jdbcType=VARCHAR},
       </if>
       <if test="matterBarno != null" >
         matter_barno = #{matterBarno,jdbcType=VARCHAR},
@@ -675,17 +753,35 @@
       <if test="matterStandardPrice != null" >
         matter_standard_price = #{matterStandardPrice,jdbcType=REAL},
       </if>
-      <if test="currencyId != null" >
-        currency_id = #{currencyId,jdbcType=VARCHAR},
+      <if test="currencyid != null" >
+        CurrencyID = #{currencyid,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyname != null" >
+        CurrencyName = #{currencyname,jdbcType=VARCHAR},
+      </if>
+      <if test="matterMaterialType != null" >
+        matter_material_type = #{matterMaterialType,jdbcType=VARCHAR},
       </if>
       <if test="matterIftax != null" >
-        matter_iftax = #{matterIftax,jdbcType=INTEGER},
+        matter_iftax = #{matterIftax,jdbcType=VARCHAR},
       </if>
       <if test="matterTaxno != null" >
         matter_taxno = #{matterTaxno,jdbcType=REAL},
       </if>
       <if test="matterTaxpoint != null" >
         matter_taxpoint = #{matterTaxpoint,jdbcType=REAL},
+      </if>
+      <if test="matterPurchaseLeadTime != null" >
+        matter_purchase_lead_time = #{matterPurchaseLeadTime,jdbcType=REAL},
+      </if>
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null" >
+        supplier_name = #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="matterSetWithBatchNumber != null" >
+        matter_set_with_batch_number = #{matterSetWithBatchNumber,jdbcType=INTEGER},
       </if>
       <if test="matterSafestock != null" >
         matter_safestock = #{matterSafestock,jdbcType=INTEGER},
@@ -735,6 +831,12 @@
       <if test="matterStopdate != null" >
         matter_stopdate = #{matterStopdate,jdbcType=DATE},
       </if>
+      <if test="matterCustom1 != null" >
+        matter_custom1 = #{matterCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="matterCustom2 != null" >
+        matter_custom2 = #{matterCustom2,jdbcType=VARCHAR},
+      </if>
       <if test="matterMdecoration != null" >
         matter_mdecoration = #{matterMdecoration,jdbcType=VARCHAR},
       </if>
@@ -744,23 +846,11 @@
       <if test="matterYn != null" >
         matter_yn = #{matterYn,jdbcType=VARCHAR},
       </if>
-      <if test="matterCustom1 != null" >
-        matter_custom1 = #{matterCustom1,jdbcType=VARCHAR},
+      <if test="matterPrepare1 != null" >
+        matter_prepare1 = #{matterPrepare1,jdbcType=VARCHAR},
       </if>
-      <if test="matterCustom2 != null" >
-        matter_custom2 = #{matterCustom2,jdbcType=VARCHAR},
-      </if>
-      <if test="matterCustom3 != null" >
-        matter_custom3 = #{matterCustom3,jdbcType=VARCHAR},
-      </if>
-      <if test="matterCustom4 != null" >
-        matter_custom4 = #{matterCustom4,jdbcType=VARCHAR},
-      </if>
-      <if test="matterCustom5 != null" >
-        matter_custom5 = #{matterCustom5,jdbcType=VARCHAR},
-      </if>
-      <if test="matterCustom6 != null" >
-        matter_custom6 = #{matterCustom6,jdbcType=VARCHAR},
+      <if test="matterPrepare2 != null" >
+        matter_prepare2 = #{matterPrepare2,jdbcType=VARCHAR},
       </if>
     </set>
     where matter_id = #{matterId,jdbcType=VARCHAR}
@@ -770,8 +860,10 @@
     set matter_name = #{matterName,jdbcType=VARCHAR},
       matter_size = #{matterSize,jdbcType=VARCHAR},
       matter_english_name = #{matterEnglishName,jdbcType=VARCHAR},
-      mt_id = #{mtId,jdbcType=VARCHAR},
-      mu_id = #{muId,jdbcType=VARCHAR},
+      ClassID = #{classid,jdbcType=VARCHAR},
+      ClassName = #{classname,jdbcType=VARCHAR},
+      UnitID = #{unitid,jdbcType=VARCHAR},
+      UnitName = #{unitname,jdbcType=VARCHAR},
       matter_barno = #{matterBarno,jdbcType=VARCHAR},
       matter_msale = #{matterMsale,jdbcType=REAL},
       matter_msale_a = #{matterMsaleA,jdbcType=REAL},
@@ -780,10 +872,16 @@
       matter_msale_d = #{matterMsaleD,jdbcType=REAL},
       matter_msale_e = #{matterMsaleE,jdbcType=REAL},
       matter_standard_price = #{matterStandardPrice,jdbcType=REAL},
-      currency_id = #{currencyId,jdbcType=VARCHAR},
-      matter_iftax = #{matterIftax,jdbcType=INTEGER},
+      CurrencyID = #{currencyid,jdbcType=VARCHAR},
+      CurrencyName = #{currencyname,jdbcType=VARCHAR},
+      matter_material_type = #{matterMaterialType,jdbcType=VARCHAR},
+      matter_iftax = #{matterIftax,jdbcType=VARCHAR},
       matter_taxno = #{matterTaxno,jdbcType=REAL},
       matter_taxpoint = #{matterTaxpoint,jdbcType=REAL},
+      matter_purchase_lead_time = #{matterPurchaseLeadTime,jdbcType=REAL},
+      supplier_id = #{supplierId,jdbcType=VARCHAR},
+      supplier_name = #{supplierName,jdbcType=VARCHAR},
+      matter_set_with_batch_number = #{matterSetWithBatchNumber,jdbcType=INTEGER},
       matter_safestock = #{matterSafestock,jdbcType=INTEGER},
       matter_daystartcount = #{matterDaystartcount,jdbcType=INTEGER},
       matter_avgcost = #{matterAvgcost,jdbcType=REAL},
@@ -800,15 +898,13 @@
       matter_recentout = #{matterRecentout,jdbcType=DATE},
       matter_recentin = #{matterRecentin,jdbcType=DATE},
       matter_stopdate = #{matterStopdate,jdbcType=DATE},
+      matter_custom1 = #{matterCustom1,jdbcType=VARCHAR},
+      matter_custom2 = #{matterCustom2,jdbcType=VARCHAR},
       matter_mdecoration = #{matterMdecoration,jdbcType=VARCHAR},
       matter_Auditing = #{matterAuditing,jdbcType=VARCHAR},
       matter_yn = #{matterYn,jdbcType=VARCHAR},
-      matter_custom1 = #{matterCustom1,jdbcType=VARCHAR},
-      matter_custom2 = #{matterCustom2,jdbcType=VARCHAR},
-      matter_custom3 = #{matterCustom3,jdbcType=VARCHAR},
-      matter_custom4 = #{matterCustom4,jdbcType=VARCHAR},
-      matter_custom5 = #{matterCustom5,jdbcType=VARCHAR},
-      matter_custom6 = #{matterCustom6,jdbcType=VARCHAR}
+      matter_prepare1 = #{matterPrepare1,jdbcType=VARCHAR},
+      matter_prepare2 = #{matterPrepare2,jdbcType=VARCHAR}
     where matter_id = #{matterId,jdbcType=VARCHAR}
   </update>
 </mapper>

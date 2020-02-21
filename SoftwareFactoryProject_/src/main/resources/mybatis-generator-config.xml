@@ -30,7 +30,7 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.factory.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 			
-			<table schema="InventoryLedger" tableName="inventoryLedger"></table>
+			<table schema="Matter" tableName="matter"></table>
 			
 			<!-- 
 			
@@ -94,6 +94,7 @@
 			<table schema="Discountschedulebill" tableName="discountschedulebill"></table>
 			<table schema="Stockprimarybill" tableName="stockprimarybill"></table>
 			<table schema="Stockschedulebill" tableName="stockschedulebill"></table>
+			<table schema="InventoryLedger" tableName="inventoryLedger"></table>
 			
 			 -->
 			
