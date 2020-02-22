@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<title>预收冲款单</title>
@@ -77,6 +76,7 @@
 						<span style="font-size: 18px;padding-left: 15px;">
 			   			预收款单
 			   		</span>
+			   		<span v-if="advances_received_main_y.priabillAuditstatus > 0" style="color: red;margin-left: 100px;">已审核</span>
 					</div>
 				</div>
 				<div style="padding: 10px;">
@@ -194,11 +194,7 @@
 												<tfoot>
 													<tr>
 														<td colspan="">合计:</td>
-														<td colspan="">0</td>
-														<td colspan="">0</td>
-														<td>0</td>
-														<td colspan="">0</td>
-														<td colspan="">0</td>
+														<td colspan="3">{{heji}}</td>
 													</tr>
 												</tfoot>
 											</table>
@@ -298,8 +294,12 @@
 				} else if(incident == "delete"){
 					vue.delete_();
 				} else if(incident == "refresh") {
-	vue.refresh();
-}
+					vue.refresh();
+				}  else if(incident == "audit"){
+					vue.yesaudit();
+				}  else if(incident == "cancelTheAudit"){
+					vue.noaudit();
+				}
 
 state = incident;
 }
@@ -323,6 +323,7 @@ var vue = new Vue({
 						priabillPayablestime: '2020-02-02',
 						pageNum: 1
 					},
+					heji: 0,
 					state: ""
 				}
 			},
@@ -361,6 +362,7 @@ var vue = new Vue({
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", true);
 						
 						var this_ = this;
+						this_.heji = 0;
 						this.advances_received_main_y.pageNum = pageNum_;
 						
 						$.ajax({
@@ -376,6 +378,9 @@ var vue = new Vue({
 								this_.advances_received_main_y = this_.pageCd.list[0];
 								//时间格式默认为UTC地区时间格式，调用手写的时间格式转换方式转换成yyyy-MM-dd hh:mm:ss/**/
 								this_.advances_received_main_y.priabillPayablestime = this_.dateFormat(this_.advances_received_main_y.priabillPayablestime);
+								for (i = 0; i < this_.advances_received_main_y.ardy.length; i++) {
+									this_.heji = this_.heji + parseInt(this_.advances_received_main_y.ardy[i].priabillPrice);
+								}
 							}
 						});
 					},
@@ -435,16 +440,54 @@ var vue = new Vue({
 						this.state = "goUpdate";
 					},
 					delete_ : function(){
-		   				if(!confirm("确定删除本条仓库数据吗？"))
+		   				if(!confirm("确认删除记录项吗？"))
 		   					return false;
 		   				
 						var this_ = this;
-						
-						
+						var status = false;
+						var priabillId = this_.advances_received_main_y.priabillId;
+						if(this_.advances_received_main_y.priabillAuditstatus > 0){
+							alert("目前数据已审核，无法执行此操作");
+						}
+						else{
+							$.ajax({
+								type:"get",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_del_mydy?priabillId=" + priabillId,
+            					//async:true,
+								success : function(result) {
+									if(result > 0){
+										this_.queryPage(1);
+									}
+								}
+							});
+						}
 						
 					},
 					refresh : function(){
 						this.queryPage(1);
+					},
+					yesaudit : function(){
+						//审核
+						var this_ = this;
+						var priabillId = this_.advances_received_main_y.priabillId;
+
+						//var status = false;
+						if(this_.advances_received_main_y.priabillAuditstatus == 0){
+							$.ajax({
+								type:"get",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_update_Auditstatus?priabillId=" + priabillId,
+            					//async:true,
+            					success : function(result) {
+									if(result > 0){
+										this_.advances_received_main_y.priabillAuditstatus = 1;
+									}
+								}
+							});
+						}
+					},
+					noaudit : function(){
+						//反审核
+						alert("0")
 					}
 				},
 				created: function() {

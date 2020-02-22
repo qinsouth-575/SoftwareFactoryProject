@@ -49,4 +49,10 @@ public class Cgt_AdvancesReceivedMainYBiz {
     	return page;
     }
 	
+	public int gt_del_mydy(String priabillId) {
+		//根据单据号码先删除预收款详情表数据
+		dao2.gt_del_dy(priabillId);
+		//根据单据号码后删除预收款主表数据
+		return dao.gt_del_my(priabillId);
+	}
 }

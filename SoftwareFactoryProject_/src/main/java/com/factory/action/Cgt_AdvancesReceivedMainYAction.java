@@ -40,5 +40,17 @@ public class Cgt_AdvancesReceivedMainYAction {
 		return page;
 	}
 	
+	//5.根据单据号码删除对应的预收款主详表
+	@GetMapping("/gt_del_mydy")
+	@ResponseBody
+	public int gt_del_mydy(String priabillId) {
+		return army.gt_del_mydy(priabillId);
+	}
 	
+	//6.审核
+	@GetMapping("/gt_update_Auditstatus")
+	@ResponseBody
+	public int gt_update_Auditstatus(String priabillId) {
+		return 
+	}
 }
