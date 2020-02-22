@@ -18,7 +18,7 @@
 
 	<link rel="stylesheet" href="../../css/layui.css" />
 	<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="../../js/layui.js"></script>
+	<script type="text/javascript" src="../../layui.js" ></script>
 	<style>
 		.xscz {
 			margin-left: 35px;
@@ -200,6 +200,333 @@
     	}
        
     </script>-->
+    <script>
+     	var f=0
+	 	var flag=false
+		var obj={}
+		jz(1,1)
+		function jz(pageNum,pageSize){
+			$.ajax({
+				url:"//localhost:8080/SoftwareFactoryProject_/zp/querychuku",
+				data:{
+					pageNum:pageNum,
+              		pageSize:pageSize
+				},
+				dataType: "json",
+				success:function(r){ 
+					console.log(r)
+					obj=r
+					$(r.list).each(function(i,obj){
+						$("#customerName").val(obj.customerName)
+						$("#sqDocumentTime").val(obj.sqDocumentTime)
+						$("#sqDeliveryAddress").val(obj.sqDeliveryAddress)
+						$("#sqId").val(obj.sqId)
+						$("#sqEffectiveTime").val(obj.sqEffectiveTime)
+						$("#currencyName").val(obj.currencyName)
+						if(obj.sqTax>0){
+							$("#sqTax1").attr("selected","selected")
+						}else{
+							$("#sqTax2").attr("selected","selected")
+						}
+						$("#sqExchangeRate").val(obj.sqExchangeRate)
+						$("#staffName").val(obj.staffName)
+						$("#sqAuditing").val(obj.sqAuditing)
+						$("#departName").val(obj.departName)
+						$("#sqYn").val(obj.sqYn)
+						$("#sqRemark").val(obj.sqRemark)
+						$("tbody").html("")
+						$(obj.list).each(function(i2,obj2){
+							$("tbody").append(""+
+								"<tr>"+
+								"<td><input name='readonly' id='sqdProdid' value='"+obj2.sqdProdid+"'></td>"+
+								"<td><input id='sqdSerno' value='"+obj2.sqdSerno+"'></td>"+
+								"<td><input id='sqdProdname' value='"+obj2.sqdProdname+"'></td>"+
+								"<td><input id='sqdProdsize' value='"+obj2.sqdProdsize+"'></td>"+
+								"<td><input id='sqdUnitname' value='"+obj2.sqdUnitname+"'></td>"+
+								"<td><input id='sqdSquantity' value='"+obj2.sqdSquantity+"'></td>"+
+								"<td><input id='sqdZkqprice' value='"+obj2.sqdZkqprice+"'></td>"+
+								"<td><input id='sqdDiscount' value='"+obj2.sqdDiscount+"'></td>"+
+								"<td><input id='sqdUnitprice' value='"+obj2.sqdUnitprice+"'></td>"+
+								"<td><input id='sqdPrice' value='"+obj2.sqdPrice+"'></td>"+
+								"<td><input id='sqdTaxrate' value='"+obj2.sqdTaxrate+"'></td>"+
+								"<td><input id='sqdTaxlimit' value='"+obj2.sqdTaxlimit+"'></td>"+
+								"<td><input id='sqdTaxinclusiveprice' value='"+obj2.sqdTaxinclusiveprice+"'></td>"+
+								"<td><input id='sqdComplimentart' value='"+obj2.sqdComplimentart+"'></td>"+
+								"<td><input id='sqdItemremark' value='"+obj2.sqdItemremark+"'></td>"+
+								"</tr>")
+						})
+					})
+					$("table tbody tr td input").attr("readonly","readonly");
+				}
+			});
+		}
+		
+		
+		var state = "";
+		
+		function subpageTriggerEvent(incident){
+			//alert("部门设定页 - 触发事件：" + incident);
+			
+			if(incident == "goFirstPage"){
+				//第一笔
+				first()
+			} else if(incident == "goPrePage"){
+				//上一笔
+				left()
+			} else if(incident == "goNextPage"){
+				//下一笔
+				right()
+			} else if(incident == "goLastPage"){
+				//后一笔
+				last()
+			} else if(incident == "goInsert"){
+				//新增
+				toinsert()
+			} else if(incident == "save"){
+				//保存
+				baoc()
+			} else if(incident == "cancel"){
+				//放弃
+			} else if(incident == "goUpdate"){
+				//修改
+				toupdate()
+			} else if(incident == "delete"){
+				//删除
+				todelete()
+			} else if(incident == "refresh"){
+				//刷新
+				jz(1,1)
+			}
+			
+			state = incident;
+		}
+		function first(){
+			if(obj.pageNum-1==0){
+				alert("已经是首页了！")
+			}else{
+				jz(1,1);
+			}
+		}
+		function left(){
+			if(obj.pageNum-1==0){
+				alert("这是第一页！")
+			}else{
+				jz(obj.pageNum-1,1);
+			}
+		}
+		function right(){
+			if(obj.pageNum+1<=obj.pages){
+				jz(obj.pageNum+1,1)
+			}else{
+				alert("这是最后一页！")
+			}
+		}
+		function last(){
+			if(obj.pageNum+1<=obj.pages){
+				jz(obj.pages,1)
+			}else{
+				alert("已经是尾页了！")
+			}
+		}
+		function toinsert(){
+			f=1
+			$("[readonly='readonly']").each(function(i,obj){
+				$(obj).removeAttr("readonly")
+			})
+			$("#sqTax").removeAttr("disabled")
+			flag=true
+			$("#customerName").val("")
+			$("#sqDocumentTime").val("")
+			$("#sqDeliveryAddress").val("")
+			$("#sqId").val("")
+			$("#sqEffectiveTime").val("")
+			$("#currencyName").val("")
+			$("#sqTax").val("")
+			$("#sqExchangeRate").val("")
+			$("#staffName").val("")
+			$("#sqAuditing").val("")
+			$("#departName").val("")
+			$("#sqYn").val("")
+			$("tbody").html("")
+			a()
+			//定位当前时间
+			layui.use('laydate',function(){
+				var laydate=layui.laydate;
+				laydate.render({
+					elem:'#sqDocumentTime',
+					value:new Date(),
+					done:function(value,date){}
+				})
+			})
+			//自动编写单据号码
+			//未完成
+			
+			
+			
+			
+		}
+		function insert(){
+			var customerName=$("#customerName").val()
+			var sqDocumentTime=$("#sqDocumentTime").val()
+			var sqDeliveryAddress=$("#sqDeliveryAddress").val()
+			var sqId=$("#sqId").val()
+			var sqEffectiveTime=$("#sqEffectiveTime").val()
+			var currencyName=$("#currencyName").val()
+			var sqTax=$("#sqTax").val()
+			var sqExchangeRate=$("#sqExchangeRate").val()
+			var staffName=$("#staffName").val()
+			var sqAuditing=$("#sqAuditing").val()
+			var departName=$("#departName").val()
+			var sqYn=$("#sqYn").val()
+			
+			var list=[]
+			$("table tbody tr").each(function(i,obj){
+				var a={}
+				$("table tbody tr input").each(function(i2,obj2){
+					var attr=$(obj2).attr("id")
+					a[attr]=$(obj2).val()
+				})
+				list.push(a)
+			})
+			var data={
+              		customerName:customerName,
+              		sqDocumentTime:sqDocumentTime,
+              		sqDeliveryAddress:sqDeliveryAddress,
+              		sqId:sqId,
+              		sqEffectiveTime:sqEffectiveTime,
+              		currencyName:currencyName,
+              		sqTax:sqTax,
+              		sqExchangeRate:sqExchangeRate,
+              		staffName:staffName,
+              		sqAuditing:sqAuditing,
+              		departName:departName,
+              		sqYn:sqYn,
+              		list:list
+          		}
+			console.log(data)
+			$.ajax({
+				type:"post",
+          		url:"http://localhost:8080/SoftwareFactoryProject_/zp/addbaojia",
+          		contentType:"application/json",
+				data:JSON.stringify(data),
+         		success:function(r){
+         			if(r>0){
+         				alert("新增成功！")
+         			}
+         		}
+          	})
+		}
+		function toupdate(){
+			f=2
+			$("[readonly='readonly']").each(function(i,obj){
+				$(obj).removeAttr("readonly")
+			})
+			$("#sqId").attr("readonly","readonly")
+			$("#sqTax").removeAttr("disabled")
+			$("[name=readonly]").attr("readonly","readonly")
+			flag=true
+		}
+		function update(){
+			var customerName=$("#customerName").val()
+			var sqDocumentTime=$("#sqDocumentTime").val()
+			var sqDeliveryAddress=$("#sqDeliveryAddress").val()
+			var sqId=$("#sqId").val()
+			var sqEffectiveTime=$("#sqEffectiveTime").val()
+			var currencyName=$("#currencyName").val()
+			var sqTax=$("#sqTax").val()
+			var sqExchangeRate=$("#sqExchangeRate").val()
+			var staffName=$("#staffName").val()
+			var sqAuditing=$("#sqAuditing").val()
+			var departName=$("#departName").val()
+			var sqYn=$("#sqYn").val()
+			
+			var list=[]
+			$("table tbody tr").each(function(i,obj){
+				var a={}
+				$("table tbody tr input").each(function(i2,obj2){
+					var attr=$(obj2).attr("id")
+					a[attr]=$(obj2).val()
+				})
+				list.push(a)
+			})
+			var data={
+              		customerName:customerName,
+              		sqDocumentTime:sqDocumentTime,
+              		sqDeliveryAddress:sqDeliveryAddress,
+              		sqId:sqId,
+              		sqEffectiveTime:sqEffectiveTime,
+              		currencyName:currencyName,
+              		sqTax:sqTax,
+              		sqExchangeRate:sqExchangeRate,
+              		staffName:staffName,
+              		sqAuditing:sqAuditing,
+              		departName:departName,
+              		sqYn:sqYn,
+              		list:list
+          		}
+			console.log(data)
+			$.ajax({
+				type:"post",
+          		url:"http://localhost:8080/SoftwareFactoryProject_/zp/updatebaojia",
+          		contentType:"application/json",
+				data:JSON.stringify(data),
+         		success:function(r){
+         			if(r>0){
+         				alert("修改成功！")
+         			}
+         		}
+          	})
+		}
+		function baoc(){
+			if(f>1){
+				//修改
+				update()
+			}else{
+				//新增
+				insert()
+			}
+		}
+		function todelete(){
+			var flag=confirm("是否确认删除？")
+			if(flag){
+				alert($("#sqId").val())
+				$.ajax({
+				type:"post",
+          		url:"http://localhost:8080/SoftwareFactoryProject_/zp/deletebaojia",
+				data:{sqId:$("#sqId").val()},
+         		success:function(r){
+         			if(r>0){
+         				alert("删除成功！")
+         				jz(1,1)
+         			}
+         		}
+          	})
+			}
+		}
+		function a(){
+			if(flag){
+				$("tbody").append(`
+					<tr>
+					<td><input id='sqdProdid'></td>
+					<td><input id='sqdSerno'></td>
+					<td><input id='sqdProdname'></td>
+					<td><input id='sqdProdsize'></td>
+					<td><input id='sqdUnitname'></td>
+					<td><input id='sqdSquantity'></td>
+					<td><input id='sqdZkqprice'></td>
+					<td><input id='sqdDiscount'></td>
+					<td><input id='sqdUnitprice'></td>
+					<td><input id='sqdPrice'></td>
+					<td><input id='sqdTaxrate'></td>
+					<td><input id='sqdTaxlimit'></td>
+					<td><input id='sqdTaxinclusiveprice'></td>
+					<td><input id='sqdComplimentart'></td>
+					<td><input id='sqdItemremark'></td>
+					</tr>
+				`)
+			}
+		}
+    </script>
 	</body>
 
 </html>
