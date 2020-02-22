@@ -21,4 +21,6 @@ public interface ComwareHouseMapper {
 
     int updateByExample(@Param("record") ComwareHouse record, @Param("example") ComwareHouseExample example);
     
+    //按条件查询仓库信息
+    List<ComwareHouse> selectAll(ComwareHouse record);
 }
