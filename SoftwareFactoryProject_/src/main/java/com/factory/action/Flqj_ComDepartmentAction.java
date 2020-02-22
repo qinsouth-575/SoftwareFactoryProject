@@ -72,8 +72,8 @@ public class Flqj_ComDepartmentAction {
 	//部门设定 - 3.删除部门信息
 	@RequestMapping(value = "cd/{departID}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Map<String,String> deleteCommodityType(@PathVariable String departID){
-		log.debug("SoftwareFactoryProject_ - ComDepartmentAction - deleteCommodityType - 部门设定 - 3.删除部门信息删除条件id为：" + departID);
+	public Map<String,String> deleteCD(@PathVariable String departID){
+		log.debug("SoftwareFactoryProject_ - ComDepartmentAction - deleteCD - 部门设定 - 3.删除部门信息删除条件id为：" + departID);
 		Map<String,String> map = new HashMap<String,String>();
 		if(cdb.deleteComDepartment(departID)) {
 			map.put("code", "1");

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ComwareHouseMapper {
+	
     int countByExample(ComwareHouseExample example);
 
     int deleteByExample(ComwareHouseExample example);
@@ -19,4 +20,5 @@ public interface ComwareHouseMapper {
     int updateByExampleSelective(@Param("record") ComwareHouse record, @Param("example") ComwareHouseExample example);
 
     int updateByExample(@Param("record") ComwareHouse record, @Param("example") ComwareHouseExample example);
+    
 }

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.InventoryledgerMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.Inventoryledger" >
+    <id column="ilid" property="ilid" jdbcType="INTEGER" />
+    <result column="WareHouseID" property="warehouseid" jdbcType="VARCHAR" />
+    <result column="matter_id" property="matterId" jdbcType="VARCHAR" />
+    <result column="sourceBillName" property="sourcebillname" jdbcType="VARCHAR" />
+    <result column="sourceNo" property="sourceno" jdbcType="VARCHAR" />
+    <result column="whOrOos" property="whoroos" jdbcType="VARCHAR" />
+    <result column="fristWarehousing" property="fristwarehousing" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="recordDate" property="recorddate" jdbcType="DATE" />
+    <result column="standby1" property="standby1" jdbcType="VARCHAR" />
+    <result column="standby2" property="standby2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ilid, WareHouseID, matter_id, sourceBillName, sourceNo, whOrOos, fristWarehousing, 
+    amount, recordDate, standby1, standby2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.InventoryledgerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inventoryledger
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from inventoryledger
+    where ilid = #{ilid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from inventoryledger
+    where ilid = #{ilid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.InventoryledgerExample" >
+    delete from inventoryledger
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.Inventoryledger" >
+    insert into inventoryledger (ilid, WareHouseID, matter_id, 
+      sourceBillName, sourceNo, whOrOos, 
+      fristWarehousing, amount, recordDate, 
+      standby1, standby2)
+    values (#{ilid,jdbcType=INTEGER}, #{warehouseid,jdbcType=VARCHAR}, #{matterId,jdbcType=VARCHAR}, 
+      #{sourcebillname,jdbcType=VARCHAR}, #{sourceno,jdbcType=VARCHAR}, #{whoroos,jdbcType=VARCHAR}, 
+      #{fristwarehousing,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, #{recorddate,jdbcType=DATE}, 
+      #{standby1,jdbcType=VARCHAR}, #{standby2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.Inventoryledger" >
+    insert into inventoryledger
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ilid != null" >
+        ilid,
+      </if>
+      <if test="warehouseid != null" >
+        WareHouseID,
+      </if>
+      <if test="matterId != null" >
+        matter_id,
+      </if>
+      <if test="sourcebillname != null" >
+        sourceBillName,
+      </if>
+      <if test="sourceno != null" >
+        sourceNo,
+      </if>
+      <if test="whoroos != null" >
+        whOrOos,
+      </if>
+      <if test="fristwarehousing != null" >
+        fristWarehousing,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="recorddate != null" >
+        recordDate,
+      </if>
+      <if test="standby1 != null" >
+        standby1,
+      </if>
+      <if test="standby2 != null" >
+        standby2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ilid != null" >
+        #{ilid,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseid != null" >
+        #{warehouseid,jdbcType=VARCHAR},
+      </if>
+      <if test="matterId != null" >
+        #{matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcebillname != null" >
+        #{sourcebillname,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceno != null" >
+        #{sourceno,jdbcType=VARCHAR},
+      </if>
+      <if test="whoroos != null" >
+        #{whoroos,jdbcType=VARCHAR},
+      </if>
+      <if test="fristwarehousing != null" >
+        #{fristwarehousing,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="recorddate != null" >
+        #{recorddate,jdbcType=DATE},
+      </if>
+      <if test="standby1 != null" >
+        #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        #{standby2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.InventoryledgerExample" resultType="java.lang.Integer" >
+    select count(*) from inventoryledger
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update inventoryledger
+    <set >
+      <if test="record.ilid != null" >
+        ilid = #{record.ilid,jdbcType=INTEGER},
+      </if>
+      <if test="record.warehouseid != null" >
+        WareHouseID = #{record.warehouseid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matterId != null" >
+        matter_id = #{record.matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourcebillname != null" >
+        sourceBillName = #{record.sourcebillname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceno != null" >
+        sourceNo = #{record.sourceno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.whoroos != null" >
+        whOrOos = #{record.whoroos,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fristwarehousing != null" >
+        fristWarehousing = #{record.fristwarehousing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.recorddate != null" >
+        recordDate = #{record.recorddate,jdbcType=DATE},
+      </if>
+      <if test="record.standby1 != null" >
+        standby1 = #{record.standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standby2 != null" >
+        standby2 = #{record.standby2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update inventoryledger
+    set ilid = #{record.ilid,jdbcType=INTEGER},
+      WareHouseID = #{record.warehouseid,jdbcType=VARCHAR},
+      matter_id = #{record.matterId,jdbcType=VARCHAR},
+      sourceBillName = #{record.sourcebillname,jdbcType=VARCHAR},
+      sourceNo = #{record.sourceno,jdbcType=VARCHAR},
+      whOrOos = #{record.whoroos,jdbcType=VARCHAR},
+      fristWarehousing = #{record.fristwarehousing,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=INTEGER},
+      recordDate = #{record.recorddate,jdbcType=DATE},
+      standby1 = #{record.standby1,jdbcType=VARCHAR},
+      standby2 = #{record.standby2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.Inventoryledger" >
+    update inventoryledger
+    <set >
+      <if test="warehouseid != null" >
+        WareHouseID = #{warehouseid,jdbcType=VARCHAR},
+      </if>
+      <if test="matterId != null" >
+        matter_id = #{matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcebillname != null" >
+        sourceBillName = #{sourcebillname,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceno != null" >
+        sourceNo = #{sourceno,jdbcType=VARCHAR},
+      </if>
+      <if test="whoroos != null" >
+        whOrOos = #{whoroos,jdbcType=VARCHAR},
+      </if>
+      <if test="fristwarehousing != null" >
+        fristWarehousing = #{fristwarehousing,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="recorddate != null" >
+        recordDate = #{recorddate,jdbcType=DATE},
+      </if>
+      <if test="standby1 != null" >
+        standby1 = #{standby1,jdbcType=VARCHAR},
+      </if>
+      <if test="standby2 != null" >
+        standby2 = #{standby2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ilid = #{ilid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.Inventoryledger" >
+    update inventoryledger
+    set WareHouseID = #{warehouseid,jdbcType=VARCHAR},
+      matter_id = #{matterId,jdbcType=VARCHAR},
+      sourceBillName = #{sourcebillname,jdbcType=VARCHAR},
+      sourceNo = #{sourceno,jdbcType=VARCHAR},
+      whOrOos = #{whoroos,jdbcType=VARCHAR},
+      fristWarehousing = #{fristwarehousing,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      recordDate = #{recorddate,jdbcType=DATE},
+      standby1 = #{standby1,jdbcType=VARCHAR},
+      standby2 = #{standby2,jdbcType=VARCHAR}
+    where ilid = #{ilid,jdbcType=INTEGER}
+  </update>
+</mapper>
