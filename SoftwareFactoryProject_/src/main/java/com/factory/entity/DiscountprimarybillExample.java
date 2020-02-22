@@ -752,6 +752,146 @@ public class DiscountprimarybillExample {
             return (Criteria) this;
         }
 
+        public Criteria andExaminetypeIsNull() {
+            addCriterion("examineType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeIsNotNull() {
+            addCriterion("examineType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeEqualTo(String value) {
+            addCriterion("examineType =", value, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeNotEqualTo(String value) {
+            addCriterion("examineType <>", value, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeGreaterThan(String value) {
+            addCriterion("examineType >", value, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeGreaterThanOrEqualTo(String value) {
+            addCriterion("examineType >=", value, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeLessThan(String value) {
+            addCriterion("examineType <", value, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeLessThanOrEqualTo(String value) {
+            addCriterion("examineType <=", value, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeLike(String value) {
+            addCriterion("examineType like", value, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeNotLike(String value) {
+            addCriterion("examineType not like", value, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeIn(List<String> values) {
+            addCriterion("examineType in", values, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeNotIn(List<String> values) {
+            addCriterion("examineType not in", values, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeBetween(String value1, String value2) {
+            addCriterion("examineType between", value1, value2, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andExaminetypeNotBetween(String value1, String value2) {
+            addCriterion("examineType not between", value1, value2, "examinetype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeIsNull() {
+            addCriterion("delType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeIsNotNull() {
+            addCriterion("delType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeEqualTo(String value) {
+            addCriterion("delType =", value, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeNotEqualTo(String value) {
+            addCriterion("delType <>", value, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeGreaterThan(String value) {
+            addCriterion("delType >", value, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeGreaterThanOrEqualTo(String value) {
+            addCriterion("delType >=", value, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeLessThan(String value) {
+            addCriterion("delType <", value, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeLessThanOrEqualTo(String value) {
+            addCriterion("delType <=", value, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeLike(String value) {
+            addCriterion("delType like", value, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeNotLike(String value) {
+            addCriterion("delType not like", value, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeIn(List<String> values) {
+            addCriterion("delType in", values, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeNotIn(List<String> values) {
+            addCriterion("delType not in", values, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeBetween(String value1, String value2) {
+            addCriterion("delType between", value1, value2, "deltype");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeltypeNotBetween(String value1, String value2) {
+            addCriterion("delType not between", value1, value2, "deltype");
+            return (Criteria) this;
+        }
+
         public Criteria andStandbyIsNull() {
             addCriterion("standby is null");
             return (Criteria) this;

@@ -1,40 +1,42 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.factory.mapper.DiscountprimarybillMapper" >
-  <resultMap id="BaseResultMap" type="com.factory.entity.Discountprimarybill" >
-    <id column="dpbid" property="dpbid" jdbcType="VARCHAR" />
-    <result column="dpbDate" property="dpbdate" jdbcType="DATE" />
-    <result column="appreciationItem" property="appreciationitem" jdbcType="VARCHAR" />
-    <result column="impairmentItem" property="impairmentitem" jdbcType="VARCHAR" />
-    <result column="straighteningMethod" property="straighteningmethod" jdbcType="VARCHAR" />
-    <result column="documentMaker" property="documentmaker" jdbcType="VARCHAR" />
-    <result column="verifier" property="verifier" jdbcType="VARCHAR" />
-    <result column="custom1" property="custom1" jdbcType="VARCHAR" />
-    <result column="custom2" property="custom2" jdbcType="VARCHAR" />
-    <result column="standby" property="standby" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.factory.mapper.DiscountprimarybillMapper">
+  <resultMap id="BaseResultMap" type="com.factory.entity.Discountprimarybill">
+    <id column="dpbid" jdbcType="VARCHAR" property="dpbid" />
+    <result column="dpbDate" jdbcType="DATE" property="dpbdate" />
+    <result column="appreciationItem" jdbcType="VARCHAR" property="appreciationitem" />
+    <result column="impairmentItem" jdbcType="VARCHAR" property="impairmentitem" />
+    <result column="straighteningMethod" jdbcType="VARCHAR" property="straighteningmethod" />
+    <result column="documentMaker" jdbcType="VARCHAR" property="documentmaker" />
+    <result column="verifier" jdbcType="VARCHAR" property="verifier" />
+    <result column="custom1" jdbcType="VARCHAR" property="custom1" />
+    <result column="custom2" jdbcType="VARCHAR" property="custom2" />
+    <result column="examineType" jdbcType="VARCHAR" property="examinetype" />
+    <result column="delType" jdbcType="VARCHAR" property="deltype" />
+    <result column="standby" jdbcType="VARCHAR" property="standby" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.factory.entity.Discountprimarybill" extends="BaseResultMap" >
-    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.factory.entity.Discountprimarybill">
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -45,25 +47,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -74,44 +76,44 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     dpbid, dpbDate, appreciationItem, impairmentItem, straighteningMethod, documentMaker, 
-    verifier, custom1, custom2, standby
+    verifier, custom1, custom2, examineType, delType, standby
   </sql>
-  <sql id="Blob_Column_List" >
+  <sql id="Blob_Column_List">
     remark
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.factory.entity.DiscountprimarybillExample" >
+  <select id="selectByExampleWithBLOBs" parameterType="com.factory.entity.DiscountprimarybillExample" resultMap="ResultMapWithBLOBs">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from discountprimarybill
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.DiscountprimarybillExample" >
+  <select id="selectByExample" parameterType="com.factory.entity.DiscountprimarybillExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from discountprimarybill
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
@@ -119,17 +121,405 @@
     from discountprimarybill
     where dpbid = #{dpbid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from discountprimarybill
     where dpbid = #{dpbid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.factory.entity.DiscountprimarybillExample" >
+  <delete id="deleteByExample" parameterType="com.factory.entity.DiscountprimarybillExample">
     delete from discountprimarybill
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.factory.entity.Discountprimarybill" >
+  <insert id="insert" parameterType="com.factory.entity.Discountprimarybill">
+    insert into discountprimarybill (dpbid, dpbDate, appreciationItem, 
+      impairmentItem, straighteningMethod, documentMaker, 
+      verifier, custom1, custom2, 
+      examineType, delType, standby, 
+      remark)
+    values (#{dpbid,jdbcType=VARCHAR}, #{dpbdate,jdbcType=DATE}, #{appreciationitem,jdbcType=VARCHAR}, 
+      #{impairmentitem,jdbcType=VARCHAR}, #{straighteningmethod,jdbcType=VARCHAR}, #{documentmaker,jdbcType=VARCHAR}, 
+      #{verifier,jdbcType=VARCHAR}, #{custom1,jdbcType=VARCHAR}, #{custom2,jdbcType=VARCHAR}, 
+      #{examinetype,jdbcType=VARCHAR}, #{deltype,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.Discountprimarybill">
+    insert into discountprimarybill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dpbid != null">
+        dpbid,
+      </if>
+      <if test="dpbdate != null">
+        dpbDate,
+      </if>
+      <if test="appreciationitem != null">
+        appreciationItem,
+      </if>
+      <if test="impairmentitem != null">
+        impairmentItem,
+      </if>
+      <if test="straighteningmethod != null">
+        straighteningMethod,
+      </if>
+      <if test="documentmaker != null">
+        documentMaker,
+      </if>
+      <if test="verifier != null">
+        verifier,
+      </if>
+      <if test="custom1 != null">
+        custom1,
+      </if>
+      <if test="custom2 != null">
+        custom2,
+      </if>
+      <if test="examinetype != null">
+        examineType,
+      </if>
+      <if test="deltype != null">
+        delType,
+      </if>
+      <if test="standby != null">
+        standby,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dpbid != null">
+        #{dpbid,jdbcType=VARCHAR},
+      </if>
+      <if test="dpbdate != null">
+        #{dpbdate,jdbcType=DATE},
+      </if>
+      <if test="appreciationitem != null">
+        #{appreciationitem,jdbcType=VARCHAR},
+      </if>
+      <if test="impairmentitem != null">
+        #{impairmentitem,jdbcType=VARCHAR},
+      </if>
+      <if test="straighteningmethod != null">
+        #{straighteningmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="documentmaker != null">
+        #{documentmaker,jdbcType=VARCHAR},
+      </if>
+      <if test="verifier != null">
+        #{verifier,jdbcType=VARCHAR},
+      </if>
+      <if test="custom1 != null">
+        #{custom1,jdbcType=VARCHAR},
+      </if>
+      <if test="custom2 != null">
+        #{custom2,jdbcType=VARCHAR},
+      </if>
+      <if test="examinetype != null">
+        #{examinetype,jdbcType=VARCHAR},
+      </if>
+      <if test="deltype != null">
+        #{deltype,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null">
+        #{standby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.DiscountprimarybillExample" resultType="java.lang.Integer">
+    select count(*) from discountprimarybill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update discountprimarybill
+    <set>
+      <if test="record.dpbid != null">
+        dpbid = #{record.dpbid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpbdate != null">
+        dpbDate = #{record.dpbdate,jdbcType=DATE},
+      </if>
+      <if test="record.appreciationitem != null">
+        appreciationItem = #{record.appreciationitem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.impairmentitem != null">
+        impairmentItem = #{record.impairmentitem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.straighteningmethod != null">
+        straighteningMethod = #{record.straighteningmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.documentmaker != null">
+        documentMaker = #{record.documentmaker,jdbcType=VARCHAR},
+      </if>
+      <if test="record.verifier != null">
+        verifier = #{record.verifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custom1 != null">
+        custom1 = #{record.custom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custom2 != null">
+        custom2 = #{record.custom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examinetype != null">
+        examineType = #{record.examinetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deltype != null">
+        delType = #{record.deltype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standby != null">
+        standby = #{record.standby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update discountprimarybill
+    set dpbid = #{record.dpbid,jdbcType=VARCHAR},
+      dpbDate = #{record.dpbdate,jdbcType=DATE},
+      appreciationItem = #{record.appreciationitem,jdbcType=VARCHAR},
+      impairmentItem = #{record.impairmentitem,jdbcType=VARCHAR},
+      straighteningMethod = #{record.straighteningmethod,jdbcType=VARCHAR},
+      documentMaker = #{record.documentmaker,jdbcType=VARCHAR},
+      verifier = #{record.verifier,jdbcType=VARCHAR},
+      custom1 = #{record.custom1,jdbcType=VARCHAR},
+      custom2 = #{record.custom2,jdbcType=VARCHAR},
+      examineType = #{record.examinetype,jdbcType=VARCHAR},
+      delType = #{record.deltype,jdbcType=VARCHAR},
+      standby = #{record.standby,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update discountprimarybill
+    set dpbid = #{record.dpbid,jdbcType=VARCHAR},
+      dpbDate = #{record.dpbdate,jdbcType=DATE},
+      appreciationItem = #{record.appreciationitem,jdbcType=VARCHAR},
+      impairmentItem = #{record.impairmentitem,jdbcType=VARCHAR},
+      straighteningMethod = #{record.straighteningmethod,jdbcType=VARCHAR},
+      documentMaker = #{record.documentmaker,jdbcType=VARCHAR},
+      verifier = #{record.verifier,jdbcType=VARCHAR},
+      custom1 = #{record.custom1,jdbcType=VARCHAR},
+      custom2 = #{record.custom2,jdbcType=VARCHAR},
+      examineType = #{record.examinetype,jdbcType=VARCHAR},
+      delType = #{record.deltype,jdbcType=VARCHAR},
+      standby = #{record.standby,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.Discountprimarybill">
+    update discountprimarybill
+    <set>
+      <if test="dpbdate != null">
+        dpbDate = #{dpbdate,jdbcType=DATE},
+      </if>
+      <if test="appreciationitem != null">
+        appreciationItem = #{appreciationitem,jdbcType=VARCHAR},
+      </if>
+      <if test="impairmentitem != null">
+        impairmentItem = #{impairmentitem,jdbcType=VARCHAR},
+      </if>
+      <if test="straighteningmethod != null">
+        straighteningMethod = #{straighteningmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="documentmaker != null">
+        documentMaker = #{documentmaker,jdbcType=VARCHAR},
+      </if>
+      <if test="verifier != null">
+        verifier = #{verifier,jdbcType=VARCHAR},
+      </if>
+      <if test="custom1 != null">
+        custom1 = #{custom1,jdbcType=VARCHAR},
+      </if>
+      <if test="custom2 != null">
+        custom2 = #{custom2,jdbcType=VARCHAR},
+      </if>
+      <if test="examinetype != null">
+        examineType = #{examinetype,jdbcType=VARCHAR},
+      </if>
+      <if test="deltype != null">
+        delType = #{deltype,jdbcType=VARCHAR},
+      </if>
+      <if test="standby != null">
+        standby = #{standby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where dpbid = #{dpbid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.factory.entity.Discountprimarybill">
+    update discountprimarybill
+    set dpbDate = #{dpbdate,jdbcType=DATE},
+      appreciationItem = #{appreciationitem,jdbcType=VARCHAR},
+      impairmentItem = #{impairmentitem,jdbcType=VARCHAR},
+      straighteningMethod = #{straighteningmethod,jdbcType=VARCHAR},
+      documentMaker = #{documentmaker,jdbcType=VARCHAR},
+      verifier = #{verifier,jdbcType=VARCHAR},
+      custom1 = #{custom1,jdbcType=VARCHAR},
+      custom2 = #{custom2,jdbcType=VARCHAR},
+      examineType = #{examinetype,jdbcType=VARCHAR},
+      delType = #{deltype,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where dpbid = #{dpbid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.Discountprimarybill">
+    update discountprimarybill
+    set dpbDate = #{dpbdate,jdbcType=DATE},
+      appreciationItem = #{appreciationitem,jdbcType=VARCHAR},
+      impairmentItem = #{impairmentitem,jdbcType=VARCHAR},
+      straighteningMethod = #{straighteningmethod,jdbcType=VARCHAR},
+      documentMaker = #{documentmaker,jdbcType=VARCHAR},
+      verifier = #{verifier,jdbcType=VARCHAR},
+      custom1 = #{custom1,jdbcType=VARCHAR},
+      custom2 = #{custom2,jdbcType=VARCHAR},
+      examineType = #{examinetype,jdbcType=VARCHAR},
+      delType = #{deltype,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR}
+    where dpbid = #{dpbid,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.factory.entity.Discountprimarybill">
+    <id column="dpbid" jdbcType="VARCHAR" property="dpbid" />
+    <result column="dpbDate" jdbcType="DATE" property="dpbdate" />
+    <result column="appreciationItem" jdbcType="VARCHAR" property="appreciationitem" />
+    <result column="impairmentItem" jdbcType="VARCHAR" property="impairmentitem" />
+    <result column="straighteningMethod" jdbcType="VARCHAR" property="straighteningmethod" />
+    <result column="documentMaker" jdbcType="VARCHAR" property="documentmaker" />
+    <result column="verifier" jdbcType="VARCHAR" property="verifier" />
+    <result column="custom1" jdbcType="VARCHAR" property="custom1" />
+    <result column="custom2" jdbcType="VARCHAR" property="custom2" />
+    <result column="standby" jdbcType="VARCHAR" property="standby" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.factory.entity.Discountprimarybill">
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    dpbid, dpbDate, appreciationItem, impairmentItem, straighteningMethod, documentMaker, 
+    verifier, custom1, custom2, standby
+  </sql>
+  <sql id="Blob_Column_List">
+    remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.factory.entity.DiscountprimarybillExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from discountprimarybill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.factory.entity.DiscountprimarybillExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from discountprimarybill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from discountprimarybill
+    where dpbid = #{dpbid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from discountprimarybill
+    where dpbid = #{dpbid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.DiscountprimarybillExample">
+    delete from discountprimarybill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.Discountprimarybill">
     insert into discountprimarybill (dpbid, dpbDate, appreciationItem, 
       impairmentItem, straighteningMethod, documentMaker, 
       verifier, custom1, custom2, 
@@ -139,127 +529,127 @@
       #{verifier,jdbcType=VARCHAR}, #{custom1,jdbcType=VARCHAR}, #{custom2,jdbcType=VARCHAR}, 
       #{standby,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.factory.entity.Discountprimarybill" >
+  <insert id="insertSelective" parameterType="com.factory.entity.Discountprimarybill">
     insert into discountprimarybill
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="dpbid != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dpbid != null">
         dpbid,
       </if>
-      <if test="dpbdate != null" >
+      <if test="dpbdate != null">
         dpbDate,
       </if>
-      <if test="appreciationitem != null" >
+      <if test="appreciationitem != null">
         appreciationItem,
       </if>
-      <if test="impairmentitem != null" >
+      <if test="impairmentitem != null">
         impairmentItem,
       </if>
-      <if test="straighteningmethod != null" >
+      <if test="straighteningmethod != null">
         straighteningMethod,
       </if>
-      <if test="documentmaker != null" >
+      <if test="documentmaker != null">
         documentMaker,
       </if>
-      <if test="verifier != null" >
+      <if test="verifier != null">
         verifier,
       </if>
-      <if test="custom1 != null" >
+      <if test="custom1 != null">
         custom1,
       </if>
-      <if test="custom2 != null" >
+      <if test="custom2 != null">
         custom2,
       </if>
-      <if test="standby != null" >
+      <if test="standby != null">
         standby,
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="dpbid != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dpbid != null">
         #{dpbid,jdbcType=VARCHAR},
       </if>
-      <if test="dpbdate != null" >
+      <if test="dpbdate != null">
         #{dpbdate,jdbcType=DATE},
       </if>
-      <if test="appreciationitem != null" >
+      <if test="appreciationitem != null">
         #{appreciationitem,jdbcType=VARCHAR},
       </if>
-      <if test="impairmentitem != null" >
+      <if test="impairmentitem != null">
         #{impairmentitem,jdbcType=VARCHAR},
       </if>
-      <if test="straighteningmethod != null" >
+      <if test="straighteningmethod != null">
         #{straighteningmethod,jdbcType=VARCHAR},
       </if>
-      <if test="documentmaker != null" >
+      <if test="documentmaker != null">
         #{documentmaker,jdbcType=VARCHAR},
       </if>
-      <if test="verifier != null" >
+      <if test="verifier != null">
         #{verifier,jdbcType=VARCHAR},
       </if>
-      <if test="custom1 != null" >
+      <if test="custom1 != null">
         #{custom1,jdbcType=VARCHAR},
       </if>
-      <if test="custom2 != null" >
+      <if test="custom2 != null">
         #{custom2,jdbcType=VARCHAR},
       </if>
-      <if test="standby != null" >
+      <if test="standby != null">
         #{standby,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         #{remark,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.factory.entity.DiscountprimarybillExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.factory.entity.DiscountprimarybillExample" resultType="java.lang.Integer">
     select count(*) from discountprimarybill
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update discountprimarybill
-    <set >
-      <if test="record.dpbid != null" >
+    <set>
+      <if test="record.dpbid != null">
         dpbid = #{record.dpbid,jdbcType=VARCHAR},
       </if>
-      <if test="record.dpbdate != null" >
+      <if test="record.dpbdate != null">
         dpbDate = #{record.dpbdate,jdbcType=DATE},
       </if>
-      <if test="record.appreciationitem != null" >
+      <if test="record.appreciationitem != null">
         appreciationItem = #{record.appreciationitem,jdbcType=VARCHAR},
       </if>
-      <if test="record.impairmentitem != null" >
+      <if test="record.impairmentitem != null">
         impairmentItem = #{record.impairmentitem,jdbcType=VARCHAR},
       </if>
-      <if test="record.straighteningmethod != null" >
+      <if test="record.straighteningmethod != null">
         straighteningMethod = #{record.straighteningmethod,jdbcType=VARCHAR},
       </if>
-      <if test="record.documentmaker != null" >
+      <if test="record.documentmaker != null">
         documentMaker = #{record.documentmaker,jdbcType=VARCHAR},
       </if>
-      <if test="record.verifier != null" >
+      <if test="record.verifier != null">
         verifier = #{record.verifier,jdbcType=VARCHAR},
       </if>
-      <if test="record.custom1 != null" >
+      <if test="record.custom1 != null">
         custom1 = #{record.custom1,jdbcType=VARCHAR},
       </if>
-      <if test="record.custom2 != null" >
+      <if test="record.custom2 != null">
         custom2 = #{record.custom2,jdbcType=VARCHAR},
       </if>
-      <if test="record.standby != null" >
+      <if test="record.standby != null">
         standby = #{record.standby,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark != null" >
+      <if test="record.remark != null">
         remark = #{record.remark,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
+  <update id="updateByExampleWithBLOBs" parameterType="map">
     update discountprimarybill
     set dpbid = #{record.dpbid,jdbcType=VARCHAR},
       dpbDate = #{record.dpbdate,jdbcType=DATE},
@@ -272,11 +662,11 @@
       custom2 = #{record.custom2,jdbcType=VARCHAR},
       standby = #{record.standby,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update discountprimarybill
     set dpbid = #{record.dpbid,jdbcType=VARCHAR},
       dpbDate = #{record.dpbdate,jdbcType=DATE},
@@ -288,47 +678,47 @@
       custom1 = #{record.custom1,jdbcType=VARCHAR},
       custom2 = #{record.custom2,jdbcType=VARCHAR},
       standby = #{record.standby,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.Discountprimarybill" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.Discountprimarybill">
     update discountprimarybill
-    <set >
-      <if test="dpbdate != null" >
+    <set>
+      <if test="dpbdate != null">
         dpbDate = #{dpbdate,jdbcType=DATE},
       </if>
-      <if test="appreciationitem != null" >
+      <if test="appreciationitem != null">
         appreciationItem = #{appreciationitem,jdbcType=VARCHAR},
       </if>
-      <if test="impairmentitem != null" >
+      <if test="impairmentitem != null">
         impairmentItem = #{impairmentitem,jdbcType=VARCHAR},
       </if>
-      <if test="straighteningmethod != null" >
+      <if test="straighteningmethod != null">
         straighteningMethod = #{straighteningmethod,jdbcType=VARCHAR},
       </if>
-      <if test="documentmaker != null" >
+      <if test="documentmaker != null">
         documentMaker = #{documentmaker,jdbcType=VARCHAR},
       </if>
-      <if test="verifier != null" >
+      <if test="verifier != null">
         verifier = #{verifier,jdbcType=VARCHAR},
       </if>
-      <if test="custom1 != null" >
+      <if test="custom1 != null">
         custom1 = #{custom1,jdbcType=VARCHAR},
       </if>
-      <if test="custom2 != null" >
+      <if test="custom2 != null">
         custom2 = #{custom2,jdbcType=VARCHAR},
       </if>
-      <if test="standby != null" >
+      <if test="standby != null">
         standby = #{standby,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark = #{remark,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where dpbid = #{dpbid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.factory.entity.Discountprimarybill" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.factory.entity.Discountprimarybill">
     update discountprimarybill
     set dpbDate = #{dpbdate,jdbcType=DATE},
       appreciationItem = #{appreciationitem,jdbcType=VARCHAR},
@@ -342,7 +732,7 @@
       remark = #{remark,jdbcType=LONGVARCHAR}
     where dpbid = #{dpbid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.factory.entity.Discountprimarybill" >
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.Discountprimarybill">
     update discountprimarybill
     set dpbDate = #{dpbdate,jdbcType=DATE},
       appreciationItem = #{appreciationitem,jdbcType=VARCHAR},
