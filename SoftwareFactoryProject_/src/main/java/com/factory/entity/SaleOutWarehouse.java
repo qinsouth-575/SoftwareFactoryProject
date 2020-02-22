@@ -1,13 +1,14 @@
 package com.factory.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class SaleOutWarehouse {
-    private String sowId;
+    private String sowId;//单据号码
 
-    private String customerId;
+    private String customerId;//用户id
 
-    private String sowAddress;
+    private String sowAddress;//送货地址
 
     private String sowtId;
 
@@ -23,7 +24,7 @@ public class SaleOutWarehouse {
 
     private String currencyId;
 
-    private Float sowExchangeRate;
+    private Float sowExchangeRate;//汇率默认值：1.0000
 
     private String sowForeignTrade;
 
@@ -61,19 +62,29 @@ public class SaleOutWarehouse {
 
     private String sowEndClause;
 
-    private String sowRemark;
+    private String sowRemark;//备注
 
-    private String sowAuditing;
+    private String sowAuditing;//制单人员（当前登录者）
 
-    private String sowYn;
+    private String sowYn;//复核人员（当前登录者）
 
     private String sowCustom1;
 
     private String sowCustom2;
 
     private String sowCustom3;
+    
+    private List<SaleOutWarehouseDetailed> list;
+    
+	public List<SaleOutWarehouseDetailed> getList() {
+		return list;
+	}
 
-    public String getSowId() {
+	public void setList(List<SaleOutWarehouseDetailed> list) {
+		this.list = list;
+	}
+
+	public String getSowId() {
         return sowId;
     }
 
