@@ -10,6 +10,8 @@
     <result column="Verifier" property="verifier" jdbcType="VARCHAR" />
     <result column="custom1" property="custom1" jdbcType="VARCHAR" />
     <result column="custom2" property="custom2" jdbcType="VARCHAR" />
+    <result column="examineType" property="examinetype" jdbcType="VARCHAR" />
+    <result column="delType" property="deltype" jdbcType="VARCHAR" />
     <result column="standby" property="standby" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.factory.entity.AllocationPrimaryBill" extends="BaseResultMap" >
@@ -75,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List" >
     apbid, apbDate, foldWarehouseid, exportWarehouseid, documentMaker, Verifier, custom1, 
-    custom2, standby
+    custom2, examineType, delType, standby
   </sql>
   <sql id="Blob_Column_List" >
     remark
@@ -131,12 +133,14 @@
   <insert id="insert" parameterType="com.factory.entity.AllocationPrimaryBill" >
     insert into allocation_primary_bill (apbid, apbDate, foldWarehouseid, 
       exportWarehouseid, documentMaker, Verifier, 
-      custom1, custom2, standby, 
-      remark)
+      custom1, custom2, examineType, 
+      delType, standby, remark
+      )
     values (#{apbid,jdbcType=VARCHAR}, #{apbdate,jdbcType=DATE}, #{foldwarehouseid,jdbcType=VARCHAR}, 
       #{exportwarehouseid,jdbcType=VARCHAR}, #{documentmaker,jdbcType=VARCHAR}, #{verifier,jdbcType=VARCHAR}, 
-      #{custom1,jdbcType=VARCHAR}, #{custom2,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=LONGVARCHAR})
+      #{custom1,jdbcType=VARCHAR}, #{custom2,jdbcType=VARCHAR}, #{examinetype,jdbcType=VARCHAR}, 
+      #{deltype,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.factory.entity.AllocationPrimaryBill" >
     insert into allocation_primary_bill
@@ -164,6 +168,12 @@
       </if>
       <if test="custom2 != null" >
         custom2,
+      </if>
+      <if test="examinetype != null" >
+        examineType,
+      </if>
+      <if test="deltype != null" >
+        delType,
       </if>
       <if test="standby != null" >
         standby,
@@ -196,6 +206,12 @@
       </if>
       <if test="custom2 != null" >
         #{custom2,jdbcType=VARCHAR},
+      </if>
+      <if test="examinetype != null" >
+        #{examinetype,jdbcType=VARCHAR},
+      </if>
+      <if test="deltype != null" >
+        #{deltype,jdbcType=VARCHAR},
       </if>
       <if test="standby != null" >
         #{standby,jdbcType=VARCHAR},
@@ -238,6 +254,12 @@
       <if test="record.custom2 != null" >
         custom2 = #{record.custom2,jdbcType=VARCHAR},
       </if>
+      <if test="record.examinetype != null" >
+        examineType = #{record.examinetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deltype != null" >
+        delType = #{record.deltype,jdbcType=VARCHAR},
+      </if>
       <if test="record.standby != null" >
         standby = #{record.standby,jdbcType=VARCHAR},
       </if>
@@ -259,6 +281,8 @@
       Verifier = #{record.verifier,jdbcType=VARCHAR},
       custom1 = #{record.custom1,jdbcType=VARCHAR},
       custom2 = #{record.custom2,jdbcType=VARCHAR},
+      examineType = #{record.examinetype,jdbcType=VARCHAR},
+      delType = #{record.deltype,jdbcType=VARCHAR},
       standby = #{record.standby,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -275,6 +299,8 @@
       Verifier = #{record.verifier,jdbcType=VARCHAR},
       custom1 = #{record.custom1,jdbcType=VARCHAR},
       custom2 = #{record.custom2,jdbcType=VARCHAR},
+      examineType = #{record.examinetype,jdbcType=VARCHAR},
+      delType = #{record.deltype,jdbcType=VARCHAR},
       standby = #{record.standby,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -304,6 +330,12 @@
       <if test="custom2 != null" >
         custom2 = #{custom2,jdbcType=VARCHAR},
       </if>
+      <if test="examinetype != null" >
+        examineType = #{examinetype,jdbcType=VARCHAR},
+      </if>
+      <if test="deltype != null" >
+        delType = #{deltype,jdbcType=VARCHAR},
+      </if>
       <if test="standby != null" >
         standby = #{standby,jdbcType=VARCHAR},
       </if>
@@ -322,6 +354,8 @@
       Verifier = #{verifier,jdbcType=VARCHAR},
       custom1 = #{custom1,jdbcType=VARCHAR},
       custom2 = #{custom2,jdbcType=VARCHAR},
+      examineType = #{examinetype,jdbcType=VARCHAR},
+      delType = #{deltype,jdbcType=VARCHAR},
       standby = #{standby,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=LONGVARCHAR}
     where apbid = #{apbid,jdbcType=VARCHAR}
@@ -335,6 +369,8 @@
       Verifier = #{verifier,jdbcType=VARCHAR},
       custom1 = #{custom1,jdbcType=VARCHAR},
       custom2 = #{custom2,jdbcType=VARCHAR},
+      examineType = #{examinetype,jdbcType=VARCHAR},
+      delType = #{deltype,jdbcType=VARCHAR},
       standby = #{standby,jdbcType=VARCHAR}
     where apbid = #{apbid,jdbcType=VARCHAR}
   </update>

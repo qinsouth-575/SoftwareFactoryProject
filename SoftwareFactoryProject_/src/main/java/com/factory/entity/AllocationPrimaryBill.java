@@ -19,6 +19,10 @@ public class AllocationPrimaryBill {
 
     private String custom2;
 
+    private String examinetype;
+
+    private String deltype;
+
     private String standby;
 
     private String remark;
@@ -85,6 +89,22 @@ public class AllocationPrimaryBill {
 
     public void setCustom2(String custom2) {
         this.custom2 = custom2;
+    }
+
+    public String getExaminetype() {
+        return examinetype;
+    }
+
+    public void setExaminetype(String examinetype) {
+        this.examinetype = examinetype;
+    }
+
+    public String getDeltype() {
+        return deltype;
+    }
+
+    public void setDeltype(String deltype) {
+        this.deltype = deltype;
     }
 
     public String getStandby() {
