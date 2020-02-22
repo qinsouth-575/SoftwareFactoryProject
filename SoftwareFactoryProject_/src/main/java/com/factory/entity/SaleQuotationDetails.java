@@ -1,41 +1,41 @@
 package com.factory.entity;
 
 public class SaleQuotationDetails {
-    private String sqdProdid;
+    private String sqdProdid;//栏号
 
-    private String sqdSerno;
+    private String sqdSerno;//物料编号
 
-    private String sqdProdname;
+    private String sqdProdname;//物料名称
 
-    private String sqdProdsize;
+    private String sqdProdsize;//规格型号
 
-    private String sqdUnitname;
+    private String sqdUnitname;//单位名称
 
-    private Integer sqdSquantity;
+    private Integer sqdSquantity;//数量
 
-    private Float sqdZkqprice;
+    private Float sqdZkqprice;//折扣前单价
 
-    private Float sqdDiscount;
+    private Float sqdDiscount;//折数
 
-    private Float sqdUnitprice;
+    private Float sqdUnitprice;//单价
 
-    private Float sqdPrice;
+    private Float sqdPrice;//金额
 
-    private Float sqdTaxrate;
+    private Float sqdTaxrate;//税率
 
-    private Float sqdTaxlimit;
+    private Float sqdTaxlimit;//税额
 
-    private Float sqdTaxinclusiveprice;
+    private Float sqdTaxinclusiveprice;//含税金额
 
-    private Integer sqdComplimentart;
+    private Integer sqdComplimentart;//赠品（0，1）
 
-    private String sqdItemremark;
+    private String sqdItemremark;//分录备注
 
-    private String sqId;
+    private String sqId;//详表主键 关联主表
 
-    private String sqdAuditing;
+    private String sqdAuditing;//制单人员（当前登录者）
 
-    private String sqdYn;
+    private String sqdYn;//复核人员（当前登录者）
 
     private String sqdCustom1;
 
