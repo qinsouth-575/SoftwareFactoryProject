@@ -374,4 +374,87 @@
       standby = #{standby,jdbcType=VARCHAR}
     where bpbid = #{bpbid,jdbcType=VARCHAR}
   </update>
+  
+  <resultMap type="com.factory.entity.Hyw_BlitemPrimaryAndSchedule" id="ListBlitemMap">
+  	<id column="bpbid" property="bpbid" jdbcType="VARCHAR" />
+    <result column="bpbDate" property="bpbdate" jdbcType="DATE" />
+    <result column="warehouseid" property="warehouseid" jdbcType="VARCHAR" />
+    <result column="inventoryChecker" property="inventorychecker" jdbcType="VARCHAR" />
+    <result column="documentMaker" property="documentmaker" jdbcType="VARCHAR" />
+    <result column="verifier" property="verifier" jdbcType="VARCHAR" />
+    <result column="custom1" property="custom1" jdbcType="VARCHAR" />
+    <result column="custom2" property="custom2" jdbcType="VARCHAR" />
+    <result column="examineType" property="examinetype" jdbcType="VARCHAR" />
+    <result column="delType" property="deltype" jdbcType="VARCHAR" />
+    <result column="standby" property="standby" jdbcType="VARCHAR" />
+    
+    <collection property="list" column="bpbid" ofType="com.factory.entity.BlitemScheduleBill">
+	    <id column="bsbid" property="bsbid" jdbcType="INTEGER" />
+	    <result column="bpbid" property="bpbid" jdbcType="VARCHAR" />
+	    <result column="stockNumber" property="stocknumber" jdbcType="VARCHAR" />
+	    <result column="bookAmout" property="bookamout" jdbcType="VARCHAR" />
+	    <result column="blitemAmout" property="blitemamout" jdbcType="VARCHAR" />
+	    <result column="PALAmout" property="palamout" jdbcType="VARCHAR" />
+	    <result column="cause" property="cause" jdbcType="VARCHAR" />
+	    <result column="standby" property="standby" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  
+  <insert id="Hyw_insert_blitem" parameterType="ListBlitemMap">
+  	insert into blitem_primary_bill (bpbid, bpbDate, warehouseid, 
+      inventoryChecker, documentMaker, verifier, 
+      custom1, custom2, examineType, 
+      delType, standby, remark
+      )
+    values (#{bpbid,jdbcType=VARCHAR}, #{bpbdate,jdbcType=DATE}, #{warehouseid,jdbcType=VARCHAR}, 
+      #{inventorychecker,jdbcType=VARCHAR}, #{documentmaker,jdbcType=VARCHAR}, #{verifier,jdbcType=VARCHAR}, 
+      #{custom1,jdbcType=VARCHAR}, #{custom2,jdbcType=VARCHAR}, #{examinetype,jdbcType=VARCHAR}, 
+      #{deltype,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      );
+      
+      insert into blitem_schedule_bill values
+      <foreach collection="list" item="detail" separator=",">
+      (#{detail.bsbid,jdbcType=INTEGER}, #{detail.bpbid,jdbcType=VARCHAR}, #{detail.stocknumber,jdbcType=VARCHAR}, 
+      #{detail.bookamout,jdbcType=VARCHAR}, #{detail.blitemamout,jdbcType=VARCHAR}, #{detail.palamout,jdbcType=VARCHAR}, 
+      #{detail.cause,jdbcType=VARCHAR}, #{detail.standby,jdbcType=VARCHAR})
+      </foreach>
+  </insert>
+  
+  <delete id="Hyw_delete_blitem" parameterType="String">
+  	delete from blitem_primary_bill where bpbid = #{0};
+  	delete from blitem_schedule_bill where bpbid = #{0};
+  </delete>
+  
+  <update id="Hyw_update_blitem" parameterType="ListBlitemMap">
+  	update blitem_primary_bill
+    set bpbDate = #{bpbdate,jdbcType=DATE},
+      warehouseid = #{warehouseid,jdbcType=VARCHAR},
+      inventoryChecker = #{inventorychecker,jdbcType=VARCHAR},
+      documentMaker = #{documentmaker,jdbcType=VARCHAR},
+      verifier = #{verifier,jdbcType=VARCHAR},
+      custom1 = #{custom1,jdbcType=VARCHAR},
+      custom2 = #{custom2,jdbcType=VARCHAR},
+      examineType = #{examinetype,jdbcType=VARCHAR},
+      delType = #{deltype,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where bpbid = #{bpbid,jdbcType=VARCHAR};
+    
+    delete from blitem_schedule_bill where bpbid = #{bpbid};
+    
+    insert into blitem_schedule_bill values
+      <foreach collection="list" item="detail" separator=",">
+      (#{detail.bsbid,jdbcType=INTEGER}, #{detail.bpbid,jdbcType=VARCHAR}, #{detail.stocknumber,jdbcType=VARCHAR}, 
+      #{detail.bookamout,jdbcType=VARCHAR}, #{detail.blitemamout,jdbcType=VARCHAR}, #{detail.palamout,jdbcType=VARCHAR}, 
+      #{detail.cause,jdbcType=VARCHAR}, #{detail.standby,jdbcType=VARCHAR})
+      </foreach>
+  </update>
+  
+  <select id="Hyw_select_blitem"  resultType="ListBlitemMap">
+  	select a.*,b.* from blitem_primary_bill a left join blitem_schedule_bill b on (a.bpbid = b.bpbid)
+  </select>
+  
+  <select id="Hyw_select_blitemByDpbid" parameterType="String" resultType="ListBlitemMap">
+  	select a.*,b.* from blitem_primary_bill a left join blitem_schedule_bill b on (a.bpbid = b.bpbid) where a.bpbid = #{0}
+  </select>
 </mapper>

@@ -374,4 +374,81 @@
       standby = #{standby,jdbcType=VARCHAR}
     where apbid = #{apbid,jdbcType=VARCHAR}
   </update>
+  
+  <resultMap type="com.factory.entity.Hyw_AllocationPrimaryAndSchedule" id="ListAllocatoinMap">
+  	<id column="apbid" property="apbid" jdbcType="VARCHAR" />
+    <result column="apbDate" property="apbdate" jdbcType="DATE" />
+    <result column="foldWarehouseid" property="foldwarehouseid" jdbcType="VARCHAR" />
+    <result column="exportWarehouseid" property="exportwarehouseid" jdbcType="VARCHAR" />
+    <result column="documentMaker" property="documentmaker" jdbcType="VARCHAR" />
+    <result column="Verifier" property="verifier" jdbcType="VARCHAR" />
+    <result column="custom1" property="custom1" jdbcType="VARCHAR" />
+    <result column="custom2" property="custom2" jdbcType="VARCHAR" />
+    <result column="examineType" property="examinetype" jdbcType="VARCHAR" />
+    <result column="delType" property="deltype" jdbcType="VARCHAR" />
+    <result column="standby" property="standby" jdbcType="VARCHAR" />
+    
+    <collection property="list" column="apbid" ofType="com.factory.entity.AllocationScheduleBill">
+    	<id column="asbid" property="asbid" jdbcType="INTEGER" />
+	    <result column="apbid" property="apbid" jdbcType="VARCHAR" />
+	    <result column="stockNumber" property="stocknumber" jdbcType="VARCHAR" />
+	    <result column="amout" property="amout" jdbcType="VARCHAR" />
+	    <result column="standby" property="standby" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  
+  <insert id="Hyw_insert_allocation" parameterType="ListAllocatoinMap">
+  	insert into allocation_primary_bill (apbid, apbDate, foldWarehouseid, 
+      exportWarehouseid, documentMaker, Verifier, 
+      custom1, custom2, examineType, 
+      delType, standby, remark
+      )
+    values (#{apbid,jdbcType=VARCHAR}, #{apbdate,jdbcType=DATE}, #{foldwarehouseid,jdbcType=VARCHAR}, 
+      #{exportwarehouseid,jdbcType=VARCHAR}, #{documentmaker,jdbcType=VARCHAR}, #{verifier,jdbcType=VARCHAR}, 
+      #{custom1,jdbcType=VARCHAR}, #{custom2,jdbcType=VARCHAR}, #{examinetype,jdbcType=VARCHAR}, 
+      #{deltype,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      );
+      
+      insert into allocation_schedule_bill values 
+      <foreach collection="list" item="detail" separator=",">
+      	(#{detail.asbid,jdbcType=INTEGER}, #{detail.apbid,jdbcType=VARCHAR}, #{detail.stocknumber,jdbcType=VARCHAR}, 
+      #{detail.amout,jdbcType=VARCHAR}, #{detail.standby,jdbcType=VARCHAR}, #{detail.remark,jdbcType=LONGVARCHAR})
+      </foreach>
+  </insert>
+  
+  <delete id="Hyw_delete_allocation" parameterType="string">
+  	delete from allocation_primary_bill where apbid = #{0};
+  	delete from allocation_schedule_bill where apbid = #{0};
+  </delete>
+  
+  <update id="Hyw_update_allocation" parameterType="ListAllocatoinMap">
+  	update allocation_primary_bill
+    set apbDate = #{apbdate,jdbcType=DATE},
+      foldWarehouseid = #{foldwarehouseid,jdbcType=VARCHAR},
+      exportWarehouseid = #{exportwarehouseid,jdbcType=VARCHAR},
+      documentMaker = #{documentmaker,jdbcType=VARCHAR},
+      Verifier = #{verifier,jdbcType=VARCHAR},
+      custom1 = #{custom1,jdbcType=VARCHAR},
+      custom2 = #{custom2,jdbcType=VARCHAR},
+      examineType = #{examinetype,jdbcType=VARCHAR},
+      delType = #{deltype,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR}
+    where apbid = #{apbid,jdbcType=VARCHAR};
+  
+  	delete from allocation_schedule_bill where apbid = #{apbid};
+  	
+  	insert into allocation_schedule_bill values 
+      <foreach collection="list" item="detail" separator=",">
+      	(#{detail.asbid,jdbcType=INTEGER}, #{detail.apbid,jdbcType=VARCHAR}, #{detail.stocknumber,jdbcType=VARCHAR}, 
+      #{detail.amout,jdbcType=VARCHAR}, #{detail.standby,jdbcType=VARCHAR}, #{detail.remark,jdbcType=LONGVARCHAR})
+      </foreach>
+  </update>
+  
+  <select id="Hyw_select_allocation" resultType="ListAllocatoinMap">
+  	select a.*,b.* from allocation_primary_bill a left join allocation_schedule_bill b on (a.apbid = b.apbid)
+  </select>
+  
+  <select id="Hyw_select_allocationByApbid" parameterType="String" resultType="ListAllocatoinMap">
+  	select a.*,b.* from allocation_primary_bill a left join allocation_schedule_bill b on (a.apbid = b.apbid) where a.apbid = #{0}
+  </select>
 </mapper>

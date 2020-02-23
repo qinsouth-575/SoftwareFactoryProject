@@ -28,7 +28,7 @@ public class Hyw_BlitemPrimaryAndSchedule {
 
     private String remark;
     
-    private List<BlitemScheduleBill> bsb;
+    private List<BlitemScheduleBill> list;
 
 	public String getBpbid() {
 		return bpbid;
@@ -126,12 +126,12 @@ public class Hyw_BlitemPrimaryAndSchedule {
 		this.remark = remark;
 	}
 
-	public List<BlitemScheduleBill> getBsb() {
-		return bsb;
+	public List<BlitemScheduleBill> getList() {
+		return list;
 	}
 
-	public void setBsb(List<BlitemScheduleBill> bsb) {
-		this.bsb = bsb;
+	public void setList(List<BlitemScheduleBill> list) {
+		this.list = list;
 	}
     
 }

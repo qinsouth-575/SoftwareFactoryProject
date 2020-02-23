@@ -28,7 +28,7 @@ public class Hyw_AllocationPrimaryAndSchedule {
 
     private String remark;
     
-    private List<AllocationScheduleBill> asb;
+    private List<AllocationScheduleBill> list;
 
 	public String getApbid() {
 		return apbid;
@@ -126,12 +126,12 @@ public class Hyw_AllocationPrimaryAndSchedule {
 		this.remark = remark;
 	}
 
-	public List<AllocationScheduleBill> getAsb() {
-		return asb;
+	public List<AllocationScheduleBill> getList() {
+		return list;
 	}
 
-	public void setAsb(List<AllocationScheduleBill> asb) {
-		this.asb = asb;
+	public void setAsb(List<AllocationScheduleBill> list) {
+		this.list = list;
 	}
     
 }

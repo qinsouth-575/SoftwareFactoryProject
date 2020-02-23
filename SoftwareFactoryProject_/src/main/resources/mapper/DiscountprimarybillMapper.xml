@@ -391,4 +391,84 @@
       standby = #{standby,jdbcType=VARCHAR}
     where dpbid = #{dpbid,jdbcType=VARCHAR}
   </update>
+  
+  <resultMap type="com.factory.entity.Hyw_DiscountPrimaryAndSchedule" id="ListDiscountMap">
+  	<id column="dpbid" jdbcType="VARCHAR" property="dpbid" />
+    <result column="dpbDate" jdbcType="DATE" property="dpbdate" />
+    <result column="appreciationItem" jdbcType="VARCHAR" property="appreciationitem" />
+    <result column="impairmentItem" jdbcType="VARCHAR" property="impairmentitem" />
+    <result column="straighteningMethod" jdbcType="VARCHAR" property="straighteningmethod" />
+    <result column="documentMaker" jdbcType="VARCHAR" property="documentmaker" />
+    <result column="verifier" jdbcType="VARCHAR" property="verifier" />
+    <result column="custom1" jdbcType="VARCHAR" property="custom1" />
+    <result column="custom2" jdbcType="VARCHAR" property="custom2" />
+    <result column="examineType" jdbcType="VARCHAR" property="examinetype" />
+    <result column="delType" jdbcType="VARCHAR" property="deltype" />
+    <result column="standby" jdbcType="VARCHAR" property="standby" />
+    
+    <collection property="list" column="dpbid" ofType="com.factory.entity.Discountschedulebill">
+	    <id column="dsbid" property="dsbid" jdbcType="INTEGER" />
+	    <result column="dpbid" property="dpbid" jdbcType="VARCHAR" />
+	    <result column="stockNumber" property="stocknumber" jdbcType="VARCHAR" />
+	    <result column="discountPrice" property="discountprice" jdbcType="REAL" />
+	    <result column="standby" property="standby" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  
+  <insert id="Hyw_insert_discount" parameterType="ListDiscountMap">
+  insert into discountprimarybill (dpbid, dpbDate, appreciationItem, 
+      impairmentItem, straighteningMethod, documentMaker, 
+      verifier, custom1, custom2, 
+      examineType, delType, standby, 
+      remark)
+    values (#{dpbid,jdbcType=VARCHAR}, #{dpbdate,jdbcType=DATE}, #{appreciationitem,jdbcType=VARCHAR}, 
+      #{impairmentitem,jdbcType=VARCHAR}, #{straighteningmethod,jdbcType=VARCHAR}, #{documentmaker,jdbcType=VARCHAR}, 
+      #{verifier,jdbcType=VARCHAR}, #{custom1,jdbcType=VARCHAR}, #{custom2,jdbcType=VARCHAR}, 
+      #{examinetype,jdbcType=VARCHAR}, #{deltype,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR});
+      
+      insert into discountschedulebill values
+      <foreach collection="list" item="detail" separator=",">
+      (#{detail.dsbid,jdbcType=INTEGER}, #{detail.dpbid,jdbcType=VARCHAR}, #{detail.stocknumber,jdbcType=VARCHAR}, 
+      #{detail.discountprice,jdbcType=REAL}, #{detail.standby,jdbcType=VARCHAR}, #{detail.remark,jdbcType=LONGVARCHAR})
+      </foreach>
+  </insert>
+  
+  <delete id="Hyw_delete_discount" parameterType="String">
+  	delete from discountprimarybill where dpbid = #{0};
+  	delete from discountschedulebill where dpbid = #{0};
+  </delete>
+  
+  <update id="Hyw_update_discount"  parameterType="ListDiscountMap">
+  	update discountprimarybill
+    set dpbDate = #{dpbdate,jdbcType=DATE},
+      appreciationItem = #{appreciationitem,jdbcType=VARCHAR},
+      impairmentItem = #{impairmentitem,jdbcType=VARCHAR},
+      straighteningMethod = #{straighteningmethod,jdbcType=VARCHAR},
+      documentMaker = #{documentmaker,jdbcType=VARCHAR},
+      verifier = #{verifier,jdbcType=VARCHAR},
+      custom1 = #{custom1,jdbcType=VARCHAR},
+      custom2 = #{custom2,jdbcType=VARCHAR},
+      examineType = #{examinetype,jdbcType=VARCHAR},
+      delType = #{deltype,jdbcType=VARCHAR},
+      standby = #{standby,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where dpbid = #{dpbid,jdbcType=VARCHAR};
+  	
+  	delete from discountschedulebill where dpbid = #{0};
+  	
+  	insert into discountschedulebill values
+      <foreach collection="list" item="detail" separator=",">
+      (#{detail.dsbid,jdbcType=INTEGER}, #{detail.dpbid,jdbcType=VARCHAR}, #{detail.stocknumber,jdbcType=VARCHAR}, 
+      #{detail.discountprice,jdbcType=REAL}, #{detail.standby,jdbcType=VARCHAR}, #{detail.remark,jdbcType=LONGVARCHAR})
+      </foreach>
+  </update>
+  
+  <select id="Hyw_select_discount" resultType="ListDiscountMap">
+  	select a.*,b.* from discountprimarybill a left join discountschedulebill b on (a.dpbid = b.dpbid)
+  </select>
+  
+  <select id="Hyw_select_discountByDpbid" parameterType="String" resultType="ListDiscountMap">
+  	select a.*,b.* from discountprimarybill a left join discountschedulebill b on (a.dpbid = b.dpbid) where a.dpbid = #{0}
+  </select>
 </mapper>

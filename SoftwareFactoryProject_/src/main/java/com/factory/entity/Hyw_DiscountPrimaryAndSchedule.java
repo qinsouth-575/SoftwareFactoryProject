@@ -30,7 +30,7 @@ public class Hyw_DiscountPrimaryAndSchedule {
 
     private String remark;
     
-    private List<Discountschedulebill> dsb;
+    private List<Discountschedulebill> list;
 
 	public String getDpbid() {
 		return dpbid;
@@ -136,11 +136,11 @@ public class Hyw_DiscountPrimaryAndSchedule {
 		this.remark = remark;
 	}
 
-	public List<Discountschedulebill> getDsb() {
-		return dsb;
+	public List<Discountschedulebill> getList() {
+		return list;
 	}
 
-	public void setDsb(List<Discountschedulebill> dsb) {
-		this.dsb = dsb;
+	public void setList(List<Discountschedulebill> list) {
+		this.list = list;
 	}
 }
