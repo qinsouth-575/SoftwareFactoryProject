@@ -15,7 +15,7 @@ import com.factory.entity.ComwareHouse;
 
 @Controller
 @RequestMapping("/yw_transfer")
-public class HywTransferringAction {
+public class Hyw_AllocationAction {
 	
 	@Autowired
 	private Hyw_ComwareHouseBiz chBiz;
