@@ -89,6 +89,12 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.factory.entity.ComwareHouse">
+  	select * from comware_house 
+	<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select> 
   <delete id="deleteByExample" parameterType="com.factory.entity.ComwareHouseExample" >
     delete from comware_house
     <if test="_parameter != null" >
@@ -175,7 +181,7 @@
   <select id="countByExample" parameterType="com.factory.entity.ComwareHouseExample" resultType="java.lang.Integer" >
     select count(*) from comware_house
     <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+      <include refid=" " />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
