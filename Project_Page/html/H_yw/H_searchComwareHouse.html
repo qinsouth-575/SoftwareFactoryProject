@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#section{
+				margin:auto;
+				width: 500px;
+				border: 1px solid gray;
+				background-color: rgb(240,240,240);
+			}
+			select{
+				width: 80px;
+				height: 30px;
+			}
+			#showinfo{
+				margin: 0 0 10px 50px;
+				padding-top: 5px;
+				height: 155px;
+				width: 400px;
+				background-color: white;
+			}
+			#tb_ch{
+				margin: 0 0 0  10px;
+				width: 300px;
+				border: 1px solid rgb(230,230,230);
+			}
+		</style>
+		<link rel="stylesheet" href="../../layui/css/layui.css" />
+	</head>
+	<body>
+		<div id="section">
+			<div style="margin: 10px 0 10px 50px;">
+				<input type="text" id="searchKey" style="width: :100px;height: 26px;" placeholder="请输入关键字">
+				<select id="cwType">
+					<option value="0">全部显示</option>
+					<option value="warehouseid">仓库编号</option>
+					<option value="warehousename">仓库名称</option>
+					<option value="shortname">仓库简称</option>
+					<option value="engname">英文名称</option>
+					<option value="warehouseaddress">仓库地址</option>
+				</select>
+				<button style="width:60px;height: 30px;" @click="selectByCw">查询</button>
+			</div>
+			<div id="showinfo">
+				<table id="tb_ch" border="1" cellspacing="0">
+					<tr>
+						<td width="25%">选择</td>
+						<td width="25%">序号</td>
+						<td width="50%">名称</td>
+					</tr>
+					<tbody id="ckName">
+						<tr v-for="cw,index in listComwareHouse">
+							<td><input type="radio" name="comwareHouse"/></td>
+							<td>{{index}}</td>
+							<td>{{cw.warehousename}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<div style="margin:auto;width: 300px;margin-bottom: 10px;">
+					<div style="width: 200px;color: red;display: inline;">
+						<span id="tx">没有查到相应数据！</span>
+					</div>
+					<div  style="display: inline;float: right;">
+						<span id="nowNum">0</span>/<span id="contNum">0</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="../../layui/layui.js"></script>
+		<script type="text/javascript" src="../../js/vue.js"></script>
+		<script type="text/javascript" src="../../js/axios.min.js"></script>
+		<script type="text/javascript">
+			//必须设置允许跨域访问session中数据(cookie)
+			axios.default.withCredentials = true;
+			
+			var listVm = new Vue({
+				el: "#section",
+				data: {
+					example : {
+						warehouseid : null,
+					    warehousename : null,
+					    shortname : null,
+					    engname : null,
+					    linkman : null,
+					    telephone : null,
+					    warehouseaddress : null,
+					    memo : null,
+					    mergeoutstate : null,
+					    dataver : null
+					},
+					listComwareHouse:[]
+				},
+				methods: {
+					selectByCw : function(){
+						var this_ = this;
+						var cwtype = $("#cwType option:selected").val();
+						var str = $("#searchKey").val();
+						alert(cwtype+"/"+str);
+						if(cwtype == 'warehouseid'){
+							this_.example.warehouseid = str;
+						}else if(cwtype == 'warehousename'){
+							this_.example.warehousename = str;
+						}else if(cwtype == 'shortname'){
+							this_.example.shortname = str;
+						}else if(cwtype == 'engname'){
+							this_.example.engname = str;
+						}else if(cwtype == 'warehouseaddress'){
+							this_.example.warehowarehouseaddressuseid = str;
+						}
+						
+						axios.get(`http://localhost:8080/SoftwareFactoryProject_/yw_transfer/yw_select_comwarehouse`,this_.example).then(function(res) {
+							//res.data获取服务器返回的数据
+							this_.listComwareHouse = res.data;
+						});
+					},
+					ceshi : function(str){
+						axios.get(`http://localhost:8080/SoftwareFactoryProject_/yw_transfer/ceshi/`+str).then(function(res) {
+							//res.data获取服务器返回的数据
+						});
+					}
+				},
+				mounted : function(){
+					this.selectByCw();
+//					this.ceshi("测试");
+				}
+			});
+			
+			
+		</script>
+	</body>
+</html>
