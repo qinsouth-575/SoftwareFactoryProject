@@ -180,9 +180,9 @@
   </insert>
   <select id="countByExample" parameterType="com.factory.entity.ComwareHouseExample" resultType="java.lang.Integer" >
     select count(*) from comware_house
-    <if test="_parameter != null" >
+    <!-- <if test="_parameter != null" >
       <include refid=" " />
-    </if>
+    </if> -->
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update comware_house
