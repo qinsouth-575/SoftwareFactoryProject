@@ -397,7 +397,7 @@
     </collection>
   </resultMap>
   
-  <insert id="Hyw_insert_allocation" parameterType="ListAllocatoinMap">
+  <insert id="Hyw_insert_allocation" parameterType="com.factory.entity.Hyw_AllocationPrimaryAndSchedule">
   	insert into allocation_primary_bill (apbid, apbDate, foldWarehouseid, 
       exportWarehouseid, documentMaker, Verifier, 
       custom1, custom2, examineType, 
@@ -416,12 +416,12 @@
       </foreach>
   </insert>
   
-  <delete id="Hyw_delete_allocation" parameterType="string">
+  <delete id="Hyw_delete_allocation" parameterType="com.factory.entity.Hyw_AllocationPrimaryAndSchedule">
   	delete from allocation_primary_bill where apbid = #{0};
   	delete from allocation_schedule_bill where apbid = #{0};
   </delete>
   
-  <update id="Hyw_update_allocation" parameterType="ListAllocatoinMap">
+  <update id="Hyw_update_allocation" parameterType="com.factory.entity.Hyw_AllocationPrimaryAndSchedule">
   	update allocation_primary_bill
     set apbDate = #{apbdate,jdbcType=DATE},
       foldWarehouseid = #{foldwarehouseid,jdbcType=VARCHAR},
@@ -444,11 +444,11 @@
       </foreach>
   </update>
   
-  <select id="Hyw_select_allocation" resultType="ListAllocatoinMap">
+  <select id="Hyw_select_allocation" resultMap="ListAllocatoinMap">
   	select a.*,b.* from allocation_primary_bill a left join allocation_schedule_bill b on (a.apbid = b.apbid)
   </select>
   
-  <select id="Hyw_select_allocationByApbid" parameterType="String" resultType="ListAllocatoinMap">
+  <select id="Hyw_select_allocationByApbid" parameterType="String" resultMap="ListAllocatoinMap">
   	select a.*,b.* from allocation_primary_bill a left join allocation_schedule_bill b on (a.apbid = b.apbid) where a.apbid = #{0}
   </select>
 </mapper>

@@ -415,7 +415,7 @@
     </collection>
   </resultMap>
   
-  <insert id="Hyw_insert_discount" parameterType="ListDiscountMap">
+  <insert id="Hyw_insert_discount" parameterType="com.factory.entity.Hyw_DiscountPrimaryAndSchedule">
   insert into discountprimarybill (dpbid, dpbDate, appreciationItem, 
       impairmentItem, straighteningMethod, documentMaker, 
       verifier, custom1, custom2, 
@@ -439,7 +439,7 @@
   	delete from discountschedulebill where dpbid = #{0};
   </delete>
   
-  <update id="Hyw_update_discount"  parameterType="ListDiscountMap">
+  <update id="Hyw_update_discount"  parameterType="com.factory.entity.Hyw_DiscountPrimaryAndSchedule">
   	update discountprimarybill
     set dpbDate = #{dpbdate,jdbcType=DATE},
       appreciationItem = #{appreciationitem,jdbcType=VARCHAR},
@@ -464,11 +464,11 @@
       </foreach>
   </update>
   
-  <select id="Hyw_select_discount" resultType="ListDiscountMap">
+  <select id="Hyw_select_discount" resultMap="ListDiscountMap">
   	select a.*,b.* from discountprimarybill a left join discountschedulebill b on (a.dpbid = b.dpbid)
   </select>
   
-  <select id="Hyw_select_discountByDpbid" parameterType="String" resultType="ListDiscountMap">
+  <select id="Hyw_select_discountByDpbid" parameterType="String" resultMap="ListDiscountMap">
   	select a.*,b.* from discountprimarybill a left join discountschedulebill b on (a.dpbid = b.dpbid) where a.dpbid = #{0}
   </select>
 </mapper>
