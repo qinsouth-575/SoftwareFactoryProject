@@ -9,7 +9,7 @@
     <result column="sowd_remark" property="sowdRemark" jdbcType="VARCHAR" />
     <result column="sowd_price_include_tax" property="sowdPriceIncludeTax" jdbcType="VARCHAR" />
     <result column="sowd_single_status" property="sowdSingleStatus" jdbcType="INTEGER" />
-    <result column="sowd_document_date" property="sowdDocumentDate" jdbcType="DATE" />
+    <result column="sowd_fold_the_number" property="sowdFoldTheNumber" jdbcType="REAL" />
     <result column="sowd_document_number" property="sowdDocumentNumber" jdbcType="REAL" />
     <result column="sowd_price" property="sowdPrice" jdbcType="REAL" />
     <result column="sowd_money" property="sowdMoney" jdbcType="REAL" />
@@ -90,7 +90,7 @@
   </sql>
   <sql id="Base_Column_List" >
     sowd_id, sow_id, matter_id, sowd_engname, sowd_remark, sowd_price_include_tax, sowd_single_status, 
-    sowd_document_date, sowd_document_number, sowd_price, sowd_money, sowd_tax_rate, 
+    sowd_fold_the_number, sowd_document_number, sowd_price, sowd_money, sowd_tax_rate, 
     sowd_tax_amount, sowd_including_tax_amount, sowd_batch_number, sowd_material_combination, 
     sowd_ifgift, sowd_invoice_details, sowd_nomake_invoice_num, sowd_remarks, sowd_source_order, 
     sowd_source_no, sowd_auditing, sowd_yn, sowd_custom1, sowd_custom2, sowd_custom3
@@ -128,7 +128,7 @@
   <insert id="insert" parameterType="com.factory.entity.SaleOutWarehouseDetailed" >
     insert into sale_out_warehouse_detailed (sowd_id, sow_id, matter_id, 
       sowd_engname, sowd_remark, sowd_price_include_tax, 
-      sowd_single_status, sowd_document_date, sowd_document_number, 
+      sowd_single_status, sowd_fold_the_number, sowd_document_number, 
       sowd_price, sowd_money, sowd_tax_rate, 
       sowd_tax_amount, sowd_including_tax_amount, sowd_batch_number, 
       sowd_material_combination, sowd_ifgift, sowd_invoice_details, 
@@ -138,7 +138,7 @@
       )
     values (#{sowdId,jdbcType=VARCHAR}, #{sowId,jdbcType=VARCHAR}, #{matterId,jdbcType=VARCHAR}, 
       #{sowdEngname,jdbcType=VARCHAR}, #{sowdRemark,jdbcType=VARCHAR}, #{sowdPriceIncludeTax,jdbcType=VARCHAR}, 
-      #{sowdSingleStatus,jdbcType=INTEGER}, #{sowdDocumentDate,jdbcType=DATE}, #{sowdDocumentNumber,jdbcType=REAL}, 
+      #{sowdSingleStatus,jdbcType=INTEGER}, #{sowdFoldTheNumber,jdbcType=REAL}, #{sowdDocumentNumber,jdbcType=REAL}, 
       #{sowdPrice,jdbcType=REAL}, #{sowdMoney,jdbcType=REAL}, #{sowdTaxRate,jdbcType=REAL}, 
       #{sowdTaxAmount,jdbcType=REAL}, #{sowdIncludingTaxAmount,jdbcType=REAL}, #{sowdBatchNumber,jdbcType=VARCHAR}, 
       #{sowdMaterialCombination,jdbcType=VARCHAR}, #{sowdIfgift,jdbcType=VARCHAR}, #{sowdInvoiceDetails,jdbcType=VARCHAR}, 
@@ -171,8 +171,8 @@
       <if test="sowdSingleStatus != null" >
         sowd_single_status,
       </if>
-      <if test="sowdDocumentDate != null" >
-        sowd_document_date,
+      <if test="sowdFoldTheNumber != null" >
+        sowd_fold_the_number,
       </if>
       <if test="sowdDocumentNumber != null" >
         sowd_document_number,
@@ -254,8 +254,8 @@
       <if test="sowdSingleStatus != null" >
         #{sowdSingleStatus,jdbcType=INTEGER},
       </if>
-      <if test="sowdDocumentDate != null" >
-        #{sowdDocumentDate,jdbcType=DATE},
+      <if test="sowdFoldTheNumber != null" >
+        #{sowdFoldTheNumber,jdbcType=REAL},
       </if>
       <if test="sowdDocumentNumber != null" >
         #{sowdDocumentNumber,jdbcType=REAL},
@@ -346,8 +346,8 @@
       <if test="record.sowdSingleStatus != null" >
         sowd_single_status = #{record.sowdSingleStatus,jdbcType=INTEGER},
       </if>
-      <if test="record.sowdDocumentDate != null" >
-        sowd_document_date = #{record.sowdDocumentDate,jdbcType=DATE},
+      <if test="record.sowdFoldTheNumber != null" >
+        sowd_fold_the_number = #{record.sowdFoldTheNumber,jdbcType=REAL},
       </if>
       <if test="record.sowdDocumentNumber != null" >
         sowd_document_number = #{record.sowdDocumentNumber,jdbcType=REAL},
@@ -420,7 +420,7 @@
       sowd_remark = #{record.sowdRemark,jdbcType=VARCHAR},
       sowd_price_include_tax = #{record.sowdPriceIncludeTax,jdbcType=VARCHAR},
       sowd_single_status = #{record.sowdSingleStatus,jdbcType=INTEGER},
-      sowd_document_date = #{record.sowdDocumentDate,jdbcType=DATE},
+      sowd_fold_the_number = #{record.sowdFoldTheNumber,jdbcType=REAL},
       sowd_document_number = #{record.sowdDocumentNumber,jdbcType=REAL},
       sowd_price = #{record.sowdPrice,jdbcType=REAL},
       sowd_money = #{record.sowdMoney,jdbcType=REAL},
@@ -465,8 +465,8 @@
       <if test="sowdSingleStatus != null" >
         sowd_single_status = #{sowdSingleStatus,jdbcType=INTEGER},
       </if>
-      <if test="sowdDocumentDate != null" >
-        sowd_document_date = #{sowdDocumentDate,jdbcType=DATE},
+      <if test="sowdFoldTheNumber != null" >
+        sowd_fold_the_number = #{sowdFoldTheNumber,jdbcType=REAL},
       </if>
       <if test="sowdDocumentNumber != null" >
         sowd_document_number = #{sowdDocumentNumber,jdbcType=REAL},
@@ -536,7 +536,7 @@
       sowd_remark = #{sowdRemark,jdbcType=VARCHAR},
       sowd_price_include_tax = #{sowdPriceIncludeTax,jdbcType=VARCHAR},
       sowd_single_status = #{sowdSingleStatus,jdbcType=INTEGER},
-      sowd_document_date = #{sowdDocumentDate,jdbcType=DATE},
+      sowd_fold_the_number = #{sowdFoldTheNumber,jdbcType=REAL},
       sowd_document_number = #{sowdDocumentNumber,jdbcType=REAL},
       sowd_price = #{sowdPrice,jdbcType=REAL},
       sowd_money = #{sowdMoney,jdbcType=REAL},

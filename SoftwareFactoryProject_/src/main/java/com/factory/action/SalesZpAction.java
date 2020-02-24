@@ -52,6 +52,15 @@ public class SalesZpAction {
 	}
 	
 	/**
+	 * 新增销售出库单
+	 */
+	@RequestMapping(value = "addchuku", method = RequestMethod.POST)
+	@ResponseBody
+	public int addchuku(@RequestBody SaleOutWarehouse s) {
+		return sBiz.addchuku(s);
+	}
+	
+	/**
 	 * 修改销售报价单
 	 */
 	@RequestMapping(value = "updatebaojia", method = RequestMethod.POST)
@@ -61,11 +70,29 @@ public class SalesZpAction {
 	}
 	
 	/**
+	 * 修改销售出库单
+	 */
+	@RequestMapping(value = "updatechuku", method = RequestMethod.POST)
+	@ResponseBody
+	public int updatechuku(@RequestBody SaleOutWarehouse s) {
+		return sBiz.updatechuku(s);
+	}
+	
+	/**
 	 * 删除销售报价单
 	 */
 	@RequestMapping(value = "deletebaojia", method = RequestMethod.POST)
 	@ResponseBody
 	public int deletebaojia(String sqId) {
 		return sBiz.deletebaojia(sqId);
+	}
+	
+	/**
+	 * 删除销售出库单
+	 */
+	@RequestMapping(value = "deletechuku", method = RequestMethod.POST)
+	@ResponseBody
+	public int deletechuku(String sqId) {
+		return sBiz.deletechuku(sqId);
 	}
 }
