@@ -4,63 +4,63 @@ import java.util.Date;
 import java.util.List;
 
 public class SaleOutWarehouse {
-    private String sowId;//单据号码
+    private String sowId;//主键id
 
-    private String customerId;//用户id
+    private String customerId;//用户名称
 
     private String sowAddress;//送货地址
 
-    private String sowtId;
+    private String sowtId;//销售出库类型
 
-    private String sowPriceIncludeTax;
+    private String sowPriceIncludeTax;//单价是否含税
 
-    private String warehouseId;
+    private String warehouseId;//仓库名称
 
-    private String sowCertificateNumber;
+    private String sowCertificateNumber;//凭证编码
 
-    private Date sowDocumentDate;
+    private Date sowDocumentDate;//单据日期
 
-    private String sowDocumentNumber;
+    private String sowDocumentNumber;//单据编号
 
-    private String currencyId;
+    private String currencyId;//币别名称
 
     private Float sowExchangeRate;//汇率默认值：1.0000
 
-    private String sowForeignTrade;
+    private String sowForeignTrade;//国外贸易：默认否
 
-    private Integer sowSunnum;
+    private Integer sowSunnum;//总数量
 
-    private Float sowSunmoney;
+    private Float sowSunmoney;//总金额
 
-    private Float sowTax;
+    private Float sowTax;//总税额
 
-    private Float sowIncludingTaxAmount;
+    private Float sowIncludingTaxAmount;//总含税金额
 
-    private String sowSaleszkgs;
+    private String sowSaleszkgs;//账款归属
 
-    private Date sowSalesdate;
+    private Date sowSalesdate;//收款日期
 
-    private String sowSalessktj;
+    private String sowSalessktj;//收款条件
 
-    private Integer sowSalesday;
+    private Integer sowSalesday;//收款天数
 
-    private Date sowSalesyue;
+    private Date sowSalesyue;//账款月份
 
-    private String sowBuyer;
+    private String sowBuyer;//采购入员
 
-    private String sowBelongsSection;
+    private String sowBelongsSection;//所属部门
 
-    private String sowBelongsProject;
+    private String sowBelongsProject;//【不使用】所属项目
 
-    private String sowForm;
+    private String sowForm;//【不使用】制单人员
 
-    private String sowCheckagainStaff;
+    private String sowCheckagainStaff;//【不使用】复核人员
 
-    private String sowProject;
+    private String sowProject;//所属项目
 
-    private String sowHeaderProvision;
+    private String sowHeaderProvision;//表头条文
 
-    private String sowEndClause;
+    private String sowEndClause;//表尾条文
 
     private String sowRemark;//备注
 

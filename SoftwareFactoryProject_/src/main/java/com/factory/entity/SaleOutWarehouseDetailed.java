@@ -1,55 +1,53 @@
 package com.factory.entity;
 
-import java.util.Date;
-
 public class SaleOutWarehouseDetailed {
-    private String sowdId;
+    private String sowdId;//id主键
 
-    private String sowId;
+    private String sowId;//连接主表id
 
-    private String matterId;
+    private String matterId;//物料编号
 
-    private String sowdEngname;
+    private String sowdEngname;//物料名称
 
-    private String sowdRemark;
+    private String sowdRemark;//规格型号
 
-    private String sowdPriceIncludeTax;
+    private String sowdPriceIncludeTax;//单位名称
 
-    private Integer sowdSingleStatus;
+    private Integer sowdSingleStatus;//数量
 
-    private Date sowdDocumentDate;//单据日期
+    private Float sowdFoldTheNumber;//折数
 
-    private Float sowdDocumentNumber;
+    private Float sowdDocumentNumber;//折扣前单价
 
-    private Float sowdPrice;
+    private Float sowdPrice;//单价
 
-    private Float sowdMoney;
+    private Float sowdMoney;//金额
 
-    private Float sowdTaxRate;
+    private Float sowdTaxRate;//税率
 
-    private Float sowdTaxAmount;
+    private Float sowdTaxAmount;//税额
 
-    private Float sowdIncludingTaxAmount;
+    private Float sowdIncludingTaxAmount;//含税金额
 
-    private String sowdBatchNumber;
+    private String sowdBatchNumber;//批号
 
-    private String sowdMaterialCombination;
+    private String sowdMaterialCombination;//物料组合
 
-    private String sowdIfgift;
+    private String sowdIfgift;//赠品
 
-    private String sowdInvoiceDetails;
+    private String sowdInvoiceDetails;//发票明细
 
-    private Integer sowdNomakeInvoiceNum;
+    private Integer sowdNomakeInvoiceNum;//未开票数量
 
-    private String sowdRemarks;//备注
+    private String sowdRemarks;//分录备注
 
-    private String sowdSourceOrder;
+    private String sowdSourceOrder;//来源单别
 
-    private String sowdSourceNo;
+    private String sowdSourceNo;//来源单号
 
-    private String sowdAuditing;
+    private String sowdAuditing;//制单人员
 
-    private String sowdYn;
+    private String sowdYn;//复核人员
 
     private String sowdCustom1;
 
@@ -113,12 +111,12 @@ public class SaleOutWarehouseDetailed {
         this.sowdSingleStatus = sowdSingleStatus;
     }
 
-    public Date getSowdDocumentDate() {
-        return sowdDocumentDate;
+    public Float getSowdFoldTheNumber() {
+        return sowdFoldTheNumber;
     }
 
-    public void setSowdDocumentDate(Date sowdDocumentDate) {
-        this.sowdDocumentDate = sowdDocumentDate;
+    public void setSowdFoldTheNumber(Float sowdFoldTheNumber) {
+        this.sowdFoldTheNumber = sowdFoldTheNumber;
     }
 
     public Float getSowdDocumentNumber() {

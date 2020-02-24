@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.factory.entity.Comdepartment;
 import com.factory.entity.SaleOutWarehouse;
+import com.factory.entity.SaleOutWarehouseDetailed;
 import com.factory.entity.SaleOutWarehouseDetailedExample;
 import com.factory.entity.SaleOutWarehouseExample;
 import com.factory.entity.SaleQuotation;
@@ -73,6 +74,15 @@ public class SalesZpBiz {
 		return 1;
 	}
 	
+	public int addchuku(SaleOutWarehouse s) {
+		sowh.insert(s);
+		for (SaleOutWarehouseDetailed a : s.getList()) {
+			a.setSowId(s.getSowId());
+			sowhd.insert(a);
+		}
+		return 1;
+	}
+	
 	public int updatebaojia(SaleQuotation s) {
 		sq.updateByPrimaryKey(s);
 		for (SaleQuotationDetails a : s.getList()) {
@@ -82,11 +92,28 @@ public class SalesZpBiz {
 		return 1;
 	}
 	
+	public int updatechuku(SaleOutWarehouse s) {
+		sowh.updateByPrimaryKey(s);
+		for (SaleOutWarehouseDetailed a : s.getList()) {
+			a.setSowId(s.getSowId());
+			sowhd.updateByPrimaryKey(a);
+		}
+		return 1;
+	}
+	
 	public int deletebaojia(String sqId) {
 		sq.deleteByPrimaryKey(sqId);
 		SaleQuotationDetailsExample example=new SaleQuotationDetailsExample();
 		example.createCriteria().andSqIdEqualTo(sqId);
 		sqd.deleteByExample(example);
+		return 1;
+	}
+	
+	public int deletechuku(String sqId) {
+		sowh.deleteByPrimaryKey(sqId);
+		SaleOutWarehouseDetailedExample example=new SaleOutWarehouseDetailedExample();
+		example.createCriteria().andSowIdEqualTo(sqId);
+		sowhd.deleteByExample(example);
 		return 1;
 	}
 }
