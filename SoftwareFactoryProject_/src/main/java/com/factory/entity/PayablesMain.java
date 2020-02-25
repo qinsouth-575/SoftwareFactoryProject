@@ -1,6 +1,9 @@
 package com.factory.entity;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class PayablesMain {
     private String payablesId;
@@ -10,8 +13,21 @@ public class PayablesMain {
     private String payablesSupplierName;
 
     private Integer scsId;
+    
+    //在主表中定义降表的集合  ---应付冲款单想秒的集合
+    private List<PayablesDetail> listPayablesDateil;
 
-    private Integer payablesSatName1;
+    
+
+	public List<PayablesDetail> getListPayablesDateil() {
+		return listPayablesDateil;
+	}
+
+	public void setListPayablesDateil(List<PayablesDetail> listPayablesDateil) {
+		this.listPayablesDateil = listPayablesDateil;
+	}
+
+	private Integer payablesSatName1;
 
     private Float payablesPrice1;
 
@@ -24,9 +40,10 @@ public class PayablesMain {
     private Float payablesPrice3;
 
     private Integer payablesZhekou;
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date payablesEndtime;
-
+    
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date payablesPayablestime;
 
     private String payablesCurrencyName;

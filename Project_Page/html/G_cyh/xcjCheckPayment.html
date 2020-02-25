@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>查看冲款单</title>
-		<link rel="stylesheet" href="../css/layui.css" />
+		<link rel="stylesheet" href="../../css/layui.css" />
 		<style>
 			#xcjCKPMsave{
 				display: none;
@@ -21,7 +21,8 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body >
+		<div id="cxt">
 		<div class="xcjshenhe">
 			<i class="layui-icon layui-icon-auz" style="font-size: 6.25rem; color: #1E9FFF;"></i>
 		</div>
@@ -226,8 +227,46 @@
 				<button type="button" class="layui-btn" id="xcjCKPMupbtn">修改</button>
 			</div>
 		</div>
-		<script src="../layui.all.js"></script>
-		<script src="../js/jquery.min.js"></script>
+		</div>
+		<script src="../../layui.all.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/vue.js"></script>
+		<script>
+			var vue=new Vue({
+				el:"#cxt",
+				data:{
+					page:{}
+				},
+				methods:{
+					//获取id
+					getValue:function(name){
+						var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+						var r = window.location.search.substr(1).match(reg);
+						if(r!=null)
+						return unescape(r[2]); 
+						return null;
+						}
+				},created:function(){
+					var id =this.getValue("id");
+					alert(id)
+					$.ajax({
+						type:"get",
+						url:"http://localhost:8080/SoftwareFactoryProject_/CPayMain/queryDetail",
+						data:{
+							payablesid:id
+						},
+						success:function(res){
+							console.log(res);
+							vue.page=res;
+						}
+					});
+				}
+			})
+			
+		</script>
+		<script>
+			
+		</script>
 		<script>
 			var xcjcjpaymentlaydate = layui.laydate;
 			//执行一个laydate实例
