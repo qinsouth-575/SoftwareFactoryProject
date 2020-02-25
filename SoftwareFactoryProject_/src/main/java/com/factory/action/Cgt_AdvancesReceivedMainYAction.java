@@ -51,6 +51,13 @@ public class Cgt_AdvancesReceivedMainYAction {
 	@GetMapping("/gt_update_Auditstatus")
 	@ResponseBody
 	public int gt_update_Auditstatus(String priabillId) {
-		return 
+		return army.gt_update_Auditstatus(priabillId);
+	}
+	
+	//6.反审核
+	@GetMapping("/gt_update_Auditstatus2")
+	@ResponseBody
+	public int gt_update_Auditstatus2(String priabillId) {
+		return army.gt_update_Auditstatus2(priabillId);
 	}
 }

@@ -55,4 +55,12 @@ public class Cgt_AdvancesReceivedMainYBiz {
 		//根据单据号码后删除预收款主表数据
 		return dao.gt_del_my(priabillId);
 	}
+	
+	public int gt_update_Auditstatus(String priabillId) {
+		return dao.gt_update_Auditstatus(priabillId);
+	}
+	
+	public int gt_update_Auditstatus2(String priabillId) {
+		return dao.gt_update_Auditstatus2(priabillId);
+	}
 }
