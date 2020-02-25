@@ -19,7 +19,7 @@ public class CommonIntercepter implements HandlerInterceptor{
      */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		log.debug("CommonIntercepter -    preHandle    - 当前拦截地址为：" + request.getRequestURI());
+		log.debug("CommonIntercepter -	1.preHandle    - 当前拦截地址为：" + request.getRequestURI());
 		//允许跨域,不能放在postHandle内
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		
@@ -39,7 +39,7 @@ public class CommonIntercepter implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
-		log.debug("CommonIntercepter -    postHandle   - 当前拦截地址为：" + request.getRequestURI());
+		log.debug("CommonIntercepter -	2.postHandle   - 当前拦截地址为：" + request.getRequestURI());
 		
 		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 	}
@@ -54,7 +54,7 @@ public class CommonIntercepter implements HandlerInterceptor{
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		// TODO Auto-generated method stub
-		log.debug("CommonIntercepter - afterCompletion - 当前拦截地址为：" + request.getRequestURI());
+		log.debug("CommonIntercepter - 	3.afterCompletion - 当前拦截地址为：" + request.getRequestURI());
 		
 		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 	}
