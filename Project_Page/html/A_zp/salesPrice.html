@@ -79,12 +79,13 @@
 					</div><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3">单价是否含税</span>
-						<select name="" style="width: 163px;height: 25px;" class="layui-col-md-offset1" disabled="disabled">
-							<option value=""></option>
+						<select id="sqTax" name="" style="width: 163px;height: 25px;" class="layui-col-md-offset1" disabled="disabled">
+							<option id="sqTax1" value="0">未税</option>
+							<option id="sqTax2" value="1">含税</option>
 						</select>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" id="sqDocumentTime">汇率</span> <input type="text" class="layui-col-md-offset1" readonly="readonly" />
+						<span class="layui-col-md2">汇率</span> <input id="sqExchangeRate" type="text" class="layui-col-md-offset1" readonly="readonly" />
 					</div><br /><br />
 
 					<div class="layui-tab layui-col-md10 layui-col-md-offset2">
@@ -95,9 +96,9 @@
 						</ul>
 						<div class="layui-tab-content layui-col-md10 layui-col-md-offset2">
 							<div class="layui-tab-item layui-show layui-tab-content " style="border: 1px solid; overflow-x: scroll; overflow-y: scroll;">
-								<table class="layui-table" readonly="readonly" height="500">
+								<table class="layui-table" readonly="readonly">
 
-									<thead>
+									<thead onclick="a()">
 										<tr>
 											<th style="white-space: nowrap;">(栏号)</th>
 											<th style="white-space: nowrap;">物料编号</th>
@@ -109,6 +110,7 @@
 											<th style="white-space: nowrap;">折数(%)</th>
 											<th style="white-space: nowrap;">单价</th>
 											<th style="white-space: nowrap;">金额</th>
+											<th style="white-space: nowrap;">税率(%)</th>
 											<th style="white-space: nowrap;">税额(%)</th>
 											<th style="white-space: nowrap;">(含税金额)</th>
 											<th style="white-space: nowrap;">赠品</th>
@@ -123,7 +125,7 @@
 							<div class="layui-tab-item layui-col-md12" style="border: 1px solid;">
 
 								<div class="layui-col-md12">
-									<span class="layui-col-md2" style="margin-left: 25px;">备注</span><textarea style="margin-left: 27px;" readonly="readonly" rows="10" cols="81"></textarea>
+									<span class="layui-col-md2" style="margin-left: 25px;">备注</span><textarea id="sqRemark" style="margin-left: 27px;" readonly="readonly" rows="10" cols="81"></textarea>
 								</div>
 							</div>
 							<div class="layui-tab-item layui-col-md12" style="border: 1px solid gray;">
@@ -146,19 +148,19 @@
 						</div>
 					</div>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3">业务人员</span> <input type="text" class="layui-col-md-offset1 " readonly="readonly" />
+						<span class="layui-col-md3">业务人员</span> <input id="staffName" type="text" class="layui-col-md-offset1 " readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2">制单人员</span><input type="text" class="layui-col-md-offset1 " readonly="readonly" />
+						<span class="layui-col-md2">制单人员</span><input id="sqAuditing" type="text" class="layui-col-md-offset1 " readonly="readonly" />
 					</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<div class="layui-col-md5 layui-col-md-offset2" style="padding: 10px 0px 0px 0px;">
-						<span class="layui-col-md3">所属部门</span> <input type="text" class="layui-col-md-offset1 " readonly="readonly" />
+						<span class="layui-col-md3">所属部门</span> <input id="departName" type="text" class="layui-col-md-offset1 " readonly="readonly" />
 					</div>
 					<div class="layui-col-md5" style="padding: 10px 0px 0px 0px;">
-						<span class="layui-col-md2">复核人员</span> <input type="text" class="layui-col-md-offset1" readonly="readonly" />
+						<span class="layui-col-md2">复核人员</span> <input id="sqYn" type="text" class="layui-col-md-offset1" readonly="readonly" />
 					</div><br/><br/>
 
-					<div class="layui-col-md12" style="padding: 20px 0px 0px 0px;">
+					<div  class="layui-col-md12" style="padding: 20px 0px 0px 0px;">
 						<select style="width: 100px;height: 25px; background: #1E9FFF;" class="layui-col-md2 layui-col-md-offset2 " disabled="disabled">
 							<option>转单</option>
 						</select>
@@ -173,21 +175,11 @@
 			</div>
 		</div>
 		<script>
-			var pageNum=1;
-			var pageSize=1;
-			jz()
-			function jz(){
-				/*axios({
-              		url:"http://localhost:8080/SoftwareFactoryProject_/zp/querybaojia",
-             		params:{
-                  		pageNum:pageNum,
-                  		pageSize:pageSize
-              		}
-	          	}).then(response=>{
-	              		console.log(response);
-	          	}).catch(error=>{
-	
-	          	});*/
+			var f=0
+			var flag=false
+			var obj={}
+			jz(1,1)
+			function jz(pageNum,pageSize){
 				$.ajax({
 					url:"//localhost:8080/SoftwareFactoryProject_/zp/querybaojia",
 					data:{
@@ -195,25 +187,328 @@
                   		pageSize:pageSize
 					},
 					dataType: "json",
-					success:function(r){
-						console.log(r)
+					success:function(r){ 
+						obj=r
 						$(r.list).each(function(i,obj){
-							console.log(obj)
-							$("#sqId").val(obj.sqId)
-							$("#sqDocumentTime").val(obj.sqDocumentTime)
-							$("#sqEffectiveTime").val(obj.sqEffectiveTime)
 							$("#customerName").val(obj.customerName)
-							
-							
-							
-							
-							$("#currencyName").val(obj.currencyName)
+							$("#sqDocumentTime").val(obj.sqDocumentTime)
 							$("#sqDeliveryAddress").val(obj.sqDeliveryAddress)
+							$("#sqId").val(obj.sqId)
+							$("#sqEffectiveTime").val(obj.sqEffectiveTime)
+							$("#currencyName").val(obj.currencyName)
+							if(obj.sqTax>0){
+								$("#sqTax1").attr("selected","selected")
+							}else{
+								$("#sqTax2").attr("selected","selected")
+							}
+							$("#sqExchangeRate").val(obj.sqExchangeRate)
+							$("#staffName").val(obj.staffName)
+							$("#sqAuditing").val(obj.sqAuditing)
+							$("#departName").val(obj.departName)
+							$("#sqYn").val(obj.sqYn)
+							$("#sqRemark").val(obj.sqRemark)
+							$("tbody").html("")
+							$(obj.list).each(function(i2,obj2){
+								$("tbody").append(""+
+									"<tr>"+
+									"<td><input name='readonly' id='sqdProdid' value='"+obj2.sqdProdid+"'></td>"+
+									"<td><input id='sqdSerno' value='"+obj2.sqdSerno+"'></td>"+
+									"<td><input id='sqdProdname' value='"+obj2.sqdProdname+"'></td>"+
+									"<td><input id='sqdProdsize' value='"+obj2.sqdProdsize+"'></td>"+
+									"<td><input id='sqdUnitname' value='"+obj2.sqdUnitname+"'></td>"+
+									"<td><input id='sqdSquantity' value='"+obj2.sqdSquantity+"'></td>"+
+									"<td><input id='sqdZkqprice' value='"+obj2.sqdZkqprice+"'></td>"+
+									"<td><input id='sqdDiscount' value='"+obj2.sqdDiscount+"'></td>"+
+									"<td><input id='sqdUnitprice' value='"+obj2.sqdUnitprice+"'></td>"+
+									"<td><input id='sqdPrice' value='"+obj2.sqdPrice+"'></td>"+
+									"<td><input id='sqdTaxrate' value='"+obj2.sqdTaxrate+"'></td>"+
+									"<td><input id='sqdTaxlimit' value='"+obj2.sqdTaxlimit+"'></td>"+
+									"<td><input id='sqdTaxinclusiveprice' value='"+obj2.sqdTaxinclusiveprice+"'></td>"+
+									"<td><input id='sqdComplimentart' value='"+obj2.sqdComplimentart+"'></td>"+
+									"<td><input id='sqdItemremark' value='"+obj2.sqdItemremark+"'></td>"+
+									"</tr>")
+							})
 						})
-						
+						$("table tbody tr td input").attr("readonly","readonly");
 					}
 				});
 			}
+			
+			
+			var state = "";
+			
+			function subpageTriggerEvent(incident){
+				//alert("部门设定页 - 触发事件：" + incident);
+				
+				if(incident == "goFirstPage"){
+					//第一笔
+					first()
+				} else if(incident == "goPrePage"){
+					//上一笔
+					left()
+				} else if(incident == "goNextPage"){
+					//下一笔
+					right()
+				} else if(incident == "goLastPage"){
+					//后一笔
+					last()
+				} else if(incident == "goInsert"){
+					//新增
+					toinsert()
+				} else if(incident == "save"){
+					//保存
+					baoc()
+				} else if(incident == "cancel"){
+					//放弃
+				} else if(incident == "goUpdate"){
+					//修改
+					toupdate()
+				} else if(incident == "delete"){
+					//删除
+					todelete()
+				} else if(incident == "refresh"){
+					//刷新
+					jz(1,1)
+				}
+				
+				state = incident;
+			}
+			function first(){
+				if(obj.pageNum-1==0){
+					alert("已经是首页了！")
+				}else{
+					jz(1,1);
+				}
+			}
+			function left(){
+				if(obj.pageNum-1==0){
+					alert("这是第一页！")
+				}else{
+					jz(obj.pageNum-1,1);
+				}
+			}
+			function right(){
+				if(obj.pageNum+1<=obj.pages){
+					jz(obj.pageNum+1,1)
+				}else{
+					alert("这是最后一页！")
+				}
+			}
+			function last(){
+				if(obj.pageNum+1<=obj.pages){
+					jz(obj.pages,1)
+				}else{
+					alert("已经是尾页了！")
+				}
+			}
+			function toinsert(){
+				f=1
+				$("[readonly='readonly']").each(function(i,obj){
+					$(obj).removeAttr("readonly")
+				})
+				$("#sqTax").removeAttr("disabled")
+				flag=true
+				$("#customerName").val("")
+				$("#sqDocumentTime").val("")
+				$("#sqDeliveryAddress").val("")
+				$("#sqId").val("")
+				$("#sqEffectiveTime").val("")
+				$("#currencyName").val("")
+				$("#sqTax").val("")
+				$("#sqExchangeRate").val("")
+				$("#staffName").val("")
+				$("#sqAuditing").val("")
+				$("#departName").val("")
+				$("#sqYn").val("")
+				$("tbody").html("")
+				a()
+				//定位当前时间
+				layui.use('laydate',function(){
+					var laydate=layui.laydate;
+					laydate.render({
+						elem:'#sqDocumentTime',
+						value:new Date(),
+						done:function(value,date){}
+					})
+				})
+				//自动编写单据号码
+				//未完成
+				
+				
+				
+				
+			}
+			function insert(){
+				var customerName=$("#customerName").val()
+				var sqDocumentTime=$("#sqDocumentTime").val()
+				var sqDeliveryAddress=$("#sqDeliveryAddress").val()
+				var sqId=$("#sqId").val()
+				var sqEffectiveTime=$("#sqEffectiveTime").val()
+				var currencyName=$("#currencyName").val()
+				var sqTax=$("#sqTax").val()
+				var sqExchangeRate=$("#sqExchangeRate").val()
+				var staffName=$("#staffName").val()
+				var sqAuditing=$("#sqAuditing").val()
+				var departName=$("#departName").val()
+				var sqYn=$("#sqYn").val()
+				
+				var list=[]
+				$("table tbody tr").each(function(i,obj){
+					var a={}
+					$("table tbody tr input").each(function(i2,obj2){
+						var attr=$(obj2).attr("id")
+						a[attr]=$(obj2).val()
+					})
+					list.push(a)
+				})
+				var data={
+                  		customerName:customerName,
+                  		sqDocumentTime:sqDocumentTime,
+                  		sqDeliveryAddress:sqDeliveryAddress,
+                  		sqId:sqId,
+                  		sqEffectiveTime:sqEffectiveTime,
+                  		currencyName:currencyName,
+                  		sqTax:sqTax,
+                  		sqExchangeRate:sqExchangeRate,
+                  		staffName:staffName,
+                  		sqAuditing:sqAuditing,
+                  		departName:departName,
+                  		sqYn:sqYn,
+                  		list:list
+              		}
+				console.log(data)
+				$.ajax({
+					type:"post",
+              		url:"http://localhost:8080/SoftwareFactoryProject_/zp/addbaojia",
+              		contentType:"application/json",
+					data:JSON.stringify(data),
+             		success:function(r){
+             			if(r>0){
+             				alert("新增成功！")
+             			}
+             		}
+	          	})
+			}
+			function toupdate(){
+				f=2
+				$("[readonly='readonly']").each(function(i,obj){
+					$(obj).removeAttr("readonly")
+				})
+				$("#sqId").attr("readonly","readonly")
+				$("#sqTax").removeAttr("disabled")
+				$("[name=readonly]").attr("readonly","readonly")
+				flag=true
+			}
+			function update(){
+				var customerName=$("#customerName").val()
+				var sqDocumentTime=$("#sqDocumentTime").val()
+				var sqDeliveryAddress=$("#sqDeliveryAddress").val()
+				var sqId=$("#sqId").val()
+				var sqEffectiveTime=$("#sqEffectiveTime").val()
+				var currencyName=$("#currencyName").val()
+				var sqTax=$("#sqTax").val()
+				var sqExchangeRate=$("#sqExchangeRate").val()
+				var staffName=$("#staffName").val()
+				var sqAuditing=$("#sqAuditing").val()
+				var departName=$("#departName").val()
+				var sqYn=$("#sqYn").val()
+				
+				var list=[]
+				$("table tbody tr").each(function(i,obj){
+					var a={}
+					$("table tbody tr input").each(function(i2,obj2){
+						var attr=$(obj2).attr("id")
+						a[attr]=$(obj2).val()
+					})
+					list.push(a)
+				})
+				var data={
+                  		customerName:customerName,
+                  		sqDocumentTime:sqDocumentTime,
+                  		sqDeliveryAddress:sqDeliveryAddress,
+                  		sqId:sqId,
+                  		sqEffectiveTime:sqEffectiveTime,
+                  		currencyName:currencyName,
+                  		sqTax:sqTax,
+                  		sqExchangeRate:sqExchangeRate,
+                  		staffName:staffName,
+                  		sqAuditing:sqAuditing,
+                  		departName:departName,
+                  		sqYn:sqYn,
+                  		list:list
+              		}
+				console.log(data)
+				$.ajax({
+					type:"post",
+              		url:"http://localhost:8080/SoftwareFactoryProject_/zp/updatebaojia",
+              		contentType:"application/json",
+					data:JSON.stringify(data),
+             		success:function(r){
+             			if(r>0){
+             				alert("修改成功！")
+             			}
+             		}
+	          	})
+			}
+			function baoc(){
+				if(f>1){
+					//修改
+					update()
+				}else{
+					//新增
+					insert()
+				}
+			}
+			function todelete(){
+				var flag=confirm("是否确认删除？")
+				if(flag){
+					$.ajax({
+					type:"post",
+              		url:"http://localhost:8080/SoftwareFactoryProject_/zp/deletebaojia",
+					data:{sqId:$("#sqId").val()},
+             		success:function(r){
+             			if(r>0){
+             				alert("删除成功！")
+             				jz();
+             			}
+             		}
+	          	})
+				}
+			}
+			function a(){
+				if(flag){
+					$("tbody").append(`
+						<tr>
+						<td><input id='sqdProdid'></td>
+						<td><input id='sqdSerno'></td>
+						<td><input id='sqdProdname'></td>
+						<td><input id='sqdProdsize'></td>
+						<td><input id='sqdUnitname'></td>
+						<td><input id='sqdSquantity'></td>
+						<td><input id='sqdZkqprice'></td>
+						<td><input id='sqdDiscount'></td>
+						<td><input id='sqdUnitprice'></td>
+						<td><input id='sqdPrice'></td>
+						<td><input id='sqdTaxrate'></td>
+						<td><input id='sqdTaxlimit'></td>
+						<td><input id='sqdTaxinclusiveprice'></td>
+						<td><input id='sqdComplimentart'></td>
+						<td><input id='sqdItemremark'></td>
+						</tr>
+					`)
+				}
+			}	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		</script>
 
 	</body>

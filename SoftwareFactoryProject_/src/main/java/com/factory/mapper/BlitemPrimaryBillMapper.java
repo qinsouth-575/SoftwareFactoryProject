@@ -2,6 +2,8 @@ package com.factory.mapper;
 
 import com.factory.entity.BlitemPrimaryBill;
 import com.factory.entity.BlitemPrimaryBillExample;
+import com.factory.entity.Hyw_BlitemPrimaryAndSchedule;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,4 +35,19 @@ public interface BlitemPrimaryBillMapper {
     int updateByPrimaryKeyWithBLOBs(BlitemPrimaryBill record);
 
     int updateByPrimaryKey(BlitemPrimaryBill record);
+    
+    //库存管理 -- 盘点单  主详新增
+    int Hyw_insert_blitem(Hyw_BlitemPrimaryAndSchedule biltem);
+    
+    //库存管理 -- 盘点单  主详删除
+    int Hyw_delete_blitem(String bpbid);
+    
+    //库存管理 -- 盘点单  主详修改
+    int Hyw_update_blitem(Hyw_BlitemPrimaryAndSchedule biltem);
+    
+    //库存管理 -- 盘点单  查询全部
+    List<Hyw_BlitemPrimaryAndSchedule> Hyw_select_blitem();
+    
+    //库存管理 -- 盘点单  按单号查询
+    Hyw_BlitemPrimaryAndSchedule Hyw_select_blitemByDpbid(String bpbid);
 }

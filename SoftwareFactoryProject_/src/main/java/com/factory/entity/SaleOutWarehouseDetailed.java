@@ -17,7 +17,7 @@ public class SaleOutWarehouseDetailed {
 
     private Integer sowdSingleStatus;
 
-    private Date sowdDocumentDate;
+    private Date sowdDocumentDate;//单据日期
 
     private Float sowdDocumentNumber;
 
@@ -41,7 +41,7 @@ public class SaleOutWarehouseDetailed {
 
     private Integer sowdNomakeInvoiceNum;
 
-    private String sowdRemarks;
+    private String sowdRemarks;//备注
 
     private String sowdSourceOrder;
 

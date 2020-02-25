@@ -1,55 +1,74 @@
 package com.factory.entity;
 
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class SaleQuotation {
-    private String sqId;
+    private String sqId;//单据号码
 
-    private Date sqDocumentTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date sqDocumentTime;//单据日期
 
-    private String currencyName;
+    private String currencyName;//币别
 
-    private Float sqExchangeRate;
+    private Float sqExchangeRate;//汇率默认值：1.0000
 
-    private String customerId;
+    private String customerId;//客户id
 
-    private String customerName;
+    private String customerName;//客户全称
 
-    private String sqDeliveryAddress;
+    private String sqDeliveryAddress;//送货地址
 
-    private Date sqEffectiveTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date sqEffectiveTime;//有效日期
 
-    private Integer sqTax;
+    private Integer sqTax;//单价是否含税
 
-    private String sqMonograph;
+    private String sqMonograph;//表头条文
 
-    private String sqReviewer;
+    private String sqReviewer;//表尾条文
 
-    private String sqWatchword;
+    private String sqWatchword;//自定栏一
 
-    private String sqTailclause;
+    private String sqTailclause;//自定栏二
 
-    private String sqRemark;
+    private String sqRemark;//备注
 
-    private Integer staffId;
+    private Integer staffId;//员工id
 
-    private String staffName;
+    private String staffName;//员工名称
 
-    private String teamId;
+    private String teamId;//部门id
 
-    private String departName;
+    private String departName;//部门名称
 
-    private String sqAuditing;
+    private String sqAuditing;//制单人员（当前登录者）
 
-    private String sqYn;
+    private String sqYn;//复核人员（当前登录者）
 
     private String sqCustom1;
 
     private String sqCustom2;
 
     private String sqCustom3;
+    
+    private List<SaleQuotationDetails> list;
+    
+    public List<SaleQuotationDetails> getList() {
+		return list;
+	}
 
-    public String getSqId() {
+	public void setList(List<SaleQuotationDetails> list) {
+		this.list = list;
+	}
+
+	public String getSqId() {
         return sqId;
     }
 
