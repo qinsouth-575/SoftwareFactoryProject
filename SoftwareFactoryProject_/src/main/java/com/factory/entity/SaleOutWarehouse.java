@@ -3,8 +3,12 @@ package com.factory.entity;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class SaleOutWarehouse {
-    private String sowId;//主键id
+    private String sowId;//单据编号
 
     private String customerId;//用户名称
 
@@ -18,9 +22,11 @@ public class SaleOutWarehouse {
 
     private String sowCertificateNumber;//凭证编码
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date sowDocumentDate;//单据日期
 
-    private String sowDocumentNumber;//单据编号
+    private String sowDocumentNumber;//【不使用】
 
     private String currencyId;//币别名称
 
@@ -38,12 +44,16 @@ public class SaleOutWarehouse {
 
     private String sowSaleszkgs;//账款归属
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date sowSalesdate;//收款日期
 
     private String sowSalessktj;//收款条件
 
     private Integer sowSalesday;//收款天数
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date sowSalesyue;//账款月份
 
     private String sowBuyer;//采购入员

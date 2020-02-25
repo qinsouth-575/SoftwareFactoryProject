@@ -260,6 +260,7 @@
 					baoc()
 				} else if(incident == "cancel"){
 					//放弃
+					fangqi()
 				} else if(incident == "goUpdate"){
 					//修改
 					toupdate()
@@ -385,6 +386,9 @@
              		success:function(r){
              			if(r>0){
              				alert("新增成功！")
+             				jz(1,1)
+             				var a=parseInt(obj.pages)+1
+             				jz(a,1)
              			}
              		}
 	          	})
@@ -459,6 +463,34 @@
 					insert()
 				}
 			}
+			function fangqi(){
+			$("[readonly='false']").each(function(i,obj){
+				$(obj).attr("readonly","readonly")
+			})
+			$("#sqTax").attr("disabled","disabled")
+			$("#customerId").val("")
+			$("#sowDocumentDate").val("")
+			$("#sowAddress").val("")
+			$("#sowId").val("")
+			$("#sowtId").val("")
+			$("#currencyId").val("")
+			$("#sowPriceIncludeTax").val("")
+			$("#sowExchangeRate").val("")
+			$("#warehouseId").val("")
+			$("#sowForeignTrade").val("")
+			$("#sowCertificateNumber").val("")
+			$("#sowSaleszkgs").val("")
+			$("#sowSalesdate").val("")
+			$("#sowSalessktj").val("")
+			$("#sowSalesday").val("")
+			$("#sowRemark").val("")
+			$("#sowBuyer").val("")
+			$("#sowAuditing").val("")
+			$("#sowBelongsSection").val("")
+			$("#sowYn").val("")
+			$("#sowProject").val("")
+			$("tbody").html("")
+		}
 			function todelete(){
 				var flag=confirm("是否确认删除？")
 				if(flag){
@@ -469,7 +501,9 @@
              		success:function(r){
              			if(r>0){
              				alert("删除成功！")
-             				jz();
+             				jz(1,1)
+             				var a=parseInt(obj.pages)-1
+             				jz(a,1)
              			}
              		}
 	          	})

@@ -109,10 +109,10 @@ public class SalesZpBiz {
 		return 1;
 	}
 	
-	public int deletechuku(String sqId) {
-		sowh.deleteByPrimaryKey(sqId);
+	public int deletechuku(String sowId) {
+		sowh.deleteByPrimaryKey(sowId);
 		SaleOutWarehouseDetailedExample example=new SaleOutWarehouseDetailedExample();
-		example.createCriteria().andSowIdEqualTo(sqId);
+		example.createCriteria().andSowIdEqualTo(sowId);
 		sowhd.deleteByExample(example);
 		return 1;
 	}

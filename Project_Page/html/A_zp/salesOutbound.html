@@ -77,7 +77,7 @@
 						<span class="layui-col-md3" style="margin-top: 15px;">送货地址</span> <input id="sowAddress" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">单据号码</span> <input id="sowDocumentNumber" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md2" style="margin-top: 15px;">单据号码</span> <input id="sowId" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3" style="margin-top: 15px;">销售出库类型</span> <input id="sowtId" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
@@ -154,7 +154,7 @@
 									<span class="layui-col-md3" style="margin-top: 15px;">账款归属</span> <input id="sowSaleszkgs" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
 								</div>
 								<div class="layui-col-md5">
-									<span class="layui-col-md3" style="margin-top: 15px;">收款日期</span> <input id="sowSalesdate" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+									<span class="layui-col-md3" style="margin-top: 15px;">收款日期</span> <input id="sowSalesdate" type="date" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" /> 
 								</div><br /><br /><br />
 								<div class="layui-col-md5">
 									<span class="layui-col-md3" style="margin-top: 15px;">收款条件</span> 
@@ -167,7 +167,7 @@
 									<input id="sowSalesday" type="text" style="width: 89px;" class="layui-col-md1 layui-input" readonly="readonly" /><span style="position: relative;top: 15px;">天</span>
 								</div>
 								<div class="layui-col-md5">
-									<span class="layui-col-md3" style="margin-top: 15px;">账款月份</span> <input id="sowSalesyue" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+									<span class="layui-col-md3" style="margin-top: 15px;">账款月份</span> <input id="sowSalesyue" type="date" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
 								</div>
 							</div>
 							<div class="layui-tab-item layui-col-md12">
@@ -239,42 +239,52 @@
 					console.log(r)
 					obj=r
 					$(r.list).each(function(i,obj){
-						$("#customerName").val(obj.customerName)
-						$("#sqDocumentTime").val(obj.sqDocumentTime)
-						$("#sqDeliveryAddress").val(obj.sqDeliveryAddress)
-						$("#sqId").val(obj.sqId)
-						$("#sqEffectiveTime").val(obj.sqEffectiveTime)
-						$("#currencyName").val(obj.currencyName)
-						if(obj.sqTax>0){
-							$("#sqTax1").attr("selected","selected")
-						}else{
-							$("#sqTax2").attr("selected","selected")
-						}
-						$("#sqExchangeRate").val(obj.sqExchangeRate)
-						$("#staffName").val(obj.staffName)
-						$("#sqAuditing").val(obj.sqAuditing)
-						$("#departName").val(obj.departName)
-						$("#sqYn").val(obj.sqYn)
-						$("#sqRemark").val(obj.sqRemark)
+						$("#customerId").val(obj.customerId)
+						$("#sowDocumentDate").val(obj.sowDocumentDate)
+						$("#sowAddress").val(obj.sowAddress)
+						$("#sowId").val(obj.sowId)
+						$("#sowtId").val(obj.sowtId)
+						$("#currencyId").val(obj.currencyId)
+						$("#sowPriceIncludeTax").val(obj.sowPriceIncludeTax)
+						$("#sowExchangeRate").val(obj.sowExchangeRate)
+						$("#warehouseId").val(obj.warehouseId)
+						$("#sowForeignTrade").val(obj.sowForeignTrade)
+						$("#sowCertificateNumber").val(obj.sowCertificateNumber)
+						$("#sowSaleszkgs").val(obj.sowSaleszkgs)
+						$("#sowSalesdate").val(obj.sowSalesdate)
+						$("#sowSalessktj").val(obj.sowSalessktj)
+						$("#sowSalesday").val(obj.sowSalesday)
+						$("#sowRemark").val(obj.sowRemark)
+						$("#sowBuyer").val(obj.sowBuyer)
+						$("#sowAuditing").val(obj.sowAuditing)
+						$("#sowBelongsSection").val(obj.sowBelongsSection)
+						$("#sowYn").val(obj.sowYn)
+						$("#sowProject").val(obj.sowProject)
 						$("tbody").html("")
 						$(obj.list).each(function(i2,obj2){
 							$("tbody").append(""+
 								"<tr>"+
-								"<td><input name='readonly' id='sqdProdid' value='"+obj2.sqdProdid+"'></td>"+
-								"<td><input id='sqdSerno' value='"+obj2.sqdSerno+"'></td>"+
-								"<td><input id='sqdProdname' value='"+obj2.sqdProdname+"'></td>"+
-								"<td><input id='sqdProdsize' value='"+obj2.sqdProdsize+"'></td>"+
-								"<td><input id='sqdUnitname' value='"+obj2.sqdUnitname+"'></td>"+
-								"<td><input id='sqdSquantity' value='"+obj2.sqdSquantity+"'></td>"+
-								"<td><input id='sqdZkqprice' value='"+obj2.sqdZkqprice+"'></td>"+
-								"<td><input id='sqdDiscount' value='"+obj2.sqdDiscount+"'></td>"+
-								"<td><input id='sqdUnitprice' value='"+obj2.sqdUnitprice+"'></td>"+
-								"<td><input id='sqdPrice' value='"+obj2.sqdPrice+"'></td>"+
-								"<td><input id='sqdTaxrate' value='"+obj2.sqdTaxrate+"'></td>"+
-								"<td><input id='sqdTaxlimit' value='"+obj2.sqdTaxlimit+"'></td>"+
-								"<td><input id='sqdTaxinclusiveprice' value='"+obj2.sqdTaxinclusiveprice+"'></td>"+
-								"<td><input id='sqdComplimentart' value='"+obj2.sqdComplimentart+"'></td>"+
-								"<td><input id='sqdItemremark' value='"+obj2.sqdItemremark+"'></td>"+
+								"<td><input name='readonly' id='sowdId' value='"+obj2.sowdId+"'></td>"+
+								"<td><input id='matterId' value='"+obj2.matterId+"'></td>"+
+								"<td><input id='sowdEngname' value='"+obj2.sowdEngname+"'></td>"+
+								"<td><input id='sowdRemark' value='"+obj2.sowdRemark+"'></td>"+
+								"<td><input id='sowdPriceIncludeTax' value='"+obj2.sowdPriceIncludeTax+"'></td>"+
+								"<td><input id='sowdSingleStatus' value='"+obj2.sowdSingleStatus+"'></td>"+
+								"<td><input id='sowdDocumentNumber' value='"+obj2.sowdDocumentNumber+"'></td>"+
+								"<td><input id='sowdFoldTheNumber' value='"+obj2.sowdFoldTheNumber+"'></td>"+
+								"<td><input id='sowdPrice' value='"+obj2.sowdPrice+"'></td>"+
+								"<td><input id='sowdMoney' value='"+obj2.sowdMoney+"'></td>"+
+								"<td><input id='sowdTaxRate' value='"+obj2.sowdTaxRate+"'></td>"+
+								"<td><input id='sowdTaxAmount' value='"+obj2.sowdTaxAmount+"'></td>"+
+								"<td><input id='sowdIncludingTaxAmount' value='"+obj2.sowdIncludingTaxAmount+"'></td>"+
+								"<td><input id='sowdBatchNumber' value='"+obj2.sowdBatchNumber+"'></td>"+
+								"<td><input id='sowdMaterialCombination' value='"+obj2.sowdMaterialCombination+"'></td>"+
+								"<td><input id='sowdIfgift' value='"+obj2.sowdIfgift+"'></td>"+
+								"<td><input id='sowdInvoiceDetails' value='"+obj2.sowdInvoiceDetails+"'></td>"+
+								"<td><input id='sowdNomakeInvoiceNum' value='"+obj2.sowdNomakeInvoiceNum+"'></td>"+
+								"<td><input id='sowdRemarks' value='"+obj2.sowdRemarks+"'></td>"+
+								"<td><input id='sowdSourceOrder' value='"+obj2.sowdSourceOrder+"'></td>"+
+								"<td><input id='sowdSourceNo' value='"+obj2.sowdSourceNo+"'></td>"+
 								"</tr>")
 						})
 					})
@@ -309,6 +319,7 @@
 				baoc()
 			} else if(incident == "cancel"){
 				//放弃
+				fangqi()
 			} else if(incident == "goUpdate"){
 				//修改
 				toupdate()
@@ -361,7 +372,7 @@
 			$("#customerId").val("")
 			$("#sowDocumentDate").val("")
 			$("#sowAddress").val("")
-			$("#sowDocumentNumber").val("")
+			$("#sowId").val("")
 			$("#sowtId").val("")
 			$("#currencyId").val("")
 			$("#sowPriceIncludeTax").val("")
@@ -401,7 +412,7 @@
 			var customerId=$("#customerId").val()
 			var sowDocumentDate=$("#sowDocumentDate").val()
 			var sowAddress=$("#sowAddress").val()
-			var sowDocumentNumber=$("#sowDocumentNumber").val()
+			var sowId=$("#sowId").val()
 			var sowtId=$("#sowtId").val()
 			var currencyId=$("#currencyId").val()
 			var sowPriceIncludeTax=$("#sowPriceIncludeTax").val()
@@ -434,7 +445,7 @@
               		customerId:customerId,
               		sowDocumentDate:sowDocumentDate,
               		sowAddress:sowAddress,
-              		sowDocumentNumber:sowDocumentNumber,
+              		sowId:sowId,
               		sowtId:sowtId,
               		currencyId:currencyId,
               		sowPriceIncludeTax:sowPriceIncludeTax,
@@ -463,6 +474,9 @@
          		success:function(r){
          			if(r>0){
          				alert("新增成功！")
+						jz(1,1)
+             			var a=parseInt(obj.pages)+1
+             			jz(a,1)
          			}
          		}
           	})
@@ -472,8 +486,9 @@
 			$("[readonly='readonly']").each(function(i,obj){
 				$(obj).removeAttr("readonly")
 			})
-			$("#sqId").attr("readonly","readonly")
-			$("#sqTax").removeAttr("disabled")
+			$("#sowId").attr("readonly","readonly")
+			$("#sowPriceIncludeTax").removeAttr("disabled")
+			$("#sowSalessktj").removeAttr("disabled")
 			$("[name=readonly]").attr("readonly","readonly")
 			flag=true
 		}
@@ -481,7 +496,7 @@
 			var customerId=$("#customerId").val()
 			var sowDocumentDate=$("#sowDocumentDate").val()
 			var sowAddress=$("#sowAddress").val()
-			var sowDocumentNumber=$("#sowDocumentNumber").val()
+			var sowId=$("#sowId").val()
 			var sowtId=$("#sowtId").val()
 			var currencyId=$("#currencyId").val()
 			var sowPriceIncludeTax=$("#sowPriceIncludeTax").val()
@@ -514,7 +529,7 @@
               		customerId:customerId,
               		sowDocumentDate:sowDocumentDate,
               		sowAddress:sowAddress,
-              		sowDocumentNumber:sowDocumentNumber,
+              		sowId:sowId,
               		sowtId:sowtId,
               		currencyId:currencyId,
               		sowPriceIncludeTax:sowPriceIncludeTax,
@@ -556,17 +571,48 @@
 				insert()
 			}
 		}
+		function fangqi(){
+			$("[readonly='false']").each(function(i,obj){
+				$(obj).attr("readonly","readonly")
+			})
+			$("#sowPriceIncludeTax").attr("disabled","disabled")
+			$("#sowSalessktj").attr("disabled","disabled")
+			$("#customerId").val("")
+			$("#sowDocumentDate").val("")
+			$("#sowAddress").val("")
+			$("#sowId").val("")
+			$("#sowtId").val("")
+			$("#currencyId").val("")
+			$("#sowPriceIncludeTax").val("")
+			$("#sowExchangeRate").val("")
+			$("#warehouseId").val("")
+			$("#sowForeignTrade").val("")
+			$("#sowCertificateNumber").val("")
+			$("#sowSaleszkgs").val("")
+			$("#sowSalesdate").val("")
+			$("#sowSalessktj").val("")
+			$("#sowSalesday").val("")
+			$("#sowRemark").val("")
+			$("#sowBuyer").val("")
+			$("#sowAuditing").val("")
+			$("#sowBelongsSection").val("")
+			$("#sowYn").val("")
+			$("#sowProject").val("")
+			$("tbody").html("")
+		}
 		function todelete(){
 			var flag=confirm("是否确认删除？")
 			if(flag){
 				$.ajax({
 				type:"post",
           		url:"http://localhost:8080/SoftwareFactoryProject_/zp/deletechuku",
-				data:{sqId:$("#sowDocumentNumber").val()},
+				data:{sowId:$("#sowId").val()},
          		success:function(r){
          			if(r>0){
          				alert("删除成功！")
          				jz(1,1)
+             			var a=parseInt(obj.pages)-1
+             			jz(a,1)
          			}
          		}
           	})
@@ -576,9 +622,9 @@
 			if(flag){
 				$("tbody").append(`
 					<tr>
+					<td><input id='sowdId'></td>
 					<td><input id='matterId'></td>
 					<td><input id='sowdEngname'></td>
-					<td><input id='sqdProdname'></td>
 					<td><input id='sowdRemark'></td>
 					<td><input id='sowdPriceIncludeTax'></td>
 					<td><input id='sowdSingleStatus'></td>

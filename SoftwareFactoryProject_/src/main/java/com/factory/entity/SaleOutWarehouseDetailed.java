@@ -1,7 +1,7 @@
 package com.factory.entity;
 
 public class SaleOutWarehouseDetailed {
-    private String sowdId;//id主键
+    private String sowdId;//栏号
 
     private String sowId;//连接主表id
 

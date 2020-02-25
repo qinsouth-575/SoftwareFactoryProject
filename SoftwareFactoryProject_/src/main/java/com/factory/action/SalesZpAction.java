@@ -92,7 +92,7 @@ public class SalesZpAction {
 	 */
 	@RequestMapping(value = "deletechuku", method = RequestMethod.POST)
 	@ResponseBody
-	public int deletechuku(String sqId) {
-		return sBiz.deletechuku(sqId);
+	public int deletechuku(String sowId) {
+		return sBiz.deletechuku(sowId);
 	}
 }
