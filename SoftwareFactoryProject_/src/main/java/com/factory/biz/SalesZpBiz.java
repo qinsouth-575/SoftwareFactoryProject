@@ -41,6 +41,14 @@ public class SalesZpBiz {
 	@Autowired
 	private CustomerMapper c;
 
+	public int shbaojia(String sqId) {
+		SaleQuotation s= sq.selectByPrimaryKey(sqId);
+		//拿到当前审核人 User
+		//
+		//s.set
+		return sq.updateByPrimaryKey(s);
+	}
+	
 	public PageInfo<SaleQuotation> querybaojia(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<SaleQuotation> list = sq.selectByExample(null);
