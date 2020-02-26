@@ -4,9 +4,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-		<link rel="stylesheet" href="../../../css/font.css">
-		<link rel="stylesheet" href="../../../css/xadmin.css">
+		<link rel="stylesheet" href="../../css/font.css">
+		<link rel="stylesheet" href="../../css/xadmin.css">
 	</head>
 
 	<body>
@@ -49,9 +48,12 @@
 									</div>
 									<div class="layui-form-item">
 										<div class="layui-inline">
-											<label class="layui-form-label" style="width: 90px;margin-left: -10px;">采购入库类型</label>
+											<label style="width: 90px;margin-left: -10px;" class="layui-form-label">单价是否含税</label>
 											<div class="layui-input-inline">
-												<input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+												<select style="height: 38px;">
+													<option>未税</option>
+													<option>含税</option>
+												</select>
 											</div>
 										</div>
 										<div class="layui-inline">
@@ -63,12 +65,10 @@
 									</div>
 									<div class="layui-form-item">
 										<div class="layui-inline">
-											<label style="width: 90px;margin-left: -10px;" class="layui-form-label">单价是否含税</label>
+
+											<label class="layui-form-label" style="width: 90px;margin-left: -10px;">仓库</label>
 											<div class="layui-input-inline">
-												<select style="height: 38px;">
-													<option>未税</option>
-													<option>含税</option>
-												</select>
+												<input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 											</div>
 										</div>
 										<div class="layui-inline">
@@ -80,9 +80,12 @@
 									</div>
 									<div class="layui-form-item">
 										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">仓库</label>
+											<label style="width: 90px;margin-left: -10px;" class="layui-form-label">是否重新入库</label>
 											<div class="layui-input-inline">
-												<input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+												<select style="height: 38px;">
+													<option>是</option>
+													<option>否</option>
+												</select>
 											</div>
 										</div>
 										<div class="layui-inline">
@@ -268,29 +271,13 @@
 
 								</div>
 
-								<ul id="puchaseStoragegongneng" class="layui-nav" style="margin-bottom: 150px;width: 300px;float: right;">
-									<li class="layui-nav-item layui-this">
-										<a href="javascript:void(0);">查询</a>
-										<dl class="layui-nav-child" id="purchaseStorageChaxun">
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">历史交易查询</a>
-											</dd>
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">分摊费用明细</a>
-											</dd>
-										</dl>
-									</li>
+								<ul id="puchaseStoragegongneng2" class="layui-nav" style="margin-bottom: 150px;width: 210px;float: right;">
+
 									<li class="layui-nav-item">
 										<a href="javascript:void(0);">转单</a>
 										<dl class="layui-nav-child">
 											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">采购询价转入</a>
-											</dd>
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">采购订单转入</a>
-											</dd>
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">进口商业发票转入</a>
+												<a data-method="offset" data-type="auto" href="javascript:void(0)">采购入库单转入</a>
 											</dd>
 										</dl>
 									</li>
@@ -316,37 +303,36 @@
 					</div>
 				</div>
 
-			</div>
+				<script src="../../js/jquery.min.js"></script>
+				<script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+				<script type="text/javascript" src="../../js/xadmin.js"></script>
+				<script>
+					layui.use('laydate', function() {
+						var laydate = layui.laydate;
+						//常规用法
+						laydate.render({
+							elem: '#test1'
+						});
 
-			<script src="../../../js/jquery.min.js"></script>
-			<script type="text/javascript" src="../../../lib/layui/layui.js" charset="utf-8"></script>
-			<script type="text/javascript" src="../../../js/xadmin.js"></script>
-			<script>
-				layui.use('laydate', function() {
-					var laydate = layui.laydate;
-					//常规用法
-					laydate.render({
-						elem: '#test1'
+						//常规用法
+						laydate.render({
+							elem: '#test2'
+						});
+						//年月选择器
+						laydate.render({
+							elem: '#test3',
+							type: 'month'
+						});
 					});
 
-					//常规用法
-					laydate.render({
-						elem: '#test2'
-					});
-					//年月选择器
-					laydate.render({
-						elem: '#test3',
-						type: 'month'
-					});
-				});
-
-				layui.use('layer', function() { //独立版的layer无需执行这一句
-					var $ = layui.jquery,
-						layer = layui.layer; //独立版的layer无需执行这一句
+					//				layui.use('layer', function() { //独立版的layer无需执行这一句
+					//					var $ = layui.jquery,
+					//						layer = layui.layer; //独立版的layer无需执行这一句
 					//触发事件
 					var active = {
 						setTop: function() {
 							var that = this;
+
 							//多窗口模式，层叠置顶
 							layer.open({
 								type: 2 //此处以iframe举例
@@ -380,20 +366,8 @@
 							var type = othis.data('type'),
 								text = othis.text(),
 								a = "";
-							if(text == "历史交易查询") {
-								a = "历史交易查询";
-								let str = "LiShiJIaoYi.html";
-								text = str;
-							} else if(text == "分摊费用明细") {
-								a = "分摊费用明细";
-								let str = "FenTanFeiYongMingXi.html";
-								text = str;
-							} else if(text == "采购询价转入") {
-								a = "采购询价转入";
-								let str = "CaiGouRuKuDanZhuanRu.html";
-								text = str;
-							} else if(text == "采购订单转入") {
-								a = "采购订单转入";
+							if(text == "采购入库单转入") {
+								a = "采购入库单转入";
 								let str = "CaiGouRuKuDanZhuanRu.html";
 								text = str;
 							}
@@ -409,7 +383,7 @@
 								//								btn: '关闭',
 								btnAlign: 'c' //按钮居中
 									,
-								shade: 0.5 //不显示遮罩
+								shade: -1 //不显示遮罩
 									,
 								yes: function() {
 									layer.closeAll();
@@ -418,60 +392,14 @@
 						}
 					};
 
-					$('#puchaseStoragegongneng a').on('click', function() {
+					$('#puchaseStoragegongneng2 a').on('click', function() {
 						var othis = $(this),
 							method = othis.data('method');
 						active[method] ? active[method].call(this, othis) : '';
 					});
 
-				});
-
-				layui.use(['form', 'layedit', 'laydate'], function() {
-					var form = layui.form,
-						layer = layui.layer,
-						layedit = layui.layedit,
-						laydate = layui.laydate;
-
-					//监听指定开关
-					form.on('switch(switchTest)', function(data) {
-						layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-							offset: '6px'
-						});
-						layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-					});
-
-					//监听提交
-					form.on('submit(demo1)', function(data) {
-						layer.alert(JSON.stringify(data.field), {
-							title: '最终的提交信息'
-						})
-						return false;
-					});
-
-					//表单赋值
-					layui.$('#LAY-component-form-setval').on('click', function() {
-						form.val('example', {
-							"username": "贤心" // "name": "value"
-								,
-							"password": "123456",
-							"interest": 1,
-							"like[write]": true //复选框选中状态
-								,
-							"close": true //开关状态
-								,
-							"sex": "女",
-							"desc": "我爱 layui"
-						});
-					});
-
-					//表单取值
-					layui.$('#LAY-component-form-getval').on('click', function() {
-						var data = form.val('example');
-						alert(JSON.stringify(data));
-					});
-
-				});
-			</script>
+					//				});
+				</script>
 	</body>
 
 </html>

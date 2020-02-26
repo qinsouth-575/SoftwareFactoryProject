@@ -1,56 +1,34 @@
 package com.factory.entity;
 
 public class PurchaseStorageDetails {
-    private Integer psdId;
-
-    private String psdColumnNo;
-
-    private String psdDocumentNumber;
-
-    private String matterId;
-
-    private String matterName;
-
-    private String psdSpecifications;
-
-    private String psdCompanyName;
-
-    private Integer psdAmount;
-
-    private Float psdMoneyDiscountBefore;
-
-    private String psdFoldNumber;
-
-    private Float psdPrice;
-
-    private Float psdMoney;
-
-    private Float psdTaxRate;
-
-    private Float psdTaxAmount;
-
-    private Float psdIncludingTaxAmount;
-
+	
+    private Integer psdId;					//单据编号
+    private String psdColumnNo;				//栏号
+    private String psdDocumentNumber;		//单据号码（主表单据编号）
+    private String matterId;				//物料编号
+    private String matterName;				//物料名称
+    private String psdSpecifications;		//规格型号-总是没值
+    private String psdCompanyName;			//单位名称
+    private Integer psdAmount;				//数量
+    private Float psdMoneyDiscountBefore;	//折扣前单价
+    private String psdFoldNumber;			//折数（%）
+    private Float psdPrice;					//单价
+    private Float psdMoney;					//金额
+    private Float psdTaxRate;				//税率（%）
+    private Float psdTaxAmount;				//税额
+    private Float psdIncludingTaxAmount;	//（含税金额）
     private String psdLotNumber;
-
-    private String psdGift;
-
-    private String psdInvoiceDetails;
-
-    private String psdUninvoicedQuantity;
-
+    private String psdGift;					//（赠品）（0：非，1：赠品）
+    private String psdInvoiceDetails;		//（发票明细）（0：未勾选，1：勾选）
+    private String psdUninvoicedQuantity;	//（未开票数量）
     private String psdRemarks;
-
     private String psdSourceOrder;
-
     private String psdSourceNo;
-
     private String psdWentDutch;
 
     public Integer getPsdId() {
         return psdId;
     }
-
     public void setPsdId(Integer psdId) {
         this.psdId = psdId;
     }
@@ -58,7 +36,6 @@ public class PurchaseStorageDetails {
     public String getPsdColumnNo() {
         return psdColumnNo;
     }
-
     public void setPsdColumnNo(String psdColumnNo) {
         this.psdColumnNo = psdColumnNo;
     }
@@ -66,7 +43,6 @@ public class PurchaseStorageDetails {
     public String getPsdDocumentNumber() {
         return psdDocumentNumber;
     }
-
     public void setPsdDocumentNumber(String psdDocumentNumber) {
         this.psdDocumentNumber = psdDocumentNumber;
     }
@@ -230,4 +206,18 @@ public class PurchaseStorageDetails {
     public void setPsdWentDutch(String psdWentDutch) {
         this.psdWentDutch = psdWentDutch;
     }
+
+	@Override
+	public String toString() {
+		return "/n采购入库详类 - PurchaseStorageDetails [psdId=" + psdId + ", psdColumnNo=" + psdColumnNo + ", psdDocumentNumber="
+				+ psdDocumentNumber + ", matterId=" + matterId + ", matterName=" + matterName + ", psdSpecifications="
+				+ psdSpecifications + ", psdCompanyName=" + psdCompanyName + ", psdAmount=" + psdAmount
+				+ ", psdMoneyDiscountBefore=" + psdMoneyDiscountBefore + ", psdFoldNumber=" + psdFoldNumber
+				+ ", psdPrice=" + psdPrice + ", psdMoney=" + psdMoney + ", psdTaxRate=" + psdTaxRate + ", psdTaxAmount="
+				+ psdTaxAmount + ", psdIncludingTaxAmount=" + psdIncludingTaxAmount + ", psdLotNumber=" + psdLotNumber
+				+ ", psdGift=" + psdGift + ", psdInvoiceDetails=" + psdInvoiceDetails + ", psdUninvoicedQuantity="
+				+ psdUninvoicedQuantity + ", psdRemarks=" + psdRemarks + ", psdSourceOrder=" + psdSourceOrder
+				+ ", psdSourceNo=" + psdSourceNo + ", psdWentDutch=" + psdWentDutch + "]";
+	}
+    
 }
