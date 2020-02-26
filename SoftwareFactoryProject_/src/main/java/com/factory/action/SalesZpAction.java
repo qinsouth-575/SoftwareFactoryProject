@@ -25,6 +25,15 @@ public class SalesZpAction {
 	private SalesZpBiz sBiz;
 	
 	/**
+	 *审核销售报价单
+	 */
+	@RequestMapping(value = "shbaojia", method = RequestMethod.GET)
+	@ResponseBody
+	public int shbaojia(String sqId) {
+		return sBiz.shbaojia(sqId);
+	}
+	
+	/**
 	 * 查询销售报价单
 	 */
 	@RequestMapping(value = "querybaojia", method = RequestMethod.GET)
