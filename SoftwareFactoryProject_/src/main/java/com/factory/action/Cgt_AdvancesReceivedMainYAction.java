@@ -34,7 +34,7 @@ public class Cgt_AdvancesReceivedMainYAction {
 	@ResponseBody
 	public PageInfo<AdvancesReceivedMainY> queryPage(@RequestBody AdvancesReceivedMainY adrmy){
 		log.debug("SoftwareFactoryProject_ - ComDepartmentAction - queryPage - 部门设定 - 1.分页查询单个部门");
-		log.info("多条件+分页查询 - 参数信息：" + adrmy);
+		log.info("多条件+分页查询 - 参数信息：" + adrmy); 
 		PageInfo<AdvancesReceivedMainY> page = army.queryAdvancesReceivedMainYAllDESC(adrmy);
 		log.info("查询结果信息：" + page.getList().get(0));
 		return page;
