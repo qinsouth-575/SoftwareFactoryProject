@@ -29,15 +29,49 @@ public class Cgt_AdvancesReceivedMainYAction {
 		return army.gt_select_payablestime(payablestime);
 	}
 
+	//2.分页查询
 	@PostMapping("/gt_queryPage_AdvancesReceivedMainY")
 	@ResponseBody
 	public PageInfo<AdvancesReceivedMainY> queryPage(@RequestBody AdvancesReceivedMainY adrmy){
 		log.debug("SoftwareFactoryProject_ - ComDepartmentAction - queryPage - 部门设定 - 1.分页查询单个部门");
-		log.info("多条件+分页查询 - 参数信息：" + adrmy);
+		log.info("多条件+分页查询 - 参数信息：" + adrmy); 
 		PageInfo<AdvancesReceivedMainY> page = army.queryAdvancesReceivedMainYAllDESC(adrmy);
 		log.info("查询结果信息：" + page.getList().get(0));
 		return page;
 	}
 	
+	//3.新增
+	@PostMapping("/gt_insert_Y")
+	@ResponseBody
+	public int gt_insert_Y(@RequestBody AdvancesReceivedMainY y) {
+		return army.gt_insert_Y(y);
+	}
 	
+	//4.修改
+	@PostMapping("/gt_update_Y")
+	@ResponseBody
+	public int gt_update_Y(@RequestBody AdvancesReceivedMainY y) {
+		return army.gt_update_Y(y);
+	}
+	
+	//5.根据单据号码删除对应的预收款主详表
+	@GetMapping("/gt_del_mydy")
+	@ResponseBody
+	public int gt_del_mydy(String priabillId) {
+		return army.gt_del_mydy(priabillId);
+	}
+	
+	//6.审核
+	@GetMapping("/gt_update_Auditstatus")
+	@ResponseBody
+	public int gt_update_Auditstatus(String priabillId) {
+		return army.gt_update_Auditstatus(priabillId);
+	}
+	
+	//6.反审核
+	@GetMapping("/gt_update_Auditstatus2")
+	@ResponseBody
+	public int gt_update_Auditstatus2(String priabillId) {
+		return army.gt_update_Auditstatus2(priabillId);
+	}
 }
