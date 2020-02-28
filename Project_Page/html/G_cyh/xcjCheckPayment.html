@@ -27,13 +27,13 @@
 			<i class="layui-icon layui-icon-auz" style="font-size: 6.25rem; color: #1E9FFF;"></i>
 		</div>
 		<input type="hidden" name=""/>
-		<div class="layui-container" id="xcjCKPMInfo">
+		<div class="layui-container"  id="xcjCKPMInfo">
 			<div class="layui-form-item layui-row">
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">供应商</label>
 					<div class="layui-input-inline">
 						<select name="addPMgysId" lay-verify="required" lay-search="" class="layui-select">
-							<option value="0">选择供应商</option>
+							<option value="0">{{page.payablesSupplierName}}</option>
 							<option value="1">layer</option>
 							<option value="2">form</option>
 						</select>
@@ -42,22 +42,22 @@
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">单据日期</label>
 					<div class="layui-input-inline">
-						<input type="text" readonly="readonly" name="addPaymentTime" id="addPaymentTime" autocomplete="off" class="layui-input">
+						<input type="text" readonly="readonly" v-model="page.payablesPayablestime" name="addPaymentTime" id="addPaymentTime" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 			</div>
 			<div class="layui-form-item layui-row">
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">结算方式一</label>
-					<select name="paymentWay1" class="layui-select">
-						<option>汇款</option>
-						<option>现金</option>
+					<select name="paymentWay1" v-model="page.scsId" class="layui-select">
+						<option :value="1">汇款</option>
+						<option :value="2">现金</option>
 					</select>
-					<input type="text" name="addPMPayMoney1" class="layui-input layui-input-inline" />
+					<input type="text" name="addPMPayMoney1" v-model="page.payablesPrice1" class="layui-input layui-input-inline" />
 				</div>
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">单据编号</label>
-					<input type="text" readonly="readonly" name="addPMId" class="layui-input layui-input-inline" />
+					<input type="text" readonly="readonly" name="addPMId" v-model="page.payablesId" class="layui-input layui-input-inline" />
 				</div>
 			</div>
 			<div class="layui-form-item layui-row">
@@ -67,31 +67,31 @@
 						<option>汇款</option>
 						<option>现金</option>
 					</select>
-					<input type="text" name="addPMPayMoney2" class="layui-input layui-input-inline" />
+					<input type="text" name="addPMPayMoney2" v-model="page.payablesPrice2" class="layui-input layui-input-inline" />
 				</div>
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">币别</label>
-					<input type="text" name="addPMId" class="layui-input layui-input-inline" />
+					<input type="text" name="addPMId" v-model="page.payablesCurrencyName" class="layui-input layui-input-inline" />
 				</div>
 			</div>
 			<div class="layui-form-item layui-row">
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">折扣率</label>
-					<input type="text" value="100.00" name="addPMdiscount" class="layui-input layui-input-inline" />
+					<input type="text" value="100.00" name="addPMdiscount" v-model="page.payablesZhekou" class="layui-input layui-input-inline" />
 				</div>
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">汇率</label>
-					<input type="text" value="1.00" name="addPMexchange-rate" class="layui-input layui-input-inline" />
+					<input type="text" value="1.00" v-model="page.payablesExchangeRate" name="addPMexchange-rate" class="layui-input layui-input-inline" />
 				</div>
 			</div>
 			<div class="layui-form-item layui-row">
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">冲款帐月</label>
-					<input type="text" class="layui-input layui-input-inline" id="addPMprompt" placeholder="yyyyMMdd">
+					<input type="text" v-model="page.payablesEndtime" class="layui-input  layui-input-inline" id="addPMprompt" placeholder="yyyyMMdd">
 				</div>
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">凭证编号</label>
-					<input type="text" name="addPMDocument-Number" class="layui-input layui-input-inline" />
+					<input type="text" v-model="page.payablesVoucherno" name="addPMDocument-Number" class="layui-input layui-input-inline" />
 				</div>
 			</div>
 			<div class="layui-tab layui-tab-card">
@@ -127,25 +127,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+									<tr v-for="item,index in page.listPayablesDateil">
+										<td>{{index+1}}</td>
+										<td>{{item.paydetailId}}</td>
+										<td>{{page.payablesPayablestime}}</td>
+										<td>{{page.payablesId}}</td>
+										<td>{{item.padeInvoiceno}}</td>
+										<td>{{item.padeTransaction}}</td>
+										<td>{{item.padeTransactionname}}</td>
+										<td>{{item.staffId}}</td>
+										<td>{{item.padeTeamName}}</td>
+										<td>{{item.padeStaffName}}</td>
+										<td>{{item.padeProjectName}}</td>
+										<td>{{item.padeCurrencyInexchange}}</td>
+										<td>0</td>
+										<td>0</td>
+										<td>0</td>
+										<td>0</td>
+										<td>0</td>
+										<td>0</td>
 									</tr>
 								</tbody>
 							</table>
@@ -179,17 +179,17 @@
 						<div class="layui-form-item layui-row">
 							<div class="layui-inline layui-col-md5">
 								<label class="layui-form-label">自定义一</label>
-								<input type="text" name="addPMcustom1" class="layui-input layui-input-inline" />
+								<input type="text" v-model="page.payablesCustom1" name="addPMcustom1" class="layui-input layui-input-inline" />
 							</div>
 							<div class="layui-inline layui-col-md5">
 								<label class="layui-form-label">自定义二</label>
-								<input type="text" name="addPMcustom12" class="layui-input layui-input-inline" />
+								<input type="text" v-model="page.payablesCustom2" name="addPMcustom12" class="layui-input layui-input-inline" />
 							</div>
 						</div>
 						<div class="layui-form-item layui-form-text">
 							<label class="layui-form-label">备注</label>
 							<div class="layui-input-block">
-								<textarea placeholder="请输入内容" class="layui-textarea" name="addPMremark"></textarea>
+								<textarea placeholder="请输入内容" v-model="page.payablesRemarks" class="layui-textarea" name="addPMremark"></textarea>
 							</div>
 						</div>
 					</div>
@@ -198,21 +198,21 @@
 			<div class="layui-form-item layui-row">
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">所属部门</label>
-					<input type="text" name="addPMdepartment" class="layui-input layui-input-inline" />
+					<input type="text" name="addPMdepartment" v-model="page.payablesTeamName" class="layui-input layui-input-inline" />
 				</div>
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">制单人员</label>
-					<input type="text" name="addPMprepare-document" class="layui-input layui-input-inline" />
+					<input type="text" name="addPMprepare-document" v-model="page.payablesBillpersonnel" class="layui-input layui-input-inline" />
 				</div>
 			</div>
 			<div class="layui-form-item layui-row">
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">所属项目</label>
-					<input type="text" name="addPMproject" class="layui-input layui-input-inline" />
+					<input type="text" name="addPMproject" v-model="page.payablesProjectName" class="layui-input layui-input-inline" />
 				</div>
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">复核人员</label>
-					<input type="text" name="addPMre-check" class="layui-input layui-input-inline"/>
+					<input type="text" name="addPMre-check" v-model="page.payablesReviewers" class="layui-input layui-input-inline"/>
 				</div>
 			</div>
 			<div class="layui-btn-container" id="xcjCKPMsave">
@@ -248,16 +248,17 @@
 						}
 				},created:function(){
 					var id =this.getValue("id");
-					alert(id)
+					//alert(id)
 					$.ajax({
 						type:"get",
 						url:"http://localhost:8080/SoftwareFactoryProject_/CPayMain/queryDetail",
 						data:{
-							payablesid:id
+							payablesId:id
 						},
 						success:function(res){
-							console.log(res);
+							//console.log(res);
 							vue.page=res;
+							console.log(vue.page);
 						}
 					});
 				}

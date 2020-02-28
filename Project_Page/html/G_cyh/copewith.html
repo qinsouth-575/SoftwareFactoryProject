@@ -18,7 +18,7 @@
 		<div class="layui-container" id="cnt">
 			<div class="layui-row">
 				<h2 class="layui-col-md10">冲款单</h2>
-				<button class="layui-btn layui-col-md2" data-method="opPmAdd" onclick="pmLayerClick(this)">新增冲款单</button>
+				<button class="layui-btn layui-col-md2" data-method="opPmAdd" @click="goAddPage()">新增冲款单</button>
 			</div>
 			<div class="layui-row">
 				<div class="layui-row">
@@ -76,12 +76,20 @@
 							<td>{{item.payablesPrice1}}</td>
 							<td>
 								<button class="layui-btn layui-btn-normal" data-method="opPmck" @click="goPage(item.payablesId)">查看</button>
-								<button class="layui-btn layui-btn-danger">删除</button>
+								<button class="layui-btn layui-btn-danger" @click="deleteInfo(item.payablesId)">删除</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<div id="paymentpage"></div>
+				
+				<div id="" >
+					<div id="" style="margin: 0 auto; width: 200px;">
+						<button @click="goNewPage(page.prePage)">上一页</button> 
+						{{page.pageNum}}/{{page.pages}} 
+						<button @click="goNewPage(page.nextPage)">下一页</button>
+					</div>
+					
+				</div>
 			</div>
 		</div>
 		<script src="../../layui.all.js"></script>
@@ -94,10 +102,40 @@
 					page:{}
 				},
 				methods:{
+					//分页
+					goNewPage:function(obj){
+						//alert(obj);
+						$.ajax({
+							url:"http://localhost:8080/SoftwareFactoryProject_/CPayMain/cyhQueryPayMain",
+							data:{
+								pageNum:obj,
+							},
+							success:function(res){
+								vue.page=res;
+						}
+						});
+					},
+					//删除信息
+					deleteInfo:function(obj){
+						//alert(obj);
+						$.ajax({
+							url:"http://localhost:8080/SoftwareFactoryProject_/CPayMain/cDeletePayMain",
+							data:{
+								payablesId:obj,
+							},
+							success:function(res){
+								 location.reload();
+							}
+						});
+					},
+					//跳转新增页面
+					goAddPage:function(){
+						location.href="xcjaddPayment.html";
+					},
 					//页面跳转
 					goPage:function(obj){
 					var id=obj;
-					alert("id=:"+id)
+					//alert("id=:"+id)
 					location.href="xcjCheckPayment.html?id="+id
 					
 					}
@@ -106,7 +144,9 @@
 					$.ajax({
 						url:"http://localhost:8080/SoftwareFactoryProject_/CPayMain/cyhQueryPayMain",
 						success:function(res){						
-							vue.page=res;						}
+							vue.page=res;
+						console.log(vue.page)
+						}
 					})
 					
 				}
