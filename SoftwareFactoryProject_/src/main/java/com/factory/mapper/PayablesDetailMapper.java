@@ -22,8 +22,7 @@ public interface PayablesDetailMapper {
     List<PayablesDetail> queryByPayablesId(@Param("payablesId")String payablesId);
     
     //根据主表id删除详表信息
-    @Delete("delete from `payables_detail` where Payables_id=? ")
-    int deleteByPayablesId(String payablesId);
+    int deleteByPayablesId(@Param("payablesId")String payablesId);
 
     List<PayablesDetail> selectByExample(PayablesDetailExample example);
 

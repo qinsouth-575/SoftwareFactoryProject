@@ -17,10 +17,13 @@ public interface PayablesMainMapper {
     int deleteByPrimaryKey(String payablesId);
     
     //查询应付款单
-    @Select("select * from `payables_main`")
-    List<PayablesMain> CQueryPayMain();
-    @Delete("delete from `payables_main` where `payables_id` =?")
-    int deletePayMain(String payablesId);
+	/*
+	 * @Select("select * from `payables_main`") List<PayablesMain> CQueryPayMain();
+	 */
+    Integer deletePayMain(@Param("payablesId")String payablesId);
+    
+    //根据payablesid查询单号详情信息
+    PayablesMain queryPayMainByPayablesId(@Param("payablesId")String payablesId);
     
     int insert(PayablesMain record);
 
@@ -37,7 +40,4 @@ public interface PayablesMainMapper {
     int updateByPrimaryKeySelective(PayablesMain record);
 
     int updateByPrimaryKey(PayablesMain record);
-    //根据id查询账单详表信息
-    @Select("SELECT * FROM `payables_detail` WHERE `Payables_id`=?")
-    List<PayablesDetail> queryDetail(String Payablesid);
 }

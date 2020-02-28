@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.factory.biz.CyhPayBiz;
 import com.factory.entity.PayablesDetail;
 import com.factory.entity.PayablesMain;
+import com.factory.entity.Supplier;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 @RequestMapping("/CPayMain")
@@ -19,17 +20,24 @@ public class CyhPayAction {
 	@Autowired
 	private CyhPayBiz cyhPayBizService;
 	
+	//查询所有供应商
+	@RequestMapping("/queryAllSupplier")
+	@ResponseBody
+	public List<Supplier> queryAllSupplier(){
+		return cyhPayBizService.querAllSupplier();
+	}
+	
 	//根据id查询详表信息
 	@RequestMapping("/queryDetail")
 	@ResponseBody
-	public PageInfo queryDetail(String payablesid) {
-		return cyhPayBizService.CqueryDetail(payablesid);
+	public PayablesMain CqueryMainInfoByPayId(String payablesId) {
+		return cyhPayBizService.CqueryMainInfoByPayId(payablesId);
 	}
 	
 	@RequestMapping("/cyhQueryPayMain")
 	@ResponseBody
-	public PageInfo queryByPagePayMain() {
-		return cyhPayBizService.CqueryPaMain();
+	public PageInfo queryByPagePayMain(Integer pageNum,Integer pageSize) {
+		return cyhPayBizService.CqueryPaMain(pageNum,pageSize);
 	}
 	
 	@RequestMapping("/cDeletePayMain")
