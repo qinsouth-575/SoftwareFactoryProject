@@ -2,19 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.factory.mapper.TPurchaseRequisitionsMapper" >
   <resultMap id="BaseResultMap" type="com.factory.entity.TPurchaseRequisitions" >
-    <id column="BillNo" property="billno" jdbcType="VARCHAR" />
-    <result column="BillDate" property="billdate" jdbcType="DATE" />
-    <result column="BillStyleID" property="billstyleid" jdbcType="INTEGER" />
-    <result column="BillStatus" property="billstatus" jdbcType="INTEGER" />
-    <result column="SalesID" property="salesid" jdbcType="INTEGER" />
-    <result column="DepartID" property="departid" jdbcType="INTEGER" />
-    <result column="Maker" property="maker" jdbcType="VARCHAR" />
-    <result column="Permitter" property="permitter" jdbcType="VARCHAR" />
-    <result column="Remark" property="remark" jdbcType="VARCHAR" />
-    <result column="Column1" property="column1" jdbcType="VARCHAR" />
-    <result column="Column2" property="column2" jdbcType="VARCHAR" />
-    <result column="Column3" property="column3" jdbcType="VARCHAR" />
+    <id column="pr_document_number" property="prDocumentNumber" jdbcType="VARCHAR" />
+    <result column="pr_document_date" property="prDocumentDate" jdbcType="DATE" />
+    <result column="pr_type_id" property="prTypeId" jdbcType="VARCHAR" />
+    <result column="pr_type_name" property="prTypeName" jdbcType="VARCHAR" />
+    <result column="pr_single_case" property="prSingleCase" jdbcType="INTEGER" />
+    <result column="pr_amount" property="prAmount" jdbcType="INTEGER" />
+    <result column="pr_sum_amount" property="prSumAmount" jdbcType="INTEGER" />
+    <result column="pr_header_section" property="prHeaderSection" jdbcType="VARCHAR" />
+    <result column="pr_footer_section" property="prFooterSection" jdbcType="VARCHAR" />
+    <result column="pr_custom1" property="prCustom1" jdbcType="VARCHAR" />
+    <result column="pr_custom2" property="prCustom2" jdbcType="VARCHAR" />
+    <result column="pr_remark" property="prRemark" jdbcType="VARCHAR" />
+    <result column="pr_staff_id" property="prStaffId" jdbcType="INTEGER" />
+    <result column="pr_staff_name" property="prStaffName" jdbcType="VARCHAR" />
+    <result column="pr_team_id" property="prTeamId" jdbcType="VARCHAR" />
+    <result column="pr_depart_name" property="prDepartName" jdbcType="VARCHAR" />
+    <result column="pr_executor" property="prExecutor" jdbcType="VARCHAR" />
+    <result column="pr_checkagain_staff" property="prCheckagainStaff" jdbcType="VARCHAR" />
+    <result column="pr_audition" property="prAudition" jdbcType="SMALLINT" />
+    <result column="pr_yn" property="prYn" jdbcType="SMALLINT" />
   </resultMap>
+  
+  
+  <select id="queryPRCount" parameterType="java.lang.String" resultType="java.lang.Integer" >
+  	SELECT COUNT(*) 
+	FROM `t_purchase_requisitions` 
+	WHERE `pr_document_date` LIKE #{prDocumentDate}
+  </select>
+  
+  <select id="queryPRAll" resultMap="BaseResultMap">
+  	SELECT * 
+	FROM `t_purchase_requisitions` 
+	ORDER BY `pr_document_number` DESC
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -74,8 +103,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    BillNo, BillDate, BillStyleID, BillStatus, SalesID, DepartID, Maker, Permitter, Remark, 
-    Column1, Column2, Column3
+    pr_document_number, pr_document_date, pr_type_id, pr_type_name, pr_single_case, pr_amount, 
+    pr_sum_amount, pr_header_section, pr_footer_section, pr_custom1, pr_custom2, pr_remark, 
+    pr_staff_id, pr_staff_name, pr_team_id, pr_depart_name, pr_executor, pr_checkagain_staff, 
+    pr_audition, pr_yn
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.TPurchaseRequisitionsExample" >
     select
@@ -95,11 +126,11 @@
     select 
     <include refid="Base_Column_List" />
     from t_purchase_requisitions
-    where BillNo = #{billno,jdbcType=VARCHAR}
+    where pr_document_number = #{prDocumentNumber,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_purchase_requisitions
-    where BillNo = #{billno,jdbcType=VARCHAR}
+    where pr_document_number = #{prDocumentNumber,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.factory.entity.TPurchaseRequisitionsExample" >
     delete from t_purchase_requisitions
@@ -108,93 +139,145 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.factory.entity.TPurchaseRequisitions" >
-    insert into t_purchase_requisitions (BillNo, BillDate, BillStyleID, 
-      BillStatus, SalesID, DepartID, 
-      Maker, Permitter, Remark, 
-      Column1, Column2, Column3
-      )
-    values (#{billno,jdbcType=VARCHAR}, #{billdate,jdbcType=DATE}, #{billstyleid,jdbcType=INTEGER}, 
-      #{billstatus,jdbcType=INTEGER}, #{salesid,jdbcType=INTEGER}, #{departid,jdbcType=INTEGER}, 
-      #{maker,jdbcType=VARCHAR}, #{permitter,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{column1,jdbcType=VARCHAR}, #{column2,jdbcType=VARCHAR}, #{column3,jdbcType=VARCHAR}
-      )
+    insert into t_purchase_requisitions (pr_document_number, pr_document_date, pr_type_id, 
+      pr_type_name, pr_single_case, pr_amount, 
+      pr_sum_amount, pr_header_section, pr_footer_section, 
+      pr_custom1, pr_custom2, pr_remark, 
+      pr_staff_id, pr_staff_name, pr_team_id, 
+      pr_depart_name, pr_executor, pr_checkagain_staff, 
+      pr_audition, pr_yn)
+    values (#{prDocumentNumber,jdbcType=VARCHAR}, #{prDocumentDate,jdbcType=DATE}, #{prTypeId,jdbcType=VARCHAR}, 
+      #{prTypeName,jdbcType=VARCHAR}, #{prSingleCase,jdbcType=INTEGER}, #{prAmount,jdbcType=INTEGER}, 
+      #{prSumAmount,jdbcType=INTEGER}, #{prHeaderSection,jdbcType=VARCHAR}, #{prFooterSection,jdbcType=VARCHAR}, 
+      #{prCustom1,jdbcType=VARCHAR}, #{prCustom2,jdbcType=VARCHAR}, #{prRemark,jdbcType=VARCHAR}, 
+      #{prStaffId,jdbcType=INTEGER}, #{prStaffName,jdbcType=VARCHAR}, #{prTeamId,jdbcType=VARCHAR}, 
+      #{prDepartName,jdbcType=VARCHAR}, #{prExecutor,jdbcType=VARCHAR}, #{prCheckagainStaff,jdbcType=VARCHAR}, 
+      #{prAudition,jdbcType=SMALLINT}, #{prYn,jdbcType=SMALLINT})
   </insert>
   <insert id="insertSelective" parameterType="com.factory.entity.TPurchaseRequisitions" >
     insert into t_purchase_requisitions
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="billno != null" >
-        BillNo,
+      <if test="prDocumentNumber != null" >
+        pr_document_number,
       </if>
-      <if test="billdate != null" >
-        BillDate,
+      <if test="prDocumentDate != null" >
+        pr_document_date,
       </if>
-      <if test="billstyleid != null" >
-        BillStyleID,
+      <if test="prTypeId != null" >
+        pr_type_id,
       </if>
-      <if test="billstatus != null" >
-        BillStatus,
+      <if test="prTypeName != null" >
+        pr_type_name,
       </if>
-      <if test="salesid != null" >
-        SalesID,
+      <if test="prSingleCase != null" >
+        pr_single_case,
       </if>
-      <if test="departid != null" >
-        DepartID,
+      <if test="prAmount != null" >
+        pr_amount,
       </if>
-      <if test="maker != null" >
-        Maker,
+      <if test="prSumAmount != null" >
+        pr_sum_amount,
       </if>
-      <if test="permitter != null" >
-        Permitter,
+      <if test="prHeaderSection != null" >
+        pr_header_section,
       </if>
-      <if test="remark != null" >
-        Remark,
+      <if test="prFooterSection != null" >
+        pr_footer_section,
       </if>
-      <if test="column1 != null" >
-        Column1,
+      <if test="prCustom1 != null" >
+        pr_custom1,
       </if>
-      <if test="column2 != null" >
-        Column2,
+      <if test="prCustom2 != null" >
+        pr_custom2,
       </if>
-      <if test="column3 != null" >
-        Column3,
+      <if test="prRemark != null" >
+        pr_remark,
+      </if>
+      <if test="prStaffId != null" >
+        pr_staff_id,
+      </if>
+      <if test="prStaffName != null" >
+        pr_staff_name,
+      </if>
+      <if test="prTeamId != null" >
+        pr_team_id,
+      </if>
+      <if test="prDepartName != null" >
+        pr_depart_name,
+      </if>
+      <if test="prExecutor != null" >
+        pr_executor,
+      </if>
+      <if test="prCheckagainStaff != null" >
+        pr_checkagain_staff,
+      </if>
+      <if test="prAudition != null" >
+        pr_audition,
+      </if>
+      <if test="prYn != null" >
+        pr_yn,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="billno != null" >
-        #{billno,jdbcType=VARCHAR},
+      <if test="prDocumentNumber != null" >
+        #{prDocumentNumber,jdbcType=VARCHAR},
       </if>
-      <if test="billdate != null" >
-        #{billdate,jdbcType=DATE},
+      <if test="prDocumentDate != null" >
+        #{prDocumentDate,jdbcType=DATE},
       </if>
-      <if test="billstyleid != null" >
-        #{billstyleid,jdbcType=INTEGER},
+      <if test="prTypeId != null" >
+        #{prTypeId,jdbcType=VARCHAR},
       </if>
-      <if test="billstatus != null" >
-        #{billstatus,jdbcType=INTEGER},
+      <if test="prTypeName != null" >
+        #{prTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="salesid != null" >
-        #{salesid,jdbcType=INTEGER},
+      <if test="prSingleCase != null" >
+        #{prSingleCase,jdbcType=INTEGER},
       </if>
-      <if test="departid != null" >
-        #{departid,jdbcType=INTEGER},
+      <if test="prAmount != null" >
+        #{prAmount,jdbcType=INTEGER},
       </if>
-      <if test="maker != null" >
-        #{maker,jdbcType=VARCHAR},
+      <if test="prSumAmount != null" >
+        #{prSumAmount,jdbcType=INTEGER},
       </if>
-      <if test="permitter != null" >
-        #{permitter,jdbcType=VARCHAR},
+      <if test="prHeaderSection != null" >
+        #{prHeaderSection,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
+      <if test="prFooterSection != null" >
+        #{prFooterSection,jdbcType=VARCHAR},
       </if>
-      <if test="column1 != null" >
-        #{column1,jdbcType=VARCHAR},
+      <if test="prCustom1 != null" >
+        #{prCustom1,jdbcType=VARCHAR},
       </if>
-      <if test="column2 != null" >
-        #{column2,jdbcType=VARCHAR},
+      <if test="prCustom2 != null" >
+        #{prCustom2,jdbcType=VARCHAR},
       </if>
-      <if test="column3 != null" >
-        #{column3,jdbcType=VARCHAR},
+      <if test="prRemark != null" >
+        #{prRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="prStaffId != null" >
+        #{prStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="prStaffName != null" >
+        #{prStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="prTeamId != null" >
+        #{prTeamId,jdbcType=VARCHAR},
+      </if>
+      <if test="prDepartName != null" >
+        #{prDepartName,jdbcType=VARCHAR},
+      </if>
+      <if test="prExecutor != null" >
+        #{prExecutor,jdbcType=VARCHAR},
+      </if>
+      <if test="prCheckagainStaff != null" >
+        #{prCheckagainStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="prAudition != null" >
+        #{prAudition,jdbcType=SMALLINT},
+      </if>
+      <if test="prYn != null" >
+        #{prYn,jdbcType=SMALLINT},
       </if>
     </trim>
   </insert>
@@ -207,41 +290,65 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_purchase_requisitions
     <set >
-      <if test="record.billno != null" >
-        BillNo = #{record.billno,jdbcType=VARCHAR},
+      <if test="record.prDocumentNumber != null" >
+        pr_document_number = #{record.prDocumentNumber,jdbcType=VARCHAR},
       </if>
-      <if test="record.billdate != null" >
-        BillDate = #{record.billdate,jdbcType=DATE},
+      <if test="record.prDocumentDate != null" >
+        pr_document_date = #{record.prDocumentDate,jdbcType=DATE},
       </if>
-      <if test="record.billstyleid != null" >
-        BillStyleID = #{record.billstyleid,jdbcType=INTEGER},
+      <if test="record.prTypeId != null" >
+        pr_type_id = #{record.prTypeId,jdbcType=VARCHAR},
       </if>
-      <if test="record.billstatus != null" >
-        BillStatus = #{record.billstatus,jdbcType=INTEGER},
+      <if test="record.prTypeName != null" >
+        pr_type_name = #{record.prTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.salesid != null" >
-        SalesID = #{record.salesid,jdbcType=INTEGER},
+      <if test="record.prSingleCase != null" >
+        pr_single_case = #{record.prSingleCase,jdbcType=INTEGER},
       </if>
-      <if test="record.departid != null" >
-        DepartID = #{record.departid,jdbcType=INTEGER},
+      <if test="record.prAmount != null" >
+        pr_amount = #{record.prAmount,jdbcType=INTEGER},
       </if>
-      <if test="record.maker != null" >
-        Maker = #{record.maker,jdbcType=VARCHAR},
+      <if test="record.prSumAmount != null" >
+        pr_sum_amount = #{record.prSumAmount,jdbcType=INTEGER},
       </if>
-      <if test="record.permitter != null" >
-        Permitter = #{record.permitter,jdbcType=VARCHAR},
+      <if test="record.prHeaderSection != null" >
+        pr_header_section = #{record.prHeaderSection,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark != null" >
-        Remark = #{record.remark,jdbcType=VARCHAR},
+      <if test="record.prFooterSection != null" >
+        pr_footer_section = #{record.prFooterSection,jdbcType=VARCHAR},
       </if>
-      <if test="record.column1 != null" >
-        Column1 = #{record.column1,jdbcType=VARCHAR},
+      <if test="record.prCustom1 != null" >
+        pr_custom1 = #{record.prCustom1,jdbcType=VARCHAR},
       </if>
-      <if test="record.column2 != null" >
-        Column2 = #{record.column2,jdbcType=VARCHAR},
+      <if test="record.prCustom2 != null" >
+        pr_custom2 = #{record.prCustom2,jdbcType=VARCHAR},
       </if>
-      <if test="record.column3 != null" >
-        Column3 = #{record.column3,jdbcType=VARCHAR},
+      <if test="record.prRemark != null" >
+        pr_remark = #{record.prRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prStaffId != null" >
+        pr_staff_id = #{record.prStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.prStaffName != null" >
+        pr_staff_name = #{record.prStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prTeamId != null" >
+        pr_team_id = #{record.prTeamId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prDepartName != null" >
+        pr_depart_name = #{record.prDepartName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prExecutor != null" >
+        pr_executor = #{record.prExecutor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prCheckagainStaff != null" >
+        pr_checkagain_staff = #{record.prCheckagainStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prAudition != null" >
+        pr_audition = #{record.prAudition,jdbcType=SMALLINT},
+      </if>
+      <if test="record.prYn != null" >
+        pr_yn = #{record.prYn,jdbcType=SMALLINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -250,18 +357,26 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_purchase_requisitions
-    set BillNo = #{record.billno,jdbcType=VARCHAR},
-      BillDate = #{record.billdate,jdbcType=DATE},
-      BillStyleID = #{record.billstyleid,jdbcType=INTEGER},
-      BillStatus = #{record.billstatus,jdbcType=INTEGER},
-      SalesID = #{record.salesid,jdbcType=INTEGER},
-      DepartID = #{record.departid,jdbcType=INTEGER},
-      Maker = #{record.maker,jdbcType=VARCHAR},
-      Permitter = #{record.permitter,jdbcType=VARCHAR},
-      Remark = #{record.remark,jdbcType=VARCHAR},
-      Column1 = #{record.column1,jdbcType=VARCHAR},
-      Column2 = #{record.column2,jdbcType=VARCHAR},
-      Column3 = #{record.column3,jdbcType=VARCHAR}
+    set pr_document_number = #{record.prDocumentNumber,jdbcType=VARCHAR},
+      pr_document_date = #{record.prDocumentDate,jdbcType=DATE},
+      pr_type_id = #{record.prTypeId,jdbcType=VARCHAR},
+      pr_type_name = #{record.prTypeName,jdbcType=VARCHAR},
+      pr_single_case = #{record.prSingleCase,jdbcType=INTEGER},
+      pr_amount = #{record.prAmount,jdbcType=INTEGER},
+      pr_sum_amount = #{record.prSumAmount,jdbcType=INTEGER},
+      pr_header_section = #{record.prHeaderSection,jdbcType=VARCHAR},
+      pr_footer_section = #{record.prFooterSection,jdbcType=VARCHAR},
+      pr_custom1 = #{record.prCustom1,jdbcType=VARCHAR},
+      pr_custom2 = #{record.prCustom2,jdbcType=VARCHAR},
+      pr_remark = #{record.prRemark,jdbcType=VARCHAR},
+      pr_staff_id = #{record.prStaffId,jdbcType=INTEGER},
+      pr_staff_name = #{record.prStaffName,jdbcType=VARCHAR},
+      pr_team_id = #{record.prTeamId,jdbcType=VARCHAR},
+      pr_depart_name = #{record.prDepartName,jdbcType=VARCHAR},
+      pr_executor = #{record.prExecutor,jdbcType=VARCHAR},
+      pr_checkagain_staff = #{record.prCheckagainStaff,jdbcType=VARCHAR},
+      pr_audition = #{record.prAudition,jdbcType=SMALLINT},
+      pr_yn = #{record.prYn,jdbcType=SMALLINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -269,55 +384,87 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.TPurchaseRequisitions" >
     update t_purchase_requisitions
     <set >
-      <if test="billdate != null" >
-        BillDate = #{billdate,jdbcType=DATE},
+      <if test="prDocumentDate != null" >
+        pr_document_date = #{prDocumentDate,jdbcType=DATE},
       </if>
-      <if test="billstyleid != null" >
-        BillStyleID = #{billstyleid,jdbcType=INTEGER},
+      <if test="prTypeId != null" >
+        pr_type_id = #{prTypeId,jdbcType=VARCHAR},
       </if>
-      <if test="billstatus != null" >
-        BillStatus = #{billstatus,jdbcType=INTEGER},
+      <if test="prTypeName != null" >
+        pr_type_name = #{prTypeName,jdbcType=VARCHAR},
       </if>
-      <if test="salesid != null" >
-        SalesID = #{salesid,jdbcType=INTEGER},
+      <if test="prSingleCase != null" >
+        pr_single_case = #{prSingleCase,jdbcType=INTEGER},
       </if>
-      <if test="departid != null" >
-        DepartID = #{departid,jdbcType=INTEGER},
+      <if test="prAmount != null" >
+        pr_amount = #{prAmount,jdbcType=INTEGER},
       </if>
-      <if test="maker != null" >
-        Maker = #{maker,jdbcType=VARCHAR},
+      <if test="prSumAmount != null" >
+        pr_sum_amount = #{prSumAmount,jdbcType=INTEGER},
       </if>
-      <if test="permitter != null" >
-        Permitter = #{permitter,jdbcType=VARCHAR},
+      <if test="prHeaderSection != null" >
+        pr_header_section = #{prHeaderSection,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
-        Remark = #{remark,jdbcType=VARCHAR},
+      <if test="prFooterSection != null" >
+        pr_footer_section = #{prFooterSection,jdbcType=VARCHAR},
       </if>
-      <if test="column1 != null" >
-        Column1 = #{column1,jdbcType=VARCHAR},
+      <if test="prCustom1 != null" >
+        pr_custom1 = #{prCustom1,jdbcType=VARCHAR},
       </if>
-      <if test="column2 != null" >
-        Column2 = #{column2,jdbcType=VARCHAR},
+      <if test="prCustom2 != null" >
+        pr_custom2 = #{prCustom2,jdbcType=VARCHAR},
       </if>
-      <if test="column3 != null" >
-        Column3 = #{column3,jdbcType=VARCHAR},
+      <if test="prRemark != null" >
+        pr_remark = #{prRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="prStaffId != null" >
+        pr_staff_id = #{prStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="prStaffName != null" >
+        pr_staff_name = #{prStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="prTeamId != null" >
+        pr_team_id = #{prTeamId,jdbcType=VARCHAR},
+      </if>
+      <if test="prDepartName != null" >
+        pr_depart_name = #{prDepartName,jdbcType=VARCHAR},
+      </if>
+      <if test="prExecutor != null" >
+        pr_executor = #{prExecutor,jdbcType=VARCHAR},
+      </if>
+      <if test="prCheckagainStaff != null" >
+        pr_checkagain_staff = #{prCheckagainStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="prAudition != null" >
+        pr_audition = #{prAudition,jdbcType=SMALLINT},
+      </if>
+      <if test="prYn != null" >
+        pr_yn = #{prYn,jdbcType=SMALLINT},
       </if>
     </set>
-    where BillNo = #{billno,jdbcType=VARCHAR}
+    where pr_document_number = #{prDocumentNumber,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.factory.entity.TPurchaseRequisitions" >
     update t_purchase_requisitions
-    set BillDate = #{billdate,jdbcType=DATE},
-      BillStyleID = #{billstyleid,jdbcType=INTEGER},
-      BillStatus = #{billstatus,jdbcType=INTEGER},
-      SalesID = #{salesid,jdbcType=INTEGER},
-      DepartID = #{departid,jdbcType=INTEGER},
-      Maker = #{maker,jdbcType=VARCHAR},
-      Permitter = #{permitter,jdbcType=VARCHAR},
-      Remark = #{remark,jdbcType=VARCHAR},
-      Column1 = #{column1,jdbcType=VARCHAR},
-      Column2 = #{column2,jdbcType=VARCHAR},
-      Column3 = #{column3,jdbcType=VARCHAR}
-    where BillNo = #{billno,jdbcType=VARCHAR}
+    set pr_document_date = #{prDocumentDate,jdbcType=DATE},
+      pr_type_id = #{prTypeId,jdbcType=VARCHAR},
+      pr_type_name = #{prTypeName,jdbcType=VARCHAR},
+      pr_single_case = #{prSingleCase,jdbcType=INTEGER},
+      pr_amount = #{prAmount,jdbcType=INTEGER},
+      pr_sum_amount = #{prSumAmount,jdbcType=INTEGER},
+      pr_header_section = #{prHeaderSection,jdbcType=VARCHAR},
+      pr_footer_section = #{prFooterSection,jdbcType=VARCHAR},
+      pr_custom1 = #{prCustom1,jdbcType=VARCHAR},
+      pr_custom2 = #{prCustom2,jdbcType=VARCHAR},
+      pr_remark = #{prRemark,jdbcType=VARCHAR},
+      pr_staff_id = #{prStaffId,jdbcType=INTEGER},
+      pr_staff_name = #{prStaffName,jdbcType=VARCHAR},
+      pr_team_id = #{prTeamId,jdbcType=VARCHAR},
+      pr_depart_name = #{prDepartName,jdbcType=VARCHAR},
+      pr_executor = #{prExecutor,jdbcType=VARCHAR},
+      pr_checkagain_staff = #{prCheckagainStaff,jdbcType=VARCHAR},
+      pr_audition = #{prAudition,jdbcType=SMALLINT},
+      pr_yn = #{prYn,jdbcType=SMALLINT}
+    where pr_document_number = #{prDocumentNumber,jdbcType=VARCHAR}
   </update>
 </mapper>

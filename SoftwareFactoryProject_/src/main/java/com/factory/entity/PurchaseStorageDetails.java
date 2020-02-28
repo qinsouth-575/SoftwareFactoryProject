@@ -17,16 +17,22 @@ public class PurchaseStorageDetails {
     private Float psdTaxRate;				//税率（%）
     private Float psdTaxAmount;				//税额
     private Float psdIncludingTaxAmount;	//（含税金额）
-    private String psdLotNumber;
+    private String psdLotNumber;			//（批号）
     private String psdGift;					//（赠品）（0：非，1：赠品）
     private String psdInvoiceDetails;		//（发票明细）（0：未勾选，1：勾选）
     private String psdUninvoicedQuantity;	//（未开票数量）
-    private String psdRemarks;
-    private String psdSourceOrder;
-    private String psdSourceNo;
-    private String psdWentDutch;
-
-    public Integer getPsdId() {
+    private String psdRemarks;				//分录备注
+    private String psdSourceOrder;			//（来源单别）
+    private String psdSourceNo;				//（单元单号）
+    private String psdWentDutch;			//（分摊费用）
+    
+    public PurchaseStorageDetails() {
+		super();
+	}
+    
+    
+    
+	public Integer getPsdId() {
         return psdId;
     }
     public void setPsdId(Integer psdId) {

@@ -1472,53 +1472,123 @@ public class PurchaseStorageExample {
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseEqualTo(Short value) {
+        public Criteria andPsPaymentClauseEqualTo(String value) {
             addCriterion("ps_payment_clause =", value, "psPaymentClause");
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseNotEqualTo(Short value) {
+        public Criteria andPsPaymentClauseNotEqualTo(String value) {
             addCriterion("ps_payment_clause <>", value, "psPaymentClause");
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseGreaterThan(Short value) {
+        public Criteria andPsPaymentClauseGreaterThan(String value) {
             addCriterion("ps_payment_clause >", value, "psPaymentClause");
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseGreaterThanOrEqualTo(Short value) {
+        public Criteria andPsPaymentClauseGreaterThanOrEqualTo(String value) {
             addCriterion("ps_payment_clause >=", value, "psPaymentClause");
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseLessThan(Short value) {
+        public Criteria andPsPaymentClauseLessThan(String value) {
             addCriterion("ps_payment_clause <", value, "psPaymentClause");
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseLessThanOrEqualTo(Short value) {
+        public Criteria andPsPaymentClauseLessThanOrEqualTo(String value) {
             addCriterion("ps_payment_clause <=", value, "psPaymentClause");
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseIn(List<Short> values) {
+        public Criteria andPsPaymentClauseLike(String value) {
+            addCriterion("ps_payment_clause like", value, "psPaymentClause");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNotLike(String value) {
+            addCriterion("ps_payment_clause not like", value, "psPaymentClause");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseIn(List<String> values) {
             addCriterion("ps_payment_clause in", values, "psPaymentClause");
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseNotIn(List<Short> values) {
+        public Criteria andPsPaymentClauseNotIn(List<String> values) {
             addCriterion("ps_payment_clause not in", values, "psPaymentClause");
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseBetween(Short value1, Short value2) {
+        public Criteria andPsPaymentClauseBetween(String value1, String value2) {
             addCriterion("ps_payment_clause between", value1, value2, "psPaymentClause");
             return (Criteria) this;
         }
 
-        public Criteria andPsPaymentClauseNotBetween(Short value1, Short value2) {
+        public Criteria andPsPaymentClauseNotBetween(String value1, String value2) {
             addCriterion("ps_payment_clause not between", value1, value2, "psPaymentClause");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumIsNull() {
+            addCriterion("ps_payment_clause_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumIsNotNull() {
+            addCriterion("ps_payment_clause_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumEqualTo(Short value) {
+            addCriterion("ps_payment_clause_num =", value, "psPaymentClauseNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumNotEqualTo(Short value) {
+            addCriterion("ps_payment_clause_num <>", value, "psPaymentClauseNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumGreaterThan(Short value) {
+            addCriterion("ps_payment_clause_num >", value, "psPaymentClauseNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumGreaterThanOrEqualTo(Short value) {
+            addCriterion("ps_payment_clause_num >=", value, "psPaymentClauseNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumLessThan(Short value) {
+            addCriterion("ps_payment_clause_num <", value, "psPaymentClauseNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumLessThanOrEqualTo(Short value) {
+            addCriterion("ps_payment_clause_num <=", value, "psPaymentClauseNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumIn(List<Short> values) {
+            addCriterion("ps_payment_clause_num in", values, "psPaymentClauseNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumNotIn(List<Short> values) {
+            addCriterion("ps_payment_clause_num not in", values, "psPaymentClauseNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumBetween(Short value1, Short value2) {
+            addCriterion("ps_payment_clause_num between", value1, value2, "psPaymentClauseNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPsPaymentClauseNumNotBetween(Short value1, Short value2) {
+            addCriterion("ps_payment_clause_num not between", value1, value2, "psPaymentClauseNum");
             return (Criteria) this;
         }
 

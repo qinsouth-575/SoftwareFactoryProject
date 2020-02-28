@@ -5,42 +5,44 @@ import java.util.List;
 
 public class PurchaseStorage {
 	
-    private String psDocumentNumber;		//单据日期
-    private Date psDocumentDate;			//单据号码（主键 编号）
-    private String currencyName;
-    private Float psExchangeRate;
-    private String psForeignTrade;
-    private String supplierId;
-    private String supplierName;
-    private String supplierEngname;
-    private String pstId;
-    private String psPriceIncludeTax;
-    private String warehouseid;
-    private String warehousename;
+    private String psDocumentNumber;		//单据号码（主键 编号）
+    private Date psDocumentDate;			//单据日期
+    private String currencyName;			//币别(不录id,直接录name)
+    private Float psExchangeRate;			//汇率
+    private String psForeignTrade;			//国外贸易 默认否
+    
+    private String supplierId;				//供应商id
+    private String supplierName;			//供应商全称
+    private String supplierEngname;			//供应商地址
+    private String pstId;					//采购入库类型（不录id）
+    private String psPriceIncludeTax;		//单价是否含税
+    private String warehouseid;				//仓库id
+    private String warehousename;			//仓库名称
     private String psSingleStatus;			//凭证编号
     
     private Integer psSunnum;				//总数量
-    private Float psSunmoney;
-    private Float psTax;
-    private Float psIncludeTaxAmount;
+    private Float psSunmoney;				//总金额
+    private Float psTax;					//总税额
+    private Float psIncludeTaxAmount;		//总含税金额
     private Float psWentDutch;				//总分摊费用
     
     private String psAccountOwnershipId;	//帐款归属id（供应商表id）
-    private String psAccountOwnershipName;
-    private Short psPaymentClause;
-    private Date psPaymentDate;
-    private String psAccountReceivable;
-    private String psCustom1;
-    private String psCustom2;
-    private String psRemark;
+    private String psAccountOwnershipName;	//帐款归属方全称（供应商表）
+    private String psPaymentClause;			//付款条件 - 条件
+    private Short psPaymentClauseNum;		//付款条件 - 天数
+    private Date psPaymentDate;				//付款日期
+    private String psAccountReceivable;		//账款月份
+    private String psCustom1;				//自定栏一
+    private String psCustom2;				//自定栏二
+    private String psRemark;				//备注
     
     private Integer staffId;				//采购人员id(员工id)
     private String staffName;				//采购人员(员工名称)
     private String teamId;					//部门id
-    private String departName;
-    private String psBelongsProject;
-    private String psExecutor;
-    private String psCheckagainStaff;
+    private String departName;				//部门名称
+    private String psBelongsProject;		//所属项目
+    private String psExecutor;				//制单人员（当前登录者）
+    private String psCheckagainStaff;		//复核人员（当前登录者）
     private String psAudition;				//单据状态（0新增，1审核，2取消审核）
     private String psYn;					//是否删除（0否，1是；默认0）
     
@@ -48,7 +50,7 @@ public class PurchaseStorage {
     
     private Integer pageNum;				//当前页
     private final Integer pageSize = 1;		//每页显示条数
-    private String flag;					//goInsert：新增	goUpdate：修改
+    private String statu;					//goInsert：新增	goUpdate：修改
     
     //无参构造函数
     public PurchaseStorage() {
@@ -57,7 +59,7 @@ public class PurchaseStorage {
     
     //
 
-	public String getPsDocumentNumber() {
+    public String getPsDocumentNumber() {
         return psDocumentNumber;
     }
 
@@ -217,12 +219,20 @@ public class PurchaseStorage {
         this.psAccountOwnershipName = psAccountOwnershipName;
     }
 
-    public Short getPsPaymentClause() {
+    public String getPsPaymentClause() {
         return psPaymentClause;
     }
 
-    public void setPsPaymentClause(Short psPaymentClause) {
+    public void setPsPaymentClause(String psPaymentClause) {
         this.psPaymentClause = psPaymentClause;
+    }
+
+    public Short getPsPaymentClauseNum() {
+        return psPaymentClauseNum;
+    }
+
+    public void setPsPaymentClauseNum(Short psPaymentClauseNum) {
+        this.psPaymentClauseNum = psPaymentClauseNum;
     }
 
     public Date getPsPaymentDate() {
@@ -357,12 +367,12 @@ public class PurchaseStorage {
 		return pageSize;
 	}
 
-	public String getFlag() {
-		return flag;
+	public String getStatu() {
+		return statu;
 	}
 
-	public void setFlag(String flag) {
-		this.flag = flag;
+	public void setStatu(String statu) {
+		this.statu = statu;
 	}
 
 	@Override
@@ -375,13 +385,13 @@ public class PurchaseStorage {
 				+ ", psSingleStatus=" + psSingleStatus + ", psSunnum=" + psSunnum + ", psSunmoney=" + psSunmoney
 				+ ", psTax=" + psTax + ", psIncludeTaxAmount=" + psIncludeTaxAmount + ", psWentDutch=" + psWentDutch
 				+ ", psAccountOwnershipId=" + psAccountOwnershipId + ", psAccountOwnershipName="
-				+ psAccountOwnershipName + ", psPaymentClause=" + psPaymentClause + ", psPaymentDate=" + psPaymentDate
-				+ ", psAccountReceivable=" + psAccountReceivable + ", psCustom1=" + psCustom1 + ", psCustom2="
-				+ psCustom2 + ", psRemark=" + psRemark + ", staffId=" + staffId + ", staffName=" + staffName
-				+ ", teamId=" + teamId + ", departName=" + departName + ", psBelongsProject=" + psBelongsProject
-				+ ", psExecutor=" + psExecutor + ", psCheckagainStaff=" + psCheckagainStaff + ", psAudition="
-				+ psAudition + ", psYn=" + psYn + ", psdList=" + psdList + ", pageNum=" + pageNum + ", pageSize="
-				+ pageSize + ", flag=" + flag + "]";
+				+ psAccountOwnershipName + ", psPaymentClause=" + psPaymentClause + ", psPaymentClauseNum="
+				+ psPaymentClauseNum + ", psPaymentDate=" + psPaymentDate + ", psAccountReceivable="
+				+ psAccountReceivable + ", psCustom1=" + psCustom1 + ", psCustom2=" + psCustom2 + ", psRemark="
+				+ psRemark + ", staffId=" + staffId + ", staffName=" + staffName + ", teamId=" + teamId
+				+ ", departName=" + departName + ", psBelongsProject=" + psBelongsProject + ", psExecutor=" + psExecutor
+				+ ", psCheckagainStaff=" + psCheckagainStaff + ", psAudition=" + psAudition + ", psYn=" + psYn
+				+ ", psdList=" + psdList + ", pageNum=" + pageNum + ", pageSize=" + pageSize + ", statu=" + statu + "]";
 	}
 	
 }

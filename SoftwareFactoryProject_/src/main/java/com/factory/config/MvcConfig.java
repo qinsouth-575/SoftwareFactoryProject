@@ -54,7 +54,7 @@ public class MvcConfig implements WebMvcConfigurer {
     
 	//extends WebMvcConfigurationSupport
 	
-    @Autowired
+    /*@Autowired
 	CommonIntercepter commonI;
     
     @Override
@@ -72,7 +72,7 @@ public class MvcConfig implements WebMvcConfigurer {
         //registry.addInterceptor(loginInterceptor).addPathPatterns("/**")
         //.excludePathPatterns("/stuInfo/getAllStuInfoA","/account/register");    
         //super.addInterceptors(registry);
-    }
+    }*/
     
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
