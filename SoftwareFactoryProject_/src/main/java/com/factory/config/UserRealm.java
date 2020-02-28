@@ -27,7 +27,7 @@ import com.factory.entity.AJurisdiction;
 import com.factory.entity.APosition;
 import com.factory.entity.Staff;
 
-@Component
+//@Component
 public class UserRealm extends AuthorizingRealm {
 
     private static final Logger logger = LoggerFactory.getLogger(UserRealm.class);
