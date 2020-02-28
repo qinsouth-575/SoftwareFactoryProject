@@ -59,8 +59,8 @@
 				<div class="layui-col-md10 layui-col-md-offset2"></div>
 				<div class="layui-row">
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" class="">客户</span>
-						<input id="customerName" type="text" class="layui-col-md-offset1" readonly="readonly" />
+						<span class="layui-col-md3" class="" >客户</span>
+						<input id="customerName" ondblclick="b()" type="text" class="layui-col-md-offset1" readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
 						<span class="layui-col-md2" >单据日期</span> <input id="sqDocumentTime" type="date" style="width: 157px;" class="layui-col-md-offset1" readonly="readonly" />
@@ -352,13 +352,13 @@
 				$("#sqEffectiveTime").val("")
 				$("#currencyName").val("")
 				$("#sqTax").val("")
-				$("#sqExchangeRate").val("readonly","readonly")
+				$("#sqExchangeRate").val("")
 				$("#staffName").val("")
 				$("#sqAuditing").attr("")
 				$("#departName").val("")
 				$("#sqYn").val("")
 				$("tbody").html("")
-				a()
+				a1()
 				//定位当前时间
 				layui.use('laydate',function(){
 					var laydate=layui.laydate;
@@ -368,11 +368,11 @@
 						done:function(value,date){}
 					})
 				})
-				//自动编写单据号码
+				//自动编写单据号码**********************
 				//未完成
 				
 				
-				//读取当前登录者
+				//读取当前登录者************************
 				//将名字赋值到制单人员处
 				
 				
@@ -506,33 +506,33 @@
 				}
 			}
 			function fangqi(){
-			$("[readonly='false']").each(function(i,obj){
-				$(obj).attr("readonly","readonly")
-			})
-			$("#sqTax").attr("disabled","disabled")
-			$("#customerId").val("")
-			$("#sowDocumentDate").val("")
-			$("#sowAddress").val("")
-			$("#sowId").val("")
-			$("#sowtId").val("")
-			$("#currencyId").val("")
-			$("#sowPriceIncludeTax").val("")
-			$("#sowExchangeRate").val("")
-			$("#warehouseId").val("")
-			$("#sowForeignTrade").val("")
-			$("#sowCertificateNumber").val("")
-			$("#sowSaleszkgs").val("")
-			$("#sowSalesdate").val("")
-			$("#sowSalessktj").val("")
-			$("#sowSalesday").val("")
-			$("#sowRemark").val("")
-			$("#sowBuyer").val("")
-			$("#sowAuditing").val("")
-			$("#sowBelongsSection").val("")
-			$("#sowYn").val("")
-			$("#sowProject").val("")
-			$("tbody").html("")
-		}
+				$("[readonly='false']").each(function(i,obj){
+					$(obj).attr("readonly","readonly")
+				})
+				$("#sqTax").attr("disabled","disabled")
+				$("#customerId").val("")
+				$("#sowDocumentDate").val("")
+				$("#sowAddress").val("")
+				$("#sowId").val("")
+				$("#sowtId").val("")
+				$("#currencyId").val("")
+				$("#sowPriceIncludeTax").val("")
+				$("#sowExchangeRate").val("")
+				$("#warehouseId").val("")
+				$("#sowForeignTrade").val("")
+				$("#sowCertificateNumber").val("")
+				$("#sowSaleszkgs").val("")
+				$("#sowSalesdate").val("")
+				$("#sowSalessktj").val("")
+				$("#sowSalesday").val("")
+				$("#sowRemark").val("")
+				$("#sowBuyer").val("")
+				$("#sowAuditing").val("")
+				$("#sowBelongsSection").val("")
+				$("#sowYn").val("")
+				$("#sowProject").val("")
+				$("tbody").html("")
+			}
 			function todelete(){
 				var flag=confirm("是否确认删除？")
 				if(flag){
@@ -551,7 +551,7 @@
 	          	})
 				}
 			}
-			function a(){
+			function a1(){
 				if(flag){
 					$("tbody").append(`
 						<tr>
@@ -575,7 +575,24 @@
 				}
 			}	
 			
-			
+			function b(){
+				//开窗取值
+				layer.open({
+					type:2,
+					content:"a.html",
+					success:function(iframe,index){ //iframe=>div
+						//获取子页面中body节点,通过jquery查找节点方式进行赋值
+						var body = layer.getChildFrame('body', index);  //获取的子页面HTML所有类容
+						//var span = body.find("span");
+						//alert(span.text())
+						/*//获取子页面的窗体对象,通过窗体对象对js中的变量或者函数进行调用
+						var iframeWin = window[iframe.find('iframe')[0]['name']]; 
+						iframeWin.id = 100;
+						iframeWin.printId();*/
+					}
+					
+				});
+			}
 			
 			
 			
