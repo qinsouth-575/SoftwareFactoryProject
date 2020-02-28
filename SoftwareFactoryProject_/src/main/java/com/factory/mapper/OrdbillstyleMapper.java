@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface OrdbillstyleMapper {
+	
     int countByExample(OrdbillstyleExample example);
 
     int deleteByExample(OrdbillstyleExample example);
@@ -19,4 +20,5 @@ public interface OrdbillstyleMapper {
     int updateByExampleSelective(@Param("record") Ordbillstyle record, @Param("example") OrdbillstyleExample example);
 
     int updateByExample(@Param("record") Ordbillstyle record, @Param("example") OrdbillstyleExample example);
+    
 }

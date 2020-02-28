@@ -3,7 +3,10 @@ package com.factory.mapper;
 import com.factory.entity.PayablesDetail;
 import com.factory.entity.PayablesDetailExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface PayablesDetailMapper {
     int countByExample(PayablesDetailExample example);
@@ -15,6 +18,11 @@ public interface PayablesDetailMapper {
     int insert(PayablesDetail record);
 
     int insertSelective(PayablesDetail record);
+    //根据主表id查询详表信息
+    List<PayablesDetail> queryByPayablesId(@Param("payablesId")String payablesId);
+    
+    //根据主表id删除详表信息
+    int deleteByPayablesId(@Param("payablesId")String payablesId);
 
     List<PayablesDetail> selectByExample(PayablesDetailExample example);
 

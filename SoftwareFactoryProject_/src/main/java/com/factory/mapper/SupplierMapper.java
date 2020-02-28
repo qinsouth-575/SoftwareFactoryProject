@@ -13,7 +13,8 @@ public interface SupplierMapper {
     int deleteByPrimaryKey(String supplierId);
 
     int insert(Supplier record);
-
+    //根据供应商名称查询出他的id
+    String querySupplierIdByName(@Param("supplierName")String supplierName);
     int insertSelective(Supplier record);
 
     List<Supplier> selectByExample(SupplierExample example);

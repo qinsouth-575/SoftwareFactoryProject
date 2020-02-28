@@ -558,4 +558,10 @@
       pade_custom3 = #{padeCustom3,jdbcType=VARCHAR}
     where paydetail_id = #{paydetailId,jdbcType=VARCHAR}
   </update>
+  <select id="queryByPayablesId" parameterType="java.lang.String" resultMap="BaseResultMap">
+  		select * from `payables_detail` where Payables_id=#{payablesId}
+  </select>
+  <delete id="deleteByPayablesId" parameterType="java.lang.String">
+  		delete from `payables_detail` where Payables_id=#{payablesId}
+  </delete>
 </mapper>

@@ -2,19 +2,36 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>新增预付款单</title>
-		<link rel="stylesheet" href="../css/layui.css" />
+		<title>查看冲款单</title>
+		<link rel="stylesheet" href="../../css/layui.css" />
 		<style>
-
+			#xcjCKPPsave{
+				display: none;
+			}
+			.xcjshenhe{
+				display: none;
+				position: fixed;
+				background-color: white;
+				z-index: 100;
+				left: 40%;
+				top: 30%;
+			}
+			#xcjCKPPCCckbtn{
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="layui-container">
+		<div class="xcjshenhe">
+			<i class="layui-icon layui-icon-auz" style="font-size: 6.25rem; color: #1E9FFF;"></i>
+		</div>
+		<input type="hidden" name="" />
+		<div class="layui-container" id="xcjCKPPInfo">
 			<div class="layui-form-item layui-row">
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">供应商</label>
 					<div class="layui-input-inline">
-						<select name="xcjAddPPgysID" lay-verify="required" lay-search="" class="layui-select">
+						<select name="addPMgysId" lay-verify="required" lay-search="" class="layui-select">
 							<option value="0">选择供应商</option>
 							<option value="1">layer</option>
 							<option value="2">form</option>
@@ -24,7 +41,7 @@
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">单据日期</label>
 					<div class="layui-input-inline">
-						<input type="text" readonly="readonly" name="xcjAddPPTime" id="xcjAddPPTime" autocomplete="off" class="layui-input">
+						<input type="text" readonly="readonly" name="xcjCKPPTime" id="xcjCKPPTime" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 			</div>
@@ -69,7 +86,7 @@
 			<div class="layui-form-item layui-row">
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">冲款帐月</label>
-					<input type="text" class="layui-input layui-input-inline" id="xcjAddPPprompt" placeholder="yyyyMMdd">
+					<input type="text" class="layui-input layui-input-inline" id="xcjCKPPprompt" placeholder="yyyyMMdd">
 				</div>
 				<div class="layui-inline layui-col-md5">
 					<label class="layui-form-label">凭证编号</label>
@@ -144,23 +161,68 @@
 					<input type="text" name="addPMre-check" class="layui-input layui-input-inline" />
 				</div>
 			</div>
-			<div class="layui-btn-container">
-				<button type="button" class="layui-btn">载入账单</button>
-				<button type="button" class="layui-btn">保存</button>
+			<div class="layui-btn-container" id="xcjCKPPsave">
+				<button type="button" class="layui-btn" id="xcjCKPPloadbtn">载入账单</button>
+				<button type="button" class="layui-btn" id="xcjCKPPsavebtn">保存</button>
+			</div>
+			<div class="layui-btn-container" id="xcjCKPPupdate">
+				<button type="button" class="layui-btn" id="xcjCKPPckbtn">审核</button>
+				<button type="button" class="layui-btn" id="xcjCKPPCCckbtn">取消审核</button>
+				<button type="button" class="layui-btn" id="xcjCKPPupbtn">修改</button>
 			</div>
 		</div>
-		<script src="../layui.all.js"></script>
-		<script src="../js/jquery.min.js"></script>
+		<script src="../../layui.all.js"></script>
+		<script src="../../js/jquery.min.js"></script>
 		<script>
-			var addpaymentlaydate = layui.laydate;
+			var xcjcjpaymentlaydate = layui.laydate;
 			//执行一个laydate实例
-			addpaymentlaydate.render({
-				elem: '#xcjAddPPTime' //指定元素
+			xcjcjpaymentlaydate.render({
+				elem: '#xcjCKPPTime' //指定元素
 			});
-			addpaymentlaydate.render({
-				elem: '#xcjAddPPprompt',
+			xcjcjpaymentlaydate.render({
+				elem: '#xcjCKPPprompt',
 				format: 'yyyyMMdd'
 			});
+			$(function() {
+				/* 审核变量 */
+				var xcjPPISCK=0;
+				/* 默认不能修改数据 */
+				$("#xcjCKPPInfo input").attr("disabled", "disabled");
+				$("#xcjCKPPInfo select").attr("disabled", "disabled");
+				$("#xcjCKPPInfo textarea").attr("disabled", "disabled");
+				/* 点击修改 */
+				$("#xcjCKPPupbtn").on("click", function() {
+					if(xcjPPISCK==1){
+						return false;
+					}
+					$("#xcjCKPPInfo input").removeAttr("disabled", "false");
+					$("#xcjCKPPInfo select").removeAttr("disabled", "false");
+					$("#xcjCKPPInfo textarea").removeAttr("disabled", "disabled");
+					$("#xcjCKPPupdate").hide();
+					$("#xcjCKPPsave").show();
+				});
+				/* 点击保存 */
+				$("#xcjCKPPsavebtn").on("click", function() {
+					$("#xcjCKPPInfo input").attr("disabled", "disabled");
+					$("#xcjCKPPInfo select").attr("disabled", "disabled");
+					$("#xcjCKPPInfo textarea").attr("disabled", "disabled");
+					$("#xcjCKPPsave").hide();
+					$("#xcjCKPPupdate").show();
+				});
+				/* 审核与反审核 */
+				$("#xcjCKPPckbtn").on("click", function() {
+					xcjPPISCK=1;
+					$(".xcjshenhe").show();
+					$("#xcjCKPPckbtn").hide();
+					$("#xcjCKPPCCckbtn").show();
+				});
+				$("#xcjCKPPCCckbtn").on("click", function() {
+					xcjPPISCK=0
+					$(".xcjshenhe").hide();
+					$("#xcjCKPPckbtn").show();
+					$("#xcjCKPPCCckbtn").hide();
+				});
+			})
 		</script>
 	</body>
 </html>

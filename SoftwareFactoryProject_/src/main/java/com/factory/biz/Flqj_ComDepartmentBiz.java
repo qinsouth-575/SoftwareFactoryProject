@@ -23,6 +23,10 @@ public class Flqj_ComDepartmentBiz {
 	@Autowired
 	private ComdepartmentMapper dao;
 	
+	public List<Comdepartment> queryCOMAll(Comdepartment comdepart){
+		return dao.selectByExample(null);
+	}
+	
 	//部门设定 - 1.分页查询一条部门
     public PageInfo<Comdepartment> queryCDAll(Comdepartment record){
     	PageHelper.startPage(record.getPageNum(), record.getPageSize());

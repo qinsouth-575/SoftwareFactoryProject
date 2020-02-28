@@ -2,26 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.factory.mapper.TPurchaseRequisitionsDetailsMapper" >
   <resultMap id="BaseResultMap" type="com.factory.entity.TPurchaseRequisitionsDetails" >
-    <result column="SerNO" property="serno" jdbcType="VARCHAR" />
-    <result column="ProdID" property="prodid" jdbcType="INTEGER" />
-    <result column="ProdName" property="prodname" jdbcType="VARCHAR" />
-    <result column="ProdSize" property="prodsize" jdbcType="VARCHAR" />
-    <result column="SUnitID" property="sunitid" jdbcType="INTEGER" />
-    <result column="sQuantity" property="squantity" jdbcType="INTEGER" />
-    <result column="CurrID" property="currid" jdbcType="INTEGER" />
-    <result column="sPrice" property="sprice" jdbcType="REAL" />
-    <result column="Amount" property="amount" jdbcType="REAL" />
-    <result column="LastestCurrID" property="lastestcurrid" jdbcType="INTEGER" />
-    <result column="LastestPrice" property="lastestprice" jdbcType="REAL" />
-    <result column="LastestAmount" property="lastestamount" jdbcType="REAL" />
-    <result column="PreInDate" property="preindate" jdbcType="DATE" />
-    <result column="SuggestPurDate" property="suggestpurdate" jdbcType="DATE" />
-    <result column="QtyRemain" property="qtyremain" jdbcType="INTEGER" />
-    <result column="Remark" property="remark" jdbcType="VARCHAR" />
-    <result column="TranType" property="trantype" jdbcType="VARCHAR" />
-    <result column="FromNo" property="fromno" jdbcType="VARCHAR" />
-    <result column="ItemRemark" property="itemremark" jdbcType="VARCHAR" />
+    <id column="prd_id" property="prdId" jdbcType="INTEGER" />
+    <result column="prd_document_number" property="prdDocumentNumber" jdbcType="VARCHAR" />
+    <result column="prd_column_no" property="prdColumnNo" jdbcType="VARCHAR" />
+    <result column="prd_matter_id" property="prdMatterId" jdbcType="VARCHAR" />
+    <result column="prd_matter_name" property="prdMatterName" jdbcType="VARCHAR" />
+    <result column="prd_specifications" property="prdSpecifications" jdbcType="VARCHAR" />
+    <result column="prd_company_name" property="prdCompanyName" jdbcType="VARCHAR" />
+    <result column="prd_amount" property="prdAmount" jdbcType="INTEGER" />
+    <result column="prd_standard_currency_name" property="prdStandardCurrencyName" jdbcType="VARCHAR" />
+    <result column="prd_standard_price" property="prdStandardPrice" jdbcType="REAL" />
+    <result column="prd_standard_amount" property="prdStandardAmount" jdbcType="REAL" />
+    <result column="prd_finally_currency_name" property="prdFinallyCurrencyName" jdbcType="VARCHAR" />
+    <result column="prd_finally_price" property="prdFinallyPrice" jdbcType="REAL" />
+    <result column="prd_finally_amount" property="prdFinallyAmount" jdbcType="REAL" />
+    <result column="prd_required_date" property="prdRequiredDate" jdbcType="DATE" />
+    <result column="prd_proposed_date" property="prdProposedDate" jdbcType="DATE" />
+    <result column="prd_not_purchase_quantity" property="prdNotPurchaseQuantity" jdbcType="INTEGER" />
+    <result column="prd_remarks" property="prdRemarks" jdbcType="VARCHAR" />
+    <result column="prd_source_order" property="prdSourceOrder" jdbcType="VARCHAR" />
+    <result column="prd_source_no" property="prdSourceNo" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+  <select id="queryPRDAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT * 
+	FROM `t_purchase_requisitions_details`
+	WHERE `prd_document_number` = #{prdDocumentNumber};
+  </select>
+  
+  
+  
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -81,9 +95,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    SerNO, ProdID, ProdName, ProdSize, SUnitID, sQuantity, CurrID, sPrice, Amount, LastestCurrID, 
-    LastestPrice, LastestAmount, PreInDate, SuggestPurDate, QtyRemain, Remark, TranType, 
-    FromNo, ItemRemark
+    prd_id, prd_document_number, prd_column_no, prd_matter_id, prd_matter_name, prd_specifications, 
+    prd_company_name, prd_amount, prd_standard_currency_name, prd_standard_price, prd_standard_amount, 
+    prd_finally_currency_name, prd_finally_price, prd_finally_amount, prd_required_date, 
+    prd_proposed_date, prd_not_purchase_quantity, prd_remarks, prd_source_order, prd_source_no
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.TPurchaseRequisitionsDetailsExample" >
     select
@@ -99,6 +114,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase_requisitions_details
+    where prd_id = #{prdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_purchase_requisitions_details
+    where prd_id = #{prdId,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.factory.entity.TPurchaseRequisitionsDetailsExample" >
     delete from t_purchase_requisitions_details
     <if test="_parameter != null" >
@@ -106,139 +131,145 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.factory.entity.TPurchaseRequisitionsDetails" >
-    insert into t_purchase_requisitions_details (SerNO, ProdID, ProdName, 
-      ProdSize, SUnitID, sQuantity, 
-      CurrID, sPrice, Amount, LastestCurrID, 
-      LastestPrice, LastestAmount, PreInDate, 
-      SuggestPurDate, QtyRemain, Remark, 
-      TranType, FromNo, ItemRemark
-      )
-    values (#{serno,jdbcType=VARCHAR}, #{prodid,jdbcType=INTEGER}, #{prodname,jdbcType=VARCHAR}, 
-      #{prodsize,jdbcType=VARCHAR}, #{sunitid,jdbcType=INTEGER}, #{squantity,jdbcType=INTEGER}, 
-      #{currid,jdbcType=INTEGER}, #{sprice,jdbcType=REAL}, #{amount,jdbcType=REAL}, #{lastestcurrid,jdbcType=INTEGER}, 
-      #{lastestprice,jdbcType=REAL}, #{lastestamount,jdbcType=REAL}, #{preindate,jdbcType=DATE}, 
-      #{suggestpurdate,jdbcType=DATE}, #{qtyremain,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
-      #{trantype,jdbcType=VARCHAR}, #{fromno,jdbcType=VARCHAR}, #{itemremark,jdbcType=VARCHAR}
-      )
+    insert into t_purchase_requisitions_details (prd_id, prd_document_number, prd_column_no, 
+      prd_matter_id, prd_matter_name, prd_specifications, 
+      prd_company_name, prd_amount, prd_standard_currency_name, 
+      prd_standard_price, prd_standard_amount, prd_finally_currency_name, 
+      prd_finally_price, prd_finally_amount, prd_required_date, 
+      prd_proposed_date, prd_not_purchase_quantity, prd_remarks, 
+      prd_source_order, prd_source_no)
+    values (#{prdId,jdbcType=INTEGER}, #{prdDocumentNumber,jdbcType=VARCHAR}, #{prdColumnNo,jdbcType=VARCHAR}, 
+      #{prdMatterId,jdbcType=VARCHAR}, #{prdMatterName,jdbcType=VARCHAR}, #{prdSpecifications,jdbcType=VARCHAR}, 
+      #{prdCompanyName,jdbcType=VARCHAR}, #{prdAmount,jdbcType=INTEGER}, #{prdStandardCurrencyName,jdbcType=VARCHAR}, 
+      #{prdStandardPrice,jdbcType=REAL}, #{prdStandardAmount,jdbcType=REAL}, #{prdFinallyCurrencyName,jdbcType=VARCHAR}, 
+      #{prdFinallyPrice,jdbcType=REAL}, #{prdFinallyAmount,jdbcType=REAL}, #{prdRequiredDate,jdbcType=DATE}, 
+      #{prdProposedDate,jdbcType=DATE}, #{prdNotPurchaseQuantity,jdbcType=INTEGER}, #{prdRemarks,jdbcType=VARCHAR}, 
+      #{prdSourceOrder,jdbcType=VARCHAR}, #{prdSourceNo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.factory.entity.TPurchaseRequisitionsDetails" >
     insert into t_purchase_requisitions_details
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="serno != null" >
-        SerNO,
+      <if test="prdId != null" >
+        prd_id,
       </if>
-      <if test="prodid != null" >
-        ProdID,
+      <if test="prdDocumentNumber != null" >
+        prd_document_number,
       </if>
-      <if test="prodname != null" >
-        ProdName,
+      <if test="prdColumnNo != null" >
+        prd_column_no,
       </if>
-      <if test="prodsize != null" >
-        ProdSize,
+      <if test="prdMatterId != null" >
+        prd_matter_id,
       </if>
-      <if test="sunitid != null" >
-        SUnitID,
+      <if test="prdMatterName != null" >
+        prd_matter_name,
       </if>
-      <if test="squantity != null" >
-        sQuantity,
+      <if test="prdSpecifications != null" >
+        prd_specifications,
       </if>
-      <if test="currid != null" >
-        CurrID,
+      <if test="prdCompanyName != null" >
+        prd_company_name,
       </if>
-      <if test="sprice != null" >
-        sPrice,
+      <if test="prdAmount != null" >
+        prd_amount,
       </if>
-      <if test="amount != null" >
-        Amount,
+      <if test="prdStandardCurrencyName != null" >
+        prd_standard_currency_name,
       </if>
-      <if test="lastestcurrid != null" >
-        LastestCurrID,
+      <if test="prdStandardPrice != null" >
+        prd_standard_price,
       </if>
-      <if test="lastestprice != null" >
-        LastestPrice,
+      <if test="prdStandardAmount != null" >
+        prd_standard_amount,
       </if>
-      <if test="lastestamount != null" >
-        LastestAmount,
+      <if test="prdFinallyCurrencyName != null" >
+        prd_finally_currency_name,
       </if>
-      <if test="preindate != null" >
-        PreInDate,
+      <if test="prdFinallyPrice != null" >
+        prd_finally_price,
       </if>
-      <if test="suggestpurdate != null" >
-        SuggestPurDate,
+      <if test="prdFinallyAmount != null" >
+        prd_finally_amount,
       </if>
-      <if test="qtyremain != null" >
-        QtyRemain,
+      <if test="prdRequiredDate != null" >
+        prd_required_date,
       </if>
-      <if test="remark != null" >
-        Remark,
+      <if test="prdProposedDate != null" >
+        prd_proposed_date,
       </if>
-      <if test="trantype != null" >
-        TranType,
+      <if test="prdNotPurchaseQuantity != null" >
+        prd_not_purchase_quantity,
       </if>
-      <if test="fromno != null" >
-        FromNo,
+      <if test="prdRemarks != null" >
+        prd_remarks,
       </if>
-      <if test="itemremark != null" >
-        ItemRemark,
+      <if test="prdSourceOrder != null" >
+        prd_source_order,
+      </if>
+      <if test="prdSourceNo != null" >
+        prd_source_no,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="serno != null" >
-        #{serno,jdbcType=VARCHAR},
+      <if test="prdId != null" >
+        #{prdId,jdbcType=INTEGER},
       </if>
-      <if test="prodid != null" >
-        #{prodid,jdbcType=INTEGER},
+      <if test="prdDocumentNumber != null" >
+        #{prdDocumentNumber,jdbcType=VARCHAR},
       </if>
-      <if test="prodname != null" >
-        #{prodname,jdbcType=VARCHAR},
+      <if test="prdColumnNo != null" >
+        #{prdColumnNo,jdbcType=VARCHAR},
       </if>
-      <if test="prodsize != null" >
-        #{prodsize,jdbcType=VARCHAR},
+      <if test="prdMatterId != null" >
+        #{prdMatterId,jdbcType=VARCHAR},
       </if>
-      <if test="sunitid != null" >
-        #{sunitid,jdbcType=INTEGER},
+      <if test="prdMatterName != null" >
+        #{prdMatterName,jdbcType=VARCHAR},
       </if>
-      <if test="squantity != null" >
-        #{squantity,jdbcType=INTEGER},
+      <if test="prdSpecifications != null" >
+        #{prdSpecifications,jdbcType=VARCHAR},
       </if>
-      <if test="currid != null" >
-        #{currid,jdbcType=INTEGER},
+      <if test="prdCompanyName != null" >
+        #{prdCompanyName,jdbcType=VARCHAR},
       </if>
-      <if test="sprice != null" >
-        #{sprice,jdbcType=REAL},
+      <if test="prdAmount != null" >
+        #{prdAmount,jdbcType=INTEGER},
       </if>
-      <if test="amount != null" >
-        #{amount,jdbcType=REAL},
+      <if test="prdStandardCurrencyName != null" >
+        #{prdStandardCurrencyName,jdbcType=VARCHAR},
       </if>
-      <if test="lastestcurrid != null" >
-        #{lastestcurrid,jdbcType=INTEGER},
+      <if test="prdStandardPrice != null" >
+        #{prdStandardPrice,jdbcType=REAL},
       </if>
-      <if test="lastestprice != null" >
-        #{lastestprice,jdbcType=REAL},
+      <if test="prdStandardAmount != null" >
+        #{prdStandardAmount,jdbcType=REAL},
       </if>
-      <if test="lastestamount != null" >
-        #{lastestamount,jdbcType=REAL},
+      <if test="prdFinallyCurrencyName != null" >
+        #{prdFinallyCurrencyName,jdbcType=VARCHAR},
       </if>
-      <if test="preindate != null" >
-        #{preindate,jdbcType=DATE},
+      <if test="prdFinallyPrice != null" >
+        #{prdFinallyPrice,jdbcType=REAL},
       </if>
-      <if test="suggestpurdate != null" >
-        #{suggestpurdate,jdbcType=DATE},
+      <if test="prdFinallyAmount != null" >
+        #{prdFinallyAmount,jdbcType=REAL},
       </if>
-      <if test="qtyremain != null" >
-        #{qtyremain,jdbcType=INTEGER},
+      <if test="prdRequiredDate != null" >
+        #{prdRequiredDate,jdbcType=DATE},
       </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
+      <if test="prdProposedDate != null" >
+        #{prdProposedDate,jdbcType=DATE},
       </if>
-      <if test="trantype != null" >
-        #{trantype,jdbcType=VARCHAR},
+      <if test="prdNotPurchaseQuantity != null" >
+        #{prdNotPurchaseQuantity,jdbcType=INTEGER},
       </if>
-      <if test="fromno != null" >
-        #{fromno,jdbcType=VARCHAR},
+      <if test="prdRemarks != null" >
+        #{prdRemarks,jdbcType=VARCHAR},
       </if>
-      <if test="itemremark != null" >
-        #{itemremark,jdbcType=VARCHAR},
+      <if test="prdSourceOrder != null" >
+        #{prdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="prdSourceNo != null" >
+        #{prdSourceNo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -251,62 +282,65 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_purchase_requisitions_details
     <set >
-      <if test="record.serno != null" >
-        SerNO = #{record.serno,jdbcType=VARCHAR},
+      <if test="record.prdId != null" >
+        prd_id = #{record.prdId,jdbcType=INTEGER},
       </if>
-      <if test="record.prodid != null" >
-        ProdID = #{record.prodid,jdbcType=INTEGER},
+      <if test="record.prdDocumentNumber != null" >
+        prd_document_number = #{record.prdDocumentNumber,jdbcType=VARCHAR},
       </if>
-      <if test="record.prodname != null" >
-        ProdName = #{record.prodname,jdbcType=VARCHAR},
+      <if test="record.prdColumnNo != null" >
+        prd_column_no = #{record.prdColumnNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.prodsize != null" >
-        ProdSize = #{record.prodsize,jdbcType=VARCHAR},
+      <if test="record.prdMatterId != null" >
+        prd_matter_id = #{record.prdMatterId,jdbcType=VARCHAR},
       </if>
-      <if test="record.sunitid != null" >
-        SUnitID = #{record.sunitid,jdbcType=INTEGER},
+      <if test="record.prdMatterName != null" >
+        prd_matter_name = #{record.prdMatterName,jdbcType=VARCHAR},
       </if>
-      <if test="record.squantity != null" >
-        sQuantity = #{record.squantity,jdbcType=INTEGER},
+      <if test="record.prdSpecifications != null" >
+        prd_specifications = #{record.prdSpecifications,jdbcType=VARCHAR},
       </if>
-      <if test="record.currid != null" >
-        CurrID = #{record.currid,jdbcType=INTEGER},
+      <if test="record.prdCompanyName != null" >
+        prd_company_name = #{record.prdCompanyName,jdbcType=VARCHAR},
       </if>
-      <if test="record.sprice != null" >
-        sPrice = #{record.sprice,jdbcType=REAL},
+      <if test="record.prdAmount != null" >
+        prd_amount = #{record.prdAmount,jdbcType=INTEGER},
       </if>
-      <if test="record.amount != null" >
-        Amount = #{record.amount,jdbcType=REAL},
+      <if test="record.prdStandardCurrencyName != null" >
+        prd_standard_currency_name = #{record.prdStandardCurrencyName,jdbcType=VARCHAR},
       </if>
-      <if test="record.lastestcurrid != null" >
-        LastestCurrID = #{record.lastestcurrid,jdbcType=INTEGER},
+      <if test="record.prdStandardPrice != null" >
+        prd_standard_price = #{record.prdStandardPrice,jdbcType=REAL},
       </if>
-      <if test="record.lastestprice != null" >
-        LastestPrice = #{record.lastestprice,jdbcType=REAL},
+      <if test="record.prdStandardAmount != null" >
+        prd_standard_amount = #{record.prdStandardAmount,jdbcType=REAL},
       </if>
-      <if test="record.lastestamount != null" >
-        LastestAmount = #{record.lastestamount,jdbcType=REAL},
+      <if test="record.prdFinallyCurrencyName != null" >
+        prd_finally_currency_name = #{record.prdFinallyCurrencyName,jdbcType=VARCHAR},
       </if>
-      <if test="record.preindate != null" >
-        PreInDate = #{record.preindate,jdbcType=DATE},
+      <if test="record.prdFinallyPrice != null" >
+        prd_finally_price = #{record.prdFinallyPrice,jdbcType=REAL},
       </if>
-      <if test="record.suggestpurdate != null" >
-        SuggestPurDate = #{record.suggestpurdate,jdbcType=DATE},
+      <if test="record.prdFinallyAmount != null" >
+        prd_finally_amount = #{record.prdFinallyAmount,jdbcType=REAL},
       </if>
-      <if test="record.qtyremain != null" >
-        QtyRemain = #{record.qtyremain,jdbcType=INTEGER},
+      <if test="record.prdRequiredDate != null" >
+        prd_required_date = #{record.prdRequiredDate,jdbcType=DATE},
       </if>
-      <if test="record.remark != null" >
-        Remark = #{record.remark,jdbcType=VARCHAR},
+      <if test="record.prdProposedDate != null" >
+        prd_proposed_date = #{record.prdProposedDate,jdbcType=DATE},
       </if>
-      <if test="record.trantype != null" >
-        TranType = #{record.trantype,jdbcType=VARCHAR},
+      <if test="record.prdNotPurchaseQuantity != null" >
+        prd_not_purchase_quantity = #{record.prdNotPurchaseQuantity,jdbcType=INTEGER},
       </if>
-      <if test="record.fromno != null" >
-        FromNo = #{record.fromno,jdbcType=VARCHAR},
+      <if test="record.prdRemarks != null" >
+        prd_remarks = #{record.prdRemarks,jdbcType=VARCHAR},
       </if>
-      <if test="record.itemremark != null" >
-        ItemRemark = #{record.itemremark,jdbcType=VARCHAR},
+      <if test="record.prdSourceOrder != null" >
+        prd_source_order = #{record.prdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prdSourceNo != null" >
+        prd_source_no = #{record.prdSourceNo,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -315,27 +349,114 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_purchase_requisitions_details
-    set SerNO = #{record.serno,jdbcType=VARCHAR},
-      ProdID = #{record.prodid,jdbcType=INTEGER},
-      ProdName = #{record.prodname,jdbcType=VARCHAR},
-      ProdSize = #{record.prodsize,jdbcType=VARCHAR},
-      SUnitID = #{record.sunitid,jdbcType=INTEGER},
-      sQuantity = #{record.squantity,jdbcType=INTEGER},
-      CurrID = #{record.currid,jdbcType=INTEGER},
-      sPrice = #{record.sprice,jdbcType=REAL},
-      Amount = #{record.amount,jdbcType=REAL},
-      LastestCurrID = #{record.lastestcurrid,jdbcType=INTEGER},
-      LastestPrice = #{record.lastestprice,jdbcType=REAL},
-      LastestAmount = #{record.lastestamount,jdbcType=REAL},
-      PreInDate = #{record.preindate,jdbcType=DATE},
-      SuggestPurDate = #{record.suggestpurdate,jdbcType=DATE},
-      QtyRemain = #{record.qtyremain,jdbcType=INTEGER},
-      Remark = #{record.remark,jdbcType=VARCHAR},
-      TranType = #{record.trantype,jdbcType=VARCHAR},
-      FromNo = #{record.fromno,jdbcType=VARCHAR},
-      ItemRemark = #{record.itemremark,jdbcType=VARCHAR}
+    set prd_id = #{record.prdId,jdbcType=INTEGER},
+      prd_document_number = #{record.prdDocumentNumber,jdbcType=VARCHAR},
+      prd_column_no = #{record.prdColumnNo,jdbcType=VARCHAR},
+      prd_matter_id = #{record.prdMatterId,jdbcType=VARCHAR},
+      prd_matter_name = #{record.prdMatterName,jdbcType=VARCHAR},
+      prd_specifications = #{record.prdSpecifications,jdbcType=VARCHAR},
+      prd_company_name = #{record.prdCompanyName,jdbcType=VARCHAR},
+      prd_amount = #{record.prdAmount,jdbcType=INTEGER},
+      prd_standard_currency_name = #{record.prdStandardCurrencyName,jdbcType=VARCHAR},
+      prd_standard_price = #{record.prdStandardPrice,jdbcType=REAL},
+      prd_standard_amount = #{record.prdStandardAmount,jdbcType=REAL},
+      prd_finally_currency_name = #{record.prdFinallyCurrencyName,jdbcType=VARCHAR},
+      prd_finally_price = #{record.prdFinallyPrice,jdbcType=REAL},
+      prd_finally_amount = #{record.prdFinallyAmount,jdbcType=REAL},
+      prd_required_date = #{record.prdRequiredDate,jdbcType=DATE},
+      prd_proposed_date = #{record.prdProposedDate,jdbcType=DATE},
+      prd_not_purchase_quantity = #{record.prdNotPurchaseQuantity,jdbcType=INTEGER},
+      prd_remarks = #{record.prdRemarks,jdbcType=VARCHAR},
+      prd_source_order = #{record.prdSourceOrder,jdbcType=VARCHAR},
+      prd_source_no = #{record.prdSourceNo,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.TPurchaseRequisitionsDetails" >
+    update t_purchase_requisitions_details
+    <set >
+      <if test="prdDocumentNumber != null" >
+        prd_document_number = #{prdDocumentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="prdColumnNo != null" >
+        prd_column_no = #{prdColumnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prdMatterId != null" >
+        prd_matter_id = #{prdMatterId,jdbcType=VARCHAR},
+      </if>
+      <if test="prdMatterName != null" >
+        prd_matter_name = #{prdMatterName,jdbcType=VARCHAR},
+      </if>
+      <if test="prdSpecifications != null" >
+        prd_specifications = #{prdSpecifications,jdbcType=VARCHAR},
+      </if>
+      <if test="prdCompanyName != null" >
+        prd_company_name = #{prdCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="prdAmount != null" >
+        prd_amount = #{prdAmount,jdbcType=INTEGER},
+      </if>
+      <if test="prdStandardCurrencyName != null" >
+        prd_standard_currency_name = #{prdStandardCurrencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="prdStandardPrice != null" >
+        prd_standard_price = #{prdStandardPrice,jdbcType=REAL},
+      </if>
+      <if test="prdStandardAmount != null" >
+        prd_standard_amount = #{prdStandardAmount,jdbcType=REAL},
+      </if>
+      <if test="prdFinallyCurrencyName != null" >
+        prd_finally_currency_name = #{prdFinallyCurrencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="prdFinallyPrice != null" >
+        prd_finally_price = #{prdFinallyPrice,jdbcType=REAL},
+      </if>
+      <if test="prdFinallyAmount != null" >
+        prd_finally_amount = #{prdFinallyAmount,jdbcType=REAL},
+      </if>
+      <if test="prdRequiredDate != null" >
+        prd_required_date = #{prdRequiredDate,jdbcType=DATE},
+      </if>
+      <if test="prdProposedDate != null" >
+        prd_proposed_date = #{prdProposedDate,jdbcType=DATE},
+      </if>
+      <if test="prdNotPurchaseQuantity != null" >
+        prd_not_purchase_quantity = #{prdNotPurchaseQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="prdRemarks != null" >
+        prd_remarks = #{prdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="prdSourceOrder != null" >
+        prd_source_order = #{prdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="prdSourceNo != null" >
+        prd_source_no = #{prdSourceNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where prd_id = #{prdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.TPurchaseRequisitionsDetails" >
+    update t_purchase_requisitions_details
+    set prd_document_number = #{prdDocumentNumber,jdbcType=VARCHAR},
+      prd_column_no = #{prdColumnNo,jdbcType=VARCHAR},
+      prd_matter_id = #{prdMatterId,jdbcType=VARCHAR},
+      prd_matter_name = #{prdMatterName,jdbcType=VARCHAR},
+      prd_specifications = #{prdSpecifications,jdbcType=VARCHAR},
+      prd_company_name = #{prdCompanyName,jdbcType=VARCHAR},
+      prd_amount = #{prdAmount,jdbcType=INTEGER},
+      prd_standard_currency_name = #{prdStandardCurrencyName,jdbcType=VARCHAR},
+      prd_standard_price = #{prdStandardPrice,jdbcType=REAL},
+      prd_standard_amount = #{prdStandardAmount,jdbcType=REAL},
+      prd_finally_currency_name = #{prdFinallyCurrencyName,jdbcType=VARCHAR},
+      prd_finally_price = #{prdFinallyPrice,jdbcType=REAL},
+      prd_finally_amount = #{prdFinallyAmount,jdbcType=REAL},
+      prd_required_date = #{prdRequiredDate,jdbcType=DATE},
+      prd_proposed_date = #{prdProposedDate,jdbcType=DATE},
+      prd_not_purchase_quantity = #{prdNotPurchaseQuantity,jdbcType=INTEGER},
+      prd_remarks = #{prdRemarks,jdbcType=VARCHAR},
+      prd_source_order = #{prdSourceOrder,jdbcType=VARCHAR},
+      prd_source_no = #{prdSourceNo,jdbcType=VARCHAR}
+    where prd_id = #{prdId,jdbcType=INTEGER}
   </update>
 </mapper>

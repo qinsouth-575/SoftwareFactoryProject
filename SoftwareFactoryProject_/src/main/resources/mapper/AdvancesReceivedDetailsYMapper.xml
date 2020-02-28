@@ -96,6 +96,12 @@
     from advances_received_details_y
     where priadetails_id = #{priadetailsId,jdbcType=VARCHAR}
   </select>
+  <select id="gt_selectBypriabill_id" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from advances_received_details_y
+    where priabill_id = #{priabill_id,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from advances_received_details_y
     where priadetails_id = #{priadetailsId,jdbcType=VARCHAR}

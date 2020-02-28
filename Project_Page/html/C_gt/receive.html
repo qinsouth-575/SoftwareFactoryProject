@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<title>预收冲款单</title>
@@ -77,6 +76,7 @@
 						<span style="font-size: 18px;padding-left: 15px;">
 			   			预收款单
 			   		</span>
+			   		<span v-if="advances_received_main_y.priabillAuditstatus > 0" style="color: red;margin-left: 100px;">已审核</span>
 					</div>
 				</div>
 				<div style="padding: 10px;">
@@ -91,7 +91,7 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">单据日期</label>
 								<div class="layui-input-block">
-									<input type="text" v-model="advances_received_main_y.priabillPayablestime" id="date1" name="title" required lay-verify="date" placeholder="请输入客户名称" autocomplete="off" class="layui-input" disabled="disabled">
+									<input type="text" v-model="advances_received_main_y.priabillPayablestime" id="date1" name="title" required lay-verify="date" placeholder="" autocomplete="off" class="layui-input" disabled="disabled">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
@@ -174,45 +174,30 @@
 								<div class="layui-tab-item layui-show">
 									<div style="border:1px solid #8eafdb;padding:8px;">
 										<div style="overflow: scroll;">
-											<table class="layui-table" lay-size="sm" style="width: 150%;">
+											<table class="layui-table" id="tab" lay-size="sm" style="width: 150%;">
 												<thead>
 													<tr>
-														<td>(栏号)</td>
-														<td class="color">物料编号</td>
-														<td>(物料名称)</td>
-														<td>(规格型号)</td>
-														<td>(单位名称)</td>
-														<td>数量</td>
-														<td>折扣前单价</td>
-														<td>折数(%)</td>
-														<td>单价</td>
-														<td>金额</td>
-														<td>(税率)</td>
-														<td>(税额)</td>
-														<td>(含税金额)</td>
-														<td>预入库日</td>
-														<td>(未入库量)</td>
-														<td>赠品</td>
-														<td>分录备注</td>
-														<td>(来源单别)</td>
-														<td>(来源单号)</td>
+														<td>预收金额</td>
+														<td>来源单别</td>
+														<td>来源单号</td>
+														<td>摘要</td>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td colspan="18" align="center">内容</td>
+													<tr v-for="a in advances_received_main_y.ardy">
+														<td>{{a.priabillPrice}}</td>
+														<td>{{a.priabillType}}</td>
+														<td>{{a.priabillNumber}}</td>
+														<td>{{a.priabillRemarks}}</td>
 													</tr>
 												</tbody>
 												<tfoot>
 													<tr>
-														<td colspan="5">合计:</td>
-														<td colspan="4">55</td>
-														<td colspan="2">97.55</td>
-														<td>16.55</td>
-														<td colspan="2">114.55</td>
-														<td colspan="5">0</td>
+														<td colspan="">合计:</td>
+														<td colspan="3">{{heji}}</td>
 													</tr>
 												</tfoot>
+												<button disabled="disabled" @click="insertRows()">增加一行</button>
 											</table>
 										</div>
 									</div>
@@ -220,19 +205,7 @@
 								<div class="layui-tab-item">
 									<form class="layui-form" action="">
 										<div class="layui-form-item layui-col-md6">
-											<label class="layui-form-label">表头条文</label>
-											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">自定栏一</label>
-											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-form-item layui-col-md6">
-											<label class="layui-form-label">表尾条文</label>
 											<div class="layui-input-block">
 												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
 											</div>
@@ -321,31 +294,62 @@
 					vue.goUpdate();
 				} else if(incident == "delete"){
 					vue.delete_();
-				} else if(incident == "refresh"){
+				} else if(incident == "refresh") {
 					vue.refresh();
+				}  else if(incident == "audit"){
+					vue.yesaudit();
+				}  else if(incident == "cancelTheAudit"){
+					vue.noaudit();
 				}
-				
-				state = incident;
-			}
-			
-			
-			var vue = new Vue({
-				el: "#vue_fw",
-				data: {
-					pageCd : {},
-					advances_received_main_y: {
-						priabillId : 2020020201,
-						priabillPayablestime : '2020-02-02',
-						pageNum : 1
-					},
-					state : ""
+
+state = incident;
+}
+
+var vue = new Vue({
+			el: "#vue_fw",
+			/*data: {
+				pageCd: {},
+				advances_received_main_y: {
+					priabillId: 2020020201,
+					priabillPayablestime: '2020-02-02',
+					pageNum: 1
 				},
-				methods: {
-					gt_select_payablestime: function(payablestime) {
+				state: ""
+			},*/
+			data() {
+				return{
+					pageCd: {},
+					advances_received_main_y: {
+						priabillId: 2020020201,
+						priabillPayablestime: '2020-02-02',
+						pageNum: 1
+					},
+					heji: 0,
+					state: ""
+				}
+			},
+			methods: {
+				//时间格式化函数，此处仅针对yyyy-MM-dd hh:mm:ss 的格式进行格式化
+				dateFormat: function(time) {
+					var date = new Date(time);
+					var year = date.getFullYear();
+					/* 在日期格式中，月份是从0开始的，因此要加0
+					 * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+					 * */
+					var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+					var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+					var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+					var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+					var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+					// 拼接
+					return year + "-" + month + "-" + day;
+					//return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+				},
+				gt_select_payablestime: function(payablestime) {
 						var vue_ = this;
 
 						$.ajax({
-							type : "get",
+							type:"get",
 							async : false,
 							url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_select_payablestime?payablestime=" + payablestime,
             				dataType : "json",
@@ -357,8 +361,9 @@
 					},
 					queryPage : function(pageNum_){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", true);
-						
+						alert("1");
 						var this_ = this;
+						this_.heji = 0;
 						this.advances_received_main_y.pageNum = pageNum_;
 						
 						$.ajax({
@@ -369,11 +374,31 @@
 							contentType : 'application/json;charset=UTF-8',
             				dataType : "json",
 							success : function(result) {
-								//数据正常		/alert(JSON.stringify(result));
 								this_.pageCd = result;
 								this_.advances_received_main_y = this_.pageCd.list[0];
+								//时间格式默认为UTC地区时间格式，调用手写的时间格式转换方式转换成yyyy-MM-dd hh:mm:ss/**/
+								this_.advances_received_main_y.priabillPayablestime = this_.dateFormat(this_.advances_received_main_y.priabillPayablestime);
+								for (i = 0; i < this_.advances_received_main_y.ardy.length; i++) {
+									this_.heji = this_.heji + parseInt(this_.advances_received_main_y.ardy[i].priabillPrice);
+								}
 							}
 						});
+					},
+					goHeJi : function(){
+						var this_ = this;
+						this_.heji = 0;
+						$("#tab tr:gt(0)").each(function(){
+   							var input1 = $(this).find('input[name="inputOne"]').val();
+   							if(!isNaN(input1)){
+     							 this_.heji += parseInt(input1)
+   							}
+						});
+					},
+					insertRows:function(){
+					this.goHeJi();
+					var newTr =	$("<tr class='emptyyy'><td><input name='inputOne' type='text' style='width: 50px;' /></td><td><select style='width: 150px;height: 30px;' name='selectOne'><option>销售订单</option><option>S/C</option></select></td><td><input name='inputTwo' type='text' style='width: 50px;' /></td><td><input name='inputThree' type='text' style='width: 50px;' /></td></tr>");
+					$("#tab").append(newTr);
+					
 					},
 		   			goFirstPage : function(){
 		   				this.queryPage(1);
@@ -383,6 +408,7 @@
 		      				this.queryPage(this.pageCd.prePage);
 		   			},
 		   			goNextPage : function(){
+		   				alert(this.pageCd.hasNextPage)
 		   				if(this.pageCd.hasNextPage)
 		      				this.queryPage(this.pageCd.nextPage);
 		   			},
@@ -393,14 +419,77 @@
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
 						this.state = "goInsert";
 						
-						this.department = {};
+						//Object.assign(this.$data, this.$options.data());
+						this.hanlderEmpty(this.advances_received_main_y);
+						
+						var now = new Date();
+						//格式化日，如果小于9，前面补0 
+						var day = ("0" + now.getDate()).slice(-2);
+						//格式化月，如果小于9，前面补0  
+						var month = ("0" + (now.getMonth() + 1)).slice(-2);
+						//拼装完整日 期格式  
+						var today = now.getFullYear() + "-" + (month) + "-" + (day);
+						//将获取的当前日期赋值给主表的单据日期
+						this.advances_received_main_y.priabillPayablestime = today;
+						//调用根据单据日期查询赋值单据号码方法（传参单据日期）
+						this.gt_select_payablestime(this.advances_received_main_y.priabillPayablestime);
+						//默认人民币
+						this.advances_received_main_y.priabillCurrencyName = "人民币";
+						//解除button的禁用
+						$("button").attr('disabled',false);//移除disabled属性
+						//$("tbody").html("<tr><td><input v-on:input='goHeJi()' type='text' style='width: 50px;' /></td><td><input type='text' style='width: 50px;' /></td><td><input type='text' style='width: 50px;' /></td><td><input type='text' style='width: 50px;' /></td></tr>");						
+						//$("tbody").remove();
 					},
 					save : function(){
 						//alert("执行" + this.state + "操作！");
 						var this_ = this;
+						this_.goHeJi();
 						
+						let listFea=[]
+   						$("tbody tr").each(function(){
+      						var detail={};
+      						var input1 = $(this).find('input[name="inputOne"]').val();
+      						var select1 = $(this).find('select[name="selectOne"]').val();
+      						var input2 = $(this).find('input[name="inputTwo"]').val();
+      						var input3 = $(this).find('input[name="inputThree"]').val();+
+      						console.log(input1,select1,input2,input3);
+      						detail.priabillid = this_.advances_received_main_y.priabillId;
+      						detail.priabillPrice = input1;
+      						detail.priabillType = select1;
+      						detail.priabillNumber = input2;
+      						detail.priabillRemarks = input3;
+      						listFea.push(detail);
+   						});
+   						this_.advances_received_main_y.ardy = listFea;
 						
-						
+						var advances_received_main_y = JSON.stringify(this_.advances_received_main_y);
+						if(this_.state == "goInsert"){
+							$.ajax({
+								type:"post",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_insert_Y",
+								data : advances_received_main_y,
+								contentType : "application/json;charset=utf-8",
+								success : function(result){
+									parent.layer.msg('新增成功!!!');
+									$("tbody>.emptyyy").empty();
+									this_.queryPage(this_.pageCd.pages+1);
+									this_.goHeJi();
+								}
+							});
+						}else if(this_.state == "goUpdate"){
+							$.ajax({
+								type:"post",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_update_Y",
+								data : advances_received_main_y,
+								contentType : "application/json;charset=utf-8",
+								success : function(result){
+									parent.layer.msg('修改成功!!!');
+									$("tbody>.emptyyy").empty();
+									this_.queryPage(this_.pageCd.pages+1);
+									this_.goHeJi();
+								}
+							});
+						}
 					},
 					cancel : function(){
 						if(this.state == "goInsert"){
@@ -414,25 +503,84 @@
 					goUpdate : function(){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
 						this.state = "goUpdate";
+						
 					},
 					delete_ : function(){
-		   				if(!confirm("确定删除本条仓库数据吗？"))
+		   				if(!confirm("确认删除记录项吗？"))
 		   					return false;
 		   				
 						var this_ = this;
-						
-						
+						var status = false;
+						var priabillId = this_.advances_received_main_y.priabillId;
+						if(this_.advances_received_main_y.priabillAuditstatus > 0){
+							alert("目前数据已审核，无法执行此操作");
+						}
+						else{
+							$.ajax({
+								type:"get",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_del_mydy?priabillId=" + priabillId,
+            					//async:true,
+								success : function(result) {
+									if(result > 0){
+										this_.queryPage(1);
+									}
+								}
+							});
+						}
 						
 					},
 					refresh : function(){
 						this.queryPage(1);
+					},
+					yesaudit : function(){
+						//审核
+						var this_ = this;
+						var priabillId = this_.advances_received_main_y.priabillId;
+
+						//var status = false;
+						if(this_.advances_received_main_y.priabillAuditstatus == 0){
+							$.ajax({
+								type:"get",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_update_Auditstatus?priabillId=" + priabillId,
+            					//async:true,
+            					success : function(result) {
+									if(result > 0){
+										this_.advances_received_main_y.priabillAuditstatus = 1;
+									}
+								}
+							});
+						}
+					},
+					noaudit : function(){
+						//反审核
+						var this_ = this;
+						var priabillId = this_.advances_received_main_y.priabillId;
+
+						//var status = false;
+						if(this_.advances_received_main_y.priabillAuditstatus > 0){
+							$.ajax({
+								type:"get",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_update_Auditstatus2?priabillId=" + priabillId,
+            					//async:true,
+            					success : function(result) {
+									if(result > 0){
+										this_.advances_received_main_y.priabillAuditstatus = 0;
+									}
+								}
+							});
+						}
+					},
+					hanlderEmpty : function(obj){
+						for(var o in obj){
+							obj[o] = "";
+						}
 					}
 				},
 				created: function() {
 					this.queryPage(1);
 					
-					
-					/*var now = new Date();
+					/*							
+					var now = new Date();
 					//格式化日，如果小于9，前面补0  
 					var day = ("0" + now.getDate()).slice(-2);
 					//格式化月，如果小于9，前面补0  
@@ -442,7 +590,7 @@
 					//将获取的当前日期赋值给主表的单据日期
 					this.advances_received_main_y.priabillPayablestime = today;
 					//调用根据单据日期查询赋值单据号码方法（传参单据日期）
-					this.gt_select_payablestime(this.advances_received_main_y.priabillPayablestime);*/
+					this.gt_select_payablestime(this.advances_received_main_y.priabillPayablestime);		//		*/
 				},
 				mounted : function(){
 					var vue_ = this;
@@ -454,6 +602,7 @@
 						laydate.render({
 							elem : '#date1',	//指向元素
 							done : function(value){
+								//alert(value);
 								vue_.advances_received_main_y.priabillPayablestime = value;
 								console.log("分别输出两个值：" + value + " - " + vue_.advances_received_main_y.priabillPayablestime);
 								

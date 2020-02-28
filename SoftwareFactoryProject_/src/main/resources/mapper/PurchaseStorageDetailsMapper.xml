@@ -26,6 +26,16 @@
     <result column="psd_source_no" property="psdSourceNo" jdbcType="VARCHAR" />
     <result column="psd_went_dutch" property="psdWentDutch" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+  <select id="queryPSDAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT * 
+	FROM `purchase_storage_details`
+	WHERE `psd_document_number` = #{psdDocumentNumber}
+  </select>
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -639,4 +639,12 @@
       payables_custom3 = #{payablesCustom3,jdbcType=VARCHAR}
     where payables_id = #{payablesId,jdbcType=VARCHAR}
   </update>
+  <select id="queryPayMainByPayablesId" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT * FROM `payables_main`  where `payables_id` =#{payablesId}
+  </select>
+  
+  	<delete id="deletePayMain" parameterType="java.lang.String" >
+  		delete from `payables_main` where `payables_id` =#{payablesId}
+  	</delete>
+  
 </mapper>

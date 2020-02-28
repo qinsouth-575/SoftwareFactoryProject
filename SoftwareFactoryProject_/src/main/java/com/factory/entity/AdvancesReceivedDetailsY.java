@@ -1,6 +1,7 @@
 package com.factory.entity;
 
 public class AdvancesReceivedDetailsY {
+	
     private String priadetailsId;
 
     private String priabillId;
@@ -110,4 +111,14 @@ public class AdvancesReceivedDetailsY {
     public void setPriabillCustom3(String priabillCustom3) {
         this.priabillCustom3 = priabillCustom3;
     }
+
+	@Override
+	public String toString() {
+		return "AdvancesReceivedDetailsY [priadetailsId=" + priadetailsId + ", priabillId=" + priabillId
+				+ ", priabillPrice=" + priabillPrice + ", priabillType=" + priabillType + ", priabillNumber="
+				+ priabillNumber + ", priabillRemarks=" + priabillRemarks + ", priabillAuditing=" + priabillAuditing
+				+ ", priabillYn=" + priabillYn + ", priabillCustom1=" + priabillCustom1 + ", priabillCustom2="
+				+ priabillCustom2 + ", priabillCustom3=" + priabillCustom3 + "]";
+	}
+    
 }
