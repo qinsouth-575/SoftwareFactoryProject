@@ -40,6 +40,20 @@ public class Cgt_AdvancesReceivedMainYAction {
 		return page;
 	}
 	
+	//3.新增
+	@PostMapping("/gt_insert_Y")
+	@ResponseBody
+	public int gt_insert_Y(@RequestBody AdvancesReceivedMainY y) {
+		return army.gt_insert_Y(y);
+	}
+	
+	//4.修改
+	@PostMapping("/gt_update_Y")
+	@ResponseBody
+	public int gt_update_Y(@RequestBody AdvancesReceivedMainY y) {
+		return army.gt_update_Y(y);
+	}
+	
 	//5.根据单据号码删除对应的预收款主详表
 	@GetMapping("/gt_del_mydy")
 	@ResponseBody

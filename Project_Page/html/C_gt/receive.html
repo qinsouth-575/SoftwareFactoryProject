@@ -174,7 +174,7 @@
 								<div class="layui-tab-item layui-show">
 									<div style="border:1px solid #8eafdb;padding:8px;">
 										<div style="overflow: scroll;">
-											<table class="layui-table" lay-size="sm" style="width: 150%;">
+											<table class="layui-table" id="tab" lay-size="sm" style="width: 150%;">
 												<thead>
 													<tr>
 														<td>预收金额</td>
@@ -197,6 +197,7 @@
 														<td colspan="3">{{heji}}</td>
 													</tr>
 												</tfoot>
+												<button disabled="disabled" @click="insertRows()">增加一行</button>
 											</table>
 										</div>
 									</div>
@@ -360,7 +361,7 @@ var vue = new Vue({
 					},
 					queryPage : function(pageNum_){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", true);
-						
+						alert("1");
 						var this_ = this;
 						this_.heji = 0;
 						this.advances_received_main_y.pageNum = pageNum_;
@@ -373,7 +374,6 @@ var vue = new Vue({
 							contentType : 'application/json;charset=UTF-8',
             				dataType : "json",
 							success : function(result) {
-								//	alert(JSON.stringify(result));
 								this_.pageCd = result;
 								this_.advances_received_main_y = this_.pageCd.list[0];
 								//时间格式默认为UTC地区时间格式，调用手写的时间格式转换方式转换成yyyy-MM-dd hh:mm:ss/**/
@@ -384,6 +384,22 @@ var vue = new Vue({
 							}
 						});
 					},
+					goHeJi : function(){
+						var this_ = this;
+						this_.heji = 0;
+						$("#tab tr:gt(0)").each(function(){
+   							var input1 = $(this).find('input[name="inputOne"]').val();
+   							if(!isNaN(input1)){
+     							 this_.heji += parseInt(input1)
+   							}
+						});
+					},
+					insertRows:function(){
+					this.goHeJi();
+					var newTr =	$("<tr class='emptyyy'><td><input name='inputOne' type='text' style='width: 50px;' /></td><td><select style='width: 150px;height: 30px;' name='selectOne'><option>销售订单</option><option>S/C</option></select></td><td><input name='inputTwo' type='text' style='width: 50px;' /></td><td><input name='inputThree' type='text' style='width: 50px;' /></td></tr>");
+					$("#tab").append(newTr);
+					
+					},
 		   			goFirstPage : function(){
 		   				this.queryPage(1);
 		   			},
@@ -392,6 +408,7 @@ var vue = new Vue({
 		      				this.queryPage(this.pageCd.prePage);
 		   			},
 		   			goNextPage : function(){
+		   				alert(this.pageCd.hasNextPage)
 		   				if(this.pageCd.hasNextPage)
 		      				this.queryPage(this.pageCd.nextPage);
 		   			},
@@ -401,12 +418,12 @@ var vue = new Vue({
 					goInsert : function(){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
 						this.state = "goInsert";
-						this.department = {};
 						
-						Object.assign(this.$data, this.$options.data())
+						//Object.assign(this.$data, this.$options.data());
+						this.hanlderEmpty(this.advances_received_main_y);
 						
 						var now = new Date();
-						//格式化日，如果小于9，前面补0  
+						//格式化日，如果小于9，前面补0 
 						var day = ("0" + now.getDate()).slice(-2);
 						//格式化月，如果小于9，前面补0  
 						var month = ("0" + (now.getMonth() + 1)).slice(-2);
@@ -416,15 +433,63 @@ var vue = new Vue({
 						this.advances_received_main_y.priabillPayablestime = today;
 						//调用根据单据日期查询赋值单据号码方法（传参单据日期）
 						this.gt_select_payablestime(this.advances_received_main_y.priabillPayablestime);
-						
-						
+						//默认人民币
+						this.advances_received_main_y.priabillCurrencyName = "人民币";
+						//解除button的禁用
+						$("button").attr('disabled',false);//移除disabled属性
+						//$("tbody").html("<tr><td><input v-on:input='goHeJi()' type='text' style='width: 50px;' /></td><td><input type='text' style='width: 50px;' /></td><td><input type='text' style='width: 50px;' /></td><td><input type='text' style='width: 50px;' /></td></tr>");						
+						//$("tbody").remove();
 					},
 					save : function(){
 						//alert("执行" + this.state + "操作！");
 						var this_ = this;
+						this_.goHeJi();
 						
+						let listFea=[]
+   						$("tbody tr").each(function(){
+      						var detail={};
+      						var input1 = $(this).find('input[name="inputOne"]').val();
+      						var select1 = $(this).find('select[name="selectOne"]').val();
+      						var input2 = $(this).find('input[name="inputTwo"]').val();
+      						var input3 = $(this).find('input[name="inputThree"]').val();+
+      						console.log(input1,select1,input2,input3);
+      						detail.priabillid = this_.advances_received_main_y.priabillId;
+      						detail.priabillPrice = input1;
+      						detail.priabillType = select1;
+      						detail.priabillNumber = input2;
+      						detail.priabillRemarks = input3;
+      						listFea.push(detail);
+   						});
+   						this_.advances_received_main_y.ardy = listFea;
 						
-						
+						var advances_received_main_y = JSON.stringify(this_.advances_received_main_y);
+						if(this_.state == "goInsert"){
+							$.ajax({
+								type:"post",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_insert_Y",
+								data : advances_received_main_y,
+								contentType : "application/json;charset=utf-8",
+								success : function(result){
+									parent.layer.msg('新增成功!!!');
+									$("tbody>.emptyyy").empty();
+									this_.queryPage(this_.pageCd.pages+1);
+									this_.goHeJi();
+								}
+							});
+						}else if(this_.state == "goUpdate"){
+							$.ajax({
+								type:"post",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_update_Y",
+								data : advances_received_main_y,
+								contentType : "application/json;charset=utf-8",
+								success : function(result){
+									parent.layer.msg('修改成功!!!');
+									$("tbody>.emptyyy").empty();
+									this_.queryPage(this_.pageCd.pages+1);
+									this_.goHeJi();
+								}
+							});
+						}
 					},
 					cancel : function(){
 						if(this.state == "goInsert"){
@@ -438,6 +503,7 @@ var vue = new Vue({
 					goUpdate : function(){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
 						this.state = "goUpdate";
+						
 					},
 					delete_ : function(){
 		   				if(!confirm("确认删除记录项吗？"))
@@ -502,6 +568,11 @@ var vue = new Vue({
 									}
 								}
 							});
+						}
+					},
+					hanlderEmpty : function(obj){
+						for(var o in obj){
+							obj[o] = "";
 						}
 					}
 				},
