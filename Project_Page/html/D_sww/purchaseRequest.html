@@ -10,9 +10,6 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" href="../../css/font.css">
 		<link rel="stylesheet" href="../../css/xadmin.css">
-		<script src="../../js/jquery.min.js"></script>
-		<script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
-		<script type="text/javascript" src="../../js/xadmin.js"></script>
 
 		<style type="text/css">
 			.layui-input-block {
@@ -66,48 +63,71 @@
 			.color {
 				color: blue;
 			}
+			
+			
+			.divEdit {
+				outline: none
+			}
+			.textAlignCenter {
+				text-align: center
+			}
+			.listTable {
+				padding 4px 10px 4px 4px font-size 11px width 100% td,
+				th {
+					padding-left 4px line-height 24px width 100%
+				}
+				.customerName {
+					width 150px
+				}
+				.visitTime {
+					width 120px
+				}
+				.visitDesc {
+					width auto
+				}
+				.operation {
+					width 34px
+				}
+			}
 		</style>
 	</head>
 
 	<body>
-		<div class="x-body">
+		<div class="x-body" id="main-div">
 			<div class="layui-container" style="padding: 8px;">
 				<div class="layui-row">
 					<div class="layui-col-md12">
-						<span style="font-size: 18px;padding-left: 15px;">
-			   			采购请购单
-			   		</span>
+						<span style="font-size: 18px;padding-left: 15px;">采购请购单</span>
 					</div>
 				</div>
+				
 				<div style="padding: 10px;">
 					<div class="layui-row">
 						<form class="layui-form" action="">
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">采购请购类型</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									<input type="text" v-model="TPurchaseRequisitions.prTypeName" @dblclick="openCGQGtype();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">单据日期</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" id="date" autocomplete="off" class="layui-input">
+									<input type="text" v-model="TPurchaseRequisitions.prDocumentDate" id="date" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">单况</label>
 								<div class="layui-input-block">
-									<select name="city" lay-verify="required">
-										<option value="0" selected>未结案</option>
-										<option value="1">已结案</option>
-										<option value="2">无效</option>
+									<select v-model="TPurchaseRequisitions.prSingleCase" id="dankuang">
+										<option v-for="(it,index) of dankuangList" :value="it.value" :key="index">{{it.label}}</option>
 									</select>
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">单据号码</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" id="djhm" autocomplete="off" class="layui-input">
+									<input type="text" v-model="TPurchaseRequisitions.prDocumentNumber" id="prDocumentNumber" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 						</form>
@@ -126,11 +146,11 @@
 												<thead>
 													<tr>
 														<td colspan="6"></td>
-														<td colspan="3">标准进价信息</td>
-														<td colspan="3">最后一次采购信息</td>
-														<td colspan="6"></td>
+														<td colspan="3" style="text-align: center;">标准进价信息</td>
+														<td colspan="3" style="text-align: center;">最后一次采购信息</td>
+														<td colspan="7"></td>
 													</tr>
-													<tr>
+													<tr style="white-space:nowrap;">
 														<td>栏号</td>
 														<td class="color">物料编号</td>
 														<td>(物料名称)</td>
@@ -149,18 +169,40 @@
 														<td>分录备注</td>
 														<td>(来源单别)</td>
 														<td>(来源单号)</td>
+														<td>操作</td>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td colspan="18" align="center">内容</td>
-													</tr>
+													<tr v-for="(item,index) in TPurchaseRequisitions.prdList" :key="index" style="white-space:nowrap;">
+												      	<td class="prdColumnNo">{{TPurchaseRequisitions.prdList[index].prdColumnNo}}</td>
+												      	<td class="prdMatterId"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'prdMatterId')">{{TPurchaseRequisitions.prdList[index].prdMatterId}}</div></td>
+												      	<td class="prdMatterName">{{TPurchaseRequisitions.prdList[index].prdMatterName}}</td>
+												      	<td class="prdSpecifications">{{TPurchaseRequisitions.prdList[index].prdSpecifications}}</td>
+												      	<td class="prdCompanyName">{{TPurchaseRequisitions.prdList[index].prdCompanyName}}</td>
+												      	<td class="prdAmount"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'prdAmount')">{{TPurchaseRequisitions.prdList[index].prdAmount}}</div></td>
+												      	<td class="prdStandardCurrencyName">{{TPurchaseRequisitions.prdList[index].prdStandardCurrencyName}}</td>
+												      	<td class="prdStandardPrice">{{TPurchaseRequisitions.prdList[index].prdStandardPrice}}</td>
+												      	<td class="prdStandardAmount">{{TPurchaseRequisitions.prdList[index].prdStandardAmount}}</td>
+												      	<td class="prdFinallyCurrencyName">{{TPurchaseRequisitions.prdList[index].prdFinallyCurrencyName}}</td>
+												      	<td class="prdFinallyPrice">{{TPurchaseRequisitions.prdList[index].prdFinallyPrice}}</td>
+												      	<td class="prdFinallyAmount">{{TPurchaseRequisitions.prdList[index].prdFinallyAmount}}</td>
+												      	<td class="prdRequiredDate"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'prdRequiredDate')">{{TPurchaseRequisitions.prdList[index].prdRequiredDate}}</div></td>
+												      	<td class="prdProposedDate">{{TPurchaseRequisitions.prdList[index].prdProposedDate}}</td>
+												      	<td class="prdNotPurchaseQuantity">{{TPurchaseRequisitions.prdList[index].prdNotPurchaseQuantity}}</td>
+												      	<td class="prdRemarks"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'prdRemarks')">{{TPurchaseRequisitions.prdList[index].prdRemarks}}</div></td>
+												      	<td class="prdSourceOrder">{{TPurchaseRequisitions.prdList[index].prdSourceOrder}}</td>
+												      	<td class="prdSourceNo">{{TPurchaseRequisitions.prdList[index].prdSourceNo}}</td>
+												      	<td class="operation textAlignCenter"><div class="divEdit"><span class="iconfont icon-shanchu hoverStyle" @click="removeCustomerVisit(index)"></span></div></td>        
+												  	</tr>
 												</tbody>
 												<tfoot>
-													<tr>
-														<td colspan="5">合计:</td>
-														<td colspan="9">55</td>
-														<td>0</td>
+													<tr style="white-space:nowrap;">
+														<td colspan="1">合计:</td>
+														<td colspan="4"></td>
+														<td colspan="1">{{TPurchaseRequisitions.prAmount}}</td>
+														<td colspan="8"></td>
+														<td colspan="1">{{TPurchaseRequisitions.prSumAmount}}</td> 
+														<td colspan="4"></td>
 													</tr>
 												</tfoot>
 											</table>
@@ -172,31 +214,31 @@
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">表头条文</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+												<input type="text" v-model="TPurchaseRequisitions.prHeaderSection" name="title" required lay-verify="required" placeholder="请输入表头条文" autocomplete="off" class="layui-input">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">自定栏一</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+												<input type="text" v-model="TPurchaseRequisitions.prCustom1" name="title" required lay-verify="required" placeholder="请输入自定栏一" autocomplete="off" class="layui-input">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">表尾条文</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+												<input type="text" v-model="TPurchaseRequisitions.prFooterSection" name="title" required lay-verify="required" placeholder="请输入表尾条文" autocomplete="off" class="layui-input">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">自定栏二</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+												<input type="text" v-model="TPurchaseRequisitions.prCustom2" name="title" required lay-verify="required" placeholder="请输入自定栏二" autocomplete="off" class="layui-input">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md12">
 											<label class="layui-form-label">备注</label>
 											<div class="layui-input-block">
-												<textarea rows="12" name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+												<textarea rows="12" v-model="TPurchaseRequisitions.prRemark" name="desc" placeholder="请输入备注" class="layui-textarea"></textarea>
 											</div>
 										</div>
 									</form>
@@ -209,49 +251,401 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">请购人员</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									<input type="text" v-model="TPurchaseRequisitions.prStaffName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">制单人员</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									<input type="text" v-model="TPurchaseRequisitions.prExecutor" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">请购部门</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									<input type="text" v-model="TPurchaseRequisitions.prDepartName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">复核人员</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									<input type="text" v-model="TPurchaseRequisitions.prCheckagainStaff" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 						</form>
 					</div>
-					<div class="layui-row">
-						<button class="layui-btn layui-btn-normal" style="width: 8%;">转单</button>
-						<button class="layui-btn layui-btn-normal" style="width: 8%;">功能</button>
-					</div>
+					
+					<!-- 查询转单功能按钮 - 开始 -->
+					<ul id="purchaseRequest" class="layui-nav layui-row" style="margin-bottom: 70px;width: 210px;float: left;">
+						<li class="layui-nav-item layui-this">
+							<a href="javascript:void(0);">转单</a>
+							<dl class="layui-nav-child" id="purchaseStorageChaxun">
+								<dd>
+									<a data-method="offset" data-type="auto" class="open" href="javascript:void(0)">销售订单转入</a>
+								</dd>
+							</dl>
+						</li>
+						
+						<li class="layui-nav-item">
+							<a href="javascript:void(0);">功能</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">单况状态切换</a>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+					<!-- 查询转单功能按钮 - 结束 -->
 				</div>
 			</div>
 		</div>
 
-		<script src="../../layui.all.js"></script>
-		<script src="../../js/jquery.min.js"></script>
-		<script>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/xadmin.js"></script>
+		<script type="text/javascript" src="../../js/vue.js"></script>
+		<script type="text/javascript" src="../../js/axios.min.js"></script>
+
+		<script type="text/javascript">
+			//必须设置允许跨域访问session中数据(cooike)
+			axios.default.withCredentials = true;
+			
+	 		let index = 0;
+			
+			function subpageTriggerEvent(incident){
+				//alert("采购入库设定页 - 触发事件：" + incident);
+				
+				if(incident == "goFirstPage"){
+					listVm.goFirstPage();
+				} else if(incident == "goPrePage"){
+					listVm.goPrePage();
+				} else if(incident == "goNextPage"){
+					listVm.goNextPage();
+				} else if(incident == "goLastPage"){
+					listVm.goLastPage();
+				} else if(incident == "goInsert"){
+					listVm.goInsert();
+				} else if(incident == "save"){
+					listVm.save();
+				} else if(incident == "cancel"){
+					listVm.cancel();
+				} else if(incident == "goUpdate"){
+					listVm.goUpdate();
+				} else if(incident == "delete"){
+					listVm.delete_();
+				} else if(incident == "refresh"){
+					listVm.refresh();
+				}
+			}
+			
+			var listVm = new Vue({
+				el: "#main-div",
+				data: {
+					page : {},
+					TPurchaseRequisitions: {
+						prDocumentNumber : 2020020201,
+						prDocumentDate : '2020-02-02',
+						pageNum : 1
+					},
+					state : "",
+					dankuangList: [
+                        {value: 0,label: '未结案'},
+                        {value: 1,label: '已结案'},
+                        {value: 2,label: '无效'},
+                    ],
+                },
+				methods: {
+					queryDateToId: function(prDocumentDate) {
+						var this_ = this;
+
+						$.ajax({
+							type : "get",
+							async : false,
+							url : "http://localhost:8080/SoftwareFactoryProject_/tpr/queryDateToId?prDocumentDate=" + prDocumentDate,
+            				dataType : "json",
+							success : function(result) {
+								//数据无误	/alert(result);
+			                    this_.TPurchaseRequisitions.prDocumentNumber = result;
+			                    
+			                    if(this_.state == "goInsert"){
+			                    	this_.TPurchaseRequisitions.prdList = [
+							 			{
+							 				prdDocumentNumber : this_.TPurchaseRequisitions.prDocumentNumber,
+							 				prdColumnNo: ++index,
+							 				prdMatterId: 'C01-W-02',
+							 				prdMatterName: '6PA#AB2台式机',
+							 				prdSpecifications: '',
+							 				prdCompanyName: 'PCS',
+							 				prdAmount: 25,
+							 				prdStandardCurrencyName: 'RMB',
+							 				prdStandardPrice: 2670.00,
+							 				prdStandardAmount: 66750.00,
+							 				prdFinallyCurrencyName: '',
+							 				prdFinallyPrice: 0.00,
+							 				prdFinallyAmount: 0.00,
+							 				prdRequiredDate: '2019-12-20',
+							 				prdProposedDate: '2019-12-20',
+							 				prdNotPurchaseQuantity: 0,
+							 				prdRemarks: '',
+							 				prdSourceOrder: '',
+							 				prdSourceNo: ''
+							 			},
+							 			{
+							 				prdDocumentNumber : this_.TPurchaseRequisitions.prDocumentNumber,
+							 				prdColumnNo: ++index,
+							 				prdMatterId: 'C01-W-01',
+							 				prdMatterName: 'HP DX271',
+							 				prdSpecifications: '',
+							 				prdCompanyName: 'PCS',
+							 				prdAmount: 25,
+							 				prdStandardCurrencyName: 'RMB',
+							 				prdStandardPrice: 2670.00,
+							 				prdStandardAmount: 66750.00,
+							 				prdFinallyCurrencyName: '',
+							 				prdFinallyPrice: 0.00,
+							 				prdFinallyAmount: 0.00,
+							 				prdRequiredDate: '2019-12-20',
+							 				prdProposedDate: '2019-12-20',
+							 				prdNotPurchaseQuantity: 0,
+							 				prdRemarks: '',
+							 				prdSourceOrder: '',
+							 				prdSourceNo: ''
+							 			}
+							 		];
+			                    }
+							}
+						});
+					},
+					queryPage : function(pageNum_){
+						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
+						//下拉框可点击尚未解决 - 四处：两禁用两可用
+						$("tbody td div").prop("contenteditable", false);
+						$("#prDocumentNumber").prop("readonly", true);
+						
+						var this_ = this;
+						this.TPurchaseRequisitions.pageNum = pageNum_;
+						this.TPurchaseRequisitions.pageSize = 1;
+						
+						axios.post(`http://localhost:8080/SoftwareFactoryProject_/tpr/tpra`, this.TPurchaseRequisitions).then(function(res){
+							//数据正常		/alert(JSON.stringify(res.data));
+							this_.page = res.data;
+							this_.page.list[0].prDocumentDate = this_.timeCycle(this_.page.list[0].prDocumentDate);
+							var prdList = this_.page.list[0].prdList;
+							for (var i = 0; i < prdList.length; i++) {
+								prdList[i].prdRequiredDate = this_.timeCycle(prdList[i].prdRequiredDate);
+								prdList[i].prdProposedDate = this_.timeCycle(prdList[i].prdProposedDate);
+							}
+							this_.page.list[0].prdList = prdList;
+							this_.TPurchaseRequisitions = this_.page.list[0];
+						});
+					},
+		   			goFirstPage : function(){
+		   				this.queryPage(1);
+		   			},
+		   			goPrePage : function(){
+		   				if(this.page.hasPreviousPage)
+		      				this.queryPage(this.page.prePage);
+		   			},
+		   			goNextPage : function(){
+		   				if(this.page.hasNextPage)
+		      				this.queryPage(this.page.nextPage);
+		   			},
+		   			goLastPage : function(){
+		   				this.queryPage(this.page.pages);
+		   			},
+					goInsert : function(){
+						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
+						$("#prDocumentNumber").prop("readonly", false);
+						this.state = "goInsert";
+						
+						this.hanlderEmpty(this.TPurchaseRequisitions);
+						this.TPurchaseRequisitions.prExecutor = "admin";
+						this.TPurchaseRequisitions.statu = "goInsert";
+						
+						//$("tbody").append("<tr><td>1</td><td><div class='divEdit oneDiv' contenteditable='false' @blur='blurFunc($event,index,'prdMatterId')' @dblclick='addCustomerVisit();'></div></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
+						//$("tbody td div").prop("contenteditable", true);
+					},
+					save : function(){
+						//alert("执行" + this.state + "操作！");
+						var this_ = this;
+						
+						alert(JSON.stringify(this.TPurchaseRequisitions));
+						
+						axios.put(`http://localhost:8080/SoftwareFactoryProject_/tpr/tpra`, this.TPurchaseRequisitions).then(function(res){
+							//数据正常		/alert(JSON.stringify(res));
+							if(res.data.code == "1"){
+		   						this_.queryPage((1));
+								return false;
+							} else if(res.data.code == "2"){
+								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
+								$("tbody td div").prop("contenteditable", false);
+								return false;
+							}
+							alert("非常遗憾，本次" + res.data.message);
+						});
+					},
+					cancel : function(){
+						if(this.state == "goInsert"){
+			   				if(confirm("确定取消本次新增操作吗！？"))
+								this.queryPage(1);
+						} else if(this.state == "goUpdate"){
+			   				if(confirm("确定取消本次修改操作吗！？"))
+		   						this.queryPage(this.page.pages);
+						}
+					},
+					goUpdate : function(){
+						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
+						$("tbody td div").prop("contenteditable", true);
+						this.state = "goUpdate";
+						this.TPurchaseRequisitions.statu = "goUpdate";
+					},
+					delete_ : function(){
+		   				if(!confirm("确定删除本条仓库数据吗？"))
+		   					return false;
+		   				
+						var this_ = this;
+		   				//数据无误			
+		   				alert("参数：" + this.TPurchaseRequisitions.prDocumentNumber);
+		   				axios.delete(`http://localhost:8080/SoftwareFactoryProject_/tpr/tpra/` + this.TPurchaseRequisitions.prDocumentNumber).then(function(res){
+							//数据正常		/
+							alert(JSON.stringify(res));
+							if(res.data.code == "1"){
+								this_.queryPage(1);
+								return false;
+							}
+							alert("非常遗憾，本次" + res.data.message);
+						});
+					},
+					refresh : function(){
+						this.queryPage(1);
+					},
+					hanlderEmpty : function(obj){
+						for(var o in obj){
+							obj[o] = "";
+						}
+					},
+					timeCycle : function(date){
+						//var d = new Date('Thu May 12 2016 08:00:00 GMT+0800 (中国标准时间)');
+						//var datetime=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds()
+						var d = new Date(date);
+						var yue = "",day = "";
+						if(d.getMonth() < 9) {
+							yue = "0" + (d.getMonth()+1);
+						} else {
+							yue = d.getMonth()+1;
+						}
+						if(d.getDate() < 10) {
+							day = "0" + d.getDate();
+						} else {
+							day = d.getDate();
+						}
+						//return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+						return d.getFullYear() + "-" + yue + "-" + day;
+					},
+					blurFunc : function(e, index, name) {　　　		//失去焦点实现双向数据绑定
+				 		let content = e.target.innerText;
+				 		e.target.innerText = '';
+			 			this.TPurchaseRequisitions.prdList[index][name] = content;
+				 		e.target.innerText = content;
+				 	},
+				 	addCustomerVisit : function() {　　　		//添加行
+			 			this.TPurchaseRequisitions.prdList[1] = {
+			 				prdDocumentNumber : this.TPurchaseRequisitions.prdDocumentNumber,
+			 				//prdColumnNo: ++index,
+			 				prdMatterId: 'C01-W-HP-DX2710-296',
+			 				prdMatterName: 'HP DX2710MT- NA296PA#AB2台式机',
+			 				prdSpecifications: '',
+			 				prdCompanyName: 'PCS',
+			 				prdAmount: 25,
+			 				prdStandardCurrencyName: 'RMB',
+			 				prdStandardPrice: 2670.00,
+			 				prdStandardAmount: 66750.00,
+			 				prdFinallyCurrencyName: '',
+			 				prdFinallyPrice: 0.00,
+			 				prdFinallyAmount: 0.00,
+			 				prdRequiredDate: '2019-12-20',
+			 				prdProposedDate: '2019-12-20',
+			 				prdNotPurchaseQuantity: 0,
+			 				prdRemarks: '',
+			 				prdSourceOrder: '',
+			 				prdSourceNo: ''
+			 			};
+				 	},
+				 	removeCustomerVisit : function(index) {
+				 		//移除行
+			 			console.log(this.TPurchaseRequisitions.prdList);
+			 			this.TPurchaseRequisitions.prdList.splice(index, 1);
+				 	},
+				 	openCGQGtype : function(){
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["单选--采购请购类型设定", 'font-size:18px;'],
+								type: 2,
+								area: ['600px', '500px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "CaiGouQingGouLeiXingSheDin.html",
+								btn: '关闭',
+								btnAlign: 'c',			//按钮居中
+								shade: 0.5, 			//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()) 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								}
+							});
+						});
+				 	}
+				},
+				created: function() {
+				 	this.queryPage(1);
+				 	
+				 	/*var now = new Date();
+					//格式化日，如果小于9，前面补0  
+					var day = ("0" + now.getDate()).slice(-2);
+					//格式化月，如果小于9，前面补0  
+					var month = ("0" + (now.getMonth() + 1)).slice(-2);
+					//拼装完整日 期格式  
+					var today = now.getFullYear() + "-" + (month) + "-" + (day);
+					//将获取的当前日期赋值给主表的单据日期
+					this.TPurchaseRequisitions.prDocumentDate = today;
+					//调用根据单据日期查询赋值单据号码方法（传参单据日期）
+					this.queryDateToId(this.TPurchaseRequisitions.prDocumentDate);*/
+				},
+				mounted : function(){
+					var this_ = this;
+					
+					layui.use('laydate', function(){
+						var laydate = layui.laydate;
+						
+						//执行一个laydate实例
+						//单据日期
+						laydate.render({
+							elem : '#date',	//指向元素
+							done : function(value){
+								this_.TPurchaseRequisitions.prDocumentDate = value;
+								console.log("分别输出两个值：" + value + " - " + this_.TPurchaseRequisitions.prDocumentDate);
+								
+								this_.queryDateToId(this_.TPurchaseRequisitions.prDocumentDate);
+							}
+						});
+					});
+				}
+			})
 		</script>
-		<script>
+		
+		<!--<script>
 			var date = layui.laydate;
 			//执行一个laydate实例
 			date.render({
-				elem: '#date' //指定元素
-					,
-				value: new Date() //默认现在时间
-					,
+				elem: '#date',		//指定元素
+				value: new Date(),	//默认现在时间
 				format: 'yyyy-MM-dd',
 				done: function(value) { //控件选择完毕后的回调---点击日期、清空、现在、确定均会触发。
 					var datevalue = value.replace("-", "");
@@ -275,7 +669,7 @@
 			//键盘绑定事件
 			//layui.prompt({});
 			console.log('采购日期' + date);
-		</script>
+		</script>-->
 	</body>
 
 </html>

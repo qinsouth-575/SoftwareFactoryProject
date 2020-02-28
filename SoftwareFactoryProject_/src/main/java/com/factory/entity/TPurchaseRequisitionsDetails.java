@@ -2,194 +2,213 @@ package com.factory.entity;
 
 import java.util.Date;
 
+/**
+ * - XX层 - XX类
+ * @author south wind
+ * @version v1.0 2020年2月05日 上午12:01:52
+ * - 表/功能：		只有物料编号、数量、需求日期、分录备注可以修改
+ */
 public class TPurchaseRequisitionsDetails {
-    private String serno;
+	
+    private Integer prdId;					//自增列，详表主键
+    private String prdDocumentNumber;		//单据号码（主表单据编号）
+    private String prdColumnNo;				//栏号
+    private String prdMatterId;				//物料编号（修改可编辑）
+    private String prdMatterName;			//物料名称
+    private String prdSpecifications;		//规格型号
+    private String prdCompanyName;			//单位名称
+    private Integer prdAmount;				//数量（修改可编辑）
+    private String prdStandardCurrencyName;	//标准进价信息，币别（name）
+    private Float prdStandardPrice;			//标准进价信息，标准进价
+    private Float prdStandardAmount;		//标准进价信息，标准进价金额（数量*标准进价）
+    private String prdFinallyCurrencyName;	//最后一次采购信息，币别（name）
+    private Float prdFinallyPrice;			//最后一次采购信息，单价（来源于采购入库单）
+    private Float prdFinallyAmount;			//最后一次采购信息，进价金额（数量*标准进价）
+    private Date prdRequiredDate;			//需求日期（可大于当前日期）（修改可编辑）
+    private Date prdProposedDate;			//建议采购日期（采购提前期）
+    private Integer prdNotPurchaseQuantity;	//未采购量
+    private String prdRemarks;				//分录备注（修改可编辑）
+    private String prdSourceOrder;			//来源单别，来源于销售订单
+    private String prdSourceNo;				//来源单号，来源于销售订单
+    
+    //无参构造
+    public TPurchaseRequisitionsDetails() {
+		super();
+	}
 
-    private Integer prodid;
-
-    private String prodname;
-
-    private String prodsize;
-
-    private Integer sunitid;
-
-    private Integer squantity;
-
-    private Integer currid;
-
-    private Float sprice;
-
-    private Float amount;
-
-    private Integer lastestcurrid;
-
-    private Float lastestprice;
-
-    private Float lastestamount;
-
-    private Date preindate;
-
-    private Date suggestpurdate;
-
-    private Integer qtyremain;
-
-    private String remark;
-
-    private String trantype;
-
-    private String fromno;
-
-    private String itemremark;
-
-    public String getSerno() {
-        return serno;
+    //
+    
+	public Integer getPrdId() {
+        return prdId;
     }
 
-    public void setSerno(String serno) {
-        this.serno = serno;
+    public void setPrdId(Integer prdId) {
+        this.prdId = prdId;
     }
 
-    public Integer getProdid() {
-        return prodid;
+    public String getPrdDocumentNumber() {
+        return prdDocumentNumber;
     }
 
-    public void setProdid(Integer prodid) {
-        this.prodid = prodid;
+    public void setPrdDocumentNumber(String prdDocumentNumber) {
+        this.prdDocumentNumber = prdDocumentNumber;
     }
 
-    public String getProdname() {
-        return prodname;
+    public String getPrdColumnNo() {
+        return prdColumnNo;
     }
 
-    public void setProdname(String prodname) {
-        this.prodname = prodname;
+    public void setPrdColumnNo(String prdColumnNo) {
+        this.prdColumnNo = prdColumnNo;
     }
 
-    public String getProdsize() {
-        return prodsize;
+    public String getPrdMatterId() {
+        return prdMatterId;
     }
 
-    public void setProdsize(String prodsize) {
-        this.prodsize = prodsize;
+    public void setPrdMatterId(String prdMatterId) {
+        this.prdMatterId = prdMatterId;
     }
 
-    public Integer getSunitid() {
-        return sunitid;
+    public String getPrdMatterName() {
+        return prdMatterName;
     }
 
-    public void setSunitid(Integer sunitid) {
-        this.sunitid = sunitid;
+    public void setPrdMatterName(String prdMatterName) {
+        this.prdMatterName = prdMatterName;
     }
 
-    public Integer getSquantity() {
-        return squantity;
+    public String getPrdSpecifications() {
+        return prdSpecifications;
     }
 
-    public void setSquantity(Integer squantity) {
-        this.squantity = squantity;
+    public void setPrdSpecifications(String prdSpecifications) {
+        this.prdSpecifications = prdSpecifications;
     }
 
-    public Integer getCurrid() {
-        return currid;
+    public String getPrdCompanyName() {
+        return prdCompanyName;
     }
 
-    public void setCurrid(Integer currid) {
-        this.currid = currid;
+    public void setPrdCompanyName(String prdCompanyName) {
+        this.prdCompanyName = prdCompanyName;
     }
 
-    public Float getSprice() {
-        return sprice;
+    public Integer getPrdAmount() {
+        return prdAmount;
     }
 
-    public void setSprice(Float sprice) {
-        this.sprice = sprice;
+    public void setPrdAmount(Integer prdAmount) {
+        this.prdAmount = prdAmount;
     }
 
-    public Float getAmount() {
-        return amount;
+    public String getPrdStandardCurrencyName() {
+        return prdStandardCurrencyName;
     }
 
-    public void setAmount(Float amount) {
-        this.amount = amount;
+    public void setPrdStandardCurrencyName(String prdStandardCurrencyName) {
+        this.prdStandardCurrencyName = prdStandardCurrencyName;
     }
 
-    public Integer getLastestcurrid() {
-        return lastestcurrid;
+    public Float getPrdStandardPrice() {
+        return prdStandardPrice;
     }
 
-    public void setLastestcurrid(Integer lastestcurrid) {
-        this.lastestcurrid = lastestcurrid;
+    public void setPrdStandardPrice(Float prdStandardPrice) {
+        this.prdStandardPrice = prdStandardPrice;
     }
 
-    public Float getLastestprice() {
-        return lastestprice;
+    public Float getPrdStandardAmount() {
+        return prdStandardAmount;
     }
 
-    public void setLastestprice(Float lastestprice) {
-        this.lastestprice = lastestprice;
+    public void setPrdStandardAmount(Float prdStandardAmount) {
+        this.prdStandardAmount = prdStandardAmount;
     }
 
-    public Float getLastestamount() {
-        return lastestamount;
+    public String getPrdFinallyCurrencyName() {
+        return prdFinallyCurrencyName;
     }
 
-    public void setLastestamount(Float lastestamount) {
-        this.lastestamount = lastestamount;
+    public void setPrdFinallyCurrencyName(String prdFinallyCurrencyName) {
+        this.prdFinallyCurrencyName = prdFinallyCurrencyName;
     }
 
-    public Date getPreindate() {
-        return preindate;
+    public Float getPrdFinallyPrice() {
+        return prdFinallyPrice;
     }
 
-    public void setPreindate(Date preindate) {
-        this.preindate = preindate;
+    public void setPrdFinallyPrice(Float prdFinallyPrice) {
+        this.prdFinallyPrice = prdFinallyPrice;
     }
 
-    public Date getSuggestpurdate() {
-        return suggestpurdate;
+    public Float getPrdFinallyAmount() {
+        return prdFinallyAmount;
     }
 
-    public void setSuggestpurdate(Date suggestpurdate) {
-        this.suggestpurdate = suggestpurdate;
+    public void setPrdFinallyAmount(Float prdFinallyAmount) {
+        this.prdFinallyAmount = prdFinallyAmount;
     }
 
-    public Integer getQtyremain() {
-        return qtyremain;
+    public Date getPrdRequiredDate() {
+        return prdRequiredDate;
     }
 
-    public void setQtyremain(Integer qtyremain) {
-        this.qtyremain = qtyremain;
+    public void setPrdRequiredDate(Date prdRequiredDate) {
+        this.prdRequiredDate = prdRequiredDate;
     }
 
-    public String getRemark() {
-        return remark;
+    public Date getPrdProposedDate() {
+        return prdProposedDate;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setPrdProposedDate(Date prdProposedDate) {
+        this.prdProposedDate = prdProposedDate;
     }
 
-    public String getTrantype() {
-        return trantype;
+    public Integer getPrdNotPurchaseQuantity() {
+        return prdNotPurchaseQuantity;
     }
 
-    public void setTrantype(String trantype) {
-        this.trantype = trantype;
+    public void setPrdNotPurchaseQuantity(Integer prdNotPurchaseQuantity) {
+        this.prdNotPurchaseQuantity = prdNotPurchaseQuantity;
     }
 
-    public String getFromno() {
-        return fromno;
+    public String getPrdRemarks() {
+        return prdRemarks;
     }
 
-    public void setFromno(String fromno) {
-        this.fromno = fromno;
+    public void setPrdRemarks(String prdRemarks) {
+        this.prdRemarks = prdRemarks;
     }
 
-    public String getItemremark() {
-        return itemremark;
+    public String getPrdSourceOrder() {
+        return prdSourceOrder;
     }
 
-    public void setItemremark(String itemremark) {
-        this.itemremark = itemremark;
+    public void setPrdSourceOrder(String prdSourceOrder) {
+        this.prdSourceOrder = prdSourceOrder;
     }
+
+    public String getPrdSourceNo() {
+        return prdSourceNo;
+    }
+
+    public void setPrdSourceNo(String prdSourceNo) {
+        this.prdSourceNo = prdSourceNo;
+    }
+
+	@Override
+	public String toString() {
+		return "\n采购请购详表：TPurchaseRequisitionsDetails [prdId=" + prdId + ", prdDocumentNumber=" + prdDocumentNumber
+				+ ", prdColumnNo=" + prdColumnNo + ", prdMatterId=" + prdMatterId + ", prdMatterName=" + prdMatterName
+				+ ", prdSpecifications=" + prdSpecifications + ", prdCompanyName=" + prdCompanyName + ", prdAmount="
+				+ prdAmount + ", prdStandardCurrencyName=" + prdStandardCurrencyName + ", prdStandardPrice="
+				+ prdStandardPrice + ", prdStandardAmount=" + prdStandardAmount + ", prdFinallyCurrencyName="
+				+ prdFinallyCurrencyName + ", prdFinallyPrice=" + prdFinallyPrice + ", prdFinallyAmount="
+				+ prdFinallyAmount + ", prdRequiredDate=" + prdRequiredDate + ", prdProposedDate=" + prdProposedDate
+				+ ", prdNotPurchaseQuantity=" + prdNotPurchaseQuantity + ", prdRemarks=" + prdRemarks
+				+ ", prdSourceOrder=" + prdSourceOrder + ", prdSourceNo=" + prdSourceNo + "]";
+	}
+    
 }

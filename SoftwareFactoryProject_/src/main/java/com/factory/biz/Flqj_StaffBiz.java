@@ -1,5 +1,7 @@
 package com.factory.biz;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,10 @@ public class Flqj_StaffBiz {
 	
 	@Autowired
 	private StaffMapper dao;
+	
+	public List<Staff> querySTAAll(Staff sta){
+		return dao.selectByExample(null);
+	}
 	
 	//查询账户密码
 	public Staff queryNameAndPwd(Staff staff) {

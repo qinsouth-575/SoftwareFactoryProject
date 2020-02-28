@@ -1,11 +1,21 @@
 package com.factory.mapper;
 
-import com.factory.entity.PurchaseStorageDetails;
-import com.factory.entity.PurchaseStorageDetailsExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.factory.entity.PurchaseStorageDetails;
+import com.factory.entity.PurchaseStorageDetailsExample;
+
 public interface PurchaseStorageDetailsMapper {
+	
+	//1.根据主表编号查询全部（查询）
+	public List<PurchaseStorageDetails> queryPSDAll(@Param("psdDocumentNumber") String psdDocumentNumber);
+	
+	
+	
+	
+	
     int countByExample(PurchaseStorageDetailsExample example);
 
     int deleteByExample(PurchaseStorageDetailsExample example);
