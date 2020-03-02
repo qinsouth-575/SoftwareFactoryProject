@@ -10,15 +10,15 @@ public interface SaleOrderDetailMapper {
 
     int deleteByExample(SaleOrderDetailExample example);
 
-    int deleteByPrimaryKey(String solId);
+    int deleteByPrimaryKey(SaleOrderDetail key);
 
     int insert(SaleOrderDetail record);
 
-    int insertSelective(SaleOrderDetail record);
+    int insertSelective(@Param("details") List<SaleOrderDetail> details);
 
     List<SaleOrderDetail> selectByExample(SaleOrderDetailExample example);
 
-    SaleOrderDetail selectByPrimaryKey(String solId);
+    SaleOrderDetail selectByPrimaryKey(SaleOrderDetail key);
 
     int updateByExampleSelective(@Param("record") SaleOrderDetail record, @Param("example") SaleOrderDetailExample example);
 
@@ -27,4 +27,10 @@ public interface SaleOrderDetailMapper {
     int updateByPrimaryKeySelective(SaleOrderDetail record);
 
     int updateByPrimaryKey(SaleOrderDetail record);
+    
+    List<SaleOrderDetail> queryAlldetail(int soid);
+    
+    int deleteAll();
+    
+    int deleteByIddetail(int id);
 }
