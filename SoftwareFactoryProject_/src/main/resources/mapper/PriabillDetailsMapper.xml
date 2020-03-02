@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.PriabillDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.PriabillDetails" >
+    <id column="priadetails_id" property="priadetailsId" jdbcType="VARCHAR" />
+    <result column="priabill_id" property="priabillId" jdbcType="VARCHAR" />
+    <result column="priabill_price" property="priabillPrice" jdbcType="REAL" />
+    <result column="priabill_type" property="priabillType" jdbcType="VARCHAR" />
+    <result column="priabill_number" property="priabillNumber" jdbcType="VARCHAR" />
+    <result column="priabill_remarks" property="priabillRemarks" jdbcType="VARCHAR" />
+    <result column="priabill_Auditing" property="priabillAuditing" jdbcType="VARCHAR" />
+    <result column="priabill_yn" property="priabillYn" jdbcType="VARCHAR" />
+    <result column="priabill_custom1" property="priabillCustom1" jdbcType="VARCHAR" />
+    <result column="priabill_custom2" property="priabillCustom2" jdbcType="VARCHAR" />
+    <result column="priabill_custom3" property="priabillCustom3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    priadetails_id, priabill_id, priabill_price, priabill_type, priabill_number, priabill_remarks, 
+    priabill_Auditing, priabill_yn, priabill_custom1, priabill_custom2, priabill_custom3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.PriabillDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from priabill_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from priabill_details
+    where priadetails_id = #{priadetailsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from priabill_details
+    where priadetails_id = #{priadetailsId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.PriabillDetailsExample" >
+    delete from priabill_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.PriabillDetails" >
+    insert into priabill_details (priadetails_id, priabill_id, priabill_price, 
+      priabill_type, priabill_number, priabill_remarks, 
+      priabill_Auditing, priabill_yn, priabill_custom1, 
+      priabill_custom2, priabill_custom3)
+    values (#{priadetailsId,jdbcType=VARCHAR}, #{priabillId,jdbcType=VARCHAR}, #{priabillPrice,jdbcType=REAL}, 
+      #{priabillType,jdbcType=VARCHAR}, #{priabillNumber,jdbcType=VARCHAR}, #{priabillRemarks,jdbcType=VARCHAR}, 
+      #{priabillAuditing,jdbcType=VARCHAR}, #{priabillYn,jdbcType=VARCHAR}, #{priabillCustom1,jdbcType=VARCHAR}, 
+      #{priabillCustom2,jdbcType=VARCHAR}, #{priabillCustom3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.PriabillDetails" >
+    insert into priabill_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="priadetailsId != null" >
+        priadetails_id,
+      </if>
+      <if test="priabillId != null" >
+        priabill_id,
+      </if>
+      <if test="priabillPrice != null" >
+        priabill_price,
+      </if>
+      <if test="priabillType != null" >
+        priabill_type,
+      </if>
+      <if test="priabillNumber != null" >
+        priabill_number,
+      </if>
+      <if test="priabillRemarks != null" >
+        priabill_remarks,
+      </if>
+      <if test="priabillAuditing != null" >
+        priabill_Auditing,
+      </if>
+      <if test="priabillYn != null" >
+        priabill_yn,
+      </if>
+      <if test="priabillCustom1 != null" >
+        priabill_custom1,
+      </if>
+      <if test="priabillCustom2 != null" >
+        priabill_custom2,
+      </if>
+      <if test="priabillCustom3 != null" >
+        priabill_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="priadetailsId != null" >
+        #{priadetailsId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillId != null" >
+        #{priabillId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillPrice != null" >
+        #{priabillPrice,jdbcType=REAL},
+      </if>
+      <if test="priabillType != null" >
+        #{priabillType,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillNumber != null" >
+        #{priabillNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillRemarks != null" >
+        #{priabillRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillAuditing != null" >
+        #{priabillAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillYn != null" >
+        #{priabillYn,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom1 != null" >
+        #{priabillCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom2 != null" >
+        #{priabillCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom3 != null" >
+        #{priabillCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.PriabillDetailsExample" resultType="java.lang.Integer" >
+    select count(*) from priabill_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update priabill_details
+    <set >
+      <if test="record.priadetailsId != null" >
+        priadetails_id = #{record.priadetailsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillId != null" >
+        priabill_id = #{record.priabillId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillPrice != null" >
+        priabill_price = #{record.priabillPrice,jdbcType=REAL},
+      </if>
+      <if test="record.priabillType != null" >
+        priabill_type = #{record.priabillType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillNumber != null" >
+        priabill_number = #{record.priabillNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillRemarks != null" >
+        priabill_remarks = #{record.priabillRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillAuditing != null" >
+        priabill_Auditing = #{record.priabillAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillYn != null" >
+        priabill_yn = #{record.priabillYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillCustom1 != null" >
+        priabill_custom1 = #{record.priabillCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillCustom2 != null" >
+        priabill_custom2 = #{record.priabillCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillCustom3 != null" >
+        priabill_custom3 = #{record.priabillCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update priabill_details
+    set priadetails_id = #{record.priadetailsId,jdbcType=VARCHAR},
+      priabill_id = #{record.priabillId,jdbcType=VARCHAR},
+      priabill_price = #{record.priabillPrice,jdbcType=REAL},
+      priabill_type = #{record.priabillType,jdbcType=VARCHAR},
+      priabill_number = #{record.priabillNumber,jdbcType=VARCHAR},
+      priabill_remarks = #{record.priabillRemarks,jdbcType=VARCHAR},
+      priabill_Auditing = #{record.priabillAuditing,jdbcType=VARCHAR},
+      priabill_yn = #{record.priabillYn,jdbcType=VARCHAR},
+      priabill_custom1 = #{record.priabillCustom1,jdbcType=VARCHAR},
+      priabill_custom2 = #{record.priabillCustom2,jdbcType=VARCHAR},
+      priabill_custom3 = #{record.priabillCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.PriabillDetails" >
+    update priabill_details
+    <set >
+      <if test="priabillId != null" >
+        priabill_id = #{priabillId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillPrice != null" >
+        priabill_price = #{priabillPrice,jdbcType=REAL},
+      </if>
+      <if test="priabillType != null" >
+        priabill_type = #{priabillType,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillNumber != null" >
+        priabill_number = #{priabillNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillRemarks != null" >
+        priabill_remarks = #{priabillRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillAuditing != null" >
+        priabill_Auditing = #{priabillAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillYn != null" >
+        priabill_yn = #{priabillYn,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom1 != null" >
+        priabill_custom1 = #{priabillCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom2 != null" >
+        priabill_custom2 = #{priabillCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom3 != null" >
+        priabill_custom3 = #{priabillCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where priadetails_id = #{priadetailsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.PriabillDetails" >
+    update priabill_details
+    set priabill_id = #{priabillId,jdbcType=VARCHAR},
+      priabill_price = #{priabillPrice,jdbcType=REAL},
+      priabill_type = #{priabillType,jdbcType=VARCHAR},
+      priabill_number = #{priabillNumber,jdbcType=VARCHAR},
+      priabill_remarks = #{priabillRemarks,jdbcType=VARCHAR},
+      priabill_Auditing = #{priabillAuditing,jdbcType=VARCHAR},
+      priabill_yn = #{priabillYn,jdbcType=VARCHAR},
+      priabill_custom1 = #{priabillCustom1,jdbcType=VARCHAR},
+      priabill_custom2 = #{priabillCustom2,jdbcType=VARCHAR},
+      priabill_custom3 = #{priabillCustom3,jdbcType=VARCHAR}
+    where priadetails_id = #{priadetailsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

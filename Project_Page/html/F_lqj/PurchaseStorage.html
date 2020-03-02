@@ -62,9 +62,10 @@
 										<div class="layui-inline">
 											<label style="width: 90px;margin-left: -10px;" class="layui-form-label">单价是否含税</label>
 											<div class="layui-input-inline">
-												<select style="height: 38px;" v-model="PurchaseStorage.psPriceIncludeTax">
-													<option>未税</option>
-													<option>含税</option>
+												<select v-model="PurchaseStorage.psPriceIncludeTax" style="height: 38px;">
+													<option v-for="item in shuiList" :value="item.value" :key="item.value" name="psPriceIncludeTax">
+														{{item.label}}
+								                    </option>
 												</select>
 											</div>
 										</div>
@@ -347,126 +348,6 @@
 		<script type="text/javascript" src="../../js/vue.js"></script>
 		<script type="text/javascript" src="../../js/axios.min.js"></script>
 		
-		<script>
-			layui.use('layer', function() { //独立版的layer无需执行这一句
-				var $ = layui.jquery,
-					layer = layui.layer; //独立版的layer无需执行这一句
-				//触发事件
-				var active = {
-					setTop: function() {
-						var that = this;
-						//多窗口模式，层叠置顶
-						layer.open({
-							type: 2,		//此处以iframe举例
-							title: '当你选择该窗体时，即会在最顶端',
-							area: ['500px', '300px'],
-							shade: -1,
-							maxmin: true,
-							offset: [ 						//为了演示，随机坐标
-								Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
-							],
-							content: '//layer.layui.com/test/settop.html',
-							btn: ['继续弹出', '全部关闭'],	//只是为了演示
-							yes: function() {
-								$(that).click();
-							},
-							btn2: function() {
-								layer.closeAll();
-							},
-							zIndex: layer.zIndex,			//重点1
-							success: function(layero) {
-								layer.setTop(layero); 		//重点2
-							}
-						});
-					},
-					offset: function(othis) {
-						var type = othis.data('type'),
-							text = othis.text(),
-							a = "";
-						if(text == "历史交易查询") {
-							a = "历史交易查询";
-							let str = "LiShiJIaoYi.html";
-							text = str;
-						} else if(text == "分摊费用明细") {
-							a = "分摊费用明细";
-							let str = "FenTanFeiYongMingXi.html";
-							text = str;
-						} else if(text == "采购询价转入") {
-							a = "采购询价转入";
-							let str = "CaiGouRuKuDanZhuanRu.html";
-							text = str;
-						} else if(text == "采购订单转入") {
-							a = "采购订单转入";
-							let str = "CaiGouRuKuDanZhuanRu.html";
-							text = str;
-						}
-						alert(type + " - " + text + " - " + a);
-						layer.open({
-							title: [a, 'font-size:18px;'],
-							type: 2,
-							area: ['700px', '400px'],
-							offset: type ,			//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-							id: 'layerDemo' + type,	//防止重复弹出
-							content: text,			//	btn: '关闭',
-							btnAlign: 'c',			//按钮居中
-							shade: 0.5, 			//不显示遮罩
-							yes: function() {
-								layer.closeAll();
-							}
-						});
-					}
-				};
-
-				$('#puchaseStoragegongneng a').on('click', function() {
-					var othis = $(this),
-						method = othis.data('method');
-					active[method] ? active[method].call(this, othis) : '';
-				});
-			});
-
-			layui.use(['form', 'layedit', 'laydate'], function() {
-				var form = layui.form,
-					layer = layui.layer,
-					layedit = layui.layedit,
-					laydate = layui.laydate;
-
-				//监听指定开关
-				form.on('switch(switchTest)', function(data) {
-					layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-						offset: '6px'
-					});
-					layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-				});
-
-				//监听提交
-				form.on('submit(demo1)', function(data) {
-					layer.alert(JSON.stringify(data.field), {
-						title: '最终的提交信息'
-					})
-					return false;
-				});
-
-				//表单赋值
-				layui.$('#LAY-component-form-setval').on('click', function() {
-					form.val('example', {
-						"username": "贤心",		// "name": "value"
-						"password": "123456",
-						"interest": 1,
-						"like[write]": true, 	//复选框选中状态
-						"close": true, 			//开关状态
-						"sex": "女",
-						"desc": "我爱 layui"
-					});
-				});
-
-				//表单取值
-				layui.$('#LAY-component-form-getval').on('click', function() {
-					var data = form.val('example');
-					alert(JSON.stringify(data));
-				});
-
-			});
-		</script>
 		<script type="text/javascript">
 			
 	 		let index = 0;
@@ -511,6 +392,10 @@
 						pageNum : 1
 					},
 					state : "",
+					shuiList: [
+                        {value: '未税',label: '未税'},
+                        {value: '含税',label: '含税'},
+					],
 					clauseList: [
                         {value: '货到',label: '货到'},
                         {value: '次月',label: '次月'},
@@ -530,59 +415,6 @@
 							success : function(result) {
 								//alert(result);
 			                    this_.PurchaseStorage.psDocumentNumber = result;
-			                    
-			                    if(this_.state == "goInsert"){
-			                    	this_.PurchaseStorage.psdList = [
-							 			{
-							 				psdDocumentNumber : this_.PurchaseStorage.psDocumentNumber,
-							 				psdColumnNo: ++index,
-							 				matterId: 'C01-W-02',
-							 				matterName: '6PA#AB2台式机',
-							 				psdSpecifications: '',
-							 				psdCompanyName: 'PCS',
-							 				psdAmount: 25,
-							 				psdMoneyDiscountBefore: 2450.05,
-							 				psdFoldNumber: '99.59',
-							 				psdPrice: 2440.00,
-							 				psdMoney: 61000.00,
-							 				psdTaxRate: 17.00,
-							 				psdTaxAmount: 10370.00,
-							 				psdIncludingTaxAmount: 71370.00,
-							 				psdLotNumber: '',
-							 				psdGift: 0,
-							 				psdInvoiceDetails: 1,
-							 				psdUninvoicedQuantity: 0,
-							 				psdRemarks: '',
-							 				psdSourceOrder: '采购订单',
-							 				psdSourceNo: '2019121701',
-							 				psdWentDutch: 0.00
-							 			},
-							 			{
-							 				psdDocumentNumber : this_.PurchaseStorage.psDocumentNumber,
-							 				psdColumnNo: ++index,
-							 				matterId: 'C01-W-01',
-							 				matterName: '6PA3443141式机',
-							 				psdSpecifications: '',
-							 				psdCompanyName: 'PCS',
-							 				psdAmount: 25,
-							 				psdMoneyDiscountBefore: 2450.05,
-							 				psdFoldNumber: '99.59',
-							 				psdPrice: 2440.00,
-							 				psdMoney: 61000.00,
-							 				psdTaxRate: 17.00,
-							 				psdTaxAmount: 10370.00,
-							 				psdIncludingTaxAmount: 71370.00,
-							 				psdLotNumber: '',
-							 				psdGift: 0,
-							 				psdInvoiceDetails: 1,
-							 				psdUninvoicedQuantity: 0,
-							 				psdRemarks: '',
-							 				psdSourceOrder: '采购订单',
-							 				psdSourceNo: '2019121701',
-							 				psdWentDutch: 0.00
-							 			}
-							 		];
-			                    }
 							}
 						});
 					},
@@ -639,11 +471,60 @@
 						$("#psDocumentNumber").prop("readonly", false);
 						this.state = "goInsert";
 						
-						this.hanlderEmpty(this.PurchaseStorage);
+						this.hanlderEmpty(this.PurchaseStorage);		//清空属性
+						//1.单据日期
+						var now = new Date();
+						this.PurchaseStorage.psDocumentDate = this.timeCycle(now);
+						//2.单据编码		this.PurchaseStorage.psDocumentNumber	 ↓;
+						this.queryDateToId(this.PurchaseStorage.psDocumentDate);
+						//3.
+						this.PurchaseStorage.psPriceIncludeTax = "未税";
+						this.PurchaseStorage.psExchangeRate = "0.0000";
+						this.PurchaseStorage.psForeignTrade = "否";
+						this.PurchaseStorage.psPaymentClause = "货到";
+						//7.账款月份
+						//格式化月，如果小于9，前面补0  
+						var month = ("0" + (now.getMonth() + 1)).slice(-2);
+						//拼装完整日 期格式  
+						var AccountReceivable = now.getFullYear() + "-" + (month);
+						//将获取的当前日期赋值给主表的账款月份
+						this.PurchaseStorage.psAccountReceivable = AccountReceivable;
+						//8.制单人员
 						this.PurchaseStorage.psExecutor = "admin";
+						//9.单据状态
+						this.PurchaseStorage.psAudition = "0";
+						//10.是否删除
+						this.PurchaseStorage.psYn = "0";
+						//11.详表第一条
+						this.PurchaseStorage.psdList = [
+				 			{
+				 				psdDocumentNumber : this.PurchaseStorage.psDocumentNumber,
+				 				psdColumnNo: ++index,
+				 				matterId: '',
+				 				matterName: '',
+				 				psdSpecifications: '',
+				 				psdCompanyName: '',
+				 				psdAmount: 0,
+				 				psdMoneyDiscountBefore: 0.00,
+				 				psdFoldNumber: '100.00',
+				 				psdPrice: 0.00,
+				 				psdMoney: 0.00,
+				 				psdTaxRate: 0.00,
+				 				psdTaxAmount: 0.00,
+				 				psdIncludingTaxAmount: 0.00,
+				 				psdLotNumber: '',
+				 				psdGift: 0,
+				 				psdInvoiceDetails: 0,
+				 				psdUninvoicedQuantity: 0,
+				 				psdRemarks: '',
+				 				psdSourceOrder: '',
+				 				psdSourceNo: '',
+				 				psdWentDutch: 0.00
+				 			}
+				 		];
+						//状态：新增
 						this.PurchaseStorage.statu = "goInsert";
 						
-						//$("tbody").html("<tr><td></td><td @dbclick='obtainMaterial();'></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
 					},
 					save : function(){
 						//alert("执行" + this.state + "操作！");
@@ -775,7 +656,7 @@
 							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
 								title: ["单选--供应商主文件设定", 'font-size:18px;'],
 								type: 2,
-								area: ['700px', '600px'],
+								area: ['600px', '460px'],
 								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
 								id: 'layerDemo' + "auto",	//防止重复弹出
 								content: "GongYingShang.html",
@@ -801,13 +682,13 @@
 							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
 								title: ["单选--仓库主文件设定", 'font-size:18px;'],
 								type: 2,
-								area: ['600px', '500px'],
+								area: ['600px', '460px'],
 								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
 								id: 'layerDemo' + "auto",	//防止重复弹出
 								content: "CangKu.html",
 								btn: '关闭',
-								btnAlign: 'c',			//按钮居中
-								shade: 0.5, 			//不显示遮罩
+								btnAlign: 'c',				//按钮居中
+								shade: 0.5, 				//不显示遮罩
 								success: function(layero, index){
 								    var body = layer.getChildFrame('body', index);
 								    //body.find('input').val('Hi，我是从父页来的');
@@ -827,7 +708,7 @@
 							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
 								title: ["单选--人员主文件设定", 'font-size:18px;'],
 								type: 2,
-								area: ['600px', '500px'],
+								area: ['600px', '460px'],
 								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
 								id: 'layerDemo' + "auto",	//防止重复弹出
 								content: "Staff.html",
@@ -883,8 +764,131 @@
 							elem: '#data2'
 						});
 					});
+				},
+				updated : function(){
+					//
 				}
 			})
+		</script>
+		<script>
+			layui.use('layer', function() { //独立版的layer无需执行这一句
+				var $ = layui.jquery,
+					layer = layui.layer; //独立版的layer无需执行这一句
+				//触发事件
+				var active = {
+					setTop: function() {
+						var that = this;
+						//多窗口模式，层叠置顶
+						layer.open({
+							type: 2,		//此处以iframe举例
+							title: '当你选择该窗体时，即会在最顶端',
+							area: ['500px', '300px'],
+							shade: -1,
+							maxmin: true,
+							offset: [ 						//为了演示，随机坐标
+								Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
+							],
+							content: '//layer.layui.com/test/settop.html',
+							btn: ['继续弹出', '全部关闭'],	//只是为了演示
+							yes: function() {
+								$(that).click();
+							},
+							btn2: function() {
+								layer.closeAll();
+							},
+							zIndex: layer.zIndex,			//重点1
+							success: function(layero) {
+								layer.setTop(layero); 		//重点2
+							}
+						});
+					},
+					offset: function(othis) {
+						var type = othis.data('type'),
+							text = othis.text(),
+							a = "";
+						if(text == "历史交易查询") {
+							a = "历史交易查询";
+							let str = "LiShiJIaoYi.html";
+							text = str;
+						} else if(text == "分摊费用明细") {
+							a = "分摊费用明细";
+							let str = "FenTanFeiYongMingXi.html";
+							text = str;
+						} else if(text == "采购询价转入") {
+							a = "采购询价转入";
+							let str = "CaiGouRuKuDanZhuanRu.html";
+							text = str;
+						} else if(text == "采购订单转入") {
+							a = "采购订单转入";
+							let str = "CaiGouRuKuDanZhuanRu.html";
+							text = str;
+						}
+						alert(type + " - " + text + " - " + a);
+						layer.open({
+							title: [a, 'font-size:18px;'],
+							type: 2,
+							area: ['700px', '400px'],
+							offset: type ,			//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+							id: 'layerDemo' + type,	//防止重复弹出
+							content: text,			//	btn: '关闭',
+							btnAlign: 'c',			//按钮居中
+							shade: 0.5, 			//不显示遮罩
+							yes: function() {
+								layer.closeAll();
+							}
+						});
+					}
+				};
+
+				$('#puchaseStoragegongneng a').on('click', function() {
+					var othis = $(this),
+						method = othis.data('method');
+					active[method] ? active[method].call(this, othis) : '';
+				});
+			});
+
+			layui.use(['form', 'layedit', 'laydate'], function() {
+				var form = layui.form,
+					layer = layui.layer,
+					layedit = layui.layedit,
+					laydate = layui.laydate;
+
+				//监听指定开关
+				form.on('switch(switchTest)', function(data) {
+					layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+						offset: '6px'
+					});
+					layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+				});
+
+				//监听提交
+				form.on('submit(demo1)', function(data) {
+					layer.alert(JSON.stringify(data.field), {
+						title: '最终的提交信息'
+					})
+					return false;
+				});
+
+				//表单赋值
+				layui.$('#LAY-component-form-setval').on('click', function() {
+					form.val('example', {
+						"username": "贤心",		// "name": "value"
+						"password": "123456",
+						"interest": 1,
+						"like[write]": true, 	//复选框选中状态
+						"close": true, 			//开关状态
+						"sex": "女",
+						"desc": "我爱 layui"
+					});
+				});
+
+				//表单取值
+				layui.$('#LAY-component-form-getval').on('click', function() {
+					var data = form.val('example');
+					alert(JSON.stringify(data));
+				});
+
+			});
 		</script>
 	</body>
 

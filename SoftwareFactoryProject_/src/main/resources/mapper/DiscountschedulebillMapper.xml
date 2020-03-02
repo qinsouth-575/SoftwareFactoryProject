@@ -5,6 +5,13 @@
     <id column="dsbid" property="dsbid" jdbcType="INTEGER" />
     <result column="dpbid" property="dpbid" jdbcType="VARCHAR" />
     <result column="stockNumber" property="stocknumber" jdbcType="VARCHAR" />
+    <result column="matterName" property="mattername" jdbcType="VARCHAR" />
+    <result column="matterSize" property="mattersize" jdbcType="VARCHAR" />
+    <result column="unitid" property="unitid" jdbcType="VARCHAR" />
+    <result column="unitName" property="unitname" jdbcType="VARCHAR" />
+    <result column="matter_nowcount" property="matterNowcount" jdbcType="INTEGER" />
+    <result column="matter_nowavgcost" property="matterNowavgcost" jdbcType="REAL" />
+    <result column="unitPrice" property="unitprice" jdbcType="REAL" />
     <result column="discountPrice" property="discountprice" jdbcType="REAL" />
     <result column="standby" property="standby" jdbcType="VARCHAR" />
   </resultMap>
@@ -70,7 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    dsbid, dpbid, stockNumber, discountPrice, standby
+    dsbid, dpbid, stockNumber, matterName, matterSize, unitid, unitName, matter_nowcount, 
+    matter_nowavgcost, unitPrice, discountPrice, standby
   </sql>
   <sql id="Blob_Column_List" >
     remark
@@ -125,11 +133,15 @@
   </delete>
   <insert id="insert" parameterType="com.factory.entity.Discountschedulebill" >
     insert into discountschedulebill (dsbid, dpbid, stockNumber, 
-      discountPrice, standby, remark
-      )
+      matterName, matterSize, unitid, 
+      unitName, matter_nowcount, matter_nowavgcost, 
+      unitPrice, discountPrice, standby, 
+      remark)
     values (#{dsbid,jdbcType=INTEGER}, #{dpbid,jdbcType=VARCHAR}, #{stocknumber,jdbcType=VARCHAR}, 
-      #{discountprice,jdbcType=REAL}, #{standby,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
-      )
+      #{mattername,jdbcType=VARCHAR}, #{mattersize,jdbcType=VARCHAR}, #{unitid,jdbcType=VARCHAR}, 
+      #{unitname,jdbcType=VARCHAR}, #{matterNowcount,jdbcType=INTEGER}, #{matterNowavgcost,jdbcType=REAL}, 
+      #{unitprice,jdbcType=REAL}, #{discountprice,jdbcType=REAL}, #{standby,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.factory.entity.Discountschedulebill" >
     insert into discountschedulebill
@@ -142,6 +154,27 @@
       </if>
       <if test="stocknumber != null" >
         stockNumber,
+      </if>
+      <if test="mattername != null" >
+        matterName,
+      </if>
+      <if test="mattersize != null" >
+        matterSize,
+      </if>
+      <if test="unitid != null" >
+        unitid,
+      </if>
+      <if test="unitname != null" >
+        unitName,
+      </if>
+      <if test="matterNowcount != null" >
+        matter_nowcount,
+      </if>
+      <if test="matterNowavgcost != null" >
+        matter_nowavgcost,
+      </if>
+      <if test="unitprice != null" >
+        unitPrice,
       </if>
       <if test="discountprice != null" >
         discountPrice,
@@ -162,6 +195,27 @@
       </if>
       <if test="stocknumber != null" >
         #{stocknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="mattername != null" >
+        #{mattername,jdbcType=VARCHAR},
+      </if>
+      <if test="mattersize != null" >
+        #{mattersize,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null" >
+        #{unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="matterNowcount != null" >
+        #{matterNowcount,jdbcType=INTEGER},
+      </if>
+      <if test="matterNowavgcost != null" >
+        #{matterNowavgcost,jdbcType=REAL},
+      </if>
+      <if test="unitprice != null" >
+        #{unitprice,jdbcType=REAL},
       </if>
       <if test="discountprice != null" >
         #{discountprice,jdbcType=REAL},
@@ -192,6 +246,27 @@
       <if test="record.stocknumber != null" >
         stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
       </if>
+      <if test="record.mattername != null" >
+        matterName = #{record.mattername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mattersize != null" >
+        matterSize = #{record.mattersize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitid != null" >
+        unitid = #{record.unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitname != null" >
+        unitName = #{record.unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matterNowcount != null" >
+        matter_nowcount = #{record.matterNowcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.matterNowavgcost != null" >
+        matter_nowavgcost = #{record.matterNowavgcost,jdbcType=REAL},
+      </if>
+      <if test="record.unitprice != null" >
+        unitPrice = #{record.unitprice,jdbcType=REAL},
+      </if>
       <if test="record.discountprice != null" >
         discountPrice = #{record.discountprice,jdbcType=REAL},
       </if>
@@ -211,6 +286,13 @@
     set dsbid = #{record.dsbid,jdbcType=INTEGER},
       dpbid = #{record.dpbid,jdbcType=VARCHAR},
       stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
+      matterName = #{record.mattername,jdbcType=VARCHAR},
+      matterSize = #{record.mattersize,jdbcType=VARCHAR},
+      unitid = #{record.unitid,jdbcType=VARCHAR},
+      unitName = #{record.unitname,jdbcType=VARCHAR},
+      matter_nowcount = #{record.matterNowcount,jdbcType=INTEGER},
+      matter_nowavgcost = #{record.matterNowavgcost,jdbcType=REAL},
+      unitPrice = #{record.unitprice,jdbcType=REAL},
       discountPrice = #{record.discountprice,jdbcType=REAL},
       standby = #{record.standby,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=LONGVARCHAR}
@@ -223,6 +305,13 @@
     set dsbid = #{record.dsbid,jdbcType=INTEGER},
       dpbid = #{record.dpbid,jdbcType=VARCHAR},
       stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
+      matterName = #{record.mattername,jdbcType=VARCHAR},
+      matterSize = #{record.mattersize,jdbcType=VARCHAR},
+      unitid = #{record.unitid,jdbcType=VARCHAR},
+      unitName = #{record.unitname,jdbcType=VARCHAR},
+      matter_nowcount = #{record.matterNowcount,jdbcType=INTEGER},
+      matter_nowavgcost = #{record.matterNowavgcost,jdbcType=REAL},
+      unitPrice = #{record.unitprice,jdbcType=REAL},
       discountPrice = #{record.discountprice,jdbcType=REAL},
       standby = #{record.standby,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -237,6 +326,27 @@
       </if>
       <if test="stocknumber != null" >
         stockNumber = #{stocknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="mattername != null" >
+        matterName = #{mattername,jdbcType=VARCHAR},
+      </if>
+      <if test="mattersize != null" >
+        matterSize = #{mattersize,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        unitid = #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null" >
+        unitName = #{unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="matterNowcount != null" >
+        matter_nowcount = #{matterNowcount,jdbcType=INTEGER},
+      </if>
+      <if test="matterNowavgcost != null" >
+        matter_nowavgcost = #{matterNowavgcost,jdbcType=REAL},
+      </if>
+      <if test="unitprice != null" >
+        unitPrice = #{unitprice,jdbcType=REAL},
       </if>
       <if test="discountprice != null" >
         discountPrice = #{discountprice,jdbcType=REAL},
@@ -254,6 +364,13 @@
     update discountschedulebill
     set dpbid = #{dpbid,jdbcType=VARCHAR},
       stockNumber = #{stocknumber,jdbcType=VARCHAR},
+      matterName = #{mattername,jdbcType=VARCHAR},
+      matterSize = #{mattersize,jdbcType=VARCHAR},
+      unitid = #{unitid,jdbcType=VARCHAR},
+      unitName = #{unitname,jdbcType=VARCHAR},
+      matter_nowcount = #{matterNowcount,jdbcType=INTEGER},
+      matter_nowavgcost = #{matterNowavgcost,jdbcType=REAL},
+      unitPrice = #{unitprice,jdbcType=REAL},
       discountPrice = #{discountprice,jdbcType=REAL},
       standby = #{standby,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=LONGVARCHAR}
@@ -263,6 +380,13 @@
     update discountschedulebill
     set dpbid = #{dpbid,jdbcType=VARCHAR},
       stockNumber = #{stocknumber,jdbcType=VARCHAR},
+      matterName = #{mattername,jdbcType=VARCHAR},
+      matterSize = #{mattersize,jdbcType=VARCHAR},
+      unitid = #{unitid,jdbcType=VARCHAR},
+      unitName = #{unitname,jdbcType=VARCHAR},
+      matter_nowcount = #{matterNowcount,jdbcType=INTEGER},
+      matter_nowavgcost = #{matterNowavgcost,jdbcType=REAL},
+      unitPrice = #{unitprice,jdbcType=REAL},
       discountPrice = #{discountprice,jdbcType=REAL},
       standby = #{standby,jdbcType=VARCHAR}
     where dsbid = #{dsbid,jdbcType=INTEGER}

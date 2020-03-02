@@ -573,56 +573,53 @@ VALUES ('101','购入','',0,1,1),('102','在建工程转入','',0,1,1),('103','�
 ###销售日报表						2
 ###销售分析表						2
 
-#销售报价单 主表		#	DROP TABLE `sale_quotation`;
+#销售报价单 主表
 CREATE TABLE `sale_quotation` (
-  `sq_id` 		VARCHAR(50) 	NOT NULL 	COMMENT '单据号码，唯一主键',
-  `sq_document_time` 	DATE 		DEFAULT NULL 	COMMENT '单据日期',
-  `currency_name` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '币别(不录id,直接录name)',
-  `sq_exchange_rate` 	FLOAT 		DEFAULT NULL 	COMMENT '汇率默认值：1.0000',
-  `customer_id` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '客户id',
-  `customer_name` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '客户全称',
-  `sq_delivery_address` VARCHAR(20) 	DEFAULT NULL 	COMMENT '送货地址',
-  `sq_effective_time` 	DATE 		DEFAULT NULL 	COMMENT '有效日期',
-  `sq_tax` 		INT(11) 	DEFAULT NULL 	COMMENT '单价是否含税',
-  `sq_monograph` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '表头条文',
-  `sq_reviewer` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '表尾条文',
-  `sq_watchword` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '自定栏一',
-  `sq_tailclause` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '自定栏二',
-  `sq_remark` 		VARCHAR(200) 	DEFAULT NULL 	COMMENT '备注',
-  `staff_id` 		INT(11) 	DEFAULT NULL 	COMMENT '员工id',
-  `staff_name` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '员工名称',
-  `team_id` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '部门id',
-  `depart_name` 	VARCHAR(30) 	DEFAULT NULL 	COMMENT '部门名称',
-  `sq_auditing` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '制单人员（当前登录者）',
-  `sq_yn` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '复核人员（当前登录者）',
+  `sq_id` 		VARCHAR(50) 	NOT NULL 	COMMENT '',
+  `sq_document_time` 	DATE 		DEFAULT NULL 	COMMENT '',
+  `currency_id` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
+  `sq_exchange_rate` 	FLOAT 		DEFAULT NULL 	COMMENT '',
+  `sq_effective_time` 	DATE 		DEFAULT NULL 	COMMENT '',
+  `sq_tax` 		INT(11) 	DEFAULT NULL 	COMMENT '',
+  `customer_id` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
+  `sq_delivery_address` VARCHAR(20) 	DEFAULT NULL 	COMMENT '',
+  `staff_id` 		INT(11) 	DEFAULT NULL 	COMMENT '',
+  `team_id` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
+  `sq_monograph` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
+  `sq_reviewer` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
+  `sq_watchword` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '',
+  `sq_tailclause` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '',
+  `sq_remark` 		VARCHAR(200) 	DEFAULT NULL 	COMMENT '',
+  `sq_auditing` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
+  `sq_yn` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
   `sq_custom1` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
   `sq_custom2` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
   `sq_custom3` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '',
   PRIMARY KEY (`sq_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-#销售报价单 详表		#	DROP TABLE `sale_quotation_details`;
+#销售报价单 详`表
 CREATE TABLE `sale_quotation_details` (
-  `Sqd_ProdID` 		VARCHAR(10) 	NOT NULL 	COMMENT '栏号',
-  `Sqd_SerNO` 		VARCHAR(20) 	DEFAULT NULL 	COMMENT '物料编号，来源物料主文件',
-  `Sqd_ProdName` 	VARCHAR(30) 	DEFAULT NULL 	COMMENT '物料名称，来源物料主文件',
-  `Sqd_ProdSize` 	VARCHAR(30) 	DEFAULT NULL 	COMMENT '规格型号，来源物料主文件',
-  `Sqd_UnitName` 	VARCHAR(20) 	DEFAULT NULL 	COMMENT '单位名称，来源物料主文件',
-  `Sqd_sQuantity` 	INT(11) 	DEFAULT '0' 	COMMENT '数量,要有小兰标签，但如果为0，不可保存',
-  `Sqd_ZkqPrice` 	FLOAT 		DEFAULT NULL 	COMMENT '折扣前单价',
-  `Sqd_Discount` 	FLOAT 		DEFAULT NULL 	COMMENT '折数',
-  `Sqd_UnitPrice` 	FLOAT 		DEFAULT NULL 	COMMENT '单价',
-  `Sqd_Price` 		FLOAT 		DEFAULT NULL 	COMMENT '金额',
-  `Sqd_TaxRate` 	FLOAT 		DEFAULT NULL 	COMMENT '税率',
-  `Sqd_Taxlimit` 	FLOAT 		DEFAULT NULL 	COMMENT '税额',
-  `Sqd_TaxInclusivePrice` FLOAT 	DEFAULT NULL 	COMMENT '含税金额',
-  `Sqd_Complimentart` 	INT(11) 	DEFAULT NULL 	COMMENT '赠品（0，1）',
-  `Sqd_ItemRemark` 	VARCHAR(50) 	DEFAULT NULL 	COMMENT '分录备注',
-  `sq_id` 		VARCHAR(50) 	DEFAULT NULL 	COMMENT '详表主键 关联主表',
-  `Sqd_auditing` 	VARCHAR(50) 	DEFAULT NULL,
-  `Sqd_yn` 		VARCHAR(50) 	DEFAULT '0',
-  `Sqd_custom1` 	VARCHAR(50) 	DEFAULT NULL,
-  `Sqd_custom2` 	VARCHAR(50) 	DEFAULT NULL,
-  `Sqd_custom3` 	VARCHAR(50) 	DEFAULT NULL,
+  `Sqd_ProdID` VARCHAR(10) NOT NULL COMMENT '栏号',
+  `Sqd_SerNO` VARCHAR(20) DEFAULT NULL COMMENT '物料编号，来源物料主文件',
+  `Sqd_ProdName` VARCHAR(30) DEFAULT NULL COMMENT '物料名称，来源物料主文件',
+  `Sqd_ProdSize` VARCHAR(30) DEFAULT NULL COMMENT '规格型号，来源物料主文件',
+  `Sqd_UnitName` VARCHAR(20) DEFAULT NULL COMMENT '单位名称，来源物料主文件',
+  `Sqd_sQuantity` INT(11) DEFAULT '0' COMMENT '数量,要有小兰标签，但如果为0，不可保存',
+  `Sqd_ZkqPrice` FLOAT DEFAULT NULL COMMENT '折扣前单价',
+  `Sqd_Discount` FLOAT DEFAULT NULL COMMENT '折数',
+  `Sqd_UnitPrice` FLOAT DEFAULT NULL COMMENT '单价',
+  `Sqd_Price` FLOAT DEFAULT NULL COMMENT '金额',
+  `Sqd_TaxRate` FLOAT DEFAULT NULL COMMENT '税率',
+  `Sqd_Taxlimit` FLOAT DEFAULT NULL COMMENT '税额',
+  `Sqd_TaxInclusivePrice` FLOAT DEFAULT NULL COMMENT '含税金额',
+  `Sqd_Complimentart` INT(11) DEFAULT NULL COMMENT '赠品（0，1）',
+  `Sqd_ItemRemark` VARCHAR(50) DEFAULT NULL COMMENT '分录备注',
+  `sql_id` VARCHAR(50) DEFAULT NULL COMMENT '详表主键 关联主表',
+  `Sqd_auditing` VARCHAR(50) DEFAULT NULL,
+  `Sqd_yn` VARCHAR(50) DEFAULT '0',
+  `Sqd_custom1` VARCHAR(50) DEFAULT NULL,
+  `Sqd_custom2` VARCHAR(50) DEFAULT NULL,
+  `Sqd_custom3` VARCHAR(50) DEFAULT NULL,
   PRIMARY KEY (`Sqd_ProdID`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
@@ -708,24 +705,25 @@ CREATE TABLE `sale_out_warehouse_detailed` (
 
 #销售订单 主表
 CREATE TABLE `sale_order` (
-  `so_id` VARCHAR(50) NOT NULL,
-  `so_document_time` DATE DEFAULT NULL,
-  `so_documentnumber` VARCHAR(20) DEFAULT NULL,
-  `so_delivery_address` DOUBLE DEFAULT NULL,
-  `sot_id` DATE DEFAULT NULL,
-  `so_customerorder` INT(50) DEFAULT NULL,
-  `so_tax` VARCHAR(50) DEFAULT NULL,
-  `currency_id` VARCHAR(20) DEFAULT NULL,
-  `so_oder_static` VARCHAR(50) DEFAULT NULL,
-  `staff_id` VARCHAR(50) DEFAULT NULL,
-  `team_id` VARCHAR(50) DEFAULT NULL,
-  `so_monograph` VARCHAR(50) DEFAULT NULL,
-  `so_reviewer` VARCHAR(50) DEFAULT NULL,
-  `so_ subordinate` VARCHAR(50) DEFAULT NULL,
-  `so_ watchword` VARCHAR(20) DEFAULT NULL,
-  `so_ tailclause` VARCHAR(20) DEFAULT NULL,
-  `so_ remark` VARCHAR(200) DEFAULT NULL,
-  `so_ account_ownership` VARCHAR(50) DEFAULT NULL,
+  `so_id` INT(11) NOT NULL AUTO_INCREMENT,#订单主表编号
+  `customerorder_id` VARCHAR(50) NOT NULL,#客户编号
+  `so_document_time` DATE DEFAULT NULL,#单据日期
+  `so_documentnumber` VARCHAR(20) DEFAULT NULL,#单据号码
+  `so_delivery_address` VARCHAR(50) DEFAULT NULL,#送货地址
+  `sot_id` VARCHAR(50) DEFAULT NULL,#销售订单类型
+  `so_customerorder` VARCHAR(50) DEFAULT NULL,#客户订单
+  `so_tax` INT(11) DEFAULT NULL,#单价是否含税
+  `currency_id` VARCHAR(20) DEFAULT NULL,#币别
+  `so_oder_static` INT(11) DEFAULT NULL,#单况
+  `staff_id` VARCHAR(50) DEFAULT NULL,#业务人员编号
+  `team_id` VARCHAR(50) DEFAULT NULL,#所属部门编号
+  `so_monograph` VARCHAR(50) DEFAULT NULL,#制单人
+  `so_reviewer` VARCHAR(50) DEFAULT NULL,#复核人员
+  `so_subordinate` VARCHAR(50) DEFAULT NULL,#所属项目
+  `so_watchword` VARCHAR(20) DEFAULT NULL,#表头条文
+  `so_tailclause` VARCHAR(20) DEFAULT NULL,#表尾条文
+  `so_remark` VARCHAR(200) DEFAULT NULL,#备注
+  `so_account_ownership` VARCHAR(50) DEFAULT NULL,
   `so_collection_time` VARCHAR(50) DEFAULT NULL,
   `so_collection_month` VARCHAR(50) DEFAULT NULL,
   `so_collection_terms` VARCHAR(50) DEFAULT NULL,
@@ -737,10 +735,11 @@ CREATE TABLE `sale_order` (
   `so_custom3` VARCHAR(50) DEFAULT NULL,
   PRIMARY KEY (`so_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
 #销售订单 详表
 CREATE TABLE `sale_order_detail` (
-  `sol_id` VARCHAR(50) NOT NULL,
-  `so_id` VARCHAR(50) DEFAULT NULL,
+  `sol_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `so_id` INT(11) DEFAULT NULL,
   `matter_id` VARCHAR(50) DEFAULT NULL,
   `sol_mat_name` VARCHAR(50) DEFAULT NULL,
   `sol_mat_type` VARCHAR(20) DEFAULT NULL,
@@ -766,11 +765,11 @@ CREATE TABLE `sale_order_detail` (
   `sol_custom1` VARCHAR(50) DEFAULT NULL,
   `sol_custom2` VARCHAR(50) DEFAULT NULL,
   `sol_custom3` VARCHAR(50) DEFAULT NULL,
-  PRIMARY KEY (`sol_id`)
+  PRIMARY KEY (sol_id,so_id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 #销售退货单 主表
 CREATE TABLE `sale_return_warehouse` (
-  `srw_id` VARCHAR(50) NOT NULL,
+  `srw_id` INT(11) NOT NULL AUTO_INCREMENT,
   `customer_id` VARCHAR(50) DEFAULT NULL,
   `srw_address` VARCHAR(32) DEFAULT NULL,
   `srwt_id` VARCHAR(50) DEFAULT NULL,
@@ -809,8 +808,8 @@ CREATE TABLE `sale_return_warehouse` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 #销售退货单 详表
 CREATE TABLE `sale_return_warehouse_details` (
-  `srwd_id` VARCHAR(50) NOT NULL,
-  `srw_id` VARCHAR(50) DEFAULT NULL,
+  `srwd_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `srw_id` INT(11) DEFAULT NULL,
   `matter_id` VARCHAR(50) DEFAULT NULL,
   `srwd_engname` VARCHAR(32) DEFAULT NULL,
   `srwd_remark` VARCHAR(50) DEFAULT NULL,

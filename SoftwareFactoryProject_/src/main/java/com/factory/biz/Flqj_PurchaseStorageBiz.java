@@ -67,6 +67,7 @@ public class Flqj_PurchaseStorageBiz {
 
     //采购入库 - 3.删除
     public boolean deletePurchaseStorage(String psDocumentNumber) {
+    	//改为修改状态
     	return dao.deleteByPrimaryKey(psDocumentNumber) > 0;
     };
 
