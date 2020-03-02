@@ -122,7 +122,6 @@
 				methods : {
 					queryPage : function(pageNum_){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", true);
-						
 						var this_ = this;
 						this.department.pageNum = pageNum_;
 						
@@ -149,7 +148,6 @@
 					goInsert : function(){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
 						this.state = "goInsert";
-						
 						this.department = {};
 					},
 					save : function(){

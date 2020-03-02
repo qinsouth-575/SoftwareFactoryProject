@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.SaleReturnWarehouseDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.SaleReturnWarehouseDetails" >
+    <id column="srwd_id" property="srwdId" jdbcType="INTEGER" />
+    <result column="srw_id" property="srwId" jdbcType="INTEGER" />
+    <result column="matter_id" property="matterId" jdbcType="VARCHAR" />
+    <result column="srwd_engname" property="srwdEngname" jdbcType="VARCHAR" />
+    <result column="srwd_remark" property="srwdRemark" jdbcType="VARCHAR" />
+    <result column="srwd_price_include_tax" property="srwdPriceIncludeTax" jdbcType="VARCHAR" />
+    <result column="srwd_single_status" property="srwdSingleStatus" jdbcType="INTEGER" />
+    <result column="srwd_document_date" property="srwdDocumentDate" jdbcType="DATE" />
+    <result column="srwd_document_number" property="srwdDocumentNumber" jdbcType="REAL" />
+    <result column="srwd_price" property="srwdPrice" jdbcType="REAL" />
+    <result column="srwd_money" property="srwdMoney" jdbcType="REAL" />
+    <result column="srwd_tax_rate" property="srwdTaxRate" jdbcType="REAL" />
+    <result column="srwd_tax_amount" property="srwdTaxAmount" jdbcType="REAL" />
+    <result column="srwd_including_tax_amount" property="srwdIncludingTaxAmount" jdbcType="REAL" />
+    <result column="srwd_batch_number" property="srwdBatchNumber" jdbcType="VARCHAR" />
+    <result column="srwd_ifgift" property="srwdIfgift" jdbcType="VARCHAR" />
+    <result column="srwd_invoice_details" property="srwdInvoiceDetails" jdbcType="VARCHAR" />
+    <result column="srwd_nomake_invoice_num" property="srwdNomakeInvoiceNum" jdbcType="INTEGER" />
+    <result column="srwd_remarks" property="srwdRemarks" jdbcType="VARCHAR" />
+    <result column="srwd_source_order" property="srwdSourceOrder" jdbcType="VARCHAR" />
+    <result column="srwd_source_no" property="srwdSourceNo" jdbcType="VARCHAR" />
+    <result column="srwd_auditing" property="srwdAuditing" jdbcType="VARCHAR" />
+    <result column="srwd_yn" property="srwdYn" jdbcType="VARCHAR" />
+    <result column="srwd_custom1" property="srwdCustom1" jdbcType="VARCHAR" />
+    <result column="srwd_custom2" property="srwdCustom2" jdbcType="VARCHAR" />
+    <result column="srwd_custom3" property="srwdCustom3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    srwd_id, srw_id, matter_id, srwd_engname, srwd_remark, srwd_price_include_tax, srwd_single_status, 
+    srwd_document_date, srwd_document_number, srwd_price, srwd_money, srwd_tax_rate, 
+    srwd_tax_amount, srwd_including_tax_amount, srwd_batch_number, srwd_ifgift, srwd_invoice_details, 
+    srwd_nomake_invoice_num, srwd_remarks, srwd_source_order, srwd_source_no, srwd_auditing, 
+    srwd_yn, srwd_custom1, srwd_custom2, srwd_custom3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.SaleReturnWarehouseDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sale_return_warehouse_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sale_return_warehouse_details
+    where srwd_id = #{srwdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sale_return_warehouse_details
+    where srwd_id = #{srwdId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.SaleReturnWarehouseDetailsExample" >
+    delete from sale_return_warehouse_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.SaleReturnWarehouseDetails" >
+    insert into sale_return_warehouse_details (srwd_id, srw_id, matter_id, 
+      srwd_engname, srwd_remark, srwd_price_include_tax, 
+      srwd_single_status, srwd_document_date, srwd_document_number, 
+      srwd_price, srwd_money, srwd_tax_rate, 
+      srwd_tax_amount, srwd_including_tax_amount, srwd_batch_number, 
+      srwd_ifgift, srwd_invoice_details, srwd_nomake_invoice_num, 
+      srwd_remarks, srwd_source_order, srwd_source_no, 
+      srwd_auditing, srwd_yn, srwd_custom1, 
+      srwd_custom2, srwd_custom3)
+    values (#{srwdId,jdbcType=INTEGER}, #{srwId,jdbcType=INTEGER}, #{matterId,jdbcType=VARCHAR}, 
+      #{srwdEngname,jdbcType=VARCHAR}, #{srwdRemark,jdbcType=VARCHAR}, #{srwdPriceIncludeTax,jdbcType=VARCHAR}, 
+      #{srwdSingleStatus,jdbcType=INTEGER}, #{srwdDocumentDate,jdbcType=DATE}, #{srwdDocumentNumber,jdbcType=REAL}, 
+      #{srwdPrice,jdbcType=REAL}, #{srwdMoney,jdbcType=REAL}, #{srwdTaxRate,jdbcType=REAL}, 
+      #{srwdTaxAmount,jdbcType=REAL}, #{srwdIncludingTaxAmount,jdbcType=REAL}, #{srwdBatchNumber,jdbcType=VARCHAR}, 
+      #{srwdIfgift,jdbcType=VARCHAR}, #{srwdInvoiceDetails,jdbcType=VARCHAR}, #{srwdNomakeInvoiceNum,jdbcType=INTEGER}, 
+      #{srwdRemarks,jdbcType=VARCHAR}, #{srwdSourceOrder,jdbcType=VARCHAR}, #{srwdSourceNo,jdbcType=VARCHAR}, 
+      #{srwdAuditing,jdbcType=VARCHAR}, #{srwdYn,jdbcType=VARCHAR}, #{srwdCustom1,jdbcType=VARCHAR}, 
+      #{srwdCustom2,jdbcType=VARCHAR}, #{srwdCustom3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSe" parameterType="com.factory.entity.SaleReturnWarehouseDetails" >
+    insert into sale_return_warehouse_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="srwdId != null" >
+        srwd_id,
+      </if>
+      <if test="srwId != null" >
+        srw_id,
+      </if>
+      <if test="matterId != null" >
+        matter_id,
+      </if>
+      <if test="srwdEngname != null" >
+        srwd_engname,
+      </if>
+      <if test="srwdRemark != null" >
+        srwd_remark,
+      </if>
+      <if test="srwdPriceIncludeTax != null" >
+        srwd_price_include_tax,
+      </if>
+      <if test="srwdSingleStatus != null" >
+        srwd_single_status,
+      </if>
+      <if test="srwdDocumentDate != null" >
+        srwd_document_date,
+      </if>
+      <if test="srwdDocumentNumber != null" >
+        srwd_document_number,
+      </if>
+      <if test="srwdPrice != null" >
+        srwd_price,
+      </if>
+      <if test="srwdMoney != null" >
+        srwd_money,
+      </if>
+      <if test="srwdTaxRate != null" >
+        srwd_tax_rate,
+      </if>
+      <if test="srwdTaxAmount != null" >
+        srwd_tax_amount,
+      </if>
+      <if test="srwdIncludingTaxAmount != null" >
+        srwd_including_tax_amount,
+      </if>
+      <if test="srwdBatchNumber != null" >
+        srwd_batch_number,
+      </if>
+      <if test="srwdIfgift != null" >
+        srwd_ifgift,
+      </if>
+      <if test="srwdInvoiceDetails != null" >
+        srwd_invoice_details,
+      </if>
+      <if test="srwdNomakeInvoiceNum != null" >
+        srwd_nomake_invoice_num,
+      </if>
+      <if test="srwdRemarks != null" >
+        srwd_remarks,
+      </if>
+      <if test="srwdSourceOrder != null" >
+        srwd_source_order,
+      </if>
+      <if test="srwdSourceNo != null" >
+        srwd_source_no,
+      </if>
+      <if test="srwdAuditing != null" >
+        srwd_auditing,
+      </if>
+      <if test="srwdYn != null" >
+        srwd_yn,
+      </if>
+      <if test="srwdCustom1 != null" >
+        srwd_custom1,
+      </if>
+      <if test="srwdCustom2 != null" >
+        srwd_custom2,
+      </if>
+      <if test="srwdCustom3 != null" >
+        srwd_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="srwdId != null" >
+        #{srwdId,jdbcType=INTEGER},
+      </if>
+      <if test="srwId != null" >
+        #{srwId,jdbcType=INTEGER},
+      </if>
+      <if test="matterId != null" >
+        #{matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdEngname != null" >
+        #{srwdEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdRemark != null" >
+        #{srwdRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdPriceIncludeTax != null" >
+        #{srwdPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdSingleStatus != null" >
+        #{srwdSingleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="srwdDocumentDate != null" >
+        #{srwdDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="srwdDocumentNumber != null" >
+        #{srwdDocumentNumber,jdbcType=REAL},
+      </if>
+      <if test="srwdPrice != null" >
+        #{srwdPrice,jdbcType=REAL},
+      </if>
+      <if test="srwdMoney != null" >
+        #{srwdMoney,jdbcType=REAL},
+      </if>
+      <if test="srwdTaxRate != null" >
+        #{srwdTaxRate,jdbcType=REAL},
+      </if>
+      <if test="srwdTaxAmount != null" >
+        #{srwdTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="srwdIncludingTaxAmount != null" >
+        #{srwdIncludingTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="srwdBatchNumber != null" >
+        #{srwdBatchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdIfgift != null" >
+        #{srwdIfgift,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdInvoiceDetails != null" >
+        #{srwdInvoiceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdNomakeInvoiceNum != null" >
+        #{srwdNomakeInvoiceNum,jdbcType=INTEGER},
+      </if>
+      <if test="srwdRemarks != null" >
+        #{srwdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdSourceOrder != null" >
+        #{srwdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdSourceNo != null" >
+        #{srwdSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdAuditing != null" >
+        #{srwdAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdYn != null" >
+        #{srwdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdCustom1 != null" >
+        #{srwdCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdCustom2 != null" >
+        #{srwdCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdCustom3 != null" >
+        #{srwdCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.SaleReturnWarehouseDetailsExample" resultType="java.lang.Integer" >
+    select count(*) from sale_return_warehouse_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sale_return_warehouse_details
+    <set >
+      <if test="record.srwdId != null" >
+        srwd_id = #{record.srwdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.srwId != null" >
+        srw_id = #{record.srwId,jdbcType=INTEGER},
+      </if>
+      <if test="record.matterId != null" >
+        matter_id = #{record.matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdEngname != null" >
+        srwd_engname = #{record.srwdEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdRemark != null" >
+        srwd_remark = #{record.srwdRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdPriceIncludeTax != null" >
+        srwd_price_include_tax = #{record.srwdPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdSingleStatus != null" >
+        srwd_single_status = #{record.srwdSingleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.srwdDocumentDate != null" >
+        srwd_document_date = #{record.srwdDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="record.srwdDocumentNumber != null" >
+        srwd_document_number = #{record.srwdDocumentNumber,jdbcType=REAL},
+      </if>
+      <if test="record.srwdPrice != null" >
+        srwd_price = #{record.srwdPrice,jdbcType=REAL},
+      </if>
+      <if test="record.srwdMoney != null" >
+        srwd_money = #{record.srwdMoney,jdbcType=REAL},
+      </if>
+      <if test="record.srwdTaxRate != null" >
+        srwd_tax_rate = #{record.srwdTaxRate,jdbcType=REAL},
+      </if>
+      <if test="record.srwdTaxAmount != null" >
+        srwd_tax_amount = #{record.srwdTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="record.srwdIncludingTaxAmount != null" >
+        srwd_including_tax_amount = #{record.srwdIncludingTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="record.srwdBatchNumber != null" >
+        srwd_batch_number = #{record.srwdBatchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdIfgift != null" >
+        srwd_ifgift = #{record.srwdIfgift,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdInvoiceDetails != null" >
+        srwd_invoice_details = #{record.srwdInvoiceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdNomakeInvoiceNum != null" >
+        srwd_nomake_invoice_num = #{record.srwdNomakeInvoiceNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.srwdRemarks != null" >
+        srwd_remarks = #{record.srwdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdSourceOrder != null" >
+        srwd_source_order = #{record.srwdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdSourceNo != null" >
+        srwd_source_no = #{record.srwdSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdAuditing != null" >
+        srwd_auditing = #{record.srwdAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdYn != null" >
+        srwd_yn = #{record.srwdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdCustom1 != null" >
+        srwd_custom1 = #{record.srwdCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdCustom2 != null" >
+        srwd_custom2 = #{record.srwdCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srwdCustom3 != null" >
+        srwd_custom3 = #{record.srwdCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sale_return_warehouse_details
+    set srwd_id = #{record.srwdId,jdbcType=INTEGER},
+      srw_id = #{record.srwId,jdbcType=INTEGER},
+      matter_id = #{record.matterId,jdbcType=VARCHAR},
+      srwd_engname = #{record.srwdEngname,jdbcType=VARCHAR},
+      srwd_remark = #{record.srwdRemark,jdbcType=VARCHAR},
+      srwd_price_include_tax = #{record.srwdPriceIncludeTax,jdbcType=VARCHAR},
+      srwd_single_status = #{record.srwdSingleStatus,jdbcType=INTEGER},
+      srwd_document_date = #{record.srwdDocumentDate,jdbcType=DATE},
+      srwd_document_number = #{record.srwdDocumentNumber,jdbcType=REAL},
+      srwd_price = #{record.srwdPrice,jdbcType=REAL},
+      srwd_money = #{record.srwdMoney,jdbcType=REAL},
+      srwd_tax_rate = #{record.srwdTaxRate,jdbcType=REAL},
+      srwd_tax_amount = #{record.srwdTaxAmount,jdbcType=REAL},
+      srwd_including_tax_amount = #{record.srwdIncludingTaxAmount,jdbcType=REAL},
+      srwd_batch_number = #{record.srwdBatchNumber,jdbcType=VARCHAR},
+      srwd_ifgift = #{record.srwdIfgift,jdbcType=VARCHAR},
+      srwd_invoice_details = #{record.srwdInvoiceDetails,jdbcType=VARCHAR},
+      srwd_nomake_invoice_num = #{record.srwdNomakeInvoiceNum,jdbcType=INTEGER},
+      srwd_remarks = #{record.srwdRemarks,jdbcType=VARCHAR},
+      srwd_source_order = #{record.srwdSourceOrder,jdbcType=VARCHAR},
+      srwd_source_no = #{record.srwdSourceNo,jdbcType=VARCHAR},
+      srwd_auditing = #{record.srwdAuditing,jdbcType=VARCHAR},
+      srwd_yn = #{record.srwdYn,jdbcType=VARCHAR},
+      srwd_custom1 = #{record.srwdCustom1,jdbcType=VARCHAR},
+      srwd_custom2 = #{record.srwdCustom2,jdbcType=VARCHAR},
+      srwd_custom3 = #{record.srwdCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.SaleReturnWarehouseDetails" >
+    update sale_return_warehouse_details
+    <set >
+      <if test="srwId != null" >
+        srw_id = #{srwId,jdbcType=INTEGER},
+      </if>
+      <if test="matterId != null" >
+        matter_id = #{matterId,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdEngname != null" >
+        srwd_engname = #{srwdEngname,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdRemark != null" >
+        srwd_remark = #{srwdRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdPriceIncludeTax != null" >
+        srwd_price_include_tax = #{srwdPriceIncludeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdSingleStatus != null" >
+        srwd_single_status = #{srwdSingleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="srwdDocumentDate != null" >
+        srwd_document_date = #{srwdDocumentDate,jdbcType=DATE},
+      </if>
+      <if test="srwdDocumentNumber != null" >
+        srwd_document_number = #{srwdDocumentNumber,jdbcType=REAL},
+      </if>
+      <if test="srwdPrice != null" >
+        srwd_price = #{srwdPrice,jdbcType=REAL},
+      </if>
+      <if test="srwdMoney != null" >
+        srwd_money = #{srwdMoney,jdbcType=REAL},
+      </if>
+      <if test="srwdTaxRate != null" >
+        srwd_tax_rate = #{srwdTaxRate,jdbcType=REAL},
+      </if>
+      <if test="srwdTaxAmount != null" >
+        srwd_tax_amount = #{srwdTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="srwdIncludingTaxAmount != null" >
+        srwd_including_tax_amount = #{srwdIncludingTaxAmount,jdbcType=REAL},
+      </if>
+      <if test="srwdBatchNumber != null" >
+        srwd_batch_number = #{srwdBatchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdIfgift != null" >
+        srwd_ifgift = #{srwdIfgift,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdInvoiceDetails != null" >
+        srwd_invoice_details = #{srwdInvoiceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdNomakeInvoiceNum != null" >
+        srwd_nomake_invoice_num = #{srwdNomakeInvoiceNum,jdbcType=INTEGER},
+      </if>
+      <if test="srwdRemarks != null" >
+        srwd_remarks = #{srwdRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdSourceOrder != null" >
+        srwd_source_order = #{srwdSourceOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdSourceNo != null" >
+        srwd_source_no = #{srwdSourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdAuditing != null" >
+        srwd_auditing = #{srwdAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdYn != null" >
+        srwd_yn = #{srwdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdCustom1 != null" >
+        srwd_custom1 = #{srwdCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdCustom2 != null" >
+        srwd_custom2 = #{srwdCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="srwdCustom3 != null" >
+        srwd_custom3 = #{srwdCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where srwd_id = #{srwdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.SaleReturnWarehouseDetails" >
+    update sale_return_warehouse_details
+    set srw_id = #{srwId,jdbcType=INTEGER},
+      matter_id = #{matterId,jdbcType=VARCHAR},
+      srwd_engname = #{srwdEngname,jdbcType=VARCHAR},
+      srwd_remark = #{srwdRemark,jdbcType=VARCHAR},
+      srwd_price_include_tax = #{srwdPriceIncludeTax,jdbcType=VARCHAR},
+      srwd_single_status = #{srwdSingleStatus,jdbcType=INTEGER},
+      srwd_document_date = #{srwdDocumentDate,jdbcType=DATE},
+      srwd_document_number = #{srwdDocumentNumber,jdbcType=REAL},
+      srwd_price = #{srwdPrice,jdbcType=REAL},
+      srwd_money = #{srwdMoney,jdbcType=REAL},
+      srwd_tax_rate = #{srwdTaxRate,jdbcType=REAL},
+      srwd_tax_amount = #{srwdTaxAmount,jdbcType=REAL},
+      srwd_including_tax_amount = #{srwdIncludingTaxAmount,jdbcType=REAL},
+      srwd_batch_number = #{srwdBatchNumber,jdbcType=VARCHAR},
+      srwd_ifgift = #{srwdIfgift,jdbcType=VARCHAR},
+      srwd_invoice_details = #{srwdInvoiceDetails,jdbcType=VARCHAR},
+      srwd_nomake_invoice_num = #{srwdNomakeInvoiceNum,jdbcType=INTEGER},
+      srwd_remarks = #{srwdRemarks,jdbcType=VARCHAR},
+      srwd_source_order = #{srwdSourceOrder,jdbcType=VARCHAR},
+      srwd_source_no = #{srwdSourceNo,jdbcType=VARCHAR},
+      srwd_auditing = #{srwdAuditing,jdbcType=VARCHAR},
+      srwd_yn = #{srwdYn,jdbcType=VARCHAR},
+      srwd_custom1 = #{srwdCustom1,jdbcType=VARCHAR},
+      srwd_custom2 = #{srwdCustom2,jdbcType=VARCHAR},
+      srwd_custom3 = #{srwdCustom3,jdbcType=VARCHAR}
+    where srwd_id = #{srwdId,jdbcType=INTEGER}
+  </update>
+  <select id="queryAlldetial" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  		select * from sale_return_warehouse_details where srw_id=#{0}
+  </select>
+  
+  <delete id="deleteByIddetial" parameterType="java.lang.Integer">
+  		delete from sale_return_warehouse_details where srw_id=#{0}
+  </delete>
+  
+  <delete id="deleteAll">
+  			  	delete from sale_return_warehouse_details;
+  </delete>
+  
+  <insert id="insertSelective">
+    insert into sale_return_warehouse_details (srw_id, matter_id, 
+      srwd_engname, srwd_remark, srwd_price_include_tax, 
+      srwd_single_status, srwd_document_date, srwd_document_number, 
+      srwd_price, srwd_money, srwd_tax_rate, 
+      srwd_tax_amount, srwd_including_tax_amount, srwd_batch_number, 
+      srwd_ifgift, srwd_invoice_details, srwd_nomake_invoice_num, 
+      srwd_remarks, srwd_source_order, srwd_source_no, 
+      srwd_auditing, srwd_yn, srwd_custom1, 
+      srwd_custom2, srwd_custom3) values
+     <foreach collection="details" item="dt" separator=",">
+      		(#{dt.srwId,jdbcType=INTEGER}, #{dt.matterId,jdbcType=VARCHAR}, 
+      #{dt.srwdEngname,jdbcType=VARCHAR}, #{dt.srwdRemark,jdbcType=VARCHAR}, #{dt.srwdPriceIncludeTax,jdbcType=VARCHAR}, 
+      #{dt.srwdSingleStatus,jdbcType=INTEGER}, #{dt.srwdDocumentDate,jdbcType=DATE}, #{dt.srwdDocumentNumber,jdbcType=REAL}, 
+      #{dt.srwdPrice,jdbcType=REAL}, #{dt.srwdMoney,jdbcType=REAL}, #{dt.srwdTaxRate,jdbcType=REAL}, 
+      #{dt.srwdTaxAmount,jdbcType=REAL}, #{dt.srwdIncludingTaxAmount,jdbcType=REAL}, #{dt.srwdBatchNumber,jdbcType=VARCHAR}, 
+      #{dt.srwdIfgift,jdbcType=VARCHAR}, #{dt.srwdInvoiceDetails,jdbcType=VARCHAR}, #{dt.srwdNomakeInvoiceNum,jdbcType=INTEGER}, 
+      #{dt.srwdRemarks,jdbcType=VARCHAR}, #{dt.srwdSourceOrder,jdbcType=VARCHAR}, #{dt.srwdSourceNo,jdbcType=VARCHAR}, 
+      #{dt.srwdAuditing,jdbcType=VARCHAR}, #{dt.srwdYn,jdbcType=VARCHAR}, #{dt.srwdCustom1,jdbcType=VARCHAR}, 
+      #{dt.srwdCustom2,jdbcType=VARCHAR}, #{dt.srwdCustom3,jdbcType=VARCHAR})
+      		</foreach>;
+  </insert>
+</mapper>

@@ -1,10 +1,6 @@
 package com.factory.entity;
 
-public class SaleOrderDetail {
-    private String solId;
-
-    private String soId;
-
+public class SaleOrderDetail extends SaleOrderDetailKey {
     private String matterId;
 
     private String solMatName;
@@ -54,22 +50,6 @@ public class SaleOrderDetail {
     private String solCustom2;
 
     private String solCustom3;
-
-    public String getSolId() {
-        return solId;
-    }
-
-    public void setSolId(String solId) {
-        this.solId = solId;
-    }
-
-    public String getSoId() {
-        return soId;
-    }
-
-    public void setSoId(String soId) {
-        this.soId = soId;
-    }
 
     public String getMatterId() {
         return matterId;

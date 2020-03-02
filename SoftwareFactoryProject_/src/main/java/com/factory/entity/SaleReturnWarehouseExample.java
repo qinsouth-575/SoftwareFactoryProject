@@ -142,62 +142,52 @@ public class SaleReturnWarehouseExample {
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdEqualTo(String value) {
+        public Criteria andSrwIdEqualTo(Integer value) {
             addCriterion("srw_id =", value, "srwId");
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdNotEqualTo(String value) {
+        public Criteria andSrwIdNotEqualTo(Integer value) {
             addCriterion("srw_id <>", value, "srwId");
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdGreaterThan(String value) {
+        public Criteria andSrwIdGreaterThan(Integer value) {
             addCriterion("srw_id >", value, "srwId");
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdGreaterThanOrEqualTo(String value) {
+        public Criteria andSrwIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("srw_id >=", value, "srwId");
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdLessThan(String value) {
+        public Criteria andSrwIdLessThan(Integer value) {
             addCriterion("srw_id <", value, "srwId");
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdLessThanOrEqualTo(String value) {
+        public Criteria andSrwIdLessThanOrEqualTo(Integer value) {
             addCriterion("srw_id <=", value, "srwId");
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdLike(String value) {
-            addCriterion("srw_id like", value, "srwId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSrwIdNotLike(String value) {
-            addCriterion("srw_id not like", value, "srwId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSrwIdIn(List<String> values) {
+        public Criteria andSrwIdIn(List<Integer> values) {
             addCriterion("srw_id in", values, "srwId");
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdNotIn(List<String> values) {
+        public Criteria andSrwIdNotIn(List<Integer> values) {
             addCriterion("srw_id not in", values, "srwId");
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdBetween(String value1, String value2) {
+        public Criteria andSrwIdBetween(Integer value1, Integer value2) {
             addCriterion("srw_id between", value1, value2, "srwId");
             return (Criteria) this;
         }
 
-        public Criteria andSrwIdNotBetween(String value1, String value2) {
+        public Criteria andSrwIdNotBetween(Integer value1, Integer value2) {
             addCriterion("srw_id not between", value1, value2, "srwId");
             return (Criteria) this;
         }
