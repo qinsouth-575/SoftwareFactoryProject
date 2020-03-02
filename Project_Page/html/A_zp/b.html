@@ -7,23 +7,20 @@
 	</head>
 	<body>
 		<select id="type" onchange="jz()"  name="" style="width: 90px;height: 25px;" class="layui-col-md-offset1" disabled="disabled">
-			<option value="customer_id">客户编号</option>
-			<option value="customer_name">客户全称</option>
-			<option value="customer_easyname">客户简称</option>
-			<option value="customer_english_name">英文全称</option>
-			<option value="customer_charge_person">英文简称</option>
-			<option value="customer_account_ownership">账款归属</option>
-			<option value="customer_type">类别</option>
-			<option value="customer_zone">地区</option>
-			<option value="currency_id">币别</option>
+			<option value="staff_id">人员编号</option>
+			<option value="team_id">所属部门</option>
+			<option value="staff_name">人员姓名</option>
+			<option value="staff_idnumber">身份证号</option>
+			<option value="staff_gender">性别</option>
+			<option value="staff_technicaltitle">中文职位</option>
 		</select>
 		<input id="name" type="text" style="height: 20px;" class="layui-col-md-offset1" readonly="readonly" />
 		<div class="layui-tab-item layui-show layui-tab-content " style="border: 1px solid; overflow-x: scroll; overflow-y: scroll;">
 			<table class="layui-table" readonly="readonly">
 				<thead>
 					<tr>
-						<th style="white-space: nowrap;">客户编号</th>
-						<th style="white-space: nowrap;">客户简称</th>
+						<th style="white-space: nowrap;">人员编号</th>
+						<th style="white-space: nowrap;">人员姓名</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -38,7 +35,7 @@
 				var type=$("#type").val()
 				var name=$("#name").val()
 				$.ajax({
-					url:"//localhost:8080/SoftwareFactoryProject_/zp/querykh",
+					url:"//localhost:8080/SoftwareFactoryProject_/zp/queryyg",
 					data:{
 						type:type,
 						name:name
@@ -48,9 +45,9 @@
 							$("tbody").html("")
 							$(r).each(function(i,obj){
 								if($("#type").val()=="customer_id"){
-									$tr=$("<tr onclick='c(this)'><td>"+obj.customer_id+"</td><td>"+obj.customerEasyname+"</td><td><input type='hidden' value="+obj.customerEasyname+"></td></tr>")
+									$tr=$("<tr onclick='c(this)'><td>"+obj.staff_id+"</td><td>"+obj.customerEasyname+"</td><td><input type='hidden' value="+obj.customerEasyname+"></td></tr>")
 								}else{
-									$tr=$("<tr onclick='c(this)'><td>"+obj.customer_id+"</td><td>"+obj[$("#type").val()]+"</td><td><input type='hidden' value="+obj.customerEasyname+"></td></tr>")
+									$tr=$("<tr onclick='c(this)'><td>"+obj.staff_id+"</td><td>"+obj[$("#type").val()]+"</td><td><input type='hidden' value="+obj.customerEasyname+"></td></tr>")
 								}
 								$("tbody").append($tr)
 							})
@@ -59,8 +56,8 @@
 				});
 			}
 			function c(obj){
-				var customerEasyname=$(obj).find("td:eq(1)").text()
-				parent.show(customerEasyname)
+				var staff_name=$(obj).find("td:eq(1)").text()
+				parent.show2(staff_name)
 			}
 		</script>
 	</body>
