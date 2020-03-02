@@ -7,11 +7,25 @@ public class BlitemScheduleBill {
 
     private String stocknumber;
 
-    private String bookamout;
+    private String mattername;
 
-    private String blitemamout;
+    private String mattersize;
 
-    private String palamout;
+    private String unitid;
+
+    private String unitname;
+
+    private Integer bookamout;
+
+    private Integer blitemamout;
+
+    private Integer palamout;
+
+    private Float matterNowavgcost;
+
+    private Float palamoney;
+
+    private String batchnumber;
 
     private String cause;
 
@@ -41,28 +55,84 @@ public class BlitemScheduleBill {
         this.stocknumber = stocknumber;
     }
 
-    public String getBookamout() {
+    public String getMattername() {
+        return mattername;
+    }
+
+    public void setMattername(String mattername) {
+        this.mattername = mattername;
+    }
+
+    public String getMattersize() {
+        return mattersize;
+    }
+
+    public void setMattersize(String mattersize) {
+        this.mattersize = mattersize;
+    }
+
+    public String getUnitid() {
+        return unitid;
+    }
+
+    public void setUnitid(String unitid) {
+        this.unitid = unitid;
+    }
+
+    public String getUnitname() {
+        return unitname;
+    }
+
+    public void setUnitname(String unitname) {
+        this.unitname = unitname;
+    }
+
+    public Integer getBookamout() {
         return bookamout;
     }
 
-    public void setBookamout(String bookamout) {
+    public void setBookamout(Integer bookamout) {
         this.bookamout = bookamout;
     }
 
-    public String getBlitemamout() {
+    public Integer getBlitemamout() {
         return blitemamout;
     }
 
-    public void setBlitemamout(String blitemamout) {
+    public void setBlitemamout(Integer blitemamout) {
         this.blitemamout = blitemamout;
     }
 
-    public String getPalamout() {
+    public Integer getPalamout() {
         return palamout;
     }
 
-    public void setPalamout(String palamout) {
+    public void setPalamout(Integer palamout) {
         this.palamout = palamout;
+    }
+
+    public Float getMatterNowavgcost() {
+        return matterNowavgcost;
+    }
+
+    public void setMatterNowavgcost(Float matterNowavgcost) {
+        this.matterNowavgcost = matterNowavgcost;
+    }
+
+    public Float getPalamoney() {
+        return palamoney;
+    }
+
+    public void setPalamoney(Float palamoney) {
+        this.palamoney = palamoney;
+    }
+
+    public String getBatchnumber() {
+        return batchnumber;
+    }
+
+    public void setBatchnumber(String batchnumber) {
+        this.batchnumber = batchnumber;
     }
 
     public String getCause() {

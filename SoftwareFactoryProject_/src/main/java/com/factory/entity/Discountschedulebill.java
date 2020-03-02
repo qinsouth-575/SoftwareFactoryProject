@@ -7,6 +7,20 @@ public class Discountschedulebill {
 
     private String stocknumber;
 
+    private String mattername;
+
+    private String mattersize;
+
+    private String unitid;
+
+    private String unitname;
+
+    private Integer matterNowcount;
+
+    private Float matterNowavgcost;
+
+    private Float unitprice;
+
     private Float discountprice;
 
     private String standby;
@@ -35,6 +49,62 @@ public class Discountschedulebill {
 
     public void setStocknumber(String stocknumber) {
         this.stocknumber = stocknumber;
+    }
+
+    public String getMattername() {
+        return mattername;
+    }
+
+    public void setMattername(String mattername) {
+        this.mattername = mattername;
+    }
+
+    public String getMattersize() {
+        return mattersize;
+    }
+
+    public void setMattersize(String mattersize) {
+        this.mattersize = mattersize;
+    }
+
+    public String getUnitid() {
+        return unitid;
+    }
+
+    public void setUnitid(String unitid) {
+        this.unitid = unitid;
+    }
+
+    public String getUnitname() {
+        return unitname;
+    }
+
+    public void setUnitname(String unitname) {
+        this.unitname = unitname;
+    }
+
+    public Integer getMatterNowcount() {
+        return matterNowcount;
+    }
+
+    public void setMatterNowcount(Integer matterNowcount) {
+        this.matterNowcount = matterNowcount;
+    }
+
+    public Float getMatterNowavgcost() {
+        return matterNowavgcost;
+    }
+
+    public void setMatterNowavgcost(Float matterNowavgcost) {
+        this.matterNowavgcost = matterNowavgcost;
+    }
+
+    public Float getUnitprice() {
+        return unitprice;
+    }
+
+    public void setUnitprice(Float unitprice) {
+        this.unitprice = unitprice;
     }
 
     public Float getDiscountprice() {
