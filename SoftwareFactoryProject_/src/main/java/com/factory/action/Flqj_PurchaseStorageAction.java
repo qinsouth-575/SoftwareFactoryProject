@@ -119,6 +119,7 @@ public class Flqj_PurchaseStorageAction {
 	public Map<String,String> deletePS(@PathVariable String psDocumentNumber){
 		log.debug("SoftwareFactoryProject_ - Flqj_PurchaseStorageAction - deletePS - 采购入库 - 3.删除采购入库信息，删除条件id为：" + psDocumentNumber);
 		Map<String,String> map = new HashMap<String,String>();
+		
 		if(psb.deletePurchaseStorage(psDocumentNumber)) {
 			map.put("code", "1");
 			map.put("message", "删除成功！");
