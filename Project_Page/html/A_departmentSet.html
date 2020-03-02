@@ -29,12 +29,12 @@
 				<!--标题结束-->
 				
 				<!--主体开始-->
-				<div class="layui-row layui-col-md-offset3" style="width: 500px;">
+				<div class="layui-row layui-col-md-offset3" style="width: 399px;">
 					<form class="layui-form" action="">
 						<div class="layui-form-item">
 							<label class="layui-form-label color">部门编号</label>
 							<div class="layui-input-block">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入部门编号" v-model="department.departid" autocomplete="off" class="layui-input" disabled="disabled">
+								<input type="text" name="title" required lay-verify="required" placeholder="请输入部门编号" v-model="department.departid" autocomplete="off" class="layui-input" disabled="disabled" id="departid" readonly="readonly">
 							</div>
 						</div>
 						
@@ -59,11 +59,11 @@
 							</div>
 						</div>
 						
-						<div class="layui-form-item">
+						<!--<div class="layui-form-item">
 							<div class="layui-input-block">	
 								<button class="layui-btn" lay-submit lay-filter="formDemo">设定</button>
 							</div>
-						</div>
+						</div>-->
 					</form>
 				</div>
 				<!--主体结束-->
@@ -83,7 +83,6 @@
 			
 			function subpageTriggerEvent(incident){
 				//alert("部门设定页 - 触发事件：" + incident);
-				
 				if(incident == "goFirstPage"){
 					listVm.goFirstPage();
 				} else if(incident == "goPrePage"){
@@ -122,6 +121,8 @@
 				methods : {
 					queryPage : function(pageNum_){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", true);
+						$("#departid").prop("readonly", true);
+						
 						var this_ = this;
 						this.department.pageNum = pageNum_;
 						
@@ -147,7 +148,9 @@
 		   			},
 					goInsert : function(){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
+						$("#departid").prop("readonly", false);
 						this.state = "goInsert";
+						
 						this.department = {};
 					},
 					save : function(){
@@ -175,7 +178,6 @@
 			   				if(confirm("确定取消本次修改操作吗！？"))
 		   						this.queryPage(this.pageCd.pages);
 						}
-						
 					},
 					goUpdate : function(){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
@@ -186,7 +188,7 @@
 		   					return false;
 		   				
 						var this_ = this;
-		   				//数据无误			/	alert("参数：" + this.department.departid);
+		   				//数据无误			alert("参数：" + this.department.departid);
 		   				axios.delete(`http://localhost:8080/SoftwareFactoryProject_/departments/cd/` + this.department.departid).then(function(res){
 							//数据正常		/alert(JSON.stringify(res));
 							if(res.data.code == "1"){
