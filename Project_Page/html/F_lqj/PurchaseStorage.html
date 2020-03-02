@@ -347,126 +347,6 @@
 		<script type="text/javascript" src="../../js/vue.js"></script>
 		<script type="text/javascript" src="../../js/axios.min.js"></script>
 		
-		<script>
-			layui.use('layer', function() { //独立版的layer无需执行这一句
-				var $ = layui.jquery,
-					layer = layui.layer; //独立版的layer无需执行这一句
-				//触发事件
-				var active = {
-					setTop: function() {
-						var that = this;
-						//多窗口模式，层叠置顶
-						layer.open({
-							type: 2,		//此处以iframe举例
-							title: '当你选择该窗体时，即会在最顶端',
-							area: ['500px', '300px'],
-							shade: -1,
-							maxmin: true,
-							offset: [ 						//为了演示，随机坐标
-								Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
-							],
-							content: '//layer.layui.com/test/settop.html',
-							btn: ['继续弹出', '全部关闭'],	//只是为了演示
-							yes: function() {
-								$(that).click();
-							},
-							btn2: function() {
-								layer.closeAll();
-							},
-							zIndex: layer.zIndex,			//重点1
-							success: function(layero) {
-								layer.setTop(layero); 		//重点2
-							}
-						});
-					},
-					offset: function(othis) {
-						var type = othis.data('type'),
-							text = othis.text(),
-							a = "";
-						if(text == "历史交易查询") {
-							a = "历史交易查询";
-							let str = "LiShiJIaoYi.html";
-							text = str;
-						} else if(text == "分摊费用明细") {
-							a = "分摊费用明细";
-							let str = "FenTanFeiYongMingXi.html";
-							text = str;
-						} else if(text == "采购询价转入") {
-							a = "采购询价转入";
-							let str = "CaiGouRuKuDanZhuanRu.html";
-							text = str;
-						} else if(text == "采购订单转入") {
-							a = "采购订单转入";
-							let str = "CaiGouRuKuDanZhuanRu.html";
-							text = str;
-						}
-						alert(type + " - " + text + " - " + a);
-						layer.open({
-							title: [a, 'font-size:18px;'],
-							type: 2,
-							area: ['700px', '400px'],
-							offset: type ,			//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-							id: 'layerDemo' + type,	//防止重复弹出
-							content: text,			//	btn: '关闭',
-							btnAlign: 'c',			//按钮居中
-							shade: 0.5, 			//不显示遮罩
-							yes: function() {
-								layer.closeAll();
-							}
-						});
-					}
-				};
-
-				$('#puchaseStoragegongneng a').on('click', function() {
-					var othis = $(this),
-						method = othis.data('method');
-					active[method] ? active[method].call(this, othis) : '';
-				});
-			});
-
-			layui.use(['form', 'layedit', 'laydate'], function() {
-				var form = layui.form,
-					layer = layui.layer,
-					layedit = layui.layedit,
-					laydate = layui.laydate;
-
-				//监听指定开关
-				form.on('switch(switchTest)', function(data) {
-					layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-						offset: '6px'
-					});
-					layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-				});
-
-				//监听提交
-				form.on('submit(demo1)', function(data) {
-					layer.alert(JSON.stringify(data.field), {
-						title: '最终的提交信息'
-					})
-					return false;
-				});
-
-				//表单赋值
-				layui.$('#LAY-component-form-setval').on('click', function() {
-					form.val('example', {
-						"username": "贤心",		// "name": "value"
-						"password": "123456",
-						"interest": 1,
-						"like[write]": true, 	//复选框选中状态
-						"close": true, 			//开关状态
-						"sex": "女",
-						"desc": "我爱 layui"
-					});
-				});
-
-				//表单取值
-				layui.$('#LAY-component-form-getval').on('click', function() {
-					var data = form.val('example');
-					alert(JSON.stringify(data));
-				});
-
-			});
-		</script>
 		<script type="text/javascript">
 			
 	 		let index = 0;
@@ -806,8 +686,8 @@
 								id: 'layerDemo' + "auto",	//防止重复弹出
 								content: "CangKu.html",
 								btn: '关闭',
-								btnAlign: 'c',			//按钮居中
-								shade: 0.5, 			//不显示遮罩
+								btnAlign: 'c',				//按钮居中
+								shade: 0.5, 				//不显示遮罩
 								success: function(layero, index){
 								    var body = layer.getChildFrame('body', index);
 								    //body.find('input').val('Hi，我是从父页来的');
@@ -885,6 +765,126 @@
 					});
 				}
 			})
+		</script>
+		<script>
+			layui.use('layer', function() { //独立版的layer无需执行这一句
+				var $ = layui.jquery,
+					layer = layui.layer; //独立版的layer无需执行这一句
+				//触发事件
+				var active = {
+					setTop: function() {
+						var that = this;
+						//多窗口模式，层叠置顶
+						layer.open({
+							type: 2,		//此处以iframe举例
+							title: '当你选择该窗体时，即会在最顶端',
+							area: ['500px', '300px'],
+							shade: -1,
+							maxmin: true,
+							offset: [ 						//为了演示，随机坐标
+								Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
+							],
+							content: '//layer.layui.com/test/settop.html',
+							btn: ['继续弹出', '全部关闭'],	//只是为了演示
+							yes: function() {
+								$(that).click();
+							},
+							btn2: function() {
+								layer.closeAll();
+							},
+							zIndex: layer.zIndex,			//重点1
+							success: function(layero) {
+								layer.setTop(layero); 		//重点2
+							}
+						});
+					},
+					offset: function(othis) {
+						var type = othis.data('type'),
+							text = othis.text(),
+							a = "";
+						if(text == "历史交易查询") {
+							a = "历史交易查询";
+							let str = "LiShiJIaoYi.html";
+							text = str;
+						} else if(text == "分摊费用明细") {
+							a = "分摊费用明细";
+							let str = "FenTanFeiYongMingXi.html";
+							text = str;
+						} else if(text == "采购询价转入") {
+							a = "采购询价转入";
+							let str = "CaiGouRuKuDanZhuanRu.html";
+							text = str;
+						} else if(text == "采购订单转入") {
+							a = "采购订单转入";
+							let str = "CaiGouRuKuDanZhuanRu.html";
+							text = str;
+						}
+						alert(type + " - " + text + " - " + a);
+						layer.open({
+							title: [a, 'font-size:18px;'],
+							type: 2,
+							area: ['700px', '400px'],
+							offset: type ,			//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+							id: 'layerDemo' + type,	//防止重复弹出
+							content: text,			//	btn: '关闭',
+							btnAlign: 'c',			//按钮居中
+							shade: 0.5, 			//不显示遮罩
+							yes: function() {
+								layer.closeAll();
+							}
+						});
+					}
+				};
+
+				$('#puchaseStoragegongneng a').on('click', function() {
+					var othis = $(this),
+						method = othis.data('method');
+					active[method] ? active[method].call(this, othis) : '';
+				});
+			});
+
+			layui.use(['form', 'layedit', 'laydate'], function() {
+				var form = layui.form,
+					layer = layui.layer,
+					layedit = layui.layedit,
+					laydate = layui.laydate;
+
+				//监听指定开关
+				form.on('switch(switchTest)', function(data) {
+					layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+						offset: '6px'
+					});
+					layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+				});
+
+				//监听提交
+				form.on('submit(demo1)', function(data) {
+					layer.alert(JSON.stringify(data.field), {
+						title: '最终的提交信息'
+					})
+					return false;
+				});
+
+				//表单赋值
+				layui.$('#LAY-component-form-setval').on('click', function() {
+					form.val('example', {
+						"username": "贤心",		// "name": "value"
+						"password": "123456",
+						"interest": 1,
+						"like[write]": true, 	//复选框选中状态
+						"close": true, 			//开关状态
+						"sex": "女",
+						"desc": "我爱 layui"
+					});
+				});
+
+				//表单取值
+				layui.$('#LAY-component-form-getval').on('click', function() {
+					var data = form.val('example');
+					alert(JSON.stringify(data));
+				});
+
+			});
 		</script>
 	</body>
 
