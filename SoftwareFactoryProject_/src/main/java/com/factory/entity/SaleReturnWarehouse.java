@@ -1,9 +1,10 @@
 package com.factory.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class SaleReturnWarehouse {
-    private String srwId;
+    private Integer srwId;
 
     private String customerId;
 
@@ -72,12 +73,43 @@ public class SaleReturnWarehouse {
     private String srwCustom2;
 
     private String srwCustom3;
+    
+    private Integer pageNum;
+    
+    private String flag;
+    
+    public String getFlag() {
+		return flag;
+	}
 
-    public String getSrwId() {
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	private List<SaleReturnWarehouseDetails> srwList;
+    
+
+    public Integer getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public List<SaleReturnWarehouseDetails> getSrwList() {
+		return srwList;
+	}
+
+	public void setSrwList(List<SaleReturnWarehouseDetails> srwList) {
+		this.srwList = srwList;
+	}
+
+	public Integer getSrwId() {
         return srwId;
     }
 
-    public void setSrwId(String srwId) {
+    public void setSrwId(Integer srwId) {
         this.srwId = srwId;
     }
 

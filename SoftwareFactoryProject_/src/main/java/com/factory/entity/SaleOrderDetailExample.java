@@ -114,62 +114,52 @@ public class SaleOrderDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andSolIdEqualTo(String value) {
+        public Criteria andSolIdEqualTo(Integer value) {
             addCriterion("sol_id =", value, "solId");
             return (Criteria) this;
         }
 
-        public Criteria andSolIdNotEqualTo(String value) {
+        public Criteria andSolIdNotEqualTo(Integer value) {
             addCriterion("sol_id <>", value, "solId");
             return (Criteria) this;
         }
 
-        public Criteria andSolIdGreaterThan(String value) {
+        public Criteria andSolIdGreaterThan(Integer value) {
             addCriterion("sol_id >", value, "solId");
             return (Criteria) this;
         }
 
-        public Criteria andSolIdGreaterThanOrEqualTo(String value) {
+        public Criteria andSolIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("sol_id >=", value, "solId");
             return (Criteria) this;
         }
 
-        public Criteria andSolIdLessThan(String value) {
+        public Criteria andSolIdLessThan(Integer value) {
             addCriterion("sol_id <", value, "solId");
             return (Criteria) this;
         }
 
-        public Criteria andSolIdLessThanOrEqualTo(String value) {
+        public Criteria andSolIdLessThanOrEqualTo(Integer value) {
             addCriterion("sol_id <=", value, "solId");
             return (Criteria) this;
         }
 
-        public Criteria andSolIdLike(String value) {
-            addCriterion("sol_id like", value, "solId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSolIdNotLike(String value) {
-            addCriterion("sol_id not like", value, "solId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSolIdIn(List<String> values) {
+        public Criteria andSolIdIn(List<Integer> values) {
             addCriterion("sol_id in", values, "solId");
             return (Criteria) this;
         }
 
-        public Criteria andSolIdNotIn(List<String> values) {
+        public Criteria andSolIdNotIn(List<Integer> values) {
             addCriterion("sol_id not in", values, "solId");
             return (Criteria) this;
         }
 
-        public Criteria andSolIdBetween(String value1, String value2) {
+        public Criteria andSolIdBetween(Integer value1, Integer value2) {
             addCriterion("sol_id between", value1, value2, "solId");
             return (Criteria) this;
         }
 
-        public Criteria andSolIdNotBetween(String value1, String value2) {
+        public Criteria andSolIdNotBetween(Integer value1, Integer value2) {
             addCriterion("sol_id not between", value1, value2, "solId");
             return (Criteria) this;
         }
@@ -184,62 +174,52 @@ public class SaleOrderDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andSoIdEqualTo(String value) {
+        public Criteria andSoIdEqualTo(Integer value) {
             addCriterion("so_id =", value, "soId");
             return (Criteria) this;
         }
 
-        public Criteria andSoIdNotEqualTo(String value) {
+        public Criteria andSoIdNotEqualTo(Integer value) {
             addCriterion("so_id <>", value, "soId");
             return (Criteria) this;
         }
 
-        public Criteria andSoIdGreaterThan(String value) {
+        public Criteria andSoIdGreaterThan(Integer value) {
             addCriterion("so_id >", value, "soId");
             return (Criteria) this;
         }
 
-        public Criteria andSoIdGreaterThanOrEqualTo(String value) {
+        public Criteria andSoIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("so_id >=", value, "soId");
             return (Criteria) this;
         }
 
-        public Criteria andSoIdLessThan(String value) {
+        public Criteria andSoIdLessThan(Integer value) {
             addCriterion("so_id <", value, "soId");
             return (Criteria) this;
         }
 
-        public Criteria andSoIdLessThanOrEqualTo(String value) {
+        public Criteria andSoIdLessThanOrEqualTo(Integer value) {
             addCriterion("so_id <=", value, "soId");
             return (Criteria) this;
         }
 
-        public Criteria andSoIdLike(String value) {
-            addCriterion("so_id like", value, "soId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSoIdNotLike(String value) {
-            addCriterion("so_id not like", value, "soId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSoIdIn(List<String> values) {
+        public Criteria andSoIdIn(List<Integer> values) {
             addCriterion("so_id in", values, "soId");
             return (Criteria) this;
         }
 
-        public Criteria andSoIdNotIn(List<String> values) {
+        public Criteria andSoIdNotIn(List<Integer> values) {
             addCriterion("so_id not in", values, "soId");
             return (Criteria) this;
         }
 
-        public Criteria andSoIdBetween(String value1, String value2) {
+        public Criteria andSoIdBetween(Integer value1, Integer value2) {
             addCriterion("so_id between", value1, value2, "soId");
             return (Criteria) this;
         }
 
-        public Criteria andSoIdNotBetween(String value1, String value2) {
+        public Criteria andSoIdNotBetween(Integer value1, Integer value2) {
             addCriterion("so_id not between", value1, value2, "soId");
             return (Criteria) this;
         }

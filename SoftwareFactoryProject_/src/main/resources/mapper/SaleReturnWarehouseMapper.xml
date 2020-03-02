@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.factory.mapper.SaleReturnWarehouseMapper" >
   <resultMap id="BaseResultMap" type="com.factory.entity.SaleReturnWarehouse" >
-    <id column="srw_id" property="srwId" jdbcType="VARCHAR" />
+    <id column="srw_id" property="srwId" jdbcType="INTEGER" />
     <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
     <result column="srw_address" property="srwAddress" jdbcType="VARCHAR" />
     <result column="srwt_id" property="srwtId" jdbcType="VARCHAR" />
@@ -118,15 +118,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from sale_return_warehouse
-    where srw_id = #{srwId,jdbcType=VARCHAR}
+    where srw_id = #{srwId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sale_return_warehouse
-    where srw_id = #{srwId,jdbcType=VARCHAR}
+    where srw_id = #{srwId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.factory.entity.SaleReturnWarehouseExample" >
     delete from sale_return_warehouse
@@ -147,7 +147,7 @@
       srw_header_provision, srw_end_clause, srw_remark, 
       srw_auditing, srw_yn, srw_custom1, 
       srw_custom2, srw_custom3)
-    values (#{srwId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{srwAddress,jdbcType=VARCHAR}, 
+    values (#{srwId,jdbcType=INTEGER}, #{customerId,jdbcType=VARCHAR}, #{srwAddress,jdbcType=VARCHAR}, 
       #{srwtId,jdbcType=VARCHAR}, #{srwPriceIncludeTax,jdbcType=VARCHAR}, #{salescxrk,jdbcType=INTEGER}, 
       #{warehouseId,jdbcType=VARCHAR}, #{srwCertificateNumber,jdbcType=VARCHAR}, #{srwDocumentDate,jdbcType=DATE}, 
       #{srwDocumentNumber,jdbcType=VARCHAR}, #{currencyId,jdbcType=VARCHAR}, #{srwExchangeRate,jdbcType=REAL}, 
@@ -271,7 +271,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="srwId != null" >
-        #{srwId,jdbcType=VARCHAR},
+        #{srwId,jdbcType=INTEGER},
       </if>
       <if test="customerId != null" >
         #{customerId,jdbcType=VARCHAR},
@@ -387,7 +387,7 @@
     update sale_return_warehouse
     <set >
       <if test="record.srwId != null" >
-        srw_id = #{record.srwId,jdbcType=VARCHAR},
+        srw_id = #{record.srwId,jdbcType=INTEGER},
       </if>
       <if test="record.customerId != null" >
         customer_id = #{record.customerId,jdbcType=VARCHAR},
@@ -498,7 +498,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update sale_return_warehouse
-    set srw_id = #{record.srwId,jdbcType=VARCHAR},
+    set srw_id = #{record.srwId,jdbcType=INTEGER},
       customer_id = #{record.customerId,jdbcType=VARCHAR},
       srw_address = #{record.srwAddress,jdbcType=VARCHAR},
       srwt_id = #{record.srwtId,jdbcType=VARCHAR},
@@ -643,7 +643,7 @@
         srw_custom3 = #{srwCustom3,jdbcType=VARCHAR},
       </if>
     </set>
-    where srw_id = #{srwId,jdbcType=VARCHAR}
+    where srw_id = #{srwId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.factory.entity.SaleReturnWarehouse" >
     update sale_return_warehouse
@@ -681,6 +681,51 @@
       srw_custom1 = #{srwCustom1,jdbcType=VARCHAR},
       srw_custom2 = #{srwCustom2,jdbcType=VARCHAR},
       srw_custom3 = #{srwCustom3,jdbcType=VARCHAR}
-    where srw_id = #{srwId,jdbcType=VARCHAR}
+    where srw_id = #{srwId,jdbcType=INTEGER}
+  </update>
+  <select id="queryAll" resultMap="BaseResultMap">
+  		select * from sale_return_warehouse
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.Integer">
+  		delete from sale_return_warehouse where srw_id=#{0}
+  </delete>
+  <update id="updateAll" parameterType="com.factory.entity.SaleReturnWarehouse">
+  			update sale_return_warehouse
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      srw_address = #{srwAddress,jdbcType=VARCHAR},
+      srwt_id = #{srwtId,jdbcType=VARCHAR},
+      srw_price_include_tax = #{srwPriceIncludeTax,jdbcType=VARCHAR},
+      salescxrk = #{salescxrk,jdbcType=INTEGER},
+      warehouse_id = #{warehouseId,jdbcType=VARCHAR},
+      srw_certificate_number = #{srwCertificateNumber,jdbcType=VARCHAR},
+      srw_document_date = #{srwDocumentDate,jdbcType=DATE},
+      srw_document_number = #{srwDocumentNumber,jdbcType=VARCHAR},
+      currency_id = #{currencyId,jdbcType=VARCHAR},
+      srw_exchange_rate = #{srwExchangeRate,jdbcType=REAL},
+      srw_foreign_trade = #{srwForeignTrade,jdbcType=INTEGER},
+      srw_sunnum = #{srwSunnum,jdbcType=REAL},
+      srw_sunmoney = #{srwSunmoney,jdbcType=REAL},
+      srw_tax = #{srwTax,jdbcType=REAL},
+      srw_including_tax_amount = #{srwIncludingTaxAmount,jdbcType=VARCHAR},
+      srw_saleszkgs = #{srwSaleszkgs,jdbcType=DATE},
+      srw_salesdate = #{srwSalesdate,jdbcType=VARCHAR},
+      srw_salessktj = #{srwSalessktj,jdbcType=INTEGER},
+      srw_salesday = #{srwSalesday,jdbcType=DATE},
+      srw_salesyue = #{srwSalesyue,jdbcType=VARCHAR},
+      srw_buyer = #{srwBuyer,jdbcType=VARCHAR},
+      srw_belongs_section = #{srwBelongsSection,jdbcType=VARCHAR},
+      srw_belongs_project = #{srwBelongsProject,jdbcType=VARCHAR},
+      srw_form = #{srwForm,jdbcType=VARCHAR},
+      srw_checkagain_staff = #{srwCheckagainStaff,jdbcType=VARCHAR},
+      srw_header_provision = #{srwHeaderProvision,jdbcType=VARCHAR},
+      srw_end_clause = #{srwEndClause,jdbcType=VARCHAR},
+      srw_remark = #{srwRemark,jdbcType=VARCHAR},
+      srw_auditing = #{srwAuditing,jdbcType=VARCHAR},
+      srw_yn = #{srwYn,jdbcType=VARCHAR},
+      srw_custom1 = #{srwCustom1,jdbcType=VARCHAR},
+      srw_custom2 = #{srwCustom2,jdbcType=VARCHAR},
+      srw_custom3 = #{srwCustom3,jdbcType=VARCHAR}
+    where srw_id = #{srwId,jdbcType=INTEGER}
   </update>
 </mapper>

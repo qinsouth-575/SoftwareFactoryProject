@@ -1,25 +1,28 @@
 package com.factory.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class SaleOrder {
-    private String soId;
+    private Integer soId;
+
+    private String customerorderId;
 
     private Date soDocumentTime;
 
     private String soDocumentnumber;
 
-    private Double soDeliveryAddress;
+    private String soDeliveryAddress;
 
-    private Date sotId;
+    private String sotId;
 
-    private Integer soCustomerorder;
+    private String soCustomerorder;
 
-    private String soTax;
+    private Integer soTax;
 
     private String currencyId;
 
-    private String soOderStatic;
+    private Integer soOderStatic;
 
     private String staffId;
 
@@ -56,13 +59,61 @@ public class SaleOrder {
     private String soCustom2;
 
     private String soCustom3;
+    
+    private List<SaleOrderDetail> sodList; 
+    
+    private Integer pageNum;
+    private Integer pageSize;
+    
+    private String flag;					//goInsert：新增	goUpdate：修改
+    
 
-    public String getSoId() {
+    public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public List<SaleOrderDetail> getSodList() {
+		return sodList;
+	}
+
+	public void setSodList(List<SaleOrderDetail> sodList) {
+		this.sodList = sodList;
+	}
+
+	public Integer getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Integer getSoId() {
         return soId;
     }
 
-    public void setSoId(String soId) {
+    public void setSoId(Integer soId) {
         this.soId = soId;
+    }
+
+    public String getCustomerorderId() {
+        return customerorderId;
+    }
+
+    public void setCustomerorderId(String customerorderId) {
+        this.customerorderId = customerorderId;
     }
 
     public Date getSoDocumentTime() {
@@ -81,35 +132,35 @@ public class SaleOrder {
         this.soDocumentnumber = soDocumentnumber;
     }
 
-    public Double getSoDeliveryAddress() {
+    public String getSoDeliveryAddress() {
         return soDeliveryAddress;
     }
 
-    public void setSoDeliveryAddress(Double soDeliveryAddress) {
+    public void setSoDeliveryAddress(String soDeliveryAddress) {
         this.soDeliveryAddress = soDeliveryAddress;
     }
 
-    public Date getSotId() {
+    public String getSotId() {
         return sotId;
     }
 
-    public void setSotId(Date sotId) {
+    public void setSotId(String sotId) {
         this.sotId = sotId;
     }
 
-    public Integer getSoCustomerorder() {
+    public String getSoCustomerorder() {
         return soCustomerorder;
     }
 
-    public void setSoCustomerorder(Integer soCustomerorder) {
+    public void setSoCustomerorder(String soCustomerorder) {
         this.soCustomerorder = soCustomerorder;
     }
 
-    public String getSoTax() {
+    public Integer getSoTax() {
         return soTax;
     }
 
-    public void setSoTax(String soTax) {
+    public void setSoTax(Integer soTax) {
         this.soTax = soTax;
     }
 
@@ -121,11 +172,11 @@ public class SaleOrder {
         this.currencyId = currencyId;
     }
 
-    public String getSoOderStatic() {
+    public Integer getSoOderStatic() {
         return soOderStatic;
     }
 
-    public void setSoOderStatic(String soOderStatic) {
+    public void setSoOderStatic(Integer soOderStatic) {
         this.soOderStatic = soOderStatic;
     }
 
@@ -272,4 +323,20 @@ public class SaleOrder {
     public void setSoCustom3(String soCustom3) {
         this.soCustom3 = soCustom3;
     }
+
+	@Override
+	public String toString() {
+		return "SaleOrder [soId=" + soId + ", customerorderId=" + customerorderId + ", soDocumentTime=" + soDocumentTime
+				+ ", soDocumentnumber=" + soDocumentnumber + ", soDeliveryAddress=" + soDeliveryAddress + ", sotId="
+				+ sotId + ", soCustomerorder=" + soCustomerorder + ", soTax=" + soTax + ", currencyId=" + currencyId
+				+ ", soOderStatic=" + soOderStatic + ", staffId=" + staffId + ", teamId=" + teamId + ", soMonograph="
+				+ soMonograph + ", soReviewer=" + soReviewer + ", soSubordinate=" + soSubordinate + ", soWatchword="
+				+ soWatchword + ", soTailclause=" + soTailclause + ", soRemark=" + soRemark + ", soAccountOwnership="
+				+ soAccountOwnership + ", soCollectionTime=" + soCollectionTime + ", soCollectionMonth="
+				+ soCollectionMonth + ", soCollectionTerms=" + soCollectionTerms + ", soCollectionTermsDay="
+				+ soCollectionTermsDay + ", soAuditing=" + soAuditing + ", soYn=" + soYn + ", soCustom1=" + soCustom1
+				+ ", soCustom2=" + soCustom2 + ", soCustom3=" + soCustom3 + ", sodList=" + sodList + ", pageNum="
+				+ pageNum + ", pageSize=" + pageSize + "]";
+	}
+    
 }
