@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.factory.mapper.SaleQuotationDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.factory.entity.SaleQuotationDetails">
+    <id column="Sqd_ProdID" jdbcType="VARCHAR" property="sqdProdid" />
+    <result column="Sqd_SerNO" jdbcType="VARCHAR" property="sqdSerno" />
+    <result column="Sqd_ProdName" jdbcType="VARCHAR" property="sqdProdname" />
+    <result column="Sqd_ProdSize" jdbcType="VARCHAR" property="sqdProdsize" />
+    <result column="Sqd_UnitName" jdbcType="VARCHAR" property="sqdUnitname" />
+    <result column="Sqd_sQuantity" jdbcType="INTEGER" property="sqdSquantity" />
+    <result column="Sqd_ZkqPrice" jdbcType="REAL" property="sqdZkqprice" />
+    <result column="Sqd_Discount" jdbcType="REAL" property="sqdDiscount" />
+    <result column="Sqd_UnitPrice" jdbcType="REAL" property="sqdUnitprice" />
+    <result column="Sqd_Price" jdbcType="REAL" property="sqdPrice" />
+    <result column="Sqd_TaxRate" jdbcType="REAL" property="sqdTaxrate" />
+    <result column="Sqd_Taxlimit" jdbcType="REAL" property="sqdTaxlimit" />
+    <result column="Sqd_TaxInclusivePrice" jdbcType="REAL" property="sqdTaxinclusiveprice" />
+    <result column="Sqd_Complimentart" jdbcType="INTEGER" property="sqdComplimentart" />
+    <result column="Sqd_ItemRemark" jdbcType="VARCHAR" property="sqdItemremark" />
+    <result column="sq_id" jdbcType="VARCHAR" property="sqId" />
+    <result column="Sqd_auditing" jdbcType="VARCHAR" property="sqdAuditing" />
+    <result column="Sqd_yn" jdbcType="VARCHAR" property="sqdYn" />
+    <result column="Sqd_custom1" jdbcType="VARCHAR" property="sqdCustom1" />
+    <result column="Sqd_custom2" jdbcType="VARCHAR" property="sqdCustom2" />
+    <result column="Sqd_custom3" jdbcType="VARCHAR" property="sqdCustom3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Sqd_ProdID, Sqd_SerNO, Sqd_ProdName, Sqd_ProdSize, Sqd_UnitName, Sqd_sQuantity, Sqd_ZkqPrice, 
+    Sqd_Discount, Sqd_UnitPrice, Sqd_Price, Sqd_TaxRate, Sqd_Taxlimit, Sqd_TaxInclusivePrice, 
+    Sqd_Complimentart, Sqd_ItemRemark, sq_id, Sqd_auditing, Sqd_yn, Sqd_custom1, Sqd_custom2, 
+    Sqd_custom3
+  </sql>
+  <select id="selectByExample" parameterType="com.factory.entity.SaleQuotationDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sale_quotation_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sale_quotation_details
+    where Sqd_ProdID = #{sqdProdid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sale_quotation_details
+    where Sqd_ProdID = #{sqdProdid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.SaleQuotationDetailsExample">
+    delete from sale_quotation_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.SaleQuotationDetails">
+    insert into sale_quotation_details (Sqd_ProdID, Sqd_SerNO, Sqd_ProdName, 
+      Sqd_ProdSize, Sqd_UnitName, Sqd_sQuantity, 
+      Sqd_ZkqPrice, Sqd_Discount, Sqd_UnitPrice, 
+      Sqd_Price, Sqd_TaxRate, Sqd_Taxlimit, 
+      Sqd_TaxInclusivePrice, Sqd_Complimentart, Sqd_ItemRemark, 
+      sq_id, Sqd_auditing, Sqd_yn, 
+      Sqd_custom1, Sqd_custom2, Sqd_custom3
+      )
+    values (#{sqdProdid,jdbcType=VARCHAR}, #{sqdSerno,jdbcType=VARCHAR}, #{sqdProdname,jdbcType=VARCHAR}, 
+      #{sqdProdsize,jdbcType=VARCHAR}, #{sqdUnitname,jdbcType=VARCHAR}, #{sqdSquantity,jdbcType=INTEGER}, 
+      #{sqdZkqprice,jdbcType=REAL}, #{sqdDiscount,jdbcType=REAL}, #{sqdUnitprice,jdbcType=REAL}, 
+      #{sqdPrice,jdbcType=REAL}, #{sqdTaxrate,jdbcType=REAL}, #{sqdTaxlimit,jdbcType=REAL}, 
+      #{sqdTaxinclusiveprice,jdbcType=REAL}, #{sqdComplimentart,jdbcType=INTEGER}, #{sqdItemremark,jdbcType=VARCHAR}, 
+      #{sqId,jdbcType=VARCHAR}, #{sqdAuditing,jdbcType=VARCHAR}, #{sqdYn,jdbcType=VARCHAR}, 
+      #{sqdCustom1,jdbcType=VARCHAR}, #{sqdCustom2,jdbcType=VARCHAR}, #{sqdCustom3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.SaleQuotationDetails">
+    insert into sale_quotation_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sqdProdid != null">
+        Sqd_ProdID,
+      </if>
+      <if test="sqdSerno != null">
+        Sqd_SerNO,
+      </if>
+      <if test="sqdProdname != null">
+        Sqd_ProdName,
+      </if>
+      <if test="sqdProdsize != null">
+        Sqd_ProdSize,
+      </if>
+      <if test="sqdUnitname != null">
+        Sqd_UnitName,
+      </if>
+      <if test="sqdSquantity != null">
+        Sqd_sQuantity,
+      </if>
+      <if test="sqdZkqprice != null">
+        Sqd_ZkqPrice,
+      </if>
+      <if test="sqdDiscount != null">
+        Sqd_Discount,
+      </if>
+      <if test="sqdUnitprice != null">
+        Sqd_UnitPrice,
+      </if>
+      <if test="sqdPrice != null">
+        Sqd_Price,
+      </if>
+      <if test="sqdTaxrate != null">
+        Sqd_TaxRate,
+      </if>
+      <if test="sqdTaxlimit != null">
+        Sqd_Taxlimit,
+      </if>
+      <if test="sqdTaxinclusiveprice != null">
+        Sqd_TaxInclusivePrice,
+      </if>
+      <if test="sqdComplimentart != null">
+        Sqd_Complimentart,
+      </if>
+      <if test="sqdItemremark != null">
+        Sqd_ItemRemark,
+      </if>
+      <if test="sqId != null">
+        sq_id,
+      </if>
+      <if test="sqdAuditing != null">
+        Sqd_auditing,
+      </if>
+      <if test="sqdYn != null">
+        Sqd_yn,
+      </if>
+      <if test="sqdCustom1 != null">
+        Sqd_custom1,
+      </if>
+      <if test="sqdCustom2 != null">
+        Sqd_custom2,
+      </if>
+      <if test="sqdCustom3 != null">
+        Sqd_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sqdProdid != null">
+        #{sqdProdid,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdSerno != null">
+        #{sqdSerno,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdProdname != null">
+        #{sqdProdname,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdProdsize != null">
+        #{sqdProdsize,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdUnitname != null">
+        #{sqdUnitname,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdSquantity != null">
+        #{sqdSquantity,jdbcType=INTEGER},
+      </if>
+      <if test="sqdZkqprice != null">
+        #{sqdZkqprice,jdbcType=REAL},
+      </if>
+      <if test="sqdDiscount != null">
+        #{sqdDiscount,jdbcType=REAL},
+      </if>
+      <if test="sqdUnitprice != null">
+        #{sqdUnitprice,jdbcType=REAL},
+      </if>
+      <if test="sqdPrice != null">
+        #{sqdPrice,jdbcType=REAL},
+      </if>
+      <if test="sqdTaxrate != null">
+        #{sqdTaxrate,jdbcType=REAL},
+      </if>
+      <if test="sqdTaxlimit != null">
+        #{sqdTaxlimit,jdbcType=REAL},
+      </if>
+      <if test="sqdTaxinclusiveprice != null">
+        #{sqdTaxinclusiveprice,jdbcType=REAL},
+      </if>
+      <if test="sqdComplimentart != null">
+        #{sqdComplimentart,jdbcType=INTEGER},
+      </if>
+      <if test="sqdItemremark != null">
+        #{sqdItemremark,jdbcType=VARCHAR},
+      </if>
+      <if test="sqId != null">
+        #{sqId,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdAuditing != null">
+        #{sqdAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdYn != null">
+        #{sqdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdCustom1 != null">
+        #{sqdCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdCustom2 != null">
+        #{sqdCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdCustom3 != null">
+        #{sqdCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.SaleQuotationDetailsExample" resultType="java.lang.Integer">
+    select count(*) from sale_quotation_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sale_quotation_details
+    <set>
+      <if test="record.sqdProdid != null">
+        Sqd_ProdID = #{record.sqdProdid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdSerno != null">
+        Sqd_SerNO = #{record.sqdSerno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdProdname != null">
+        Sqd_ProdName = #{record.sqdProdname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdProdsize != null">
+        Sqd_ProdSize = #{record.sqdProdsize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdUnitname != null">
+        Sqd_UnitName = #{record.sqdUnitname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdSquantity != null">
+        Sqd_sQuantity = #{record.sqdSquantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.sqdZkqprice != null">
+        Sqd_ZkqPrice = #{record.sqdZkqprice,jdbcType=REAL},
+      </if>
+      <if test="record.sqdDiscount != null">
+        Sqd_Discount = #{record.sqdDiscount,jdbcType=REAL},
+      </if>
+      <if test="record.sqdUnitprice != null">
+        Sqd_UnitPrice = #{record.sqdUnitprice,jdbcType=REAL},
+      </if>
+      <if test="record.sqdPrice != null">
+        Sqd_Price = #{record.sqdPrice,jdbcType=REAL},
+      </if>
+      <if test="record.sqdTaxrate != null">
+        Sqd_TaxRate = #{record.sqdTaxrate,jdbcType=REAL},
+      </if>
+      <if test="record.sqdTaxlimit != null">
+        Sqd_Taxlimit = #{record.sqdTaxlimit,jdbcType=REAL},
+      </if>
+      <if test="record.sqdTaxinclusiveprice != null">
+        Sqd_TaxInclusivePrice = #{record.sqdTaxinclusiveprice,jdbcType=REAL},
+      </if>
+      <if test="record.sqdComplimentart != null">
+        Sqd_Complimentart = #{record.sqdComplimentart,jdbcType=INTEGER},
+      </if>
+      <if test="record.sqdItemremark != null">
+        Sqd_ItemRemark = #{record.sqdItemremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqId != null">
+        sq_id = #{record.sqId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdAuditing != null">
+        Sqd_auditing = #{record.sqdAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdYn != null">
+        Sqd_yn = #{record.sqdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdCustom1 != null">
+        Sqd_custom1 = #{record.sqdCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdCustom2 != null">
+        Sqd_custom2 = #{record.sqdCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqdCustom3 != null">
+        Sqd_custom3 = #{record.sqdCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sale_quotation_details
+    set Sqd_ProdID = #{record.sqdProdid,jdbcType=VARCHAR},
+      Sqd_SerNO = #{record.sqdSerno,jdbcType=VARCHAR},
+      Sqd_ProdName = #{record.sqdProdname,jdbcType=VARCHAR},
+      Sqd_ProdSize = #{record.sqdProdsize,jdbcType=VARCHAR},
+      Sqd_UnitName = #{record.sqdUnitname,jdbcType=VARCHAR},
+      Sqd_sQuantity = #{record.sqdSquantity,jdbcType=INTEGER},
+      Sqd_ZkqPrice = #{record.sqdZkqprice,jdbcType=REAL},
+      Sqd_Discount = #{record.sqdDiscount,jdbcType=REAL},
+      Sqd_UnitPrice = #{record.sqdUnitprice,jdbcType=REAL},
+      Sqd_Price = #{record.sqdPrice,jdbcType=REAL},
+      Sqd_TaxRate = #{record.sqdTaxrate,jdbcType=REAL},
+      Sqd_Taxlimit = #{record.sqdTaxlimit,jdbcType=REAL},
+      Sqd_TaxInclusivePrice = #{record.sqdTaxinclusiveprice,jdbcType=REAL},
+      Sqd_Complimentart = #{record.sqdComplimentart,jdbcType=INTEGER},
+      Sqd_ItemRemark = #{record.sqdItemremark,jdbcType=VARCHAR},
+      sq_id = #{record.sqId,jdbcType=VARCHAR},
+      Sqd_auditing = #{record.sqdAuditing,jdbcType=VARCHAR},
+      Sqd_yn = #{record.sqdYn,jdbcType=VARCHAR},
+      Sqd_custom1 = #{record.sqdCustom1,jdbcType=VARCHAR},
+      Sqd_custom2 = #{record.sqdCustom2,jdbcType=VARCHAR},
+      Sqd_custom3 = #{record.sqdCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.SaleQuotationDetails">
+    update sale_quotation_details
+    <set>
+      <if test="sqdSerno != null">
+        Sqd_SerNO = #{sqdSerno,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdProdname != null">
+        Sqd_ProdName = #{sqdProdname,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdProdsize != null">
+        Sqd_ProdSize = #{sqdProdsize,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdUnitname != null">
+        Sqd_UnitName = #{sqdUnitname,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdSquantity != null">
+        Sqd_sQuantity = #{sqdSquantity,jdbcType=INTEGER},
+      </if>
+      <if test="sqdZkqprice != null">
+        Sqd_ZkqPrice = #{sqdZkqprice,jdbcType=REAL},
+      </if>
+      <if test="sqdDiscount != null">
+        Sqd_Discount = #{sqdDiscount,jdbcType=REAL},
+      </if>
+      <if test="sqdUnitprice != null">
+        Sqd_UnitPrice = #{sqdUnitprice,jdbcType=REAL},
+      </if>
+      <if test="sqdPrice != null">
+        Sqd_Price = #{sqdPrice,jdbcType=REAL},
+      </if>
+      <if test="sqdTaxrate != null">
+        Sqd_TaxRate = #{sqdTaxrate,jdbcType=REAL},
+      </if>
+      <if test="sqdTaxlimit != null">
+        Sqd_Taxlimit = #{sqdTaxlimit,jdbcType=REAL},
+      </if>
+      <if test="sqdTaxinclusiveprice != null">
+        Sqd_TaxInclusivePrice = #{sqdTaxinclusiveprice,jdbcType=REAL},
+      </if>
+      <if test="sqdComplimentart != null">
+        Sqd_Complimentart = #{sqdComplimentart,jdbcType=INTEGER},
+      </if>
+      <if test="sqdItemremark != null">
+        Sqd_ItemRemark = #{sqdItemremark,jdbcType=VARCHAR},
+      </if>
+      <if test="sqId != null">
+        sq_id = #{sqId,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdAuditing != null">
+        Sqd_auditing = #{sqdAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdYn != null">
+        Sqd_yn = #{sqdYn,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdCustom1 != null">
+        Sqd_custom1 = #{sqdCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdCustom2 != null">
+        Sqd_custom2 = #{sqdCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="sqdCustom3 != null">
+        Sqd_custom3 = #{sqdCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Sqd_ProdID = #{sqdProdid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.SaleQuotationDetails">
+    update sale_quotation_details
+    set Sqd_SerNO = #{sqdSerno,jdbcType=VARCHAR},
+      Sqd_ProdName = #{sqdProdname,jdbcType=VARCHAR},
+      Sqd_ProdSize = #{sqdProdsize,jdbcType=VARCHAR},
+      Sqd_UnitName = #{sqdUnitname,jdbcType=VARCHAR},
+      Sqd_sQuantity = #{sqdSquantity,jdbcType=INTEGER},
+      Sqd_ZkqPrice = #{sqdZkqprice,jdbcType=REAL},
+      Sqd_Discount = #{sqdDiscount,jdbcType=REAL},
+      Sqd_UnitPrice = #{sqdUnitprice,jdbcType=REAL},
+      Sqd_Price = #{sqdPrice,jdbcType=REAL},
+      Sqd_TaxRate = #{sqdTaxrate,jdbcType=REAL},
+      Sqd_Taxlimit = #{sqdTaxlimit,jdbcType=REAL},
+      Sqd_TaxInclusivePrice = #{sqdTaxinclusiveprice,jdbcType=REAL},
+      Sqd_Complimentart = #{sqdComplimentart,jdbcType=INTEGER},
+      Sqd_ItemRemark = #{sqdItemremark,jdbcType=VARCHAR},
+      sq_id = #{sqId,jdbcType=VARCHAR},
+      Sqd_auditing = #{sqdAuditing,jdbcType=VARCHAR},
+      Sqd_yn = #{sqdYn,jdbcType=VARCHAR},
+      Sqd_custom1 = #{sqdCustom1,jdbcType=VARCHAR},
+      Sqd_custom2 = #{sqdCustom2,jdbcType=VARCHAR},
+      Sqd_custom3 = #{sqdCustom3,jdbcType=VARCHAR}
+    where Sqd_ProdID = #{sqdProdid,jdbcType=VARCHAR}
+  </update>
+</mapper>
