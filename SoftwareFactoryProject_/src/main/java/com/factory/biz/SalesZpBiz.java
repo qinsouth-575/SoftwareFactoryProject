@@ -1,5 +1,6 @@
 package com.factory.biz;
 
+import java.nio.channels.NonWritableChannelException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.factory.entity.Comdepartment;
+import com.factory.entity.Customer;
+import com.factory.entity.CustomerExample;
 import com.factory.entity.SaleOutWarehouse;
 import com.factory.entity.SaleOutWarehouseDetailed;
 import com.factory.entity.SaleOutWarehouseDetailedExample;
@@ -47,6 +50,10 @@ public class SalesZpBiz {
 		//
 		//s.set
 		return sq.updateByPrimaryKey(s);
+	}
+	
+	public List<Customer> querykh(String type,String name){
+		return c.querykh(type, name);
 	}
 	
 	public PageInfo<SaleQuotation> querybaojia(Integer pageNum, Integer pageSize) {

@@ -1,5 +1,7 @@
 package com.factory.action;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.factory.biz.SalesZpBiz;
+import com.factory.entity.Customer;
 import com.factory.entity.SaleOutWarehouse;
 import com.factory.entity.SaleQuotation;
 import com.github.pagehelper.PageInfo;
@@ -31,6 +34,15 @@ public class SalesZpAction {
 	@ResponseBody
 	public int shbaojia(String sqId) {
 		return sBiz.shbaojia(sqId);
+	}
+	
+	/**
+	 * 查询客户资料
+	 */
+	@RequestMapping(value = "querykh", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Customer> querykh(String type,String name) {
+		return sBiz.querykh(type, name);
 	}
 	
 	/**
