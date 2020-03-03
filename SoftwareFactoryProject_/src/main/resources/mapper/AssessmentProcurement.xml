@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.AssessmentProcurementMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.AssessmentProcurement" >
+    <id column="ap_id" property="apId" jdbcType="VARCHAR" />
+    <result column="ap_date_document" property="apDateDocument" jdbcType="DATE" />
+    <result column="ap_method_assessment" property="apMethodAssessment" jdbcType="VARCHAR" />
+    <result column="ap_principal_currency_amortized" property="apPrincipalCurrencyAmortized" jdbcType="REAL" />
+    <result column="ap_single_status" property="apSingleStatus" jdbcType="VARCHAR" />
+    <result column="ap_belongs_project" property="apBelongsProject" jdbcType="VARCHAR" />
+    <result column="ap_executor" property="apExecutor" jdbcType="DATE" />
+    <result column="ap_checkagain_staff" property="apCheckagainStaff" jdbcType="VARCHAR" />
+    <result column="ap_header_provision" property="apHeaderProvision" jdbcType="VARCHAR" />
+    <result column="ap_end_clause" property="apEndClause" jdbcType="REAL" />
+    <result column="ap_remark" property="apRemark" jdbcType="VARCHAR" />
+    <result column="ap_audition" property="apAudition" jdbcType="VARCHAR" />
+    <result column="ap_yn" property="apYn" jdbcType="VARCHAR" />
+    <result column="ap_custom1" property="apCustom1" jdbcType="VARCHAR" />
+    <result column="ap_custom2" property="apCustom2" jdbcType="VARCHAR" />
+    <result column="ap_custom3" property="apCustom3" jdbcType="VARCHAR" />
+    <result column="ap_custom4" property="apCustom4" jdbcType="VARCHAR" />
+    <result column="ap_custom5" property="apCustom5" jdbcType="VARCHAR" />
+    <result column="ap_custom6" property="apCustom6" jdbcType="VARCHAR" />
+  </resultMap>
+  
+    
+  <select id="selectap_date_document" resultMap="BaseResultMap">
+SELECT * FROM `assessment_procurement` where ap_yn=0  ORDER BY ap_date_document DESC 
+</select>
+  
+  
+    <update id="updateap_yn"   parameterType="com.factory.entity.AssessmentProcurement">
+  UPDATE `assessment_procurement`
+SET ap_yn=1
+WHERE ap_id=#{apId}
+  </update>
+  
+    <delete id="delete003">
+  delete from assessment_procurement where ap_id=#{apId}
+  </delete>
+  
+  
+   <insert id="insertpurchasenote1" parameterType="com.factory.entity.AssessmentProcurement">
+INSERT INTO `assessment_procurement`(`ap_date_document`,`ap_id`,`ap_single_status`,`ap_principal_currency_amortized`,`ap_executor`,`ap_checkagain_staff`,`ap_method_assessment`)VALUE(#{apDateDocument},#{apId},#{apSingleStatus},#{apPrincipalCurrencyAmortized},#{apExecutor},#{apCheckagainStaff},#{apMethodAssessment})
+
+		
+		
+	</insert>
+	 <insert id="insertpurchasenote2" parameterType="com.factory.entity.AssessmentProcurement">
+		INSERT INTO `assessment_procurement_detailed`(`ap_id`,`apd_id`,`apd_ict_id`,`apd_ict_name`,`apd_currency_id`,`apd_exchange_rate`,`apd_money`,`apd_amount_standard_currency`)VALUE
+		<foreach collection="jb" item="d" separator="),(" open="(" close=")">
+#{d.apId},#{d.apdId},#{d.apdIctId},#{d.apdIctName},#{d.apdCurrencyId},#{d.apdExchangeRate},#{d.apdMoney},#{d.apdAmountStandardCurrency}
+		</foreach>
+		
+	</insert>
+	
+	
+		 <insert id="insertpurchasenote3" parameterType="com.factory.entity.AssessmentProcurement">
+		INSERT INTO `assessment_procurement_fruit`(`ap_id`,`apf_id`,`ps_id`,`apf_matter_id`,`apf_matter_name`,`apf_specifications`,`apf_money`,`apf_amount`,`apf_company_name`,`apf_weight`,`apf_volume_wood`,`apf_contribution`)VALUE
+		<foreach collection="dajb" item="dd" separator="),(" open="(" close=")">
+#{dd.apId},#{dd.apfId},#{dd.psId},#{dd.apfMatterId},#{dd.apfMatterName},#{dd.apfSpecifications},#{dd.apfMoney},#{dd.apfAmount},#{dd.apfCompanyName},#{dd.apfWeight},#{dd.apfVolumeWood},#{dd.apfContribution}
+		</foreach>
+		
+	</insert>
+  
+  </mapper>

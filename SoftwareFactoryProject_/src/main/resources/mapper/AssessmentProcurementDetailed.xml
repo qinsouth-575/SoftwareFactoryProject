@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.AssessmentProcurementDetailedMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.AssessmentProcurementDetailed" >
+    <id column="apd_id" property="apdId" jdbcType="VARCHAR" />
+    <result column="ap_id" property="apId" jdbcType="VARCHAR" />
+    <result column="apd_ict_id" property="apdIctId" jdbcType="VARCHAR" />
+    <result column="apd_ict_name" property="apdIctName" jdbcType="VARCHAR" />
+    <result column="apd_currency_id" property="apdCurrencyId" jdbcType="VARCHAR" />
+    <result column="apd_exchange_rate" property="apdExchangeRate" jdbcType="REAL" />
+    <result column="apd_money" property="apdMoney" jdbcType="INTEGER" />
+    <result column="apd_amount_standard_currency" property="apdAmountStandardCurrency" jdbcType="REAL" />
+    <result column="apd_audition" property="apdAudition" jdbcType="VARCHAR" />
+    <result column="apd_yn" property="apd_yn" jdbcType="VARCHAR" />
+    <result column="apd_custom1" property="apdCustom1" jdbcType="VARCHAR" />
+    <result column="apd_custom2" property="apdCustom2" jdbcType="VARCHAR" />
+    <result column="apd_custom3" property="apdCustom3" jdbcType="VARCHAR" />
+    <result column="apd_custom4" property="apdCustom4" jdbcType="VARCHAR" />
+    <result column="apd_custom5" property="apdCustom5" jdbcType="VARCHAR" />
+    <result column="apd_custom6" property="apdCustom6" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+    
+  <select id="selecttb_detail02" resultType="com.factory.entity.AssessmentProcurementDetailed" resultMap="BaseResultMap">
+SELECT * FROM `assessment_procurement_detailed` 
+WHERE `ap_id`=#{apId}
+</select>
+
+
+  <delete id="delete004">
+  delete from assessment_procurement_detailed where ap_id=#{apId}
+  </delete>
+  </mapper>

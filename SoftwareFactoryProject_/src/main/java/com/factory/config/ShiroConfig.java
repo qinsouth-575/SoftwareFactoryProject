@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Shiro 配置文件
  */
-@Configuration
+//@Configuration
 public class ShiroConfig {
 	
     /**
