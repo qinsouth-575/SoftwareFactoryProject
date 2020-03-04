@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.factory.entity.PurchasingOrder;
 import com.factory.entity.PurchasingOrderDetails;
 import com.factory.mapper.PurchasingOrderDetailsMapper;
@@ -62,5 +61,21 @@ public int insertpurchasenote(PurchasingOrder pu) {
 
 public int insertpurchasenot(PurchasingOrder pu) {
 	return dao.insertpurchasenot(pu);
+}
+
+
+public int updatepoDocumentNumber(PurchasingOrder bi){
+	
+	return dao.updatepoDocumentNumber(bi);
+}
+
+public PurchasingOrder selectpoaudition(PurchasingOrder bi){
+	return dao.selectpoaudition(bi);
+}
+
+
+public int updatepoDocumentNumber2(PurchasingOrder bi){
+	
+	return dao.updatepoDocumentNumber2(bi);
 }
 }

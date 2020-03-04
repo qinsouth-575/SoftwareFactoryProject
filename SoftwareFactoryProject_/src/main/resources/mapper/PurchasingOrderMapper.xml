@@ -24,6 +24,8 @@
     <result column="po_custom1" property="poCustom1" jdbcType="VARCHAR" />
     <result column="po_custom2" property="poCustom2" jdbcType="VARCHAR" />
     <result column="po_custom3" property="poCustom3" jdbcType="VARCHAR" />
+    <result column="pure_executor" property="pureExecutor" jdbcType="VARCHAR" />
+    <result column="pure_checkagain_staff" property="pureCheckagainStaff" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -512,5 +514,26 @@ WHERE po_document_number=#{poDocumentNumber}
 		</foreach>
 		
 	</insert>
+  
+  
+    <update id="updatepoDocumentNumber"   parameterType="com.factory.entity.PurchasingOrder">
+  UPDATE `purchasing_order`
+SET po_audition="是"
+WHERE po_document_number=#{poDocumentNumber}
+  </update>
+  
+  
+  
+  <select id="selectpoaudition" resultMap="BaseResultMap">
+SELECT * FROM `purchasing_order`
+WHERE `po_audition`="是"  AND  po_document_number=#{poDocumentNumber}
+</select>
+  
+      <update id="updatepoDocumentNumber2"   parameterType="com.factory.entity.PurchasingOrder">
+  UPDATE `purchasing_order`
+SET po_audition="否"
+WHERE po_document_number=#{poDocumentNumber}
+  </update>
+  
   
 </mapper>
