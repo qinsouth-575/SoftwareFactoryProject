@@ -30,4 +30,11 @@ public interface PurchasingOrderMapper {
     
     
     List<PurchasingOrder> selectpo_document_date();
+    
+    int updatepo_yn(PurchasingOrder pu);
+    
+    int delete001(PurchasingOrder pu);
+    
+	 int insertpurchasenote(PurchasingOrder pu);
+	 int insertpurchasenot(PurchasingOrder pu);
 }

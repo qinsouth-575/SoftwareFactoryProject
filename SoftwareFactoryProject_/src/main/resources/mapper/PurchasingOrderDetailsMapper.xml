@@ -532,4 +532,10 @@
 SELECT * FROM `purchasing_order_details` 
 WHERE `po_id`=#{poId}
 </select>
+
+
+
+  <delete id="delete002">
+  delete from purchasing_order_details where po_id=#{poId}
+  </delete>
 </mapper>
