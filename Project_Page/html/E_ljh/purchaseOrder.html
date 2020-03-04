@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>采购订单</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="../../css/font.css">
+		<link rel="stylesheet" href="../../css/xadmin.css">
+		<script src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/xadmin.js"></script>
+
+		<style type="text/css">
+			.layui-input-block {
+				margin-left: 120px;
+				min-height: 36px;
+			}
+			
+			.layui-row {
+				margin-bottom: 10px;
+			}
+			
+			.layui-form-label {
+				float: left;
+				display: block;
+				padding: 9px 5px;
+				width: 85px;
+				font-weight: 400;
+				line-height: 20px;
+				text-align: right;
+			}
+			
+			.layui-form-item {
+				margin-top: 5px;
+				margin-bottom: 5px;
+				clear: none;
+				display: inline-block;
+			}
+			
+			.layui-tab-title li {
+				padding: 0 0px;
+			}
+			
+			.layui-table {
+				width: 100%;
+				background-color: #fff;
+				color: #666;
+				overflow-y: auto;
+			}
+			
+			.layui-table thead tr {
+				background-color: #d7e7ff !important;
+			}
+			
+			.layui-table td,
+			.layui-table th {
+				border-width: 1px;
+				border-style: solid;
+				border-color: #d3d1d1;
+			}
+			
+			.color {
+				color: blue;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="x-body">
+			<div class="layui-container" style="padding: 8px;">
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<span style="font-size: 18px;padding-left: 15px;">
+			   			采购订单
+			   		</span>
+					</div>
+				</div>
+				<div style="padding: 10px;">
+					<div class="layui-row">
+						<form class="layui-form" action="">
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label color">供应商</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="supplierid">
+									<input type="hidden" id="poid">
+
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label color">单据日期</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" id="date" placeholder="请输入标题" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label">供应商地址</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poengname">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label color">单据号码</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="podocumentnumber">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label">采购订单类型</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="potid">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label color">币别</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="currencyid">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label">单价是否含税</label>
+								<div class="layui-input-block">
+									<select name="city" lay-verify="required" id="popriceincludetax">
+										<option value=""></option>
+										<option value="0">未税</option>
+										<option value="1">含税</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label">汇率</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poexchangerate">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label">单况</label>
+								<div class="layui-input-block">
+									<select name="city" lay-verify="required" id="posinglestatus">
+										<option value=""></option>
+										<option value="0">未结案</option>
+										<option value="1">已结案</option>
+										<option value="2">无效</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label">送货地址</label>
+								<div class="layui-input-block">
+									<select name="city" lay-verify="required" id="podeliveryaddress">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="layui-row">
+						<div class="layui-tab">
+							<ul class="layui-tab-title">
+								<li class="layui-this">内容</li>
+								<li>备注</li>
+							</ul>
+							<div class="layui-tab-content">
+								<div class="layui-tab-item layui-show">
+									<div style="border:1px solid #8eafdb;padding:8px;">
+										<div style="overflow: scroll;">
+											<table class="layui-table" lay-size="sm" style="width: 150%;">
+												<thead>
+													<tr>
+														<td>(栏号)</td>
+														<td class="color">物料编号</td>
+														<td>(物料名称)</td>
+														<td>(规格型号)</td>
+														<td>(单位名称)</td>
+														<td>数量</td>
+														<td>折扣前单价</td>
+														<td>折数(%)</td>
+														<td>单价</td>
+														<td>金额</td>
+														<td>(税率)</td>
+														<td>(税额)</td>
+														<td>(含税金额)</td>
+														<td>预入库日</td>
+														<td>(未入库量)</td>
+														<td>赠品</td>
+														<td>分录备注</td>
+														<td>(来源单别)</td>
+														<td>(来源单号)</td>
+													</tr>
+												</thead>
+												<tbody id="np">
+
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="5">合计:</td>
+														<td colspan="4">55</td>
+														<td colspan="2">97.55</td>
+														<td>16.55</td>
+														<td colspan="2">114.55</td>
+														<td colspan="5">0</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="layui-tab-item">
+									<form class="layui-form" action="">
+										<div class="layui-form-item layui-col-md6">
+											<label class="layui-form-label">表头条文</label>
+											<div class="layui-input-block">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poheaderprovision">
+											</div>
+										</div>
+										<div class="layui-form-item layui-col-md6">
+											<label class="layui-form-label">自定栏一</label>
+											<div class="layui-input-block">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pocustom1">
+											</div>
+										</div>
+										<div class="layui-form-item layui-col-md6">
+											<label class="layui-form-label">表尾条文</label>
+											<div class="layui-input-block">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poendclause">
+											</div>
+										</div>
+										<div class="layui-form-item layui-col-md6">
+											<label class="layui-form-label">自定栏二</label>
+											<div class="layui-input-block">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pocustom2">
+											</div>
+										</div>
+										<div class="layui-form-item layui-col-md12">
+											<label class="layui-form-label">备注</label>
+											<div class="layui-input-block">
+												<textarea rows="12" name="desc" placeholder="请输入内容" class="layui-textarea" id="poremark"></textarea>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-row">
+						<form class="layui-form" action="">
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label color">采购人员</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pobuyer">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label">制单人员</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pureexecutor">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label color">所属部门</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pobelongssection">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label">复核人员</label>
+								<div class="layui-input-block">
+									<input type="hidden" id="zsgc" />
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="purecheckagainstaff">
+								</div>
+							</div>
+							<div class="layui-form-item layui-col-md6">
+								<label class="layui-form-label">所属项目</label>
+								<div class="layui-input-block">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pobelongsproject">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="layui-row">
+						<button class="layui-btn layui-btn-normal" style="width: 8%;">查询</button>
+						<button class="layui-btn layui-btn-normal" style="width: 8%;">转单</button>
+						<button class="layui-btn layui-btn-normal" style="width: 8%;">功能</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../layui.all.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script>
+			var pageNum = 1;
+			var pageSize = 1;
+			var wei = 0;
+			cc();
+			var date = layui.laydate;
+			//执行一个laydate实例
+			date.render({
+				elem: '#date' //指定元素
+			});
+			date.render({
+				elem: '#date',
+				format: 'yyyyMMdd'
+			});
+
+			var state = "";
+
+			function subpageTriggerEvent(incident) {
+				//alert("部门设定页 - 触发事件：" + incident);
+
+				if(incident == "goFirstPage") {
+					//第一笔
+
+					so()
+
+				} else if(incident == "goPrePage") {
+					shang()
+
+					//上一笔
+				} else if(incident == "goNextPage") {
+					xia()
+					//下一笔
+				} else if(incident == "goLastPage") {
+					we()
+					//后一笔
+				} else if(incident == "goInsert") {
+					$("#zsgc").val("xz");
+					//新增
+				} else if(incident == "save") {
+
+					var jb = $("[id=zsgc]").val()
+
+					if(jb == "xz") {
+						alert("xz")
+
+					} else if(jb == "xg") {
+
+						//修改
+						var poId = $("[id=poid]").val();
+
+						var kk = {
+							poId: poId
+						}
+
+						$.ajax({
+							url: "//localhost:8080/SoftwareFactoryProject_/stu/detele001",
+							type: "post",
+							data: JSON.stringify(kk),
+							contentType: "application/json",
+							dataType: "json",
+							"success": function(res) {
+
+							}
+						})
+
+						$.ajax({
+							url: "//localhost:8080/SoftwareFactoryProject_/stu/detele002",
+							type: "post",
+							data: JSON.stringify(kk),
+							contentType: "application/json",
+							dataType: "json",
+							"success": function(res) {
+
+								var ljhlist = [];
+								$("#np tr").each(function(a, b) {
+									var ljh = {};
+									ljh.podId = $(this).find("td").find("input").eq(0).val()
+
+									ljh.poId = $("[id=poid]").val();
+									ljh.poMatterId = $(this).find("td").find("input").eq(1).val()
+									ljh.podMatterName = $(this).find("td").find("input").eq(2).val()
+									ljh.podSpecifications = $(this).find("td").find("input").eq(3).val()
+									ljh.podCompanyName = $(this).find("td").find("input").eq(4).val()
+									ljh.podAmount = $(this).find("td").find("input").eq(5).val()
+									ljh.podMoneyDiscountBefore = $(this).find("td").find("input").eq(6).val()
+									ljh.podDiscountNumber = $(this).find("td").find("input").eq(7).val()
+									ljh.podPrice = $(this).find("td").find("input").eq(8).val()
+									ljh.podMoney = $(this).find("td").find("input").eq(9).val()
+									ljh.podTaxRate = $(this).find("td").find("input").eq(10).val()
+									ljh.podTaxAmount = $(this).find("td").find("input").eq(11).val()
+									ljh.podIncludeTaxAmount = $(this).find("td").find("input").eq(12).val()
+									ljh.podBeforehandLaidupDate = $(this).find("td").find("input").eq(13).val()
+									ljh.podNotLaiupNum = $(this).find("td").find("input").eq(14).val()
+									ljh.podIfgift = $(this).find("td").find("input").eq(15).val()
+									ljh.podRemarks = $(this).find("td").find("input").eq(16).val()
+									ljh.podSourceOrder = $(this).find("td").find("input").eq(17).val()
+									ljh.podSourceNo = $(this).find("td").find("input").eq(18).val()
+									ljhlist[a] = ljh;
+
+								})
+								var poId = $("[id=poid]").val();
+								var supplierId = $("[id=supplierid]").val();
+								var poDocumentDate = $("[id=date]").val();
+								var poEngname = $("[id=poengname]").val();
+								var poDocumentNumber = $("[id=podocumentnumber]").val();
+								var potId = $("[id=potid]").val();
+								var currencyId = $("[id=currencyid]").val();
+								/*	var poPriceIncludeTax=$("[id=popriceincludetax]").val();*/
+								var poExchangeRate = $("[id=poexchangerate]").val();
+								/*var poSingleStatus=$("[id=posinglestatus]").val();*/
+								/*var poDeliveryAddress=$("[id=podeliveryaddress]").val();*/
+								var poHeaderProvision = $("[id=poheaderprovision]").val();
+								var poCustom1 = $("[id=pocustom1]").val();
+								var poEndClause = $("[id=poendclause]").val();
+								var poCustom2 = $("[id=pocustom2]").val();
+								var poRemark = $("[id=poremark]").text();
+								var poBuyer = $("[id=pobuyer]").val();
+								var poBelongsSection = $("[id=pobelongssection]").val();
+								var poBelongsProject = $("[id=pobelongsproject]").val();
+								//数据库制单人员和啥
+								var pureExecutor=$("[id=pureexecutor]").val();
+								var pureCheckagainStaff=$("[id=purecheckagainstaff]").val();
+								/* alert($(this).attr("selected")) */
+								//日进斗金供应商
+								//是否含税
+								var poPriceIncludeTax;
+								$("#popriceincludetax option").each(function() {
+									if($(this).prop("selected") == true) {
+
+										poPriceIncludeTax = $(this).text();
+
+									}
+								})
+
+								//单况
+								var poSingleStatus;
+								$("#posinglestatus option").each(function() {
+									if($(this).prop("selected") == true) {
+
+										poSingleStatus = $(this).text();
+
+									}
+								})
+
+								//送货地址
+								var poDeliveryAddress;
+								$("#podeliveryaddress option").each(function() {
+									if($(this).prop("selected") == true) {
+
+										poDeliveryAddress = $(this).text();
+
+									}
+								})
+
+								var obj = {
+									poId: poId,
+									supplierId: supplierId,
+									poDocumentDate: poDocumentDate,
+									poEngname: poEngname,
+									poDocumentNumber: poDocumentNumber,
+									potId: potId,
+									currencyId: currencyId,
+									poPriceIncludeTax: poPriceIncludeTax,
+									poExchangeRate: poExchangeRate,
+									poSingleStatus: poSingleStatus,
+									poDeliveryAddress: poDeliveryAddress,
+									poHeaderProvision: poHeaderProvision,
+									poCustom1: poCustom1,
+									poEndClause: poEndClause,
+									poCustom2: poCustom2,
+									poRemark: poRemark,
+									poBuyer: poBuyer,
+									poBelongsSection: poBelongsSection,
+									poBelongsProject: poBelongsProject,
+									jb: ljhlist
+								}
+								alert(JSON.stringify(obj))
+								$.ajax({
+									url: "//localhost:8080/SoftwareFactoryProject_/stu/insertpurchasenote",
+									type: "post",
+									data: JSON.stringify(obj),
+									contentType: "application/json",
+									dataType: "json",
+									"success": function(res) {
+										alert("修改成功")
+										location.reload()
+
+									}
+
+								});
+
+							}
+						})
+
+						$("#zsgc").val("");
+					} else {
+						alert("先选择内容")
+					}
+
+					//保存
+				} else if(incident == "cancel") {
+
+					//放弃
+				} else if(incident == "goUpdate") {
+
+					//
+					$('.layui-input').removeAttr("disabled");
+					$("#zsgc").val("xg");
+					//修改
+					
+					
+				} else if(incident == "delete") {
+					var obu = {
+						poDocumentNumber: $("[id=podocumentnumber]").val()
+					}
+
+					$.ajax({
+						url: "//localhost:8080/SoftwareFactoryProject_/stu/updatepo_yn",
+						type: "post",
+						data: JSON.stringify(obu),
+						contentType: "application/json",
+						dataType: "json",
+						"success": function(res) {
+							alert("删除成功");
+						}
+					});
+
+
+
+					//删除
+				} else if(incident == "refresh") {
+
+
+
+					//刷新
+					cc();
+				} else if(incident == "audit") {
+
+					//审核
+					alert("审核")
+
+					var obk = {
+						poDocumentNumber: $("[id=podocumentnumber]").val()
+					}
+					alert(JSON.stringify(obk))
+					$.ajax({
+						url: "//localhost:8080/SoftwareFactoryProject_/stu/updatepoDocumentNumber",
+						type: "post",
+						data: JSON.stringify(obk),
+						contentType: "application/json",
+						dataType: "json",
+						"success": function(res) {
+							alert("审核成功");
+						}
+						
+
+					})
+
+				} else if(incident == "cancelTheAudit") {
+
+					//反审核
+					alert("反审核")
+					
+					var obk = {
+						poDocumentNumber: $("[id=podocumentnumber]").val()
+					}
+		$.ajax({
+			url : "//localhost:8080/SoftwareFactoryProject_/stu/selectpoaudition",
+			type : "post",
+			data : JSON.stringify(obk),
+			contentType : "application/json",
+			dataType : "json",
+			"success":function(res){
+			
+              if(res!="1"){
+              
+	                 
+	                 
+	                 var obk = {
+						poDocumentNumber: $("[id=podocumentnumber]").val()
+					}
+					
+					$.ajax({
+						url: "//localhost:8080/SoftwareFactoryProject_/stu/updatepoDocumentNumber2",
+						type: "post",
+						data: JSON.stringify(obk),
+						contentType: "application/json",
+						dataType: "json",
+						"success": function(res) {
+							alert("取消审核成功");
+						}
+						
+
+					})
+	                 
+	                 
+	                 
+	                 
+              }else{
+              	
+	                 alert("该单据未被审核，不能取消审核");
+	
+                    }
+			}
+			
+		})
+				}
+
+				state = incident;
+			}
+
+			//创建vue实例
+
+			//进去加载
+			function cc() {
+
+				/*$('.layui-input').attr("disabled","disabled");*/
+
+				$.ajax({
+					url: "//localhost:8080/SoftwareFactoryProject_/stu/selectb",
+					type: "post",
+					data: {
+						pageNum: pageNum,
+						pageSize: pageSize
+					},
+					dataType: "json",
+					"success": function(res) {
+						$.each(res.list, function(i, obj) {
+							$("[id=poid]").val(obj.poId);
+							$("[id=supplierid]").val(obj.supplierId);
+							$("[id=date]").val(obj.poDocumentDate);
+							$("[id=poengname]").val(obj.poEngname);
+							$("[id=podocumentnumber]").val(obj.poDocumentNumber);
+							$("[id=potid]").val(obj.potId);
+							$("[id=currencyid]").val(obj.currencyId);
+							$("[id=popriceincludetax]").val(obj.poPriceIncludeTax);
+							$("[id=poexchangerate]").val(obj.poExchangeRate);
+							$("[id=posinglestatus]").val(obj.poSingleStatus);
+							$("[id=podeliveryaddress]").val(obj.poDeliveryAddress);
+							$("[id=poheaderprovision]").val(obj.poHeaderProvision);
+							$("[id=pocustom1]").val(obj.poHeaderProvision);
+							$("[id=poendclause]").val(obj.poEndClause);
+							$("[id=pocustom2]").val(obj.poCustom2);
+							$("[id=poremark]").text(obj.poRemark);
+							$("[id=pobuyer]").val(obj.poBuyer);
+							$("[id=pobelongssection]").val(obj.poBelongsSection);
+							$("[id=pobelongsproject]").val(obj.poBelongsProject);
+
+							$("[id=pureexecutor]").val(obj.pureExecutor);
+							$("[id=purecheckagainstaff]").val(obj.pureCheckagainStaff);
+							var obk = {
+								poId: $("[id=poid]").val()
+							}
+
+							$.ajax({
+								url: "//localhost:8080/SoftwareFactoryProject_/stu/selecttb_de",
+								type: "post",
+								data: JSON.stringify(obk),
+								contentType: "application/json",
+								dataType: "json",
+
+								"success": function(res) {
+									$("#np").html("");
+									$.each(res, function(i, obj) {
+
+										$("#np").append("<tr>" +
+
+											"<td><input value='" + obj.podId + "' class='layui-input' name='ooo'/></td>" +
+											"<td><input value='" + obj.poMatterId + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podMatterName + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podSpecifications + "' class='layui-input'/></td>" +
+											"<td><input value='" + obj.podCompanyName + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podAmount + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podMoneyDiscountBefore + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podDiscountNumber + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podPrice + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podMoney + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podTaxRate + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podTaxAmount + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podIncludeTaxAmount + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podBeforehandLaidupDate + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podNotLaiupNum + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podIfgift + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podRemarks + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podSourceOrder + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podSourceNo + "' class='layui-input' /></td>" +
+
+											"</tr>");
+									})
+								}
+
+							});
+							$('.layui-input').attr("disabled", "disabled");
+						})
+					}
+				});
+			}
+
+			function shang() {
+				if(pageNum - 1 == 0) {
+
+				} else {
+
+					pageNum = pageNum - 1;
+					cc();
+				}
+
+			}
+
+			function xia() {
+
+				if(pageNum + 1 > wei) {
+
+					pageNum = pageNum + 1;
+
+					cc();
+				} else {
+
+				}
+
+			}
+
+			function so() {
+
+				if(pageNum - 1 == 0) {
+					cc();
+				} else {
+
+					pageNum = 1;
+					cc();
+
+				}
+
+			}
+
+			function we() {
+
+				pageNum = 2;
+				cc();
+
+			}
+		</script>
+	</body>
+
+</html>
