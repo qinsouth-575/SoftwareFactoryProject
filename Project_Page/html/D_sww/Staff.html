@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/font.css">
+		<link rel="stylesheet" href="../../css/xadmin.css">
+	</head>
+
+	<body>
+		<div style="padding: 20px 50px;">
+			<p>
+				<label class="layui-form-label layui-input-inline">人员编号</label>
+				<input type="text" class="layui-input layui-input-inline" style="width:150px;">
+				<button style="" class="layui-btn layui-btn-primary layui-input-inline">资料输出</button>
+				<button style="" class="layui-btn layui-btn-primary" onclick="quhui()">取回</button>
+				<input type="hidden" value="999" id="index" />
+			</p><br>
+			<div class="layui-tab-item layui-show layui-col-md12" style="overflow: scroll;height: 260px;">
+				<table class="layui-table" border="1" rules="all" style="text-align: center;margin: 0px;">
+					<thead>
+						<tr style="">
+							<td style="white-space:nowrap;">人员编号</td>
+							<td style="white-space:nowrap;">人员名称</td>
+							<td style="white-space:nowrap;">操作</td>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/axios.min.js"></script>
+
+		<script type="text/javascript">
+			//必须设置允许跨域访问session中数据(cooike)
+			axios.default.withCredentials = true;
+			
+			var obs = {}
+			axios.post(`http://localhost:8080/SoftwareFactoryProject_/ps/querysta`, obs).then(function(res){
+				//数据正常		/alert(JSON.stringify(res.data));
+				
+				$.each(res.data, function(i, obs){
+					var $dr = $("<tr class='ordbillstyle'>" +
+               			"<td>" + obs.staffId + "</td>" + 
+               			"<td>" + obs.staffName + "</td>" + 
+               			"<td>" +
+               				"<input type='checkbox'>" +
+               				"<input type='hidden' class='teamId' value='" + obs.teamId + "'>" +
+               				"<input type='hidden' class='departName' value='" + obs.departName + "'>" +
+               			"</td>" +
+              		"</tr>");
+					
+					$("tbody").append($dr);
+				});
+				
+				$("tbody>tr").on("click", function(){
+					$("tbody input").prop("checked", false);
+					if(!$(this).find("input").is(":checked")){
+						$(this).find("input").prop("checked", true);
+					} else {
+						$(this).find("input").prop("checked", false);
+					}
+				});
+			});
+			
+			function quhui(){
+				let obs = {};
+				$(".ordbillstyle").each(function() {
+					if($(this).find("input").prop("checked")) {
+						obs.staffId = $(this).find("td").eq(0).text();
+						obs.staffName = $(this).find("td").eq(1).text();
+						obs.teamId = $(this).find(".teamId").val();
+						obs.departName = $(this).find(".departName").val();
+					}
+				});
+				//数据无误 	/alert(JSON.stringify(obs));
+				//let index = parent.layer.getFrameIndex(window.name);
+				parent.listVm.TPurchaseRequisitions.prStaffId = obs.staffId;
+				parent.listVm.TPurchaseRequisitions.prStaffName = obs.staffName;
+				parent.listVm.TPurchaseRequisitions.prTeamId = obs.teamId;
+				parent.listVm.TPurchaseRequisitions.prDepartName = obs.departName;
+				parent.layer.close($("#index").val());
+			}
+			
+			/*
+			//开窗取值
+			function tck(){
+				let a = layui.layer;
+				a.open({
+					title: ["采购入库单", 'font-size:18px;'],
+					type: 2,
+					area: ['1100px', '90%'],
+					content: 'queryShangPin.html',
+					shade: 0.5,
+					end: function() {
+						//initCaiGouRuKu(1, 5);
+						tpur = {};
+					}
+				});
+			};
+			function queryshgnpinQuHui() {
+				let prodIds = "";
+				$(".shangpin").each(function() {
+					if($(this).prop("checked")) {
+						prodIds += $(this).val() + ",";
+					}
+				});
+				let index = parent.layer.getFrameIndex(window.name);
+				parent.queryShangPinById(prodIds);
+				parent.layer.close(index);
+			}
+	
+			function queryshangpinClick(obj) {
+				if($(obj).children().next().next().next().children().prop("checked")) {
+					$(obj).children().next().next().next().children().prop("checked", false);
+				} else {
+					$(obj).children().next().next().next().children().prop("checked", true);
+				}
+			} 
+			*/
+		</script>
+	</body>
+
+</html>
