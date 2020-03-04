@@ -46,7 +46,7 @@ private static Logger log = Logger.getLogger(PurchasingorderAction.class);
 	public List<PurchasingOrderDetails> inserttb_detail(@RequestBody PurchasingOrderDetails bi){
 		log.debug("经过");
 		List<PurchasingOrderDetails>  list= sb.selecttb_detail(bi);
-
+System.out.println(list+"np");
 		return list;
 	}
 	
@@ -57,7 +57,6 @@ private static Logger log = Logger.getLogger(PurchasingorderAction.class);
 	public int updatepo_yn(@RequestBody PurchasingOrder bi){
 		log.debug("经过:" + bi);
 		int list=sb.updatepo_yn(bi);
-
 		return list;
 	}
 	
@@ -88,6 +87,40 @@ private static Logger log = Logger.getLogger(PurchasingorderAction.class);
 		System.out.println("数据；aaaaaaaaaaaaaaaaaaa"+JSON.toJSONString(pu));
 		int list=sb.insertpurchasenote(pu);
 		int kk=sb.insertpurchasenot(pu);
+		return list;
+	}
+	
+	//审核
+	@RequestMapping(value="updatepoDocumentNumber",method=RequestMethod.POST)
+	@ResponseBody
+	public int updatepoDocumentNumber(@RequestBody PurchasingOrder bi){
+		log.debug("经过:" + bi);
+		int list=sb.updatepoDocumentNumber(bi);
+		log.debug(list+"结果");
+		return list;
+	}
+	
+	
+	
+	@RequestMapping(value="selectpoaudition",method=RequestMethod.POST)
+	@ResponseBody
+	public String inserttb_detail(@RequestBody PurchasingOrder bi){
+		System.out.println(bi);
+		PurchasingOrder dd=sb.selectpoaudition(bi);
+		System.out.println(dd);
+		if (dd!=null) {
+			return "0";
+		}else {
+		    return "1";
+		}
+	}
+	//反审核
+	@RequestMapping(value="updatepoDocumentNumber2",method=RequestMethod.POST)
+	@ResponseBody
+	public int updatepoDocumentNumber2(@RequestBody PurchasingOrder bi){
+		log.debug("经过:" + bi);
+		int list=sb.updatepoDocumentNumber2(bi);
+		log.debug(list+"结果");
 		return list;
 	}
 	

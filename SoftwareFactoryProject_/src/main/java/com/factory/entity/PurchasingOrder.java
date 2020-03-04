@@ -48,6 +48,8 @@ public class PurchasingOrder {
 
     private String poCustom3;
     
+ 
+    
     private List<PurchasingOrderDetails> jb;
 public List<PurchasingOrderDetails> getJb() {
 		return jb;
