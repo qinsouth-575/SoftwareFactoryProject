@@ -80,7 +80,7 @@ public class Flqj_PurchaseStorageBiz {
     			}
 			}
     	}
-    	return dao.updateByPrimaryKey(record) > 0;
+    	return true;
     };
 	
 	

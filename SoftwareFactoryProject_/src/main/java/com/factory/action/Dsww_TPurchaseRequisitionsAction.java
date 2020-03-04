@@ -87,8 +87,9 @@ public class Dsww_TPurchaseRequisitionsAction {
 	@ResponseBody
 	public Map<String,String> deletePS(@PathVariable String prDocumentNumber){
 		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - deletePS - 采购请购 - 3.删除采购询价信息，删除条件id为：" + prDocumentNumber);
+		TPurchaseRequisitions tpr = new TPurchaseRequisitions(prDocumentNumber, (short)1);
 		Map<String,String> map = new HashMap<String,String>();
-		if(tprb.delete(prDocumentNumber)) {
+		if(tprb.delete(tpr)) {
 			map.put("code", "1");
 			map.put("message", "删除成功（修改删除状态成功）！");
 		} else {

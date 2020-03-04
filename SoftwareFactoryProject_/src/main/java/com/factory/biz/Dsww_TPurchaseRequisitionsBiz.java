@@ -68,13 +68,20 @@ public class Dsww_TPurchaseRequisitionsBiz {
     };
 
     //采购询价 - 3.删除
-    public boolean delete(String psDocumentNumber) {
-    	return dao.deleteByPrimaryKey(psDocumentNumber) > 0;
+    public boolean delete(TPurchaseRequisitions record) {
+    	return dao.updateByPrimaryKey(record) > 0;
     };
 
     //采购询价 - 4.修改
     public boolean update(TPurchaseRequisitions record) {
-    	return dao.updateByPrimaryKey(record) > 0;
+    	if(dao.updateByPrimaryKey(record) > 0) {
+    		for (TPurchaseRequisitionsDetails tprd : record.getPrdList()) {
+    			if(detailsdao.updateByPrimaryKey(tprd) <= 0) {
+    				return false;
+    			}
+			}
+    	}
+    	return true;
     };
 	
 	

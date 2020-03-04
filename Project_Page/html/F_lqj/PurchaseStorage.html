@@ -421,7 +421,7 @@
 					queryPage : function(pageNum_){
 						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
 						//下拉框可点击尚未解决 - 四处：两禁用两可用
-						$("tbody td").prop("contentEditable", false);
+						$("tbody td>div").prop("contentEditable", false);
 						$("#departid").prop("readonly", true);
 						
 						var this_ = this;
@@ -467,11 +467,12 @@
 		   			},
 					goInsert : function(){
 						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
-						$("tbody td").prop("contentEditable", true);
+						$("tbody td>div").prop("contentEditable", true);
 						$("#psDocumentNumber").prop("readonly", false);
 						this.state = "goInsert";
 						
 						this.hanlderEmpty(this.PurchaseStorage);		//清空属性
+						//alert("1：" + JSON.stringify(this.PurchaseStorage));
 						//1.单据日期
 						var now = new Date();
 						this.PurchaseStorage.psDocumentDate = this.timeCycle(now);
@@ -525,6 +526,7 @@
 						//状态：新增
 						this.PurchaseStorage.statu = "goInsert";
 						
+						//alert("2：" + JSON.stringify(this.PurchaseStorage));
 					},
 					save : function(){
 						//alert("执行" + this.state + "操作！");
@@ -535,11 +537,12 @@
 						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
 							//数据正常		/alert(JSON.stringify(res));
 							if(res.data.code == "1"){
-		   						this_.queryPage((this_.page.pages+1));
+								index = 0;
+		   						this_.queryPage((1));
 								return false;
 							} else if(res.data.code == "2"){
 								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-								$("tbody td").prop("contentEditable", false);
+								$("tbody td>div").prop("contentEditable", false);
 								return false;
 							}
 							alert("非常遗憾，本次" + res.data.message);
@@ -556,7 +559,7 @@
 					},
 					goUpdate : function(){
 						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
-						$("tbody td").prop("contentEditable", true);
+						$("tbody td>div").prop("contentEditable", true);
 						this.state = "goUpdate";
 						this.PurchaseStorage.statu = "goUpdate";
 					},
@@ -580,41 +583,22 @@
 					refresh : function(){
 						this.queryPage(1);
 					},
-					audit : function(){																																																							alert("审核成功");					return false;
-						
-						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
-							//数据正常		/alert(JSON.stringify(res));
-							if(res.data.code == "1"){
-		   						this_.queryPage((this_.page.pages+1));
-								return false;
-							} else if(res.data.code == "2"){
-								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-								$("tbody td").prop("contentEditable", false);
-								return false;
-							}
-							alert("非常遗憾，本次" + res.data.message);
-						});
+					audit : function(){					//审核
 						
 					},
-					cancelTheAudit : function(){																																																												return false;
-						
-						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
-							//数据正常		/alert(JSON.stringify(res));
-							if(res.data.code == "1"){
-		   						this_.queryPage((this_.page.pages+1));
-								return false;
-							} else if(res.data.code == "2"){
-								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-								$("tbody td").prop("contentEditable", false);
-								return false;
-							}
-							alert("非常遗憾，本次" + res.data.message);
-						});
+					cancelTheAudit : function(){		//反审核
 						
 					},
 					hanlderEmpty : function(obj){
+						//alert(obj);
 						for(var o in obj){
-							obj[o] = "";
+							//alert(obj[o] + " - " + o);
+							if(o == "psdList"){
+								//alert("进来了！" + o );
+								obj[o] = [];
+							} else {
+								obj[o] = "";
+							}
 						}
 					},
 					timeCycle : function(date){

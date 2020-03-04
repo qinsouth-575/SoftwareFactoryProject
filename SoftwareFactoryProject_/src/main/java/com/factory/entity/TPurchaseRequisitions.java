@@ -44,12 +44,19 @@ public class TPurchaseRequisitions {
 	}
 
     //
+    public TPurchaseRequisitions(String prDocumentNumber, Short prYn) {
+		super();
+		this.prDocumentNumber = prDocumentNumber;
+		this.prYn = prYn;
+	}
 
-    public String getPrDocumentNumber() {
+    //
+
+	public String getPrDocumentNumber() {
         return prDocumentNumber;
     }
 
-    public void setPrDocumentNumber(String prDocumentNumber) {
+	public void setPrDocumentNumber(String prDocumentNumber) {
         this.prDocumentNumber = prDocumentNumber;
     }
 
