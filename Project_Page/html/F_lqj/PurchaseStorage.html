@@ -12,24 +12,21 @@
 		<div class="x-body" id="main-div">
 			<div class="layui-container">
 				<div class="layui-row" style="border: 0px red solid;">
-					<div class="layui-col-md12">
-						<div style="width: 1000px;height: 475px;margin: auto;">
-							<div class="layui-row">
-								<div class="layui-col-md12">
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">供应商</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.supplierName" @dblclick="openCGQGtype();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">单据日期</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psDocumentDate" class="layui-input" id="data1">
-											</div>
-										</div>
-									</div>
+					<div class="layui-row" style="width: 1000px;height: 475px;margin: auto;">
+						<div class="layui-form-item layui-col-md6">
+							<label class="layui-form-label" style="color:blue;">供应商</label>
+							<div class="layui-input-inline">
+								<input type="text" v-model="PurchaseStorage.supplierName" @dblclick="openCGQGtype();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						
+						<div class="layui-form-item layui-col-md6">
+							<label class="layui-form-label" style="color:blue;">单据日期</label>
+							<div class="layui-input-inline">
+								<input type="text" v-model="PurchaseStorage.psDocumentDate" class="layui-input" id="data1">
+							</div>
+						</div>
+									
 									<div class="layui-form-item">
 										<div class="layui-inline">
 											<label class="layui-form-label">供应商地址</label>
@@ -97,8 +94,9 @@
 												<input type="text" v-model="PurchaseStorage.psSingleStatus" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 											</div>
 										</div>
-
 									</div>
+									
+									
 									<div class="layui-tab" style="height: 250px;box-shadow:2px 2px 10px #909090;margin-bottom: 20px;">
 										<ul class="layui-tab-title">
 											<li style="" class="layui-this">内容</li>
@@ -185,6 +183,7 @@
 													</tfoot>
 												</table>
 											</div>
+											
 											<div class="layui-tab-item">
 												<div class="layui-form-item">
 													<div class="layui-inline">
@@ -249,6 +248,7 @@
 											</div>
 										</div>
 									</div>
+									
 								</div>
 							</div>
 
