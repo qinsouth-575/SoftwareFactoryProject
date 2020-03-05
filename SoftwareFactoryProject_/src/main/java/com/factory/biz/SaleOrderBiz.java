@@ -66,5 +66,22 @@ public class SaleOrderBiz {
     	}
     	return b;
     }
+    
+  //根据当前日期查询单据号码
+  	public String queryPSDocumentNumber(String psDocumentDate) {
+  		int count = dao.queryPSDocumentNumber("%" + psDocumentDate + "%")+1;
+  		String ptimecount = String.valueOf(count);
+  		String [] str = psDocumentDate.split("-");
+  		String ptime = "";
+  		for (int i = 0; i < str.length; i++) {
+  			ptime += str[i];
+  		}
+  		if (count < 10) {
+  			ptime += "0" + ptimecount;
+  		}else if (count < 100) {
+  			ptime += ptimecount;
+  		}
+  		return ptime;
+  	}
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.factory.biz.Dsww_TPurchaseRequisitionsBiz;
 import com.factory.biz.Flqj_OrdbillstyleBiz;
+import com.factory.entity.Matter;
 import com.factory.entity.Ordbillstyle;
 import com.factory.entity.TPurchaseRequisitions;
 import com.github.pagehelper.PageInfo;
@@ -74,12 +75,19 @@ public class Dsww_TPurchaseRequisitionsAction {
 		}
 		return map;
 	}
-	
+
 	@RequestMapping(value = "queryobs", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Ordbillstyle> queryOBSthreeAll(@RequestBody Ordbillstyle obs){
 		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - queryOBSthreeAll - 参数信息：" + obs);
 		return fobsb.queryOBSthreeAll(obs);
+	}
+	
+	@RequestMapping(value = "queryMatter", method = RequestMethod.POST)
+	@ResponseBody
+	public Matter queryMatter(@RequestBody String matterId){
+		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - queryMatter - 参数信息：" + matterId);
+		return tprb.queryMatter(matterId);
 	}
 
 	//采购询价 - 3.删除
@@ -87,8 +95,9 @@ public class Dsww_TPurchaseRequisitionsAction {
 	@ResponseBody
 	public Map<String,String> deletePS(@PathVariable String prDocumentNumber){
 		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - deletePS - 采购请购 - 3.删除采购询价信息，删除条件id为：" + prDocumentNumber);
+		TPurchaseRequisitions tpr = new TPurchaseRequisitions(prDocumentNumber, (short)1);
 		Map<String,String> map = new HashMap<String,String>();
-		if(tprb.delete(prDocumentNumber)) {
+		if(tprb.updateState(tpr)) {
 			map.put("code", "1");
 			map.put("message", "删除成功（修改删除状态成功）！");
 		} else {
@@ -97,7 +106,37 @@ public class Dsww_TPurchaseRequisitionsAction {
 		}
 		return map;
 	}
-	
-	
+
+	//采购询价 - 5.审核			单据状态（0新增，1审核，2取消审核）
+	@RequestMapping(value = "audit", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> audit(@RequestBody TPurchaseRequisitions tpr){
+		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - queryAudit - 采购请购 - 5.审核：" + tpr);
+		Map<String,String> map = new HashMap<String,String>();
+		if(tprb.updateState(tpr)) {
+			map.put("code", "1");
+			map.put("message", "审核成功（修改单据状态成功）！");
+		} else {
+			map.put("code", "3");
+			map.put("message", "审核失败（修改单据状态失败）！");
+		}
+		return map;
+	}
+
+	//采购询价 - 6.取消审核			单据状态（0新增，1审核，2取消审核）
+	@RequestMapping(value = "cancelTheAudit", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> cancelTheAudit(@RequestBody TPurchaseRequisitions tpr){
+		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - cancelTheAudit - 采购请购 - 5.审核：" + tpr);
+		Map<String,String> map = new HashMap<String,String>();
+		if(tprb.updateState(tpr)) {
+			map.put("code", "1");
+			map.put("message", "取消审核成功（修改单据状态成功）！");
+		} else {
+			map.put("code", "3");
+			map.put("message", "取消审核失败（修改单据状态失败）！");
+		}
+		return map;
+	}
 	
 }

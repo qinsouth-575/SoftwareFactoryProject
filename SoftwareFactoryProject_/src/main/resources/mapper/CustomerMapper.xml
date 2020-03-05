@@ -1025,4 +1025,7 @@
       customer_custom6 = #{customerCustom6,jdbcType=VARCHAR}
     where customer_id = #{customerId,jdbcType=VARCHAR}
   </update>
+  <select id="xsquery" resultMap="BaseResultMap">
+  		select * from customer
+  </select>
 </mapper>

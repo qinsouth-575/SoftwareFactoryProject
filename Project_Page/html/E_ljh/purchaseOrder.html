@@ -85,7 +85,9 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">供应商</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poid">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="supplierid">
+									<input type="hidden" id="poid">
+
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
@@ -190,8 +192,7 @@
 													</tr>
 												</thead>
 												<tbody id="np">
-													
-													
+
 												</tbody>
 												<tfoot>
 													<tr>
@@ -212,13 +213,13 @@
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">表头条文</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"id="poheaderprovision">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="poheaderprovision">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md6">
 											<label class="layui-form-label">自定栏一</label>
 											<div class="layui-input-block">
-												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"id="pocustom1">
+												<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pocustom1">
 											</div>
 										</div>
 										<div class="layui-form-item layui-col-md6">
@@ -249,7 +250,7 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">采购人员</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"  id="pobuyer">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pobuyer">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
@@ -267,13 +268,14 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">复核人员</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"id="purecheckagainstaff">
+									<input type="hidden" id="zsgc" />
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="purecheckagainstaff">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">所属项目</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"id="pobelongsproject">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pobelongsproject">
 								</div>
 							</div>
 						</form>
@@ -290,11 +292,10 @@
 		<script src="../../layui.all.js"></script>
 		<script src="../../js/jquery.min.js"></script>
 		<script>
-			
-	var pageNum=1;
-	var pageSize=1;
-	var wei=0;
-	cc();
+			var pageNum = 1;
+			var pageSize = 1;
+			var wei = 0;
+			cc();
 			var date = layui.laydate;
 			//执行一个laydate实例
 			date.render({
@@ -304,185 +305,433 @@
 				elem: '#date',
 				format: 'yyyyMMdd'
 			});
-			
-			
+
 			var state = "";
-			
-			function subpageTriggerEvent(incident){
+
+			function subpageTriggerEvent(incident) {
 				//alert("部门设定页 - 触发事件：" + incident);
-				
-				if(incident == "goFirstPage"){
+
+				if(incident == "goFirstPage") {
 					//第一笔
-					
+
 					so()
-					
-				} else if(incident == "goPrePage"){
+
+				} else if(incident == "goPrePage") {
 					shang()
-					
+
 					//上一笔
-				} else if(incident == "goNextPage"){
+				} else if(incident == "goNextPage") {
 					xia()
 					//下一笔
-				} else if(incident == "goLastPage"){
+				} else if(incident == "goLastPage") {
 					we()
 					//后一笔
-				} else if(incident == "goInsert"){
-					
+				} else if(incident == "goInsert") {
+					$("#zsgc").val("xz");
 					//新增
-				} else if(incident == "save"){
-					
+				} else if(incident == "save") {
+
+					var jb = $("[id=zsgc]").val()
+
+					if(jb == "xz") {
+						alert("xz")
+
+					} else if(jb == "xg") {
+
+						//修改
+						var poId = $("[id=poid]").val();
+
+						var kk = {
+							poId: poId
+						}
+
+						$.ajax({
+							url: "//localhost:8080/SoftwareFactoryProject_/stu/detele001",
+							type: "post",
+							data: JSON.stringify(kk),
+							contentType: "application/json",
+							dataType: "json",
+							"success": function(res) {
+
+							}
+						})
+
+						$.ajax({
+							url: "//localhost:8080/SoftwareFactoryProject_/stu/detele002",
+							type: "post",
+							data: JSON.stringify(kk),
+							contentType: "application/json",
+							dataType: "json",
+							"success": function(res) {
+
+								var ljhlist = [];
+								$("#np tr").each(function(a, b) {
+									var ljh = {};
+									ljh.podId = $(this).find("td").find("input").eq(0).val()
+
+									ljh.poId = $("[id=poid]").val();
+									ljh.poMatterId = $(this).find("td").find("input").eq(1).val()
+									ljh.podMatterName = $(this).find("td").find("input").eq(2).val()
+									ljh.podSpecifications = $(this).find("td").find("input").eq(3).val()
+									ljh.podCompanyName = $(this).find("td").find("input").eq(4).val()
+									ljh.podAmount = $(this).find("td").find("input").eq(5).val()
+									ljh.podMoneyDiscountBefore = $(this).find("td").find("input").eq(6).val()
+									ljh.podDiscountNumber = $(this).find("td").find("input").eq(7).val()
+									ljh.podPrice = $(this).find("td").find("input").eq(8).val()
+									ljh.podMoney = $(this).find("td").find("input").eq(9).val()
+									ljh.podTaxRate = $(this).find("td").find("input").eq(10).val()
+									ljh.podTaxAmount = $(this).find("td").find("input").eq(11).val()
+									ljh.podIncludeTaxAmount = $(this).find("td").find("input").eq(12).val()
+									ljh.podBeforehandLaidupDate = $(this).find("td").find("input").eq(13).val()
+									ljh.podNotLaiupNum = $(this).find("td").find("input").eq(14).val()
+									ljh.podIfgift = $(this).find("td").find("input").eq(15).val()
+									ljh.podRemarks = $(this).find("td").find("input").eq(16).val()
+									ljh.podSourceOrder = $(this).find("td").find("input").eq(17).val()
+									ljh.podSourceNo = $(this).find("td").find("input").eq(18).val()
+									ljhlist[a] = ljh;
+
+								})
+								var poId = $("[id=poid]").val();
+								var supplierId = $("[id=supplierid]").val();
+								var poDocumentDate = $("[id=date]").val();
+								var poEngname = $("[id=poengname]").val();
+								var poDocumentNumber = $("[id=podocumentnumber]").val();
+								var potId = $("[id=potid]").val();
+								var currencyId = $("[id=currencyid]").val();
+								/*	var poPriceIncludeTax=$("[id=popriceincludetax]").val();*/
+								var poExchangeRate = $("[id=poexchangerate]").val();
+								/*var poSingleStatus=$("[id=posinglestatus]").val();*/
+								/*var poDeliveryAddress=$("[id=podeliveryaddress]").val();*/
+								var poHeaderProvision = $("[id=poheaderprovision]").val();
+								var poCustom1 = $("[id=pocustom1]").val();
+								var poEndClause = $("[id=poendclause]").val();
+								var poCustom2 = $("[id=pocustom2]").val();
+								var poRemark = $("[id=poremark]").text();
+								var poBuyer = $("[id=pobuyer]").val();
+								var poBelongsSection = $("[id=pobelongssection]").val();
+								var poBelongsProject = $("[id=pobelongsproject]").val();
+								//数据库制单人员和啥
+								var pureExecutor=$("[id=pureexecutor]").val();
+								var pureCheckagainStaff=$("[id=purecheckagainstaff]").val();
+								/* alert($(this).attr("selected")) */
+								//日进斗金供应商
+								//是否含税
+								var poPriceIncludeTax;
+								$("#popriceincludetax option").each(function() {
+									if($(this).prop("selected") == true) {
+
+										poPriceIncludeTax = $(this).text();
+
+									}
+								})
+
+								//单况
+								var poSingleStatus;
+								$("#posinglestatus option").each(function() {
+									if($(this).prop("selected") == true) {
+
+										poSingleStatus = $(this).text();
+
+									}
+								})
+
+								//送货地址
+								var poDeliveryAddress;
+								$("#podeliveryaddress option").each(function() {
+									if($(this).prop("selected") == true) {
+
+										poDeliveryAddress = $(this).text();
+
+									}
+								})
+
+								var obj = {
+									poId: poId,
+									supplierId: supplierId,
+									poDocumentDate: poDocumentDate,
+									poEngname: poEngname,
+									poDocumentNumber: poDocumentNumber,
+									potId: potId,
+									currencyId: currencyId,
+									poPriceIncludeTax: poPriceIncludeTax,
+									poExchangeRate: poExchangeRate,
+									poSingleStatus: poSingleStatus,
+									poDeliveryAddress: poDeliveryAddress,
+									poHeaderProvision: poHeaderProvision,
+									poCustom1: poCustom1,
+									poEndClause: poEndClause,
+									poCustom2: poCustom2,
+									poRemark: poRemark,
+									poBuyer: poBuyer,
+									poBelongsSection: poBelongsSection,
+									poBelongsProject: poBelongsProject,
+									jb: ljhlist
+								}
+								alert(JSON.stringify(obj))
+								$.ajax({
+									url: "//localhost:8080/SoftwareFactoryProject_/stu/insertpurchasenote",
+									type: "post",
+									data: JSON.stringify(obj),
+									contentType: "application/json",
+									dataType: "json",
+									"success": function(res) {
+										alert("修改成功")
+										location.reload()
+
+									}
+
+								});
+
+							}
+						})
+
+						$("#zsgc").val("");
+					} else {
+						alert("先选择内容")
+					}
+
 					//保存
-				} else if(incident == "cancel"){
-					
+				} else if(incident == "cancel") {
+
 					//放弃
-				} else if(incident == "goUpdate"){
-					
+				} else if(incident == "goUpdate") {
+
+					//
+					$('.layui-input').removeAttr("disabled");
+					$("#zsgc").val("xg");
 					//修改
-				} else if(incident == "delete"){
 					
+					
+				} else if(incident == "delete") {
+					var obu = {
+						poDocumentNumber: $("[id=podocumentnumber]").val()
+					}
+
+					$.ajax({
+						url: "//localhost:8080/SoftwareFactoryProject_/stu/updatepo_yn",
+						type: "post",
+						data: JSON.stringify(obu),
+						contentType: "application/json",
+						dataType: "json",
+						"success": function(res) {
+							alert("删除成功");
+						}
+					});
+
+
+
 					//删除
-				} else if(incident == "refresh"){
-					
+				} else if(incident == "refresh") {
+
+
+
 					//刷新
-				}
-				
-				state = incident;
-			}
-		
-			//创建vue实例
-		
-			//进去加载
-			function cc(){
-				
-			
-				
-				$.ajax({
-			url : "//localhost:8080/SoftwareFactoryProject_/stu/selectb",
+					cc();
+				} else if(incident == "audit") {
+
+					//审核
+					alert("审核")
+
+					var obk = {
+						poDocumentNumber: $("[id=podocumentnumber]").val()
+					}
+					alert(JSON.stringify(obk))
+					$.ajax({
+						url: "//localhost:8080/SoftwareFactoryProject_/stu/updatepoDocumentNumber",
+						type: "post",
+						data: JSON.stringify(obk),
+						contentType: "application/json",
+						dataType: "json",
+						"success": function(res) {
+							alert("审核成功");
+						}
+						
+
+					})
+
+				} else if(incident == "cancelTheAudit") {
+
+					//反审核
+					alert("反审核")
+					
+					var obk = {
+						poDocumentNumber: $("[id=podocumentnumber]").val()
+					}
+		$.ajax({
+			url : "//localhost:8080/SoftwareFactoryProject_/stu/selectpoaudition",
 			type : "post",
-			data : {
-				pageNum:pageNum,
-				pageSize:pageSize
-			},
+			data : JSON.stringify(obk),
+			contentType : "application/json",
 			dataType : "json",
 			"success":function(res){
-				$.each(res.list,function(i,obj){
-				$("[id=poid]").val(obj.poId);
-				$("[id=date]").val(obj.poDocumentDate);
-				$("[id=poengname]").val(obj.poEngname);
-				$("[id=podocumentnumber]").val(obj.poDocumentNumber);
-				$("[id=potid]").val(obj.potId);
-				$("[id=currencyid]").val(obj.currencyId);
-				$("[id=popriceincludetax]").val(obj.poPriceIncludeTax);
-				$("[id=poexchangerate]").val(obj.poExchangeRate);
-				$("[id=posinglestatus]").val(obj.poSingleStatus);
-				$("[id=podeliveryaddress]").val(obj.poDeliveryAddress);
-				$("[id=poheaderprovision]").val(obj.poHeaderProvision);
-				$("[id=pocustom1]").val(obj.poHeaderProvision);
-				$("[id=poendclause]").val(obj.poEndClause);
-				$("[id=pocustom2]").val(obj.poCustom2);
-				$("[id=poremark]").text(obj.poRemark);
-				$("[id=pobuyer]").val(obj.poBuyer);
-				$("[id=pobelongssection]").val(obj.poBelongsSection);
-				$("[id=pobelongsproject]").val(obj.poBelongsProject);
-				alert(obj.pureExecutor)
-				$("[id=pureexecutor]").val(obj.pureExecutor);
-				$("[id=purecheckagainstaff]").val(obj.pureCheckagainStaff);
-				var obk = {
-						poId : $("[id=poid]").val()
+			
+              if(res!="1"){
+              
+	                 
+	                 
+	                 var obk = {
+						poDocumentNumber: $("[id=podocumentnumber]").val()
 					}
 					
 					$.ajax({
-						url : "//localhost:8080/SoftwareFactoryProject_/stu/selecttb_de",
-						type : "post",
-						data : JSON.stringify(obk),
-						contentType : "application/json",
-						dataType : "json",
-						
-						"success":function(res){
-							$("#np").html("");
-							$.each(res,function(i,obj){
-								
-								$("#np").append("<tr>"+
-			                              "<td>"+obj.podId+"</td>"+
-														 "<td>"+obj.podMatterName+"</td>"+
-														 "<td>"+obj.podSpecifications+"</td>"+
-														 "<td>"+obj.podCompanyName+"</td>"+
-														 "<td>"+obj.podAmount+"</td>"+
-														 "<td>"+obj.podMoneyDiscountBefore+"</td>"+
-														 "<td>"+obj.podDiscountNumber+"</td>"+
-														 "<td>"+obj.podPrice+"</td>"+
-														 "<td>"+obj.podMoney+"</td>"+
-														 "<td>"+obj.podTaxRate+"</td>"+
-														 "<td>"+obj.podTaxAmount+"</td>"+
-														 "<td>"+obj.podIncludeTaxAmount+"</td>"+
-														 "<td>"+obj.podBeforehandLaidupDate+"</td>"+
-														 "<td>"+obj.podNotLaiupNum+"</td>"+
-														 "<td>"+obj.podIfgift+"</td>"+
-														 "<td>"+obj.podRemarks+"</td>"+
-														  "<td>"+obj.podSourceOrder+"</td>"+
-														 "<td>"+obj.podSourceNo+"</td>"+
-														 
-										"</tr>");
-							})
+						url: "//localhost:8080/SoftwareFactoryProject_/stu/updatepoDocumentNumber2",
+						type: "post",
+						data: JSON.stringify(obk),
+						contentType: "application/json",
+						dataType: "json",
+						"success": function(res) {
+							alert("取消审核成功");
 						}
-					}); 
-					
-				})
+						
+
+					})
+	                 
+	                 
+	                 
+	                 
+              }else{
+              	
+	                 alert("该单据未被审核，不能取消审核");
+	
+                    }
 			}
-		  });
+			
+		})
+				}
+
+				state = incident;
 			}
-			
-			
-			function shang(){
-		if(pageNum-1==0){
-			
-		}else{
-			
-			pageNum=pageNum-1;
-			cc();
-		}
-		
-	}
-	function xia(){
-		
-		if(pageNum+1>wei){
-			
-			pageNum=pageNum+1;
-			
-			cc();
-		}else{
-			
-		}
-		
-	}
-	
-	
-	
-	function so(){
-		
-		if(pageNum-1==0){
-			cc();
-		}else{
-			
-			pageNum=1;
-			cc();
-			
-		}
-		
-	}
-	
-	function we(){
-		/*if (pageNum<pageNum+1) {
-		
-			alert(pageNum)
-			pageNum=pageNum+1;
-			cc();
-		} else{
-			alert("002")
-			cc()
-		}*/
-	}
-	
+
+			//创建vue实例
+
+			//进去加载
+			function cc() {
+
+				/*$('.layui-input').attr("disabled","disabled");*/
+
+				$.ajax({
+					url: "//localhost:8080/SoftwareFactoryProject_/stu/selectb",
+					type: "post",
+					data: {
+						pageNum: pageNum,
+						pageSize: pageSize
+					},
+					dataType: "json",
+					"success": function(res) {
+						$.each(res.list, function(i, obj) {
+							$("[id=poid]").val(obj.poId);
+							$("[id=supplierid]").val(obj.supplierId);
+							$("[id=date]").val(obj.poDocumentDate);
+							$("[id=poengname]").val(obj.poEngname);
+							$("[id=podocumentnumber]").val(obj.poDocumentNumber);
+							$("[id=potid]").val(obj.potId);
+							$("[id=currencyid]").val(obj.currencyId);
+							$("[id=popriceincludetax]").val(obj.poPriceIncludeTax);
+							$("[id=poexchangerate]").val(obj.poExchangeRate);
+							$("[id=posinglestatus]").val(obj.poSingleStatus);
+							$("[id=podeliveryaddress]").val(obj.poDeliveryAddress);
+							$("[id=poheaderprovision]").val(obj.poHeaderProvision);
+							$("[id=pocustom1]").val(obj.poHeaderProvision);
+							$("[id=poendclause]").val(obj.poEndClause);
+							$("[id=pocustom2]").val(obj.poCustom2);
+							$("[id=poremark]").text(obj.poRemark);
+							$("[id=pobuyer]").val(obj.poBuyer);
+							$("[id=pobelongssection]").val(obj.poBelongsSection);
+							$("[id=pobelongsproject]").val(obj.poBelongsProject);
+
+							$("[id=pureexecutor]").val(obj.pureExecutor);
+							$("[id=purecheckagainstaff]").val(obj.pureCheckagainStaff);
+							var obk = {
+								poId: $("[id=poid]").val()
+							}
+
+							$.ajax({
+								url: "//localhost:8080/SoftwareFactoryProject_/stu/selecttb_de",
+								type: "post",
+								data: JSON.stringify(obk),
+								contentType: "application/json",
+								dataType: "json",
+
+								"success": function(res) {
+									$("#np").html("");
+									$.each(res, function(i, obj) {
+
+										$("#np").append("<tr>" +
+
+											"<td><input value='" + obj.podId + "' class='layui-input' name='ooo'/></td>" +
+											"<td><input value='" + obj.poMatterId + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podMatterName + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podSpecifications + "' class='layui-input'/></td>" +
+											"<td><input value='" + obj.podCompanyName + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podAmount + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podMoneyDiscountBefore + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podDiscountNumber + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podPrice + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podMoney + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podTaxRate + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podTaxAmount + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podIncludeTaxAmount + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podBeforehandLaidupDate + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podNotLaiupNum + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podIfgift + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podRemarks + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podSourceOrder + "' class='layui-input' /></td>" +
+											"<td><input value='" + obj.podSourceNo + "' class='layui-input' /></td>" +
+
+											"</tr>");
+									})
+								}
+
+							});
+							$('.layui-input').attr("disabled", "disabled");
+						})
+					}
+				});
+			}
+
+			function shang() {
+				if(pageNum - 1 == 0) {
+
+				} else {
+
+					pageNum = pageNum - 1;
+					cc();
+				}
+
+			}
+
+			function xia() {
+
+				if(pageNum + 1 > wei) {
+
+					pageNum = pageNum + 1;
+
+					cc();
+				} else {
+
+				}
+
+			}
+
+			function so() {
+
+				if(pageNum - 1 == 0) {
+					cc();
+				} else {
+
+					pageNum = 1;
+					cc();
+
+				}
+
+			}
+
+			function we() {
+
+				pageNum = 2;
+				cc();
+
+			}
 		</script>
 	</body>
 

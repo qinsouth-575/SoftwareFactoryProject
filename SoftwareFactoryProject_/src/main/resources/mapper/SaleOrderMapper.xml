@@ -41,6 +41,12 @@
     where so_id = #{0}
   </delete>
   
+  <select id="queryPSDocumentNumber" parameterType="java.lang.String" resultType="java.lang.Integer" >
+  	SELECT COUNT(*) 
+	FROM `sale_order` 
+	WHERE `so_document_time` LIKE #{documentdate}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -137,7 +143,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.factory.entity.SaleOrder" >
-    insert into sale_order (so_id, customerorder_id, so_document_time, 
+    insert into sale_order ( customerorder_id, so_document_time, 
       so_documentnumber, so_delivery_address, sot_id, 
       so_customerorder, so_tax, currency_id, 
       so_oder_static, staff_id, team_id, 
@@ -147,7 +153,7 @@
       so_collection_terms, so_collection_terms_day, 
       so_auditing, so_yn, so_custom1, 
       so_custom2, so_custom3)
-    values (#{soId,jdbcType=INTEGER}, #{customerorderId,jdbcType=VARCHAR}, #{soDocumentTime,jdbcType=DATE}, 
+    values (#{customerorderId,jdbcType=VARCHAR}, #{soDocumentTime,jdbcType=DATE}, 
       #{soDocumentnumber,jdbcType=VARCHAR}, #{soDeliveryAddress,jdbcType=VARCHAR}, #{sotId,jdbcType=VARCHAR}, 
       #{soCustomerorder,jdbcType=VARCHAR}, #{soTax,jdbcType=INTEGER}, #{currencyId,jdbcType=VARCHAR}, 
       #{soOderStatic,jdbcType=INTEGER}, #{staffId,jdbcType=VARCHAR}, #{teamId,jdbcType=VARCHAR}, 

@@ -12,24 +12,21 @@
 		<div class="x-body" id="main-div">
 			<div class="layui-container">
 				<div class="layui-row" style="border: 0px red solid;">
-					<div class="layui-col-md12">
-						<div style="width: 1000px;height: 475px;margin: auto;">
-							<div class="layui-row">
-								<div class="layui-col-md12">
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">供应商</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.supplierName" @dblclick="openCGQGtype();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">单据日期</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psDocumentDate" class="layui-input" id="data1">
-											</div>
-										</div>
-									</div>
+					<div class="layui-row" style="width: 1000px;height: 475px;margin: auto;">
+						<div class="layui-form-item layui-col-md6">
+							<label class="layui-form-label" style="color:blue;">供应商</label>
+							<div class="layui-input-inline">
+								<input type="text" v-model="PurchaseStorage.supplierName" @dblclick="openCGQGtype();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						
+						<div class="layui-form-item layui-col-md6">
+							<label class="layui-form-label" style="color:blue;">单据日期</label>
+							<div class="layui-input-inline">
+								<input type="text" v-model="PurchaseStorage.psDocumentDate" class="layui-input" id="data1">
+							</div>
+						</div>
+									
 									<div class="layui-form-item">
 										<div class="layui-inline">
 											<label class="layui-form-label">供应商地址</label>
@@ -97,8 +94,9 @@
 												<input type="text" v-model="PurchaseStorage.psSingleStatus" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 											</div>
 										</div>
-
 									</div>
+									
+									
 									<div class="layui-tab" style="height: 250px;box-shadow:2px 2px 10px #909090;margin-bottom: 20px;">
 										<ul class="layui-tab-title">
 											<li style="" class="layui-this">内容</li>
@@ -185,6 +183,7 @@
 													</tfoot>
 												</table>
 											</div>
+											
 											<div class="layui-tab-item">
 												<div class="layui-form-item">
 													<div class="layui-inline">
@@ -249,6 +248,7 @@
 											</div>
 										</div>
 									</div>
+									
 								</div>
 							</div>
 
@@ -421,7 +421,7 @@
 					queryPage : function(pageNum_){
 						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
 						//下拉框可点击尚未解决 - 四处：两禁用两可用
-						$("tbody td").prop("contentEditable", false);
+						$("tbody td>div").prop("contentEditable", false);
 						$("#departid").prop("readonly", true);
 						
 						var this_ = this;
@@ -467,11 +467,12 @@
 		   			},
 					goInsert : function(){
 						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
-						$("tbody td").prop("contentEditable", true);
+						$("tbody td>div").prop("contentEditable", true);
 						$("#psDocumentNumber").prop("readonly", false);
 						this.state = "goInsert";
 						
 						this.hanlderEmpty(this.PurchaseStorage);		//清空属性
+						//alert("1：" + JSON.stringify(this.PurchaseStorage));
 						//1.单据日期
 						var now = new Date();
 						this.PurchaseStorage.psDocumentDate = this.timeCycle(now);
@@ -525,6 +526,7 @@
 						//状态：新增
 						this.PurchaseStorage.statu = "goInsert";
 						
+						//alert("2：" + JSON.stringify(this.PurchaseStorage));
 					},
 					save : function(){
 						//alert("执行" + this.state + "操作！");
@@ -535,11 +537,12 @@
 						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
 							//数据正常		/alert(JSON.stringify(res));
 							if(res.data.code == "1"){
-		   						this_.queryPage((this_.page.pages+1));
+								index = 0;
+		   						this_.queryPage((1));
 								return false;
 							} else if(res.data.code == "2"){
 								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-								$("tbody td").prop("contentEditable", false);
+								$("tbody td>div").prop("contentEditable", false);
 								return false;
 							}
 							alert("非常遗憾，本次" + res.data.message);
@@ -556,7 +559,7 @@
 					},
 					goUpdate : function(){
 						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
-						$("tbody td").prop("contentEditable", true);
+						$("tbody td>div").prop("contentEditable", true);
 						this.state = "goUpdate";
 						this.PurchaseStorage.statu = "goUpdate";
 					},
@@ -580,41 +583,22 @@
 					refresh : function(){
 						this.queryPage(1);
 					},
-					audit : function(){																																																							alert("审核成功");					return false;
-						
-						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
-							//数据正常		/alert(JSON.stringify(res));
-							if(res.data.code == "1"){
-		   						this_.queryPage((this_.page.pages+1));
-								return false;
-							} else if(res.data.code == "2"){
-								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-								$("tbody td").prop("contentEditable", false);
-								return false;
-							}
-							alert("非常遗憾，本次" + res.data.message);
-						});
+					audit : function(){					//审核
 						
 					},
-					cancelTheAudit : function(){																																																												return false;
-						
-						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
-							//数据正常		/alert(JSON.stringify(res));
-							if(res.data.code == "1"){
-		   						this_.queryPage((this_.page.pages+1));
-								return false;
-							} else if(res.data.code == "2"){
-								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-								$("tbody td").prop("contentEditable", false);
-								return false;
-							}
-							alert("非常遗憾，本次" + res.data.message);
-						});
+					cancelTheAudit : function(){		//反审核
 						
 					},
 					hanlderEmpty : function(obj){
+						//alert(obj);
 						for(var o in obj){
-							obj[o] = "";
+							//alert(obj[o] + " - " + o);
+							if(o == "psdList"){
+								//alert("进来了！" + o );
+								obj[o] = [];
+							} else {
+								obj[o] = "";
+							}
 						}
 					},
 					timeCycle : function(date){
@@ -694,7 +678,7 @@
 								    //body.find('input').val('Hi，我是从父页来的');
 								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
 								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
-								    //console.log(body.html()) 	//得到iframe页的body内容
+								    //console.log(body.html()); 	//得到iframe页的body内容
 								    body.find('#index').val(index);
 								}
 							});

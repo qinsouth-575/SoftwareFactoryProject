@@ -101,7 +101,21 @@ public class Matter {
 
     private String matterPrepare2;
 
-    public String getMatterId() {
+    //无参构造
+    public Matter() {
+		super();
+	}
+
+    //
+	public Matter(String matterId) {
+		super();
+		this.matterId = matterId;
+	}
+
+	
+	
+	
+	public String getMatterId() {
         return matterId;
     }
 

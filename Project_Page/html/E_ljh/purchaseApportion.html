@@ -15,10 +15,10 @@
 		<div class="layui-row" style="margin-top: 10px;">
 			<div class="layui-col-md6 layui-col-md-offset6">
 				<!--data-method="opPmAdd" onclick="pmLayerClick(this)"-->
-				<input type="button" class="layui-btn layui-btn-primary" name="add" id="" value="新增" />
-				<input type="button" class="layui-btn layui-btn-primary" name="save" id="" value="保存" />
-				<input type="button" class="layui-btn layui-btn-primary" name="" id="" value="删除" />
-				<input type="button" class="layui-btn layui-btn-primary" name="" id="" value="修改" />
+				<input type="button" class="layui-btn layui-btn-primary" name="add" id="" value="新增" onclick="add01()"/>
+				<input type="button" class="layui-btn layui-btn-primary" name="save" id="" value="保存" onclick="add02()"/>
+				<input type="button" class="layui-btn layui-btn-primary" name="delete" id="" value="删除" onclick="add03()"/>
+				<input type="button" class="layui-btn layui-btn-primary" name="update" id="" value="修改" onclick="add04()"/>
 			</div>
 		</div>
 
@@ -39,7 +39,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">单据日期</label>
 						<div class="layui-input-inline">
-							<input type="text" class="layui-input" id="test1">
+							<input type="text" class="layui-input" id="apDateDocument" >
 						</div>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">单据编号</label>
 						<div class="layui-input-inline">
-							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="apId">
 						</div>
 					</div>
 				</div>
@@ -58,11 +58,11 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">分摊方式</label>
 						<div class="layui-input-inline">
-							<select name="city" lay-verify="" class="layui-select">
-								<option value="">按金额</option>
-								<option value="010">按数量</option>
-								<option value="021">按重量</option>
-								<option value="0571">按材积</option>
+							<select name="city" lay-verify="" class="layui-select" id="apMethodAssessment">
+								<option value="按金额">按金额</option>
+								<option value="按数量">按数量</option>
+								<option value="按重量">按重量</option>
+								<option value="按材积">按材积</option>
 							</select>
 						</div>
 					</div>
@@ -71,7 +71,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">凭证编号</label>
 						<div class="layui-input-inline">
-							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="apSingleStatus">
 						</div>
 					</div>
 				</div>
@@ -82,7 +82,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">待摊金额</label>
 						<div class="layui-input-inline">
-							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="apPrincipalCurrencyAmortized">
 						</div>
 					</div>
 				</div>
@@ -90,7 +90,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">单据编号</label>
 						<div class="layui-input-inline">
-							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" >
 						</div>
 					</div>
 				</div>
@@ -124,8 +124,8 @@
 												<th>(金额本位币)</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
+										<tbody id="npp">
+											<!--<tr>
 												<td>贤心</td>
 												<td>2016-11-29</td>
 												<td>人生就像是一场修行</td>
@@ -142,7 +142,7 @@
 												<td>2016-11-29</td>
 												<td>人生就像是一场修行</td>
 												<td>贤心</td>
-											</tr>
+											</tr>-->
 										</tbody>
 									</table>
 								</div>
@@ -170,8 +170,8 @@
 												<th>(分摊金额)</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
+										<tbody id="nppp">
+											<!--<tr>
 												<td>贤心</td>
 												<td>2016-11-29</td>
 												<td>人生就像是一场修行</td>
@@ -183,7 +183,7 @@
 												<td>2016-11-29</td>
 												<td>人生就像是一场修行</td>
 												<td>贤心</td>
-											</tr>
+											</tr>-->
 										</tbody>
 									</table>
 								</div>
@@ -199,7 +199,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">制单人员</label>
 						<div class="layui-input-inline">
-							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="apExecutor">
 						</div>
 					</div>
 				</div>
@@ -207,7 +207,7 @@
 					<div class="layui-inline">
 						<label class="layui-form-label">复核人员</label>
 						<div class="layui-input-inline">
-							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+							<input type="text" name="title" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input" id="apCheckagainStaff">
 						</div>
 					</div>
 				</div>
@@ -217,7 +217,7 @@
 				<div class="layui-col-md3">
 					<ul class="layui-nav" lay-filter="" style="background-color: white; color: black;">
 						<li class="layui-nav-item">
-							<a href="javascript:;" style="color: black;">功能</a>
+							<a href="javascript:;" style="color: black;">功能<input type="hidden" id="zsgc"/></a>
 							<dl class="layui-nav-child">
 								<!-- 二级菜单 -->
 								<dd>
@@ -235,11 +235,11 @@
 
 		</div>
 
-		<div class="layui-row" style="margin-top: 10px;">
+		<!--<div class="layui-row" style="margin-top: 10px;">
 			<div class="layui-col-md6 layui-col-md-offset6">
 				<div id="demo0"></div>
 			</div>
-		</div>
+		</div>-->
 
 		<!--
       	作者：offline
@@ -358,6 +358,18 @@
 			});
 		</script>
 		<script>
+			
+			
+			
+			
+			var pageNum=1;
+	var pageSize=1;
+	var wei=0;
+	cc();
+			
+			
+			
+			
 			//全部不可用
 			$(function() {
 				$("input").attr("disabled", true);
@@ -380,6 +392,374 @@
 				$("input[name='add']").attr("disabled", false);
 				$("select").attr("disabled", true);
 			});
+			
+			
+		var state = "";
+			
+			function subpageTriggerEvent(incident){
+				//alert("部门设定页 - 触发事件：" + incident);
+				
+				if(incident == "goFirstPage"){
+					//第一笔
+					
+					so()
+				} else if(incident == "goPrePage"){
+					shang()
+					
+					//上一笔
+				} else if(incident == "goNextPage"){
+					xia()
+					//下一笔
+				} else if(incident == "goLastPage"){
+					we()
+					//后一笔
+				} else if(incident == "goInsert"){
+					$("#zsgc").val("xz");
+					//新增
+				} else if(incident == "save"){
+					var jb=$("[id=zsgc]").val()
+					
+				if(jb=="xz"){
+					alert("xz")
+					
+					
+					
+					
+					
+					
+				}else if(jb=="xg"){
+					alert("xg")
+					
+					
+										var apId=$("[id=apId]").val();
+					
+					  var kk={
+							  apId:apId
+						   }
+						   
+						   $.ajax({
+							   url : "//localhost:8080/SoftwareFactoryProject_/sts/detele003",
+								type : "post",
+								data : JSON.stringify(kk),
+						contentType : "application/json",
+						dataType : "json",
+								"success":function(res){
+						   
+						
+								}
+						   })
+						   
+						   
+						   
+						    $.ajax({
+							   url : "//localhost:8080/SoftwareFactoryProject_/sts/detele004",
+								type : "post",
+								data : JSON.stringify(kk),
+						contentType : "application/json",
+						dataType : "json",
+								"success":function(res){
+						   
+						
+								}
+						   })
+						   
+						     $.ajax({
+											   url : "//localhost:8080/SoftwareFactoryProject_/sts/detele005",
+												type : "post",
+												data : JSON.stringify(kk),
+						contentType : "application/json",
+						dataType : "json",
+												"success":function(res){
+													
+																		var ljhlist=[];
+																		var ljhlist2=[];
+													$("#npp tr").each(function(a,b){
+														//费用明细
+														var ljh={};
+														ljh.apdId=$(this).find("td").find("input").eq(0).val()
+														ljh.apId=$("[id=apId]").val();
+														ljh.apdIctId=$(this).find("td").find("input").eq(1).val()
+														ljh.apdIctName=$(this).find("td").find("input").eq(2).val()
+														ljh.apdCurrencyId=$(this).find("td").find("input").eq(3).val()
+														ljh.apdExchangeRate=$(this).find("td").find("input").eq(4).val()
+														ljh.apdMoney=$(this).find("td").find("input").eq(5).val()
+														ljh.apdAmountStandardCurrency=$(this).find("td").find("input").eq(6).val()
+														
+														ljhlist[a]=ljh;
+														
+													})
+													
+													
+													
+													
+													$("#nppp tr").each(function(a,b){
+														//分摊结果
+														var ljh2={};
+														ljh2.apfId=$(this).find("td").find("input").eq(0).val()
+														
+														ljh2.apId=$("[id=apId]").val();
+														ljh2.psId=$(this).find("td").find("input").eq(1).val()
+														ljh2.apfMatterId=$(this).find("td").find("input").eq(2).val()
+														ljh2.apfMatterName=$(this).find("td").find("input").eq(3).val()
+														ljh2.apfSpecifications=$(this).find("td").find("input").eq(4).val()
+														ljh2.apfMoney=$(this).find("td").find("input").eq(5).val()
+														ljh2.apfAmount=$(this).find("td").find("input").eq(6).val()
+														ljh2.apfCompanyName=$(this).find("td").find("input").eq(7).val()
+														ljh2.apfWeight=$(this).find("td").find("input").eq(8).val()
+														ljh2.apfVolumeWood=$(this).find("td").find("input").eq(9).val()
+														ljh2.apfContribution=$(this).find("td").find("input").eq(10).val()
+														ljhlist2[a]=ljh2;
+														
+													})
+													
+													
+													
+													
+													
+				var apDateDocument=$("[id=apDateDocument]").val();
+				var apId=$("[id=apId]").val();
+				var apSingleStatus=$("[id=apSingleStatus]").val();
+				var apPrincipalCurrencyAmortized=$("[id=apPrincipalCurrencyAmortized]").val();
+				var apExecutor=$("[id=apExecutor]").val();
+				var apCheckagainStaff=$("[id=apCheckagainStaff]").val();
+				var apMethodAssessment=$("[id=apMethodAssessment]").val();
+			
+															
+											
+													var obj = {
+															apDateDocument:apDateDocument,
+															apId:apId,
+															apSingleStatus:apSingleStatus,
+															apPrincipalCurrencyAmortized:apPrincipalCurrencyAmortized,
+															apExecutor:apExecutor,
+															apCheckagainStaff:apCheckagainStaff,
+															apMethodAssessment:apMethodAssessment,
+															
+															jb:ljhlist,
+															dajb:ljhlist2
+													}		
+				                                      alert(JSON.stringify(obj))
+													  $.ajax({
+														url : "//localhost:8080/SoftwareFactoryProject_/sts/insertpurchasenoteok",
+														type : "post",
+								data : JSON.stringify(obj),
+						contentType : "application/json",
+						dataType : "json",
+														"success":function(res){
+															alert("修改成功")
+															  location.reload()
+										
+
+														}
+														
+													});  
+													
+													
+												}
+											})
+						  
+						   
+						   
+					
+					$("#zsgc").val("");
+				}else {
+					alert("先选择内容")
+				}
+									
+					//修改
+
+						   
+						   
+					
+					
+					
+				} else if(incident == "cancel"){
+					
+					//放弃
+				} else if(incident == "goUpdate"){
+					
+					
+					//
+					$('.layui-input').removeAttr("disabled");
+					$("#zsgc").val("xg");
+					//修改
+				} else if(incident == "delete"){
+						var obu = {
+						 apId: $("[id=apId]").val()
+					}
+										
+					$.ajax({
+						url : "//localhost:8080/SoftwareFactoryProject_/sts/updateap_yn",
+						type : "post",
+						data : JSON.stringify(obu),
+						contentType : "application/json",
+						dataType : "json",
+						"success":function(res){
+							alert("删除成功");	
+						}
+					}); 
+						
+					
+					//删除
+				} else if(incident == "refresh"){
+					
+					//刷新
+					cc();
+				}
+				
+				state = incident;
+			}
+			
+			
+			
+			
+			
+			//进去加载
+			function cc(){
+			$.ajax({
+			url : "//localhost:8080/SoftwareFactoryProject_/sts/selectb",
+			type : "post",
+			data : {
+				pageNum:pageNum,
+				pageSize:pageSize
+			},
+			dataType : "json",
+			"success":function(res){
+				$.each(res.list,function(i,obj){
+					$("[id=apDateDocument]").val(obj.apDateDocument);
+					$("[id=apId]").val(obj.apId);
+					$("[id=apSingleStatus]").val(obj.apSingleStatus);
+					$("[id=apPrincipalCurrencyAmortized]").val(obj.apPrincipalCurrencyAmortized);
+					$("[id=apExecutor]").val(obj.apExecutor);
+					$("[id=apCheckagainStaff]").val(obj.apCheckagainStaff);
+					
+					
+					var obk = {
+						apId : $("[id=apId]").val()
+					}
+					
+					
+					
+					
+						$.ajax({
+						url : "//localhost:8080/SoftwareFactoryProject_/sts/selecttb_de",
+						type : "post",
+						data : JSON.stringify(obk),
+						contentType : "application/json",
+						dataType : "json",
+						
+						"success":function(res){
+							$("#npp").html("");
+							$.each(res,function(i,obj){
+								
+								$("#npp").append("<tr>"+
+								
+			                              "<td><input value='"+obj.apdId+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.apdIctId+"' class='layui-input' /></td>"+
+			                              "<td><input value='"+obj.apdIctName+"' class='layui-input' /></td>"+
+			                              "<td><input value='"+obj.apdCurrencyId+"' class='layui-input' /></td>"+
+			                              "<td><input value='"+obj.apdExchangeRate+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.apdMoney+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.apdAmountStandardCurrency+"' class='layui-input'/></td>"+
+			                              "</tr>")
+							})
+						}
+						})
+					
+					
+					
+					$.ajax({
+						url : "//localhost:8080/SoftwareFactoryProject_/sts/selecttb_de2",
+						type : "post",
+						data : JSON.stringify(obk),
+						contentType : "application/json",
+						dataType : "json",
+						
+						"success":function(res){
+							$("#nppp").html("");
+							$.each(res,function(i,obj){
+								
+								$("#nppp").append("<tr>"+
+								
+			                              "<td><input value='"+obj.apfId+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.psId+"' class='layui-input' /></td>"+
+			                              "<td><input value='"+obj.apfMatterId+"' class='layui-input' /></td>"+
+			                              "<td><input value='"+obj.apfMatterName+"' class='layui-input' /></td>"+
+			                              "<td><input value='"+obj.apfSpecifications+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.apfMoney+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.apfAmount+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.apfCompanyName+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.apfWeight+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.apfVolumeWood+"' class='layui-input'/></td>"+
+			                              "<td><input value='"+obj.apfContribution+"' class='layui-input'/></td>"+
+			                              "</tr>")
+							})
+						}
+						})
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				})
+				
+			}
+			})
+			}
+			
+			
+		
+		
+		
+			function shang(){
+		if(pageNum-1==0){
+			
+		}else{
+			
+			pageNum=pageNum-1;
+			cc();
+		}
+		
+	}
+	function xia(){
+		
+		if(pageNum+1>wei){
+			
+			pageNum=pageNum+1;
+			
+			cc();
+		}else{
+			
+		}
+		
+	}
+	
+	
+	
+	function so(){
+		
+		if(pageNum-1==0){
+			cc();
+		}else{
+			
+			pageNum=1;
+			cc();
+			
+		}
+		
+	}
+	
+	function we(){
+		
+			pageNum=2;
+			cc();
+		
+	}
 		</script>
 	</body>
 

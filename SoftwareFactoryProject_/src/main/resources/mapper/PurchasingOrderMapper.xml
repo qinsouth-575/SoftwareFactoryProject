@@ -24,6 +24,8 @@
     <result column="po_custom1" property="poCustom1" jdbcType="VARCHAR" />
     <result column="po_custom2" property="poCustom2" jdbcType="VARCHAR" />
     <result column="po_custom3" property="poCustom3" jdbcType="VARCHAR" />
+    <result column="pure_executor" property="pureExecutor" jdbcType="VARCHAR" />
+    <result column="pure_checkagain_staff" property="pureCheckagainStaff" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -481,7 +483,57 @@
   
   
   <select id="selectpo_document_date" resultMap="BaseResultMap">
-SELECT * FROM `purchasing_order` ORDER BY po_document_date DESC 
+SELECT * FROM `purchasing_order`where po_yn=0  ORDER BY po_document_date DESC 
 </select>
+  
+  <update id="updatepo_yn"   parameterType="com.factory.entity.PurchasingOrder">
+  UPDATE `purchasing_order`
+SET po_yn=1
+WHERE po_document_number=#{poDocumentNumber}
+  </update>
+  
+  
+  <delete id="delete001">
+  delete from purchasing_order where po_id=#{poId}
+  </delete>
+  
+  
+  
+    <insert id="insertpurchasenote" parameterType="com.factory.entity.PurchasingOrder">
+		INSERT INTO `purchasing_order`(`po_id`,`supplier_id`,`po_document_date`,`po_engname`,`po_document_number`,`pot_id`,`currency_id`,`po_price_include_tax`,`po_exchange_rate`,`po_single_status`,`po_delivery_address`,`po_header_provision`,`po_custom1`,`po_end_clause`,`po_custom2`,`po_remark`,`po_buyer`,`po_belongs_section`,`po_belongs_project`)
+		VALUE(#{poId},#{supplierId},#{poDocumentDate},#{poEngname},#{poDocumentNumber},#{potId},#{currencyId},#{poPriceIncludeTax},#{poExchangeRate},#{poSingleStatus},#{poDeliveryAddress},#{poHeaderProvision},#{poCustom1},#{poEndClause},#{poCustom2},#{poRemark},#{poBuyer},#{poBelongsSection},#{poBelongsProject})
+
+		
+		
+	</insert>
+	 <insert id="insertpurchasenot" parameterType="com.factory.entity.PurchasingOrder">
+		
+	INSERT INTO `purchasing_order_details`(`pod_id`,`po_id`,`po_matter_id`,`pod_matter_name`,`pod_specifications`,`pod_company_name`,`pod_amount`,`pod_money_discount_before`,`pod_discount_number`,`pod_price`,`pod_money`,`pod_tax_rate`,`pod_tax_amount`,`pod_include_tax_amount`,`pod_beforehand_laidup_date`,`pod_not_laiup_num`,`pod_ifgift`,`pod_remarks`,`pod_source_order`,`pod_source_no`)value
+		<foreach collection="jb" item="d" separator="),(" open="(" close=")">
+#{d.podId},#{d.poId},#{d.poMatterId},#{d.podMatterName},#{d.podSpecifications},#{d.podCompanyName},#{d.podAmount},#{d.podMoneyDiscountBefore},#{d.podDiscountNumber},#{d.podPrice},#{d.podMoney},#{d.podTaxRate},#{d.podTaxAmount},#{d.podIncludeTaxAmount},#{d.podBeforehandLaidupDate},#{d.podNotLaiupNum},#{d.podIfgift},#{d.podRemarks},#{d.podSourceOrder},#{d.podSourceNo}
+		</foreach>
+		
+	</insert>
+  
+  
+    <update id="updatepoDocumentNumber"   parameterType="com.factory.entity.PurchasingOrder">
+  UPDATE `purchasing_order`
+SET po_audition="是"
+WHERE po_document_number=#{poDocumentNumber}
+  </update>
+  
+  
+  
+  <select id="selectpoaudition" resultMap="BaseResultMap">
+SELECT * FROM `purchasing_order`
+WHERE `po_audition`="是"  AND  po_document_number=#{poDocumentNumber}
+</select>
+  
+      <update id="updatepoDocumentNumber2"   parameterType="com.factory.entity.PurchasingOrder">
+  UPDATE `purchasing_order`
+SET po_audition="否"
+WHERE po_document_number=#{poDocumentNumber}
+  </update>
+  
   
 </mapper>

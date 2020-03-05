@@ -21,6 +21,8 @@ public interface StaffMapper {
     
     
     
+	
+	
     int countByExample(StaffExample example);
 
     int deleteByExample(StaffExample example);

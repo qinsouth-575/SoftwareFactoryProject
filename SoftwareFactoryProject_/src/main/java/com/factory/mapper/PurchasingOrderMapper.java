@@ -1,5 +1,4 @@
 package com.factory.mapper;
-
 import com.factory.entity.PurchasingOrder;
 import com.factory.entity.PurchasingOrderExample;
 import java.util.List;
@@ -30,4 +29,16 @@ public interface PurchasingOrderMapper {
     
     
     List<PurchasingOrder> selectpo_document_date();
+    
+    int updatepo_yn(PurchasingOrder pu);
+    
+    int delete001(PurchasingOrder pu);
+    
+	 int insertpurchasenote(PurchasingOrder pu);
+	 int insertpurchasenot(PurchasingOrder pu);
+	 
+	 int updatepoDocumentNumber(PurchasingOrder pu);
+	 
+	  PurchasingOrder selectpoaudition(PurchasingOrder bi);
+	  int updatepoDocumentNumber2(PurchasingOrder pu);
 }

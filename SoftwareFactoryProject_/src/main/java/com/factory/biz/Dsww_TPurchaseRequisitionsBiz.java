@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.factory.entity.Matter;
+import com.factory.entity.MatterExample;
 import com.factory.entity.TPurchaseRequisitions;
 import com.factory.entity.TPurchaseRequisitionsDetails;
+import com.factory.mapper.MatterMapper;
 import com.factory.mapper.TPurchaseRequisitionsDetailsMapper;
 import com.factory.mapper.TPurchaseRequisitionsMapper;
 import com.github.pagehelper.PageHelper;
@@ -27,6 +30,9 @@ public class Dsww_TPurchaseRequisitionsBiz {
 	
 	@Autowired
 	private TPurchaseRequisitionsDetailsMapper detailsdao;
+	
+	@Autowired
+	private MatterMapper matterdao;
 	
 	//0.根据当前日期查询单据号码
 	public String queryPRCount(String prDocumentDate) {
@@ -66,18 +72,30 @@ public class Dsww_TPurchaseRequisitionsBiz {
     	}
     	return true;
     };
+    
+    //2.1根据物料编号查询是否存在
+    public Matter queryMatter(String matterId) {
+    	MatterExample matterExample = new MatterExample();
+    	matterExample.createCriteria().andMatterIdEqualTo(matterId);
+    	Matter matter = matterdao.selectByExample(matterExample).get(0);
+    	return matter == null ? new Matter("0") : matter;
+    }
 
-    //采购询价 - 3.删除
-    public boolean delete(String psDocumentNumber) {
-    	return dao.deleteByPrimaryKey(psDocumentNumber) > 0;
+    //采购询价 - 3.删除/5.审核/6.取消审核
+    public boolean updateState(TPurchaseRequisitions record) {
+    	return dao.updateByPrimaryKeySelective(record) > 0;
     };
 
     //采购询价 - 4.修改
     public boolean update(TPurchaseRequisitions record) {
-    	return dao.updateByPrimaryKey(record) > 0;
+    	if(dao.updateByPrimaryKey(record) > 0) {
+    		for (TPurchaseRequisitionsDetails tprd : record.getPrdList()) {
+    			if(detailsdao.updateByPrimaryKey(tprd) <= 0) {
+    				return false;
+    			}
+			}
+    	}
+    	return true;
     };
-	
-	
-	
-	
+
 }
