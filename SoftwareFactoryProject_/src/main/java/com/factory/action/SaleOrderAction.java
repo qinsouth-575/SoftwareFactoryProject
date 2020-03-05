@@ -71,4 +71,10 @@ public class SaleOrderAction {
 			return map;
 		}
 		
+		//销售订单 - 单据号码查询
+		@RequestMapping(value = "queryDateToId", method = RequestMethod.GET)
+		@ResponseBody
+		public String queryPSDocumentNumber(String psDocumentDate) {
+			return biz.queryPSDocumentNumber(psDocumentDate);
+		}
 }

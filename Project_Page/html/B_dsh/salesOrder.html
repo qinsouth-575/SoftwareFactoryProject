@@ -64,7 +64,7 @@
 				<div class="layui-row">
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3">客户</span>
-						<input type="text" class="layui-col-md-offset1" disabled="disabled" v-model="salesorder.customerorderId"/>
+						<input type="text" class="layui-col-md-offset1" disabled="disabled" v-model="salesorder.customerorderId" @dblclick="openCGQGtype();"/>
 					</div>
 					<div class="layui-col-md5">
 						<span class="layui-col-md2">单据日期</span> <input type="date" style="width: 155px;" class="layui-col-md-offset1" disabled="disabled"  v-model="salesorder.soDocumentTime"/>
@@ -117,10 +117,10 @@
 						</ul>
 						<div class="layui-tab-content layui-col-md10 layui-col-md-offset2">
 							<div class="layui-tab-item layui-show layui-tab-content " style="border: 1px solid; overflow-x: scroll; overflow-y: scroll;">
-								<table class="layui-table" disabled="disabled" height="500">
+								<table class="layui-table" border="1" rules="all" style="text-align: center;margin: 0px;">
 
 									<thead>
-										<tr>
+										<tr style="white-space:nowrap;">
 											<th style="white-space: nowrap;">(栏号)</th>
 											<th style="white-space: nowrap;">物料编号</th>
 											<th style="white-space: nowrap;">(物料名称)</th>
@@ -148,7 +148,7 @@
 										</tr>
 									</thead>
 									<tbody id="lb">
-										<tr v-for="sa,index in salesorder.sodList">
+										<tr v-for="sa,index in salesorder.sodList" style="white-space:nowrap;">
 											<td>{{sa.solId}}</td>
 											<td>{{sa.matterId}}</td>
 											<td>{{sa.solMatName}}</td>
@@ -172,6 +172,7 @@
 											<td>{{sa.solProducedQuantity}}</td>
 											<td>{{sa.solAuditing}}</td>
 											<td>{{sa.solYn}}</td>
+											<td>已生成数量</td>
 										</tr>
 									</tbody>
 								</table>
@@ -182,10 +183,10 @@
 								<div class="layui-col-md12">
 									<div class="layui-col-md5 layui-col-md-offset2">
 										<span class="layui-col-md3">账款归属</span>
-										<input type="text" class="layui-col-md-offset1" disabled="disabled" />
+										<input type="text" class="layui-col-md-offset1" disabled="disabled" v-model="salesorder.soAccountOwnership"/>
 									</div>
 									<div class="layui-col-md5">
-										<span class="layui-col-md3">收款日期</span> <input type="date" style="width: 170px;" class="layui-col-md-offset1" disabled="disabled" />
+										<span class="layui-col-md3">收款日期</span> <input type="date" style="width: 170px;" class="layui-col-md-offset1" disabled="disabled" v-model="salesorder.soCollectionTime"/>
 									</div><br /><br />
 									<div class="layui-col-md5 layui-col-md-offset2">
 										<span class="layui-col-md3">收款条件</span>
@@ -195,20 +196,20 @@
 										<input type="text" class="layui-col-md-offset1" disabled="disabled" style="width: 120px;height: 21px;margin-left: -5px;" />
 									</div>
 									<div class="layui-col-md5">
-										<span class="layui-col-md3">账款月份</span> <input type="date" style="width: 170px;" class="layui-col-md-offset1" disabled="disabled" />
+										<span class="layui-col-md3">账款月份</span> <input type="date" style="width: 170px;" class="layui-col-md-offset1" disabled="disabled" v-model="salesorder.soCollectionMonth"/>
 									</div><br /><br />
 								</div>
 							</div>
 							<div class="layui-tab-item layui-col-md12" style="border: 1px solid gray;">
 								<div class="layui-col-md6">
 									<span class="layui-col-md3" style="margin-left: 25px;">自定栏一</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<select name="" style="width: 163px;height: 25px;" class=" layui-col-md-offset1 " disabled="disabled" >
+									<select name="" style="width: 163px;height: 25px;" class=" layui-col-md-offset1 " disabled="disabled" v-model="salesorder.staffId">
 										<option value=""></option>
 									</select>
 								</div>
 								<div class="layui-col-md6">
 									<span class="layui-col-md3" style="margin-left: 82px;">自定栏二</span>
-									<select name="" style="width: 163px;height: 25px;" class=" layui-col-md-offset1" disabled="disabled" >
+									<select name="" style="width: 163px;height: 25px;" class=" layui-col-md-offset1" disabled="disabled" v-model="salesorder.staffId">
 										<option value=""></option>
 									</select>
 								</div><br /><br />
@@ -313,17 +314,54 @@
                     ]
 				},
 				methods:{
+					queryDateToId: function(psDocumentDate) {
+						var this_ = this;
+
+						$.ajax({
+							type : "get",
+							async : false,
+							url : "http://localhost:8080/SoftwareFactoryProject_/saleorder/queryDateToId?psDocumentDate=" + psDocumentDate,
+            				dataType : "json",
+							success : function(result) {
+								//alert(result);
+			                    this_.salesorder.soDocumentnumber = result;
+							}
+						});
+					},
+					timeCycle : function(date){
+						//var d = new Date('Thu May 12 2016 08:00:00 GMT+0800 (中国标准时间)');
+						//var datetime=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds()
+						var d = new Date(date);
+						var yue = "",day = "";
+						if(d.getMonth() < 9) {
+							yue = "0" + (d.getMonth()+1);
+						} else {
+							yue = d.getMonth()+1;
+						}
+						if(d.getDate() < 10) {
+							day = "0" + d.getDate();
+						} else {
+							day = d.getDate();
+						}
+						return d.getFullYear() + "-" + yue + "-" + day;
+					},
 					queryPage: function(pageNum_){
 						$("input").prop("disabled", true);
 						$("select").prop("disabled", true);
 						$("textarea").prop("disabled", true);
+						$("tbody td").prop("contentEditable", false);
 						var this_ = this;
-						this.salesorder.pageNum = pageNum_;
+						
+						this_.salesorder.pageNum = pageNum_;
+						alert(this_.salesorder.pageNum);
 					
 						axios.post(`http://localhost:8080/SoftwareFactoryProject_/saleorder/PageQueryAll`, this.salesorder).then(function(res){
 							//数据正常
 							alert(JSON.stringify(res.data));
 							this_.pagelist = res.data;
+							//日期转换
+							this_.pagelist.list[0].soDocumentTime = this_.timeCycle(this_.pagelist.list[0].soDocumentTime);
+							this_.pagelist.list[0].soCollectionMonth=this_.timeCycle(this_.pagelist.list[0].soCollectionMonth);
 							this_.salesorder = this_.pagelist.list[0];
 						});
 					},
@@ -345,9 +383,57 @@
 						$("input").prop("disabled", false);
 						$("select").prop("disabled", false);
 						$("textarea").prop("disabled", false);
+						$("tbody td").prop("contentEditable", true);
 						this.state = "goInsert";
-						this.salesorder = {};
-						alert(JSON.stringify(salesorder));
+						this.hanlderEmpty(this.salesorder);		//清空属性	这里将sodList=“”，意为变成了一个普通属性，非集合，当属性还在，传到后台引发405报错，数据类型不对应
+						
+						//1.单据日期
+						var now = new Date();
+						this.salesorder.soDocumentTime = this.timeCycle(now);
+						//2.单据编码	
+						this.queryDateToId(this.salesorder.soDocumentTime);
+						
+						this.salesorder.sodList = [];		//改回集合
+						this.salesorder.soTax = 1;	//未税
+						this.salesorder.soOderStatic = 1; //未结案
+						
+						this.salesorder.soCollectionMonth = this.timeCycle(now);//账款月份
+						this.salesorder.currencyId="RMB人民币";//币别
+						this.salesorder.soMonograph="admin";//制单人员
+						
+						//11.详表第一条
+//						this.PurchaseStorage.sodList = [
+//				 			{
+//				 				solId : this.PurchaseStorage.psDocumentNumber,
+//				 				matterId: ++index,
+//				 				solMatName: '',
+//				 				solMatType: '',
+//				 				solNominal: '',
+//				 				solQuantity: '',
+//				 				solPrePrice: 0,
+//				 				solFold: 0.00,
+//				 				solPrice: '100.00',
+//				 				solAmount: 0.00,
+//				 				solTaxRate: 0.00,
+//				 				solTax: 0.00,
+//				 				solTaxAmount: 0.00,
+//				 				solGiveaway: 0.00,
+//				 				solJournalizing: '',
+//				 				solMaterialComposition: 0,
+//				 				solSingleSource: 0,
+//				 				solSingleOder: 0,
+//				 				solProduction: '',
+//				 				solSchedulingSingleNumber: '',
+//				 				solProducedQuantity: '',
+//				 				solAuditing: 0.00,
+//				 				solYn:'已生成数量'
+//				 			}
+//				 		];
+					},
+					hanlderEmpty : function(obj){
+						for(var o in obj){
+							obj[o] = "";
+						}
 					},
 					save : function(){
 						//alert("执行" + this.state + "操作！");
@@ -363,6 +449,7 @@
 								$("input").prop("disabled", true);
 								$("select").prop("disabled", true);
 								$("textarea").prop("disabled", true);
+								$("tbody td").prop("contentEditable", false);
 								return false;
 							}
 							alert("非常遗憾，本次" + res.data.message);
@@ -382,8 +469,35 @@
 								$("input").prop("disabled", false);
 								$("select").prop("disabled", false);
 								$("textarea").prop("disabled", false);
+								$("tbody td").prop("contentEditable", true);
 						this.state = "goUpdate";
 					},
+					openCGQGtype : function(){
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["单选--供应商主文件设定", 'font-size:18px;'],
+								type: 2,
+								area: ['600px', '460px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "customerorder_cz.html",
+								btn: '关闭',
+								btnAlign: 'c',			//按钮居中
+								shade: 0.5, 			//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()) 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								}
+							});
+						});
+				 },
 					delete_ : function(){
 		   				if(!confirm("确定删除本条仓库数据吗？"))
 		   					return false;
