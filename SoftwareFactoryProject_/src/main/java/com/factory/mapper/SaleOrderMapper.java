@@ -35,4 +35,6 @@ public interface SaleOrderMapper {
     int updateAll(SaleOrder record);
     
     int deleteById(int id);
+    
+    public Integer queryPSDocumentNumber(@Param("documentdate") String psDocumentDate);
 }
