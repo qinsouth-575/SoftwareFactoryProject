@@ -68,7 +68,7 @@
 				<div class="layui-row">
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3" style="margin-top: 15px;">客户</span>
-						<input id="customerId" type="text" class="layui-col-md-offset1 layui-input" style="width: 170px;" readonly="readonly" />
+						<input ondblclick="b()" id="customerId" type="text" class="layui-col-md-offset1 layui-input" style="width: 170px;" readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
 						<span class="layui-col-md2" style="margin-top: 15px;">单据日期</span> <input id="sowDocumentDate" type="date" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
@@ -178,13 +178,13 @@
 						</div>
 					</div>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">业务人员</span> <input id="sowBuyer" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md3" style="margin-top: 15px;">业务人员</span> <input ondblclick="b1()" id="sowBuyer" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
 						<span class="layui-col-md2" style="margin-top: 15px;">制单人员</span><input id="sowAuditing" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
 					</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">所属部门</span> <input id="sowBelongsSection" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md3" style="margin-top: 15px;">所属部门</span> <input ondblclick="b2()" id="sowBelongsSection" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
 						<span class="layui-col-md2" style="margin-top: 15px;">复核人员</span> <input id="sowYn" type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
@@ -659,6 +659,42 @@
 				`)
 			}
 		}
+		
+		function b(){
+			//开窗取值
+			layer.open({
+				type:2,
+				content:"a.html"
+			});
+		}
+		
+		function b1(){
+			//开窗取值
+			layer.open({
+				type:2,
+				content:"b.html"
+			});
+		}
+		function b2(){
+			//开窗取值
+			layer.open({
+				type:2,
+				content:"c.html"
+			});
+		}
+		
+		function show(date){
+			$("#customerId").val(date)
+			/*layer.closeAll(); //疯狂模式，关闭所有层*/
+		}
+		function show2(date1,date2){
+			$("#sowBuyer").val(date1)
+			$("#sowBelongsSection").val(date2)
+		}
+		function show3(date){
+			$("#sowBelongsSection").val(date)
+		}
+		
     </script>
 	</body>
 

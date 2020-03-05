@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.factory.biz.SalesZpBiz;
+import com.factory.entity.Comdepartment;
 import com.factory.entity.Customer;
 import com.factory.entity.SaleOutWarehouse;
 import com.factory.entity.SaleQuotation;
+import com.factory.entity.Staff;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -43,6 +45,24 @@ public class SalesZpAction {
 	@ResponseBody
 	public List<Customer> querykh(String type,String name) {
 		return sBiz.querykh(type, name);
+	}
+	
+	/**
+	 * 查询员工资料
+	 */
+	@RequestMapping(value = "queryyg", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Staff> queryyg(String type,String name) {
+		return sBiz.queryyg(type, name);
+	}
+	
+	/**
+	 * 查询部门资料
+	 */
+	@RequestMapping(value = "querybm", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Comdepartment> querybm(String type,String name) {
+		return sBiz.querybm(type, name);
 	}
 	
 	/**

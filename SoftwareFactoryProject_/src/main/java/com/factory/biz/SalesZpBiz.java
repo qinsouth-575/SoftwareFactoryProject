@@ -17,11 +17,14 @@ import com.factory.entity.SaleOutWarehouseExample;
 import com.factory.entity.SaleQuotation;
 import com.factory.entity.SaleQuotationDetails;
 import com.factory.entity.SaleQuotationDetailsExample;
+import com.factory.entity.Staff;
+import com.factory.mapper.ComdepartmentMapper;
 import com.factory.mapper.CustomerMapper;
 import com.factory.mapper.SaleOutWarehouseDetailedMapper;
 import com.factory.mapper.SaleOutWarehouseMapper;
 import com.factory.mapper.SaleQuotationDetailsMapper;
 import com.factory.mapper.SaleQuotationMapper;
+import com.factory.mapper.StaffMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -43,6 +46,12 @@ public class SalesZpBiz {
 	
 	@Autowired
 	private CustomerMapper c;
+	
+	@Autowired
+	private StaffMapper s;
+	
+	@Autowired
+	private ComdepartmentMapper cpt;
 
 	public int shbaojia(String sqId) {
 		SaleQuotation s= sq.selectByPrimaryKey(sqId);
@@ -53,7 +62,15 @@ public class SalesZpBiz {
 	}
 	
 	public List<Customer> querykh(String type,String name){
-		return c.querykh(type, name);
+		return c.querykh(type,"%"+name+"%");
+	}
+	
+	public List<Staff> queryyg(String type,String name){
+		return s.queryyg(type,"%"+name+"%");
+	}
+	
+	public List<Comdepartment> querybm(String type,String name){
+		return cpt.querybm(type,"%"+name+"%");
 	}
 	
 	public PageInfo<SaleQuotation> querybaojia(Integer pageNum, Integer pageSize) {

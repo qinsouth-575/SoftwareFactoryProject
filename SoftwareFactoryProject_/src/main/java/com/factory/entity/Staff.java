@@ -12,6 +12,7 @@ public class Staff {
     private String staffEnglishName;
 
     private String teamId;
+    private String departname;				//部门名称
 
     private Boolean staffGender;
 
@@ -206,6 +207,14 @@ public class Staff {
 		this.staffCustom1 = staffCustom1;
 		this.staffCustom2 = staffCustom2;
 		this.staffCustom3 = staffCustom3;
+	}
+    
+	public String getDepartname() {
+		return departname;
+	}
+
+	public void setDepartname(String departname) {
+		this.departname = departname;
 	}
 
 	public Integer getStaffId() {
