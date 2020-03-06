@@ -148,13 +148,13 @@
 						</div>
 					</div>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3">业务人员</span> <input id="staffName" type="text" class="layui-col-md-offset1 " readonly="readonly" />
+						<span class="layui-col-md3">业务人员</span> <input ondblclick="b1()" id="staffName" type="text" class="layui-col-md-offset1 " readonly="readonly" />
 					</div>
 					<div class="layui-col-md5">
 						<span class="layui-col-md2">制单人员</span><input id="sqAuditing" type="text" class="layui-col-md-offset1 " readonly="readonly" />
 					</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<div class="layui-col-md5 layui-col-md-offset2" style="padding: 10px 0px 0px 0px;">
-						<span class="layui-col-md3">所属部门</span> <input id="departName" type="text" class="layui-col-md-offset1 " readonly="readonly" />
+						<span class="layui-col-md3">所属部门</span> <input ondblclick="b2()" id="departName" type="text" class="layui-col-md-offset1 " readonly="readonly" />
 					</div>
 					<div class="layui-col-md5" style="padding: 10px 0px 0px 0px;">
 						<span class="layui-col-md2">复核人员</span> <input id="sqYn" type="text" class="layui-col-md-offset1" readonly="readonly" />
@@ -589,16 +589,39 @@
 						var iframeWin = window[iframe.find('iframe')[0]['name']]; 
 						iframeWin.id = 100;
 						iframeWin.printId();*/
-					}
+					}/*,
+					cancel: function(index, layero){
+					  if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+					    layer.close(index)
+					  }
+					  return false; 
+					}*/
 					
+				});
+			}
+			
+			function b1(){
+				//开窗取值
+				layer.open({
+					type:2,
+					content:"b.html"
+				});
+			}
+			function b2(){
+				//开窗取值
+				layer.open({
+					type:2,
+					content:"c.html"
 				});
 			}
 			
 			function show(date){
 				$("#customerName").val(date)
+				/*layer.closeAll(); //疯狂模式，关闭所有层*/
 			}
-			function show2(date){
-				$("#staffName").val(date)
+			function show2(date1,date2){
+				$("#staffName").val(date1)
+				$("#departName").val(date2)
 			}
 			function show3(date){
 				$("#departName").val(date)

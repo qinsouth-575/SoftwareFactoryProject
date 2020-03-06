@@ -64,7 +64,13 @@
     <result column="staff_custom3" property="staffCustom3" jdbcType="VARCHAR" />
   </resultMap>
   
-  
+   <select id="queryyg" resultMap="BaseResultMap" parameterType="java.lang.String">
+ 	SELECT s.*,c.`DepartName`
+	FROM `staff` s
+	INNER JOIN `comdepartment` c
+	ON s.`team_id`=c.`DepartID`
+	WHERE #{type} LIKE #{name};
+   </select>
   
   <select id="listRoleIdsByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
   	SELECT s.`pos_id` 
