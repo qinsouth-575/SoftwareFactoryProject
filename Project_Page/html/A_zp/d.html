@@ -7,23 +7,22 @@
 	</head>
 	<body>
 		<select id="type" onchange="jz()"  name="" style="width: 90px;height: 25px;" class="layui-col-md-offset1" >
-			<option id="customerId" value="customer_id">客户编号</option>
-			<option id="customerName" value="customer_name">客户全称</option>
-			<option id="customerEasyname" value="customer_easyname">客户简称</option>
-			<option id="customerEnglishName" value="customer_english_name">英文全称</option>
-			<option id="customerChargePerson" value="customer_charge_person">英文简称</option>
-			<option id="customerAccountOwnership" value="customer_account_ownership">账款归属</option>
-			<option id="customerType" value="customer_type">类别</option>
-			<option id="customerZone" value="customer_zone">地区</option>
-			<option id="currencyId" value="currency_id">币别</option>
+			<option id="matter_id" value="matterId">物料编号</option>
+			<option id="mt_id" value="customer_name">物料类别</option>
+			<!--<option id="mt_id" value="customer_easyname">类别名称</option>-->
+			<option id="matter_barno" value="customer_english_name">条形码编号</option>
+			<option id="matter_name" value="matterName">物料名称</option>
+			<option id="matter_size" value="matterSize">规格型号</option>
+			<option id="matter_english_name" value="matterEnglishName">英文品名</option>
+			<option id="mu_id" value="customer_zone">使用币别</option>
 		</select>
 		<input id="name" type="text" style="height: 20px;" class="layui-col-md-offset1"  />
 		<div class="layui-tab-item layui-show layui-tab-content " style="border: 1px solid; overflow-x: scroll; overflow-y: scroll;">
 			<table class="layui-table" readonly="readonly">
 				<thead>
 					<tr>
-						<th style="white-space: nowrap;">客户编号</th>
-						<th style="white-space: nowrap;">客户简称</th>
+						<th style="white-space: nowrap;">物料编号</th>
+						<th style="white-space: nowrap;">物料名称</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,7 +38,7 @@
 				var name=$("#name").val();
 				$.ajax({
 					type:"get",
-					url:"//localhost:8080/SoftwareFactoryProject_/zp/querykh",
+					url:"//localhost:8080/SoftwareFactoryProject_/zp/querywl",
 					data:{
 						type:type,
 						name:name
@@ -47,11 +46,11 @@
 					success:function(r){
 							$("tbody").html("")
 							$(r).each(function(i,obj){
-								if($("#type").val()=="customer_id"){
-									$tr=$("<tr ondblclick='c(this)'><td>"+obj.customerId+"</td><td>"+obj.customerEasyname+"</td><td>"+obj.customerEasyname+"</td></tr>")
+								if($("#type").val()=="matter_id"){
+									$tr=$("<tr ondblclick='c(this)'><td>"+obj.matterId+"</td><td>"+obj.customerEasyname+"</td><td>"+obj.customerEasyname+"</td></tr>")
 								}else{
 									$("table thead tr th:eq(1)").text($("#type").find("option:selected").text())
-									$tr=$("<tr ondblclick='c(this)'><td>"+obj.customerId+"</td><td>"+obj[$("#type").find("option:selected").attr("id")]+"</td><td>"+obj.customerEasyname+"</td></tr>")
+									$tr=$("<tr ondblclick='c(this)'><td>"+obj.matterId+"</td><td>"+obj[$("#type").find("option:selected").attr("id")]+"</td><td>"+obj.customerEasyname+"</td></tr>")
 								}
 								$("tbody").append($tr)
 							})
