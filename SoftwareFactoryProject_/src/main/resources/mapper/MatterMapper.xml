@@ -122,6 +122,12 @@
     matter_custom1, matter_custom2, matter_mdecoration, matter_Auditing, matter_yn, matter_prepare1, 
     matter_prepare2
   </sql>
+  
+  <select id="queryyg" resultMap="BaseResultMap" parameterType="java.lang.String">
+ 	SELECT * FROM `matter` 
+	WHERE #{type} LIKE #{name};
+   </select>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.MatterExample" >
     select
     <if test="distinct" >

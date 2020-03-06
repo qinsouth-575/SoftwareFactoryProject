@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.factory.entity.Comdepartment;
 import com.factory.entity.Customer;
 import com.factory.entity.CustomerExample;
+import com.factory.entity.Matter;
 import com.factory.entity.SaleOutWarehouse;
 import com.factory.entity.SaleOutWarehouseDetailed;
 import com.factory.entity.SaleOutWarehouseDetailedExample;
@@ -20,6 +21,7 @@ import com.factory.entity.SaleQuotationDetailsExample;
 import com.factory.entity.Staff;
 import com.factory.mapper.ComdepartmentMapper;
 import com.factory.mapper.CustomerMapper;
+import com.factory.mapper.MatterMapper;
 import com.factory.mapper.SaleOutWarehouseDetailedMapper;
 import com.factory.mapper.SaleOutWarehouseMapper;
 import com.factory.mapper.SaleQuotationDetailsMapper;
@@ -52,6 +54,9 @@ public class SalesZpBiz {
 	
 	@Autowired
 	private ComdepartmentMapper cpt;
+	
+	@Autowired
+	private MatterMapper m;
 
 	public int shbaojia(String sqId) {
 		SaleQuotation s= sq.selectByPrimaryKey(sqId);
@@ -71,6 +76,10 @@ public class SalesZpBiz {
 	
 	public List<Comdepartment> querybm(String type,String name){
 		return cpt.querybm(type,"%"+name+"%");
+	}
+	
+	public List<Matter> querywl(String type,String name){
+		return m.querywl(type,"%"+name+"%");
 	}
 	
 	public PageInfo<SaleQuotation> querybaojia(Integer pageNum, Integer pageSize) {

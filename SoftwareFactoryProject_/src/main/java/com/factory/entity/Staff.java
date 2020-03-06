@@ -10,7 +10,19 @@ public class Staff {
     private String staffEnglishName;
     private String teamId;
     private String departName;
-    private Boolean staffGender;
+    private String departName2;
+    
+   
+
+	public String getDepartName2() {
+		return departName2;
+	}
+
+	public void setDepartName2(String departName2) {
+		this.departName2 = departName2;
+	}
+
+	private Boolean staffGender;
     private String staffIdnumber;
     private String password;
     private Date staffBirthday;

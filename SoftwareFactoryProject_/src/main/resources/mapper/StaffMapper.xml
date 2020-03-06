@@ -64,8 +64,8 @@
   </resultMap>
   
    <select id="queryyg" resultMap="BaseResultMap" parameterType="java.lang.String">
- 	SELECT s.*,c.`DepartName`
-	FROM `staff` s
+ 	SELECT s.*,c.`DepartName` as `departName2`	 
+ 	FROM `staff` s
 	INNER JOIN `comdepartment` c
 	ON s.`team_id`=c.`DepartID`
 	WHERE #{type} LIKE #{name};

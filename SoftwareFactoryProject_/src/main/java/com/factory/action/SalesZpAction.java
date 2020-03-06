@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.factory.biz.SalesZpBiz;
 import com.factory.entity.Comdepartment;
 import com.factory.entity.Customer;
+import com.factory.entity.Matter;
 import com.factory.entity.SaleOutWarehouse;
 import com.factory.entity.SaleQuotation;
 import com.factory.entity.Staff;
@@ -63,6 +64,15 @@ public class SalesZpAction {
 	@ResponseBody
 	public List<Comdepartment> querybm(String type,String name) {
 		return sBiz.querybm(type, name);
+	}
+	
+	/**
+	 * 查询物料信息
+	 */
+	@RequestMapping(value = "querywl", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Matter> querywl(String type,String name) {
+		return sBiz.querywl(type, name);
 	}
 	
 	/**
