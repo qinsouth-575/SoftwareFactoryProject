@@ -7,7 +7,19 @@ public class AllocationScheduleBill {
 
     private String stocknumber;
 
-    private String amout;
+    private String mattername;
+
+    private String mattersize;
+
+    private String unitid;
+
+    private String unitname;
+
+    private Integer wmrexistingnumber;
+
+    private Integer amout;
+
+    private String batchnumber;
 
     private String standby;
 
@@ -37,12 +49,60 @@ public class AllocationScheduleBill {
         this.stocknumber = stocknumber;
     }
 
-    public String getAmout() {
+    public String getMattername() {
+        return mattername;
+    }
+
+    public void setMattername(String mattername) {
+        this.mattername = mattername;
+    }
+
+    public String getMattersize() {
+        return mattersize;
+    }
+
+    public void setMattersize(String mattersize) {
+        this.mattersize = mattersize;
+    }
+
+    public String getUnitid() {
+        return unitid;
+    }
+
+    public void setUnitid(String unitid) {
+        this.unitid = unitid;
+    }
+
+    public String getUnitname() {
+        return unitname;
+    }
+
+    public void setUnitname(String unitname) {
+        this.unitname = unitname;
+    }
+
+    public Integer getWmrexistingnumber() {
+        return wmrexistingnumber;
+    }
+
+    public void setWmrexistingnumber(Integer wmrexistingnumber) {
+        this.wmrexistingnumber = wmrexistingnumber;
+    }
+
+    public Integer getAmout() {
         return amout;
     }
 
-    public void setAmout(String amout) {
+    public void setAmout(Integer amout) {
         this.amout = amout;
+    }
+
+    public String getBatchnumber() {
+        return batchnumber;
+    }
+
+    public void setBatchnumber(String batchnumber) {
+        this.batchnumber = batchnumber;
     }
 
     public String getStandby() {

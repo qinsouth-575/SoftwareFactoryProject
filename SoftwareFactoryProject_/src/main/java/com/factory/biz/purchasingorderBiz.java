@@ -35,4 +35,47 @@ public class purchasingorderBiz {
 		
 		return dao2.selecttb_detail(bi);
 	}
+	
+public int updatepo_yn(PurchasingOrder bi){
+		
+		return dao.updatepo_yn(bi);
+	}
+
+
+
+public int delete001(PurchasingOrder pu) {
+	return dao.delete001(pu);
+}
+
+
+
+public int delete002(PurchasingOrderDetails pu) {
+	System.out.println("666");
+	return dao2.delete002(pu);
+}
+
+
+public int insertpurchasenote(PurchasingOrder pu) {
+	return dao.insertpurchasenote(pu);
+}
+
+public int insertpurchasenot(PurchasingOrder pu) {
+	return dao.insertpurchasenot(pu);
+}
+
+
+public int updatepoDocumentNumber(PurchasingOrder bi){
+	
+	return dao.updatepoDocumentNumber(bi);
+}
+
+public PurchasingOrder selectpoaudition(PurchasingOrder bi){
+	return dao.selectpoaudition(bi);
+}
+
+
+public int updatepoDocumentNumber2(PurchasingOrder bi){
+	
+	return dao.updatepoDocumentNumber2(bi);
+}
 }

@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.PriabillMainMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.PriabillMain" >
+    <id column="priabill_id" property="priabillId" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="priabill_supplier_name" property="priabillSupplierName" jdbcType="VARCHAR" />
+    <result column="scs_id" property="scsId" jdbcType="INTEGER" />
+    <result column="priabill_sat_name1" property="priabillSatName1" jdbcType="INTEGER" />
+    <result column="priabill_Price1" property="priabillPrice1" jdbcType="REAL" />
+    <result column="priabill_sat_name2" property="priabillSatName2" jdbcType="INTEGER" />
+    <result column="priabill_Price2" property="priabillPrice2" jdbcType="REAL" />
+    <result column="priabill_sat_name3" property="priabillSatName3" jdbcType="INTEGER" />
+    <result column="priabill_Price3" property="priabillPrice3" jdbcType="REAL" />
+    <result column="priabill_zhekou" property="priabillZhekou" jdbcType="INTEGER" />
+    <result column="priabill_endtime" property="priabillEndtime" jdbcType="DATE" />
+    <result column="priabill_payablestime" property="priabillPayablestime" jdbcType="TIMESTAMP" />
+    <result column="currency_id" property="currencyId" jdbcType="VARCHAR" />
+    <result column="priabill_currency_name" property="priabillCurrencyName" jdbcType="VARCHAR" />
+    <result column="priabill_currency_inexchange" property="priabillCurrencyInexchange" jdbcType="VARCHAR" />
+    <result column="payables_exchange_rate" property="payablesExchangeRate" jdbcType="REAL" />
+    <result column="priabill_type" property="priabillType" jdbcType="VARCHAR" />
+    <result column="priabill_voucherNo" property="priabillVoucherno" jdbcType="VARCHAR" />
+    <result column="staff_id" property="staffId" jdbcType="VARCHAR" />
+    <result column="priabill_team_name" property="priabillTeamName" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="priabill_project_name" property="priabillProjectName" jdbcType="VARCHAR" />
+    <result column="priabill_billpersonnel" property="priabillBillpersonnel" jdbcType="VARCHAR" />
+    <result column="priabill_reviewers" property="priabillReviewers" jdbcType="VARCHAR" />
+    <result column="priabill_remarks" property="priabillRemarks" jdbcType="VARCHAR" />
+    <result column="priabill_auditstatus" property="priabillAuditstatus" jdbcType="INTEGER" />
+    <result column="priabill_Auditing" property="priabillAuditing" jdbcType="VARCHAR" />
+    <result column="priabill_yn" property="priabillYn" jdbcType="VARCHAR" />
+    <result column="priabill_custom1" property="priabillCustom1" jdbcType="VARCHAR" />
+    <result column="priabill_custom2" property="priabillCustom2" jdbcType="VARCHAR" />
+    <result column="priabill_custom3" property="priabillCustom3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    priabill_id, supplier_id, priabill_supplier_name, scs_id, priabill_sat_name1, priabill_Price1, 
+    priabill_sat_name2, priabill_Price2, priabill_sat_name3, priabill_Price3, priabill_zhekou, 
+    priabill_endtime, priabill_payablestime, currency_id, priabill_currency_name, priabill_currency_inexchange, 
+    payables_exchange_rate, priabill_type, priabill_voucherNo, staff_id, priabill_team_name, 
+    project_id, priabill_project_name, priabill_billpersonnel, priabill_reviewers, priabill_remarks, 
+    priabill_auditstatus, priabill_Auditing, priabill_yn, priabill_custom1, priabill_custom2, 
+    priabill_custom3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.PriabillMainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from priabill_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from priabill_main
+    where priabill_id = #{priabillId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from priabill_main
+    where priabill_id = #{priabillId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.factory.entity.PriabillMainExample" >
+    delete from priabill_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.factory.entity.PriabillMain" >
+    insert into priabill_main (priabill_id, supplier_id, priabill_supplier_name, 
+      scs_id, priabill_sat_name1, priabill_Price1, 
+      priabill_sat_name2, priabill_Price2, priabill_sat_name3, 
+      priabill_Price3, priabill_zhekou, priabill_endtime, 
+      priabill_payablestime, currency_id, priabill_currency_name, 
+      priabill_currency_inexchange, payables_exchange_rate, 
+      priabill_type, priabill_voucherNo, staff_id, 
+      priabill_team_name, project_id, priabill_project_name, 
+      priabill_billpersonnel, priabill_reviewers, 
+      priabill_remarks, priabill_auditstatus, priabill_Auditing, 
+      priabill_yn, priabill_custom1, priabill_custom2, 
+      priabill_custom3)
+    values (#{priabillId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{priabillSupplierName,jdbcType=VARCHAR}, 
+      #{scsId,jdbcType=INTEGER}, #{priabillSatName1,jdbcType=INTEGER}, #{priabillPrice1,jdbcType=REAL}, 
+      #{priabillSatName2,jdbcType=INTEGER}, #{priabillPrice2,jdbcType=REAL}, #{priabillSatName3,jdbcType=INTEGER}, 
+      #{priabillPrice3,jdbcType=REAL}, #{priabillZhekou,jdbcType=INTEGER}, #{priabillEndtime,jdbcType=DATE}, 
+      #{priabillPayablestime,jdbcType=TIMESTAMP}, #{currencyId,jdbcType=VARCHAR}, #{priabillCurrencyName,jdbcType=VARCHAR}, 
+      #{priabillCurrencyInexchange,jdbcType=VARCHAR}, #{payablesExchangeRate,jdbcType=REAL}, 
+      #{priabillType,jdbcType=VARCHAR}, #{priabillVoucherno,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, 
+      #{priabillTeamName,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{priabillProjectName,jdbcType=VARCHAR}, 
+      #{priabillBillpersonnel,jdbcType=VARCHAR}, #{priabillReviewers,jdbcType=VARCHAR}, 
+      #{priabillRemarks,jdbcType=VARCHAR}, #{priabillAuditstatus,jdbcType=INTEGER}, #{priabillAuditing,jdbcType=VARCHAR}, 
+      #{priabillYn,jdbcType=VARCHAR}, #{priabillCustom1,jdbcType=VARCHAR}, #{priabillCustom2,jdbcType=VARCHAR}, 
+      #{priabillCustom3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.factory.entity.PriabillMain" >
+    insert into priabill_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="priabillId != null" >
+        priabill_id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="priabillSupplierName != null" >
+        priabill_supplier_name,
+      </if>
+      <if test="scsId != null" >
+        scs_id,
+      </if>
+      <if test="priabillSatName1 != null" >
+        priabill_sat_name1,
+      </if>
+      <if test="priabillPrice1 != null" >
+        priabill_Price1,
+      </if>
+      <if test="priabillSatName2 != null" >
+        priabill_sat_name2,
+      </if>
+      <if test="priabillPrice2 != null" >
+        priabill_Price2,
+      </if>
+      <if test="priabillSatName3 != null" >
+        priabill_sat_name3,
+      </if>
+      <if test="priabillPrice3 != null" >
+        priabill_Price3,
+      </if>
+      <if test="priabillZhekou != null" >
+        priabill_zhekou,
+      </if>
+      <if test="priabillEndtime != null" >
+        priabill_endtime,
+      </if>
+      <if test="priabillPayablestime != null" >
+        priabill_payablestime,
+      </if>
+      <if test="currencyId != null" >
+        currency_id,
+      </if>
+      <if test="priabillCurrencyName != null" >
+        priabill_currency_name,
+      </if>
+      <if test="priabillCurrencyInexchange != null" >
+        priabill_currency_inexchange,
+      </if>
+      <if test="payablesExchangeRate != null" >
+        payables_exchange_rate,
+      </if>
+      <if test="priabillType != null" >
+        priabill_type,
+      </if>
+      <if test="priabillVoucherno != null" >
+        priabill_voucherNo,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="priabillTeamName != null" >
+        priabill_team_name,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="priabillProjectName != null" >
+        priabill_project_name,
+      </if>
+      <if test="priabillBillpersonnel != null" >
+        priabill_billpersonnel,
+      </if>
+      <if test="priabillReviewers != null" >
+        priabill_reviewers,
+      </if>
+      <if test="priabillRemarks != null" >
+        priabill_remarks,
+      </if>
+      <if test="priabillAuditstatus != null" >
+        priabill_auditstatus,
+      </if>
+      <if test="priabillAuditing != null" >
+        priabill_Auditing,
+      </if>
+      <if test="priabillYn != null" >
+        priabill_yn,
+      </if>
+      <if test="priabillCustom1 != null" >
+        priabill_custom1,
+      </if>
+      <if test="priabillCustom2 != null" >
+        priabill_custom2,
+      </if>
+      <if test="priabillCustom3 != null" >
+        priabill_custom3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="priabillId != null" >
+        #{priabillId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillSupplierName != null" >
+        #{priabillSupplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="scsId != null" >
+        #{scsId,jdbcType=INTEGER},
+      </if>
+      <if test="priabillSatName1 != null" >
+        #{priabillSatName1,jdbcType=INTEGER},
+      </if>
+      <if test="priabillPrice1 != null" >
+        #{priabillPrice1,jdbcType=REAL},
+      </if>
+      <if test="priabillSatName2 != null" >
+        #{priabillSatName2,jdbcType=INTEGER},
+      </if>
+      <if test="priabillPrice2 != null" >
+        #{priabillPrice2,jdbcType=REAL},
+      </if>
+      <if test="priabillSatName3 != null" >
+        #{priabillSatName3,jdbcType=INTEGER},
+      </if>
+      <if test="priabillPrice3 != null" >
+        #{priabillPrice3,jdbcType=REAL},
+      </if>
+      <if test="priabillZhekou != null" >
+        #{priabillZhekou,jdbcType=INTEGER},
+      </if>
+      <if test="priabillEndtime != null" >
+        #{priabillEndtime,jdbcType=DATE},
+      </if>
+      <if test="priabillPayablestime != null" >
+        #{priabillPayablestime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currencyId != null" >
+        #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCurrencyName != null" >
+        #{priabillCurrencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCurrencyInexchange != null" >
+        #{priabillCurrencyInexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesExchangeRate != null" >
+        #{payablesExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="priabillType != null" >
+        #{priabillType,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillVoucherno != null" >
+        #{priabillVoucherno,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillTeamName != null" >
+        #{priabillTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillProjectName != null" >
+        #{priabillProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillBillpersonnel != null" >
+        #{priabillBillpersonnel,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillReviewers != null" >
+        #{priabillReviewers,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillRemarks != null" >
+        #{priabillRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillAuditstatus != null" >
+        #{priabillAuditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="priabillAuditing != null" >
+        #{priabillAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillYn != null" >
+        #{priabillYn,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom1 != null" >
+        #{priabillCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom2 != null" >
+        #{priabillCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom3 != null" >
+        #{priabillCustom3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.factory.entity.PriabillMainExample" resultType="java.lang.Integer" >
+    select count(*) from priabill_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update priabill_main
+    <set >
+      <if test="record.priabillId != null" >
+        priabill_id = #{record.priabillId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierId != null" >
+        supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillSupplierName != null" >
+        priabill_supplier_name = #{record.priabillSupplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scsId != null" >
+        scs_id = #{record.scsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.priabillSatName1 != null" >
+        priabill_sat_name1 = #{record.priabillSatName1,jdbcType=INTEGER},
+      </if>
+      <if test="record.priabillPrice1 != null" >
+        priabill_Price1 = #{record.priabillPrice1,jdbcType=REAL},
+      </if>
+      <if test="record.priabillSatName2 != null" >
+        priabill_sat_name2 = #{record.priabillSatName2,jdbcType=INTEGER},
+      </if>
+      <if test="record.priabillPrice2 != null" >
+        priabill_Price2 = #{record.priabillPrice2,jdbcType=REAL},
+      </if>
+      <if test="record.priabillSatName3 != null" >
+        priabill_sat_name3 = #{record.priabillSatName3,jdbcType=INTEGER},
+      </if>
+      <if test="record.priabillPrice3 != null" >
+        priabill_Price3 = #{record.priabillPrice3,jdbcType=REAL},
+      </if>
+      <if test="record.priabillZhekou != null" >
+        priabill_zhekou = #{record.priabillZhekou,jdbcType=INTEGER},
+      </if>
+      <if test="record.priabillEndtime != null" >
+        priabill_endtime = #{record.priabillEndtime,jdbcType=DATE},
+      </if>
+      <if test="record.priabillPayablestime != null" >
+        priabill_payablestime = #{record.priabillPayablestime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.currencyId != null" >
+        currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillCurrencyName != null" >
+        priabill_currency_name = #{record.priabillCurrencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillCurrencyInexchange != null" >
+        priabill_currency_inexchange = #{record.priabillCurrencyInexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payablesExchangeRate != null" >
+        payables_exchange_rate = #{record.payablesExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="record.priabillType != null" >
+        priabill_type = #{record.priabillType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillVoucherno != null" >
+        priabill_voucherNo = #{record.priabillVoucherno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffId != null" >
+        staff_id = #{record.staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillTeamName != null" >
+        priabill_team_name = #{record.priabillTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillProjectName != null" >
+        priabill_project_name = #{record.priabillProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillBillpersonnel != null" >
+        priabill_billpersonnel = #{record.priabillBillpersonnel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillReviewers != null" >
+        priabill_reviewers = #{record.priabillReviewers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillRemarks != null" >
+        priabill_remarks = #{record.priabillRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillAuditstatus != null" >
+        priabill_auditstatus = #{record.priabillAuditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.priabillAuditing != null" >
+        priabill_Auditing = #{record.priabillAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillYn != null" >
+        priabill_yn = #{record.priabillYn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillCustom1 != null" >
+        priabill_custom1 = #{record.priabillCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillCustom2 != null" >
+        priabill_custom2 = #{record.priabillCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priabillCustom3 != null" >
+        priabill_custom3 = #{record.priabillCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update priabill_main
+    set priabill_id = #{record.priabillId,jdbcType=VARCHAR},
+      supplier_id = #{record.supplierId,jdbcType=VARCHAR},
+      priabill_supplier_name = #{record.priabillSupplierName,jdbcType=VARCHAR},
+      scs_id = #{record.scsId,jdbcType=INTEGER},
+      priabill_sat_name1 = #{record.priabillSatName1,jdbcType=INTEGER},
+      priabill_Price1 = #{record.priabillPrice1,jdbcType=REAL},
+      priabill_sat_name2 = #{record.priabillSatName2,jdbcType=INTEGER},
+      priabill_Price2 = #{record.priabillPrice2,jdbcType=REAL},
+      priabill_sat_name3 = #{record.priabillSatName3,jdbcType=INTEGER},
+      priabill_Price3 = #{record.priabillPrice3,jdbcType=REAL},
+      priabill_zhekou = #{record.priabillZhekou,jdbcType=INTEGER},
+      priabill_endtime = #{record.priabillEndtime,jdbcType=DATE},
+      priabill_payablestime = #{record.priabillPayablestime,jdbcType=TIMESTAMP},
+      currency_id = #{record.currencyId,jdbcType=VARCHAR},
+      priabill_currency_name = #{record.priabillCurrencyName,jdbcType=VARCHAR},
+      priabill_currency_inexchange = #{record.priabillCurrencyInexchange,jdbcType=VARCHAR},
+      payables_exchange_rate = #{record.payablesExchangeRate,jdbcType=REAL},
+      priabill_type = #{record.priabillType,jdbcType=VARCHAR},
+      priabill_voucherNo = #{record.priabillVoucherno,jdbcType=VARCHAR},
+      staff_id = #{record.staffId,jdbcType=VARCHAR},
+      priabill_team_name = #{record.priabillTeamName,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      priabill_project_name = #{record.priabillProjectName,jdbcType=VARCHAR},
+      priabill_billpersonnel = #{record.priabillBillpersonnel,jdbcType=VARCHAR},
+      priabill_reviewers = #{record.priabillReviewers,jdbcType=VARCHAR},
+      priabill_remarks = #{record.priabillRemarks,jdbcType=VARCHAR},
+      priabill_auditstatus = #{record.priabillAuditstatus,jdbcType=INTEGER},
+      priabill_Auditing = #{record.priabillAuditing,jdbcType=VARCHAR},
+      priabill_yn = #{record.priabillYn,jdbcType=VARCHAR},
+      priabill_custom1 = #{record.priabillCustom1,jdbcType=VARCHAR},
+      priabill_custom2 = #{record.priabillCustom2,jdbcType=VARCHAR},
+      priabill_custom3 = #{record.priabillCustom3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.factory.entity.PriabillMain" >
+    update priabill_main
+    <set >
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillSupplierName != null" >
+        priabill_supplier_name = #{priabillSupplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="scsId != null" >
+        scs_id = #{scsId,jdbcType=INTEGER},
+      </if>
+      <if test="priabillSatName1 != null" >
+        priabill_sat_name1 = #{priabillSatName1,jdbcType=INTEGER},
+      </if>
+      <if test="priabillPrice1 != null" >
+        priabill_Price1 = #{priabillPrice1,jdbcType=REAL},
+      </if>
+      <if test="priabillSatName2 != null" >
+        priabill_sat_name2 = #{priabillSatName2,jdbcType=INTEGER},
+      </if>
+      <if test="priabillPrice2 != null" >
+        priabill_Price2 = #{priabillPrice2,jdbcType=REAL},
+      </if>
+      <if test="priabillSatName3 != null" >
+        priabill_sat_name3 = #{priabillSatName3,jdbcType=INTEGER},
+      </if>
+      <if test="priabillPrice3 != null" >
+        priabill_Price3 = #{priabillPrice3,jdbcType=REAL},
+      </if>
+      <if test="priabillZhekou != null" >
+        priabill_zhekou = #{priabillZhekou,jdbcType=INTEGER},
+      </if>
+      <if test="priabillEndtime != null" >
+        priabill_endtime = #{priabillEndtime,jdbcType=DATE},
+      </if>
+      <if test="priabillPayablestime != null" >
+        priabill_payablestime = #{priabillPayablestime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currencyId != null" >
+        currency_id = #{currencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCurrencyName != null" >
+        priabill_currency_name = #{priabillCurrencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCurrencyInexchange != null" >
+        priabill_currency_inexchange = #{priabillCurrencyInexchange,jdbcType=VARCHAR},
+      </if>
+      <if test="payablesExchangeRate != null" >
+        payables_exchange_rate = #{payablesExchangeRate,jdbcType=REAL},
+      </if>
+      <if test="priabillType != null" >
+        priabill_type = #{priabillType,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillVoucherno != null" >
+        priabill_voucherNo = #{priabillVoucherno,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillTeamName != null" >
+        priabill_team_name = #{priabillTeamName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillProjectName != null" >
+        priabill_project_name = #{priabillProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillBillpersonnel != null" >
+        priabill_billpersonnel = #{priabillBillpersonnel,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillReviewers != null" >
+        priabill_reviewers = #{priabillReviewers,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillRemarks != null" >
+        priabill_remarks = #{priabillRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillAuditstatus != null" >
+        priabill_auditstatus = #{priabillAuditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="priabillAuditing != null" >
+        priabill_Auditing = #{priabillAuditing,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillYn != null" >
+        priabill_yn = #{priabillYn,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom1 != null" >
+        priabill_custom1 = #{priabillCustom1,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom2 != null" >
+        priabill_custom2 = #{priabillCustom2,jdbcType=VARCHAR},
+      </if>
+      <if test="priabillCustom3 != null" >
+        priabill_custom3 = #{priabillCustom3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where priabill_id = #{priabillId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.factory.entity.PriabillMain" >
+    update priabill_main
+    set supplier_id = #{supplierId,jdbcType=VARCHAR},
+      priabill_supplier_name = #{priabillSupplierName,jdbcType=VARCHAR},
+      scs_id = #{scsId,jdbcType=INTEGER},
+      priabill_sat_name1 = #{priabillSatName1,jdbcType=INTEGER},
+      priabill_Price1 = #{priabillPrice1,jdbcType=REAL},
+      priabill_sat_name2 = #{priabillSatName2,jdbcType=INTEGER},
+      priabill_Price2 = #{priabillPrice2,jdbcType=REAL},
+      priabill_sat_name3 = #{priabillSatName3,jdbcType=INTEGER},
+      priabill_Price3 = #{priabillPrice3,jdbcType=REAL},
+      priabill_zhekou = #{priabillZhekou,jdbcType=INTEGER},
+      priabill_endtime = #{priabillEndtime,jdbcType=DATE},
+      priabill_payablestime = #{priabillPayablestime,jdbcType=TIMESTAMP},
+      currency_id = #{currencyId,jdbcType=VARCHAR},
+      priabill_currency_name = #{priabillCurrencyName,jdbcType=VARCHAR},
+      priabill_currency_inexchange = #{priabillCurrencyInexchange,jdbcType=VARCHAR},
+      payables_exchange_rate = #{payablesExchangeRate,jdbcType=REAL},
+      priabill_type = #{priabillType,jdbcType=VARCHAR},
+      priabill_voucherNo = #{priabillVoucherno,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
+      priabill_team_name = #{priabillTeamName,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      priabill_project_name = #{priabillProjectName,jdbcType=VARCHAR},
+      priabill_billpersonnel = #{priabillBillpersonnel,jdbcType=VARCHAR},
+      priabill_reviewers = #{priabillReviewers,jdbcType=VARCHAR},
+      priabill_remarks = #{priabillRemarks,jdbcType=VARCHAR},
+      priabill_auditstatus = #{priabillAuditstatus,jdbcType=INTEGER},
+      priabill_Auditing = #{priabillAuditing,jdbcType=VARCHAR},
+      priabill_yn = #{priabillYn,jdbcType=VARCHAR},
+      priabill_custom1 = #{priabillCustom1,jdbcType=VARCHAR},
+      priabill_custom2 = #{priabillCustom2,jdbcType=VARCHAR},
+      priabill_custom3 = #{priabillCustom3,jdbcType=VARCHAR}
+    where priabill_id = #{priabillId,jdbcType=VARCHAR}
+  </update>
+</mapper>

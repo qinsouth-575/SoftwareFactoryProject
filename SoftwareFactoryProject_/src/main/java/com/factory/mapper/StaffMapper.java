@@ -1,5 +1,6 @@
 package com.factory.mapper;
 
+import com.factory.entity.Customer;
 import com.factory.entity.Staff;
 import com.factory.entity.StaffExample;
 import java.util.List;
@@ -18,9 +19,12 @@ public interface StaffMapper {
     Staff queryNameAndPwd(Staff account);
     
     
+    //完成  销售报价单  业务人员   开窗取值--zp
+    public List<Staff> queryyg(@Param("type") String type,@Param("name") String name);
     
     
-    
+	
+	
     int countByExample(StaffExample example);
 
     int deleteByExample(StaffExample example);

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/layui.css"/>
+	</head>
+	<body>
+		<select id="type" onchange="jz()"  name="" style="width: 90px;height: 25px;" class="layui-col-md-offset1" >
+			<option id="customerId" value="customer_id">客户编号</option>
+			<option id="customerName" value="customer_name">客户全称</option>
+			<option id="customerEasyname" value="customer_easyname">客户简称</option>
+			<option id="customerEnglishName" value="customer_english_name">英文全称</option>
+			<option id="customerChargePerson" value="customer_charge_person">英文简称</option>
+			<option id="customerAccountOwnership" value="customer_account_ownership">账款归属</option>
+			<option id="customerType" value="customer_type">类别</option>
+			<option id="customerZone" value="customer_zone">地区</option>
+			<option id="currencyId" value="currency_id">币别</option>
+		</select>
+		<input id="name" type="text" style="height: 20px;" class="layui-col-md-offset1" readonly="readonly" />
+		<button style="" class="layui-btn layui-btn-primary" onclick="quhui()">取回</button>
+		<input type="hidden" value="999" id="index" />
+		<div class="layui-tab-item layui-show layui-tab-content " style="border: 1px solid; overflow-x: scroll; overflow-y: scroll;">
+			<table class="layui-table">
+				<thead>
+					<tr>
+						<th style="white-space: nowrap;">客户编号</th>
+						<th style="white-space: nowrap;">客户简称</th>
+						<th style="white-space:nowrap;">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</div>
+		<script type="text/javascript" src="../../js/jquery-1.8.2.min.js" ></script>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/axios.min.js"></script>
+		<script>
+			//必须设置允许跨域访问session中数据(cooike)
+			axios.default.withCredentials = true;
+			
+			var obs = {}
+			axios.post(`http://localhost:8080/SoftwareFactoryProject_/xscustomer/xsquery`).then(function(res){
+				//数据正常		/alert(JSON.stringify(res.data));
+				
+				$.each(res.data, function(i, obs){
+					var $dr = $("<tr class='ordbillstyle'>" +
+               			"<td>" + obs.customerId + "</td>" + 
+               			"<td>" + obs.customerName + "</td>" + 
+               			"<td><input type='checkbox'></td>" + 
+              		"</tr>");
+					
+					$("tbody").append($dr);
+				});
+				
+				$("tbody>tr").on("click", function(){
+					$("tbody input").prop("checked", false);
+					if(!$(this).find("input").is(":checked")){
+						$(this).find("input").prop("checked", true);
+					} else {
+						$(this).find("input").prop("checked", false);
+					}
+				});
+			});
+			
+			function quhui(){
+				let obs = {};
+				$(".ordbillstyle").each(function() {
+					if($(this).find("input").prop("checked")) {
+						obs.customerId = $(this).find("td").eq(0).text();
+						obs.customerName = $(this).find("td").eq(1).text();
+					}
+				});
+				let index = parent.layer.getFrameIndex(window.name);
+				var s=obs.customerId+obs.customerName;
+				alert(s);
+				parent.listVm.salesorder.customerorderId = s;
+				parent.layer.close($("#index").val());
+			}
+		</script>
+	</body>
+</html>

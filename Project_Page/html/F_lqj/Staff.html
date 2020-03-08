@@ -48,7 +48,11 @@
 					var $dr = $("<tr class='ordbillstyle'>" +
                			"<td>" + obs.staffId + "</td>" + 
                			"<td>" + obs.staffName + "</td>" + 
-               			"<td><input type='checkbox'></td>" + 
+               			"<td>" +
+               				"<input type='checkbox'>" +
+               				"<input type='hidden' class='teamId' value='" + obs.teamId + "'>" +
+               				"<input type='hidden' class='departName' value='" + obs.departName + "'>" +
+               			"</td>" +
               		"</tr>");
 					
 					$("tbody").append($dr);
@@ -70,11 +74,16 @@
 					if($(this).find("input").prop("checked")) {
 						obs.staffId = $(this).find("td").eq(0).text();
 						obs.staffName = $(this).find("td").eq(1).text();
+						obs.teamId = $(this).find(".teamId").val();
+						obs.departName = $(this).find(".departName").val();
 					}
 				});
+				//数据无误 	/alert(JSON.stringify(obs));
 				//let index = parent.layer.getFrameIndex(window.name);
 				parent.listVm.PurchaseStorage.staffId = obs.staffId;
 				parent.listVm.PurchaseStorage.staffName = obs.staffName;
+				parent.listVm.PurchaseStorage.teamId = obs.teamId;
+				parent.listVm.PurchaseStorage.departName = obs.departName;
 				parent.layer.close($("#index").val());
 			}
 			

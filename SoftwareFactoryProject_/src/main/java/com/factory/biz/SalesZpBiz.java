@@ -1,5 +1,6 @@
 package com.factory.biz;
 
+import java.nio.channels.NonWritableChannelException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +8,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.factory.entity.Comdepartment;
+import com.factory.entity.Customer;
+import com.factory.entity.CustomerExample;
 import com.factory.entity.SaleOutWarehouse;
+import com.factory.entity.SaleOutWarehouseDetailed;
 import com.factory.entity.SaleOutWarehouseDetailedExample;
 import com.factory.entity.SaleOutWarehouseExample;
 import com.factory.entity.SaleQuotation;
 import com.factory.entity.SaleQuotationDetails;
 import com.factory.entity.SaleQuotationDetailsExample;
+import com.factory.entity.Staff;
+import com.factory.mapper.ComdepartmentMapper;
 import com.factory.mapper.CustomerMapper;
 import com.factory.mapper.SaleOutWarehouseDetailedMapper;
 import com.factory.mapper.SaleOutWarehouseMapper;
 import com.factory.mapper.SaleQuotationDetailsMapper;
 import com.factory.mapper.SaleQuotationMapper;
+import com.factory.mapper.StaffMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -39,7 +46,33 @@ public class SalesZpBiz {
 	
 	@Autowired
 	private CustomerMapper c;
+	
+	@Autowired
+	private StaffMapper s;
+	
+	@Autowired
+	private ComdepartmentMapper cpt;
 
+	public int shbaojia(String sqId) {
+		SaleQuotation s= sq.selectByPrimaryKey(sqId);
+		//拿到当前审核人 User
+		//
+		//s.set
+		return sq.updateByPrimaryKey(s);
+	}
+	
+	public List<Customer> querykh(String type,String name){
+		return c.querykh(type,"%"+name+"%");
+	}
+	
+	public List<Staff> queryyg(String type,String name){
+		return s.queryyg(type,"%"+name+"%");
+	}
+	
+	public List<Comdepartment> querybm(String type,String name){
+		return cpt.querybm(type,"%"+name+"%");
+	}
+	
 	public PageInfo<SaleQuotation> querybaojia(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<SaleQuotation> list = sq.selectByExample(null);
@@ -73,6 +106,15 @@ public class SalesZpBiz {
 		return 1;
 	}
 	
+	public int addchuku(SaleOutWarehouse s) {
+		sowh.insert(s);
+		for (SaleOutWarehouseDetailed a : s.getList()) {
+			a.setSowId(s.getSowId());
+			sowhd.insert(a);
+		}
+		return 1;
+	}
+	
 	public int updatebaojia(SaleQuotation s) {
 		sq.updateByPrimaryKey(s);
 		for (SaleQuotationDetails a : s.getList()) {
@@ -82,11 +124,28 @@ public class SalesZpBiz {
 		return 1;
 	}
 	
+	public int updatechuku(SaleOutWarehouse s) {
+		sowh.updateByPrimaryKey(s);
+		for (SaleOutWarehouseDetailed a : s.getList()) {
+			a.setSowId(s.getSowId());
+			sowhd.updateByPrimaryKey(a);
+		}
+		return 1;
+	}
+	
 	public int deletebaojia(String sqId) {
 		sq.deleteByPrimaryKey(sqId);
 		SaleQuotationDetailsExample example=new SaleQuotationDetailsExample();
 		example.createCriteria().andSqIdEqualTo(sqId);
 		sqd.deleteByExample(example);
+		return 1;
+	}
+	
+	public int deletechuku(String sowId) {
+		sowh.deleteByPrimaryKey(sowId);
+		SaleOutWarehouseDetailedExample example=new SaleOutWarehouseDetailedExample();
+		example.createCriteria().andSowIdEqualTo(sowId);
+		sowhd.deleteByExample(example);
 		return 1;
 	}
 }

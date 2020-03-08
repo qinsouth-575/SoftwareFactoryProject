@@ -6,337 +6,362 @@
 		<title></title>
 		<link rel="stylesheet" href="../../css/font.css">
 		<link rel="stylesheet" href="../../css/xadmin.css">
+		
+		<style type="text/css">
+			.layui-input-block {margin-left: 120px;min-height: 36px;}
+			.layui-row {margin-bottom: 10px;}
+			.layui-form-label {
+				float: left;
+				display: block;
+				padding: 9px 5px;
+				width: 85px;
+				font-weight: 400;
+				line-height: 20px;
+				text-align: right;
+			}
+			.layui-form-item {margin-top: 5px;margin-bottom: 5px;clear: none;display: inline-block;}
+			.layui-tab-title li {padding: 0 0px;}
+			.layui-table {width: 100%;background-color: #fff;color: #666;overflow-y: auto;}
+			.layui-table thead tr {background-color: #d7e7ff !important;}
+			.layui-table td,.layui-table th {border-width: 1px;border-style: solid;border-color: #d3d1d1;}
+			.color {color: blue;}
+			.divEdit {outline: none}
+			.textAlignCenter {text-align: center}
+			.listTable {
+				padding 4px 10px 4px 4px font-size 11px width 100% td,
+				th {padding-left 4px line-height 24px width 100%}
+				.customerName {width 150px}
+				.visitTime {width 120px}
+				.visitDesc {width auto}
+				.operation {width 34px}
+			}
+			#approve{
+				display: none;
+				overflow: hidden;
+				border-radius: 7px;
+				transform:rotate(21deg);
+				position: fixed;
+				top: 36px;
+				right: 36px;
+				z-index: 99;
+			}
+		</style>
 	</head>
 
 	<body>
 		<div class="x-body" id="main-div">
-			<div class="layui-container">
-				<div class="layui-row" style="border: 0px red solid;">
-					<div class="layui-col-md12">
-						<div style="width: 1000px;height: 475px;margin: auto;">
-							<div class="layui-row">
-								<div class="layui-col-md12">
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">供应商</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.supplierName" @dblclick="openCGQGtype();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">单据日期</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psDocumentDate" class="layui-input" id="data1">
-											</div>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label">供应商地址</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.supplierEngname" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">单据号码</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psDocumentNumber" id="psDocumentNumber" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label" style="width: 90px;margin-left: -10px;">采购入库类型</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.pstId" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label">币别</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.currencyName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label style="width: 90px;margin-left: -10px;" class="layui-form-label">单价是否含税</label>
-											<div class="layui-input-inline">
-												<select style="height: 38px;" v-model="PurchaseStorage.psPriceIncludeTax">
-													<option>未税</option>
-													<option>含税</option>
-												</select>
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label">汇率</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psExchangeRate" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">仓库</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.warehousename" @dblclick="openCKDate();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label">国外贸易</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psForeignTrade" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label">凭证编号</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psSingleStatus" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-
-									</div>
-									<div class="layui-tab" style="height: 250px;box-shadow:2px 2px 10px #909090;margin-bottom: 20px;">
-										<ul class="layui-tab-title">
-											<li style="" class="layui-this">内容</li>
-											<li style="">账款</li>
-											<li style="">备注</li>
-										</ul>
-										<div class="layui-tab-content">
-											<div class="layui-tab-item layui-show layui-col-md12" style="overflow: scroll;height: 195px;">
-												<table class="layui-table" border="1" rules="all" style="text-align: center;margin: 0px;">
-													<thead>
-														<tr style="white-space:nowrap;">
-															<td>(栏号)</td>
-															<td>物料编号</td>
-															<td>(物料名称)</td>
-															<td>(规格型号)</td>
-															<td>(单位名称)</td>
-															<td>数量</td>
-															<td>折扣前单价</td>
-															<td>折数(%)</td>
-															<td>单价</td>
-															<td>金额</td>
-															<td>税率(%)</td>
-															<td>税额</td>
-															<td>(含税金额)</td>
-															<td>(批号)</td>
-															<td>赠品</td>
-															<td>(发票明细)</td>
-															<td>(未开票数量)</td>
-															<td>分录备注</td>
-															<td>(来源单别)</td>
-															<td>(来源单号)</td>
-															<td>(分摊费用)</td>
-														</tr>
-													</thead>
-													<tbody>
-														<tr v-for="p,index in PurchaseStorage.psdList" style="white-space:nowrap;">
-													      	<td class="psdColumnNo" style="background-color: #999999;color: white;">{{PurchaseStorage.psdList[index].psdColumnNo}}</td>
-													      	<td class="matterId"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'matterId')">{{PurchaseStorage.psdList[index].matterId}}</div></td>
-													      	<td class="matterName">{{PurchaseStorage.psdList[index].matterName}}</td>
-													      	<td class="psdSpecifications">{{PurchaseStorage.psdList[index].psdSpecifications}}</td>
-													      	<td class="psdCompanyName">{{PurchaseStorage.psdList[index].psdCompanyName}}</td>
-													      	<td class="psdAmount"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'psdAmount')">{{PurchaseStorage.psdList[index].psdAmount}}</div></td>
-													      	<td class="psdMoneyDiscountBefore">{{PurchaseStorage.psdList[index].psdMoneyDiscountBefore}}</td>
-													      	<td class="psdFoldNumber">{{PurchaseStorage.psdList[index].psdFoldNumber}}</td>
-													      	<td class="psdPrice">{{PurchaseStorage.psdList[index].psdPrice}}</td>
-													      	<td class="psdMoney">{{PurchaseStorage.psdList[index].psdMoney}}</td>
-													      	<td class="psdTaxRate">{{PurchaseStorage.psdList[index].psdTaxRate}}</td>
-													      	<td class="psdTaxAmount">{{PurchaseStorage.psdList[index].psdTaxAmount}}</td>
-													      	<td class="psdIncludingTaxAmount">{{PurchaseStorage.psdList[index].psdIncludingTaxAmount}}</td>
-													      	<td class="psdLotNumber">{{PurchaseStorage.psdList[index].psdLotNumber}}</td>
-													      	<td class="psdGift">{{PurchaseStorage.psdList[index].psdGift}}</td>
-													      	<td class="psdInvoiceDetails">{{PurchaseStorage.psdList[index].psdInvoiceDetails}}</td>
-													      	<td class="psdUninvoicedQuantity">{{PurchaseStorage.psdList[index].psdUninvoicedQuantity}}</td>
-													      	<td class="psdRemarks"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'psdRemarks')">{{PurchaseStorage.psdList[index].psdRemarks}}</div></td>
-													      	<td class="psdSourceOrder">{{PurchaseStorage.psdList[index].psdSourceOrder}}</td>
-													      	<td class="psdSourceNo">{{PurchaseStorage.psdList[index].psdSourceNo}}</td>
-													      	<td class="psdWentDutch">{{PurchaseStorage.psdList[index].psdWentDutch}}</td>
-															<!--<td>
-																<input type="checkbox" class="checkbox" v-model="p.psdLotNumber">
-																<label for="checkbox">{{ p.psdLotNumber ? '' : '' }}</label>
-															</td>
-															<td>
-																<input type="checkbox" class="checkbox" v-model="p.psdGift">
-																<label for="checkbox">{{ p.psdGift ? '' : '' }}</label></td>
-															<td>
-																<input type="checkbox" class="checkbox" v-model="p.psdInvoiceDetails">
-																<label for="checkbox">{{ p.psdInvoiceDetails ? '' : '' }}</label>
-															</td>-->
-														</tr>
-													</tbody>
-													<tfoot>
-														<tr style="white-space:nowrap;">
-															<td colspan="1">合计:</td>
-															<td colspan="4"></td>
-															<td colspan="1">{{PurchaseStorage.psSunnum}}</td>
-															<td colspan="3"></td>
-															<td colspan="1">{{PurchaseStorage.psSunmoney}}</td>
-															<td colspan="1"></td>
-															<td colspan="1">{{PurchaseStorage.psTax}}</td>
-															<td colspan="1">{{PurchaseStorage.psIncludeTaxAmount}}</td>
-															<td colspan="7"></td>
-															<td colspan="1">{{PurchaseStorage.psWentDutch}}</td>
-														</tr>
-													</tfoot>
-												</table>
-											</div>
-											<div class="layui-tab-item">
-												<div class="layui-form-item">
-													<div class="layui-inline">
-														<label class="layui-form-label">账款归属</label>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psAccountOwnershipName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-														</div>
-													</div>
-													<div class="layui-inline">
-														<label class="layui-form-label">付款日期</label>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psPaymentDate" class="layui-input" id="data2">
-														</div>
-													</div>
-												</div>
-												<div class="layui-form-item">
-													<div class="layui-inline">
-														<label class="layui-form-label">付款条件</label>
-														<div class="layui-input-inline" style="margin-right: -100px;">
-															<select v-model="PurchaseStorage.psPaymentClause" style="width: 85px;height: 38px;">
-																<option v-for="item in clauseList" :value="item.value" :key="item.value" name="psPaymentClause">
-																	{{item.label}}
-											                    </option>
-															</select>
-														</div>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psPaymentClauseNum" name="title" required lay-verify="required" autocomplete="off" class="layui-input layui-input-inline" style="width: 100px;">
-															<span style="position: relative;top: 10px;" class="">天</span>
-														</div>
-													</div>
-													<div class="layui-inline" style="margin-left: -90px;">
-														<label class="layui-form-label">账款月份</label>
-														<div class="layui-input-inline">
-															<input type="text" class="layui-input" v-model="PurchaseStorage.psAccountReceivable">
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="layui-tab-item">
-												<div class="layui-form-item">
-													<div class="layui-inline">
-														<label class="layui-form-label">自定义栏一</label>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psCustom1" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-														</div>
-													</div>
-													<div class="layui-inline">
-														<label class="layui-form-label">自定义栏二</label>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psCustom2" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-														</div>
-													</div>
-												</div>
-												<div class="layui-form-item">
-													<div class="layui-inline">
-														<label class="layui-form-label">备注</label>
-														<div class="layui-input-inline">
-															<textarea v-model="PurchaseStorage.psRemark" style="resize:none;" rows="6" cols="70"></textarea>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div>
-								<div class="layui-form-item">
-									<div class="layui-inline">
-										<label class="layui-form-label" style="color:blue;">采购人员</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.staffName" @dblclick="openStaff();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-									<div class="layui-inline">
-										<label class="layui-form-label">制单人员</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.psExecutor" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<div class="layui-inline">
-										<label class="layui-form-label" style="color:blue;">所属部门</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.departName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-									<div class="layui-inline">
-										<label class="layui-form-label">复核人员</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.psCheckagainStaff" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<div class="layui-inline">
-										<label class="layui-form-label">所属项目</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.psBelongsProject" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-								</div>
+			<div class="layui-container" style="padding: 8px;">
+				<div class="layui-row">
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">供应商</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.supplierName" @dblclick="openCGQGtype();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">单据日期</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psDocumentDate" class="layui-input" id="data1">
+						</div>
+					</div>
 								
-								<!-- 查询转单功能按钮 - 开始 -->
-								<ul id="puchaseStoragegongneng" class="layui-nav" style="margin-bottom: 150px;width: 300px;float: right;">
-									<li class="layui-nav-item layui-this">
-										<a href="javascript:void(0);">查询</a>
-										<dl class="layui-nav-child">
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">历史交易查询</a>
-											</dd>
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">分摊费用明细</a>
-											</dd>
-										</dl>
-									</li>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">供应商地址</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.supplierEngname" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">单据号码</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psDocumentNumber" id="psDocumentNumber" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="width: 90px;margin-left: -10px;">采购入库类型</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.pstId" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">币别</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.currencyName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-col-md6">
+						<label style="width: 90px;margin-left: -10px;" class="layui-form-label">单价是否含税</label>
+						<div class="layui-input-block">
+							<select v-model="PurchaseStorage.psPriceIncludeTax" style="height: 38px;">
+								<option v-for="item in shuiList" :value="item.value" :key="item.value" name="psPriceIncludeTax">
+									{{item.label}}
+			                    </option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">汇率</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psExchangeRate" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">仓库</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.warehousename" @dblclick="openCKDate();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">国外贸易</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psForeignTrade" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
 									
-									<li class="layui-nav-item">
-										<a href="javascript:void(0);">转单</a>
-										<dl class="layui-nav-child">
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">采购询价转入</a>
-											</dd>
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">采购订单转入</a>
-											</dd>
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">进口商业发票转入</a>
-											</dd>
-										</dl>
-									</li>
-									
-									<li class="layui-nav-item">
-										<a href="javascript:void(0);">功能</a>
-										<dl class="layui-nav-child">
-											<dd>
-												<a href="">批号设定</a>
-											</dd>
-											<dd>
-												<a href="">条码打印</a>
-											</dd>
-											<dd>
-												<a href="">批次变更单价</a>
-											</dd>
-										</dl>
-									</li>
-								</ul>
-								<!-- 查询转单功能按钮 - 结束 -->
+					<div class="layui-form-item layui-col-md12">
+						<div class="layui-col-md6">
+							<label class="layui-form-label">凭证编号</label>
+							<div class="layui-input-block">
+								<input type="text" v-model="PurchaseStorage.psSingleStatus" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 							</div>
 						</div>
 					</div>
+				</div>
+					
+				<div class="layui-row">	
+					<div class="layui-tab" style="height: 250px;box-shadow:2px 2px 10px #909090;margin-bottom: 20px;">
+						<ul class="layui-tab-title">
+							<li style="" class="layui-this">内容</li>
+							<li style="">账款</li>
+							<li style="">备注</li>
+						</ul>
+						<div class="layui-tab-content">
+							<div class="layui-tab-item layui-show layui-col-md12" style="overflow: scroll;height: 195px;">
+								<table class="layui-table" border="1" rules="all" style="text-align: center;margin: 0px;">
+									<thead>
+										<tr style="white-space:nowrap;">
+											<td>(栏号)</td>
+											<td>物料编号</td>
+											<td>(物料名称)</td>
+											<td>(规格型号)</td>
+											<td>(单位名称)</td>
+											<td>数量</td>
+											<td>折扣前单价</td>
+											<td>折数(%)</td>
+											<td>单价</td>
+											<td>金额</td>
+											<td>税率(%)</td>
+											<td>税额</td>
+											<td>(含税金额)</td>
+											<td>(批号)</td>
+											<td>赠品</td>
+											<td>(发票明细)</td>
+											<td>(未开票数量)</td>
+											<td>分录备注</td>
+											<td>(来源单别)</td>
+											<td>(来源单号)</td>
+											<td>(分摊费用)</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="p,index in PurchaseStorage.psdList" style="white-space:nowrap;">
+									      	<td class="psdColumnNo" style="background-color: #999999;color: white;">{{PurchaseStorage.psdList[index].psdColumnNo}}</td>
+									      	<td class="matterId"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'matterId')">{{PurchaseStorage.psdList[index].matterId}}</div></td>
+									      	<td class="matterName">{{PurchaseStorage.psdList[index].matterName}}</td>
+									      	<td class="psdSpecifications">{{PurchaseStorage.psdList[index].psdSpecifications}}</td>
+									      	<td class="psdCompanyName">{{PurchaseStorage.psdList[index].psdCompanyName}}</td>
+									      	<td class="psdAmount"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'psdAmount')">{{PurchaseStorage.psdList[index].psdAmount}}</div></td>
+									      	<td class="psdMoneyDiscountBefore">{{PurchaseStorage.psdList[index].psdMoneyDiscountBefore}}</td>
+									      	<td class="psdFoldNumber">{{PurchaseStorage.psdList[index].psdFoldNumber}}</td>
+									      	<td class="psdPrice">{{PurchaseStorage.psdList[index].psdPrice}}</td>
+									      	<td class="psdMoney">{{PurchaseStorage.psdList[index].psdMoney}}</td>
+									      	<td class="psdTaxRate">{{PurchaseStorage.psdList[index].psdTaxRate}}</td>
+									      	<td class="psdTaxAmount">{{PurchaseStorage.psdList[index].psdTaxAmount}}</td>
+									      	<td class="psdIncludingTaxAmount">{{PurchaseStorage.psdList[index].psdIncludingTaxAmount}}</td>
+									      	<td class="psdLotNumber">{{PurchaseStorage.psdList[index].psdLotNumber}}</td>
+									      	<td class="psdGift">{{PurchaseStorage.psdList[index].psdGift}}</td>
+									      	<td class="psdInvoiceDetails">{{PurchaseStorage.psdList[index].psdInvoiceDetails}}</td>
+									      	<td class="psdUninvoicedQuantity">{{PurchaseStorage.psdList[index].psdUninvoicedQuantity}}</td>
+									      	<td class="psdRemarks"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'psdRemarks')">{{PurchaseStorage.psdList[index].psdRemarks}}</div></td>
+									      	<td class="psdSourceOrder">{{PurchaseStorage.psdList[index].psdSourceOrder}}</td>
+									      	<td class="psdSourceNo">{{PurchaseStorage.psdList[index].psdSourceNo}}</td>
+									      	<td class="psdWentDutch">{{PurchaseStorage.psdList[index].psdWentDutch}}</td>
+											<!--<td>
+												<input type="checkbox" class="checkbox" v-model="p.psdLotNumber">
+												<label for="checkbox">{{ p.psdLotNumber ? '' : '' }}</label>
+											</td>
+											<td>
+												<input type="checkbox" class="checkbox" v-model="p.psdGift">
+												<label for="checkbox">{{ p.psdGift ? '' : '' }}</label></td>
+											<td>
+												<input type="checkbox" class="checkbox" v-model="p.psdInvoiceDetails">
+												<label for="checkbox">{{ p.psdInvoiceDetails ? '' : '' }}</label>
+											</td>-->
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr style="white-space:nowrap;">
+											<td colspan="1">合计:</td>
+											<td colspan="4"></td>
+											<td colspan="1">{{PurchaseStorage.psSunnum}}</td>
+											<td colspan="3"></td>
+											<td colspan="1">{{PurchaseStorage.psSunmoney}}</td>
+											<td colspan="1"></td>
+											<td colspan="1">{{PurchaseStorage.psTax}}</td>
+											<td colspan="1">{{PurchaseStorage.psIncludeTaxAmount}}</td>
+											<td colspan="7"></td>
+											<td colspan="1">{{PurchaseStorage.psWentDutch}}</td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+							
+							<div class="layui-tab-item">
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">账款归属</label>
+									<div class="layui-input-block">
+										<input type="text" v-model="PurchaseStorage.psAccountOwnershipName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">付款日期</label>
+									<div class="layui-input-block">
+										<input type="text" v-model="PurchaseStorage.psPaymentDate" class="layui-input" id="data2">
+									</div>
+								</div>
+								
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">付款条件</label>
+									<div class="layui-input-block">
+										<div style="float: left;">
+											<select v-model="PurchaseStorage.psPaymentClause" style="width: 97px;height: 38px;">
+												<option v-for="item in clauseList" :value="item.value" :key="item.value" name="psPaymentClause">
+													{{item.label}}
+							                    </option>
+											</select>
+										</div>
+										<input type="text" v-model="PurchaseStorage.psPaymentClauseNum" name="title" required lay-verify="required" autocomplete="off" class="layui-input layui-input-inline" style="width: 100px;position: relative;left: 10px;">
+										<span style="position: relative;top: 10px;left: 5px;">天</span>
+									</div>
+								</div>
+								
+								<div class="layui-form-item layui-col-md6">
+								<!--<div class="layui-inline" style="margin-left: -90px;">-->
+									<label class="layui-form-label">账款月份</label>
+									<div class="layui-input-block">
+										<input type="text" class="layui-input" v-model="PurchaseStorage.psAccountReceivable">
+									</div>
+								</div>
+							</div>
+							
+							<div class="layui-tab-item">
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">自定义栏一</label>
+									<div class="layui-input-block">
+										<input type="text" v-model="PurchaseStorage.psCustom1" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">自定义栏二</label>
+									<div class="layui-input-block">
+										<input type="text" v-model="PurchaseStorage.psCustom2" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">备注</label>
+									<div class="layui-input-block">
+										<textarea v-model="PurchaseStorage.psRemark" style="resize:none;" rows="6" cols="70"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				<div class="layui-row">	
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">采购人员</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.staffName" @dblclick="openStaff();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">制单人员</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psExecutor" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">所属部门</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.departName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">复核人员</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psCheckagainStaff" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">所属项目</label>
+						<div class="layui-input-block	">
+							<input type="text" v-model="PurchaseStorage.psBelongsProject" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+							
+				<div class="layui-row">	
+					<!-- 查询转单功能按钮 - 开始 -->
+					<ul id="puchaseStoragegongneng" class="layui-nav" style="margin-bottom: 150px;width: 300px;float: right;">
+						<li class="layui-nav-item layui-this">
+							<a href="javascript:void(0);">查询</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">历史交易查询</a>
+								</dd>
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">分摊费用明细</a>
+								</dd>
+							</dl>
+						</li>
+						
+						<li class="layui-nav-item">
+							<a href="javascript:void(0);">转单</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">采购询价转入</a>
+								</dd>
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">采购订单转入</a>
+								</dd>
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">进口商业发票转入</a>
+								</dd>
+							</dl>
+						</li>
+						
+						<li class="layui-nav-item">
+							<a href="javascript:void(0);">功能</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a href="">批号设定</a>
+								</dd>
+								<dd>
+									<a href="">条码打印</a>
+								</dd>
+								<dd>
+									<a href="">批次变更单价</a>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+					<!-- 查询转单功能按钮 - 结束 -->
 				</div>
 			</div>
 		</div>
@@ -347,6 +372,412 @@
 		<script type="text/javascript" src="../../js/vue.js"></script>
 		<script type="text/javascript" src="../../js/axios.min.js"></script>
 		
+		<script type="text/javascript">
+			
+	 		let index = 0;
+	 		
+			function subpageTriggerEvent(incident){
+				//alert("采购入库设定页 - 触发事件：" + incident);
+				
+				if(incident == "goFirstPage"){
+					listVm.goFirstPage();
+				} else if(incident == "goPrePage"){
+					listVm.goPrePage();
+				} else if(incident == "goNextPage"){
+					listVm.goNextPage();
+				} else if(incident == "goLastPage"){
+					listVm.goLastPage();
+				} else if(incident == "goInsert"){
+					listVm.goInsert();
+				} else if(incident == "save"){
+					listVm.save();
+				} else if(incident == "cancel"){
+					listVm.cancel();
+				} else if(incident == "goUpdate"){
+					listVm.goUpdate();
+				} else if(incident == "delete"){
+					listVm.delete_();
+				} else if(incident == "refresh"){
+					listVm.refresh();
+				} else if(incident == "audit"){
+					listVm.audit();
+				} else if(incident == "cancelTheAudit"){
+					listVm.cancelTheAudit();
+				}
+			}
+			
+			var listVm = new Vue({
+				el: "#main-div",
+				data: {
+					page : {},
+					PurchaseStorage: {
+						psDocumentNumber : 2020020201,
+						psDocumentDate : '2020-02-02',
+						pageNum : 1
+					},
+					state : "",
+					shuiList: [
+                        {value: '未税',label: '未税'},
+                        {value: '含税',label: '含税'},
+					],
+					clauseList: [
+                        {value: '货到',label: '货到'},
+                        {value: '次月',label: '次月'},
+                        {value: '月结',label: '月结'},
+                        {value: '其它',label: '其它'},
+                    ]
+                },
+				methods: {
+					queryDateToId: function(psDocumentDate) {
+						var this_ = this;
+
+						$.ajax({
+							type : "get",
+							async : false,
+							url : "http://localhost:8080/SoftwareFactoryProject_/ps/queryDateToId?psDocumentDate=" + psDocumentDate,
+            				dataType : "json",
+							success : function(result) {
+								//alert(result);
+			                    this_.PurchaseStorage.psDocumentNumber = result;
+							}
+						});
+					},
+					queryPage : function(pageNum_){
+						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
+						//下拉框可点击尚未解决 - 四处：两禁用两可用
+						$("tbody td>div").prop("contentEditable", false);
+						$("#departid").prop("readonly", true);
+						
+						var this_ = this;
+						this.PurchaseStorage.pageNum = pageNum_;
+						this.PurchaseStorage.pageSize = 1;
+						
+						axios.post(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
+							//数据正常		/alert(JSON.stringify(res.data));
+							this_.page = res.data;
+							//console.log("时间转换前：" + this_.page.list[0].psDocumentDate + " - " + this_.page.list[0].psPaymentDate);
+							this_.page.list[0].psDocumentDate = this_.timeCycle(this_.page.list[0].psDocumentDate);
+							this_.page.list[0].psPaymentDate = this_.timeCycle(this_.page.list[0].psPaymentDate);
+							//console.log("时间转换后：" + this_.page.list[0].psDocumentDate + " - " + this_.page.list[0].psPaymentDate);
+							this_.PurchaseStorage = this_.page.list[0];
+						});
+						
+						/*$.ajax({
+							type : "post",
+							async : false,
+							url : "http://localhost:8080/SoftwareFactoryProject_/ps/psa",
+							data : JSON.stringify(this.PurchaseStorage),
+							contentType : 'application/json;charset=UTF-8',
+            				dataType : "json",
+							success : function(result) {
+								this_.page = result;
+								this_.PurchaseStorage = this_.page.list[0];
+							}
+						});*/
+					},
+		   			goFirstPage : function(){
+		   				this.queryPage(1);
+		   			},
+		   			goPrePage : function(){
+		   				if(this.page.hasPreviousPage)
+		      				this.queryPage(this.page.prePage);
+		   			},
+		   			goNextPage : function(){
+		   				if(this.page.hasNextPage)
+		      				this.queryPage(this.page.nextPage);
+		   			},
+		   			goLastPage : function(){
+		   				this.queryPage(this.page.pages);
+		   			},
+					goInsert : function(){
+						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
+						$("tbody td>div").prop("contentEditable", true);
+						$("#psDocumentNumber").prop("readonly", false);
+						this.state = "goInsert";
+						
+						this.hanlderEmpty(this.PurchaseStorage);		//清空属性
+						//alert("1：" + JSON.stringify(this.PurchaseStorage));
+						//1.单据日期
+						var now = new Date();
+						this.PurchaseStorage.psDocumentDate = this.timeCycle(now);
+						//2.单据编码		this.PurchaseStorage.psDocumentNumber	 ↓;
+						this.queryDateToId(this.PurchaseStorage.psDocumentDate);
+						//3.
+						this.PurchaseStorage.psPriceIncludeTax = "未税";
+						this.PurchaseStorage.psExchangeRate = "0.0000";
+						this.PurchaseStorage.psForeignTrade = "否";
+						this.PurchaseStorage.psPaymentClause = "货到";
+						//7.账款月份
+						//格式化月，如果小于9，前面补0  
+						var month = ("0" + (now.getMonth() + 1)).slice(-2);
+						//拼装完整日 期格式  
+						var AccountReceivable = now.getFullYear() + "-" + (month);
+						//将获取的当前日期赋值给主表的账款月份
+						this.PurchaseStorage.psAccountReceivable = AccountReceivable;
+						//8.制单人员
+						this.PurchaseStorage.psExecutor = "admin";
+						//9.单据状态
+						this.PurchaseStorage.psAudition = "0";
+						//10.是否删除
+						this.PurchaseStorage.psYn = "0";
+						//11.详表第一条
+						this.PurchaseStorage.psdList = [
+				 			{
+				 				psdDocumentNumber : this.PurchaseStorage.psDocumentNumber,
+				 				psdColumnNo: ++index,
+				 				matterId: '',
+				 				matterName: '',
+				 				psdSpecifications: '',
+				 				psdCompanyName: '',
+				 				psdAmount: 0,
+				 				psdMoneyDiscountBefore: 0.00,
+				 				psdFoldNumber: '100.00',
+				 				psdPrice: 0.00,
+				 				psdMoney: 0.00,
+				 				psdTaxRate: 0.00,
+				 				psdTaxAmount: 0.00,
+				 				psdIncludingTaxAmount: 0.00,
+				 				psdLotNumber: '',
+				 				psdGift: 0,
+				 				psdInvoiceDetails: 0,
+				 				psdUninvoicedQuantity: 0,
+				 				psdRemarks: '',
+				 				psdSourceOrder: '',
+				 				psdSourceNo: '',
+				 				psdWentDutch: 0.00
+				 			}
+				 		];
+						//状态：新增
+						this.PurchaseStorage.statu = "goInsert";
+						
+						//alert("2：" + JSON.stringify(this.PurchaseStorage));
+					},
+					save : function(){
+						//alert("执行" + this.state + "操作！");
+						var this_ = this;
+						
+						alert(JSON.stringify(this.PurchaseStorage));
+						
+						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
+							//数据正常		/alert(JSON.stringify(res));
+							if(res.data.code == "1"){
+								index = 0;
+		   						this_.queryPage((1));
+								return false;
+							} else if(res.data.code == "2"){
+								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
+								$("tbody td>div").prop("contentEditable", false);
+								return false;
+							}
+							alert("非常遗憾，本次" + res.data.message);
+						});
+					},
+					cancel : function(){
+						if(this.state == "goInsert"){
+			   				if(confirm("确定取消本次新增操作吗！？"))
+								this.queryPage(1);
+						} else if(this.state == "goUpdate"){
+			   				if(confirm("确定取消本次修改操作吗！？"))
+		   						this.queryPage(this.page.pages);
+						}
+					},
+					goUpdate : function(){
+						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
+						$("tbody td>div").prop("contentEditable", true);
+						this.state = "goUpdate";
+						this.PurchaseStorage.statu = "goUpdate";
+					},
+					delete_ : function(){
+		   				if(!confirm("确定删除本条仓库数据吗？"))
+		   					return false;
+		   				
+						var this_ = this;
+		   				//数据无误			
+		   				alert("参数：" + this.PurchaseStorage.psDocumentNumber);
+		   				axios.delete(`http://localhost:8080/SoftwareFactoryProject_/ps/psa/` + this.PurchaseStorage.psDocumentNumber).then(function(res){
+							//数据正常		/
+							alert(JSON.stringify(res));
+							if(res.data.code == "1"){
+								this_.queryPage(1);
+								return false;
+							}
+							alert("非常遗憾，本次" + res.data.message);
+						});
+					},
+					refresh : function(){
+						this.queryPage(1);
+					},
+					audit : function(){					//审核
+						
+					},
+					cancelTheAudit : function(){		//反审核
+						
+					},
+					hanlderEmpty : function(obj){
+						//alert(obj);
+						for(var o in obj){
+							//alert(obj[o] + " - " + o);
+							if(o == "psdList"){
+								//alert("进来了！" + o );
+								obj[o] = [];
+							} else {
+								obj[o] = "";
+							}
+						}
+					},
+					timeCycle : function(date){
+						//var d = new Date('Thu May 12 2016 08:00:00 GMT+0800 (中国标准时间)');
+						//var datetime=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds()
+						var d = new Date(date);
+						var yue = "",day = "";
+						if(d.getMonth() < 9) {
+							yue = "0" + (d.getMonth()+1);
+						} else {
+							yue = d.getMonth()+1;
+						}
+						if(d.getDate() < 10) {
+							day = "0" + d.getDate();
+						} else {
+							day = d.getDate();
+						}
+						return d.getFullYear() + "-" + yue + "-" + day;
+					},
+					blurFunc : function(e, index, name) {　　　		//失去焦点实现双向数据绑定
+				 		let content = e.target.innerText;
+				 		e.target.innerText = '';
+			 			this.PurchaseStorage.psdList[index][name] = content;
+				 		e.target.innerText = content;
+				 	},
+				 	addCustomerVisit : function() {　　　		//添加行
+				 		
+				 	},
+				 	removeCustomerVisit : function(index) {
+				 		//移除行
+			 			console.log(this.PurchaseStorage.psdList);
+			 			this.PurchaseStorage.psdList.splice(index, 1);
+				 	},
+				 	openCGQGtype : function(){
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["单选--供应商主文件设定", 'font-size:18px;'],
+								type: 2,
+								area: ['600px', '460px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "GongYingShang.html",
+								btn: '关闭',
+								btnAlign: 'c',			//按钮居中
+								shade: 0.5, 			//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()) 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								}
+							});
+						});
+				 	},
+				 	openCKDate : function(){
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["单选--仓库主文件设定", 'font-size:18px;'],
+								type: 2,
+								area: ['600px', '460px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "CangKu.html",
+								btn: '关闭',
+								btnAlign: 'c',				//按钮居中
+								shade: 0.5, 				//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()); 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								}
+							});
+						});
+				 	},
+				 	openStaff : function(){
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["单选--人员主文件设定", 'font-size:18px;'],
+								type: 2,
+								area: ['600px', '460px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "Staff.html",
+								btn: '关闭',
+								btnAlign: 'c',			//按钮居中
+								shade: 0.5, 			//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()) 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								}
+							});
+						});
+				 	},
+				},
+				created: function() {
+					this.queryPage(1);
+					
+					/*var now = new Date();
+					//格式化日，如果小于9，前面补0  
+					var day = ("0" + now.getDate()).slice(-2);
+					//格式化月，如果小于9，前面补0  
+					var month = ("0" + (now.getMonth() + 1)).slice(-2);
+					//拼装完整日 期格式  
+					var today = now.getFullYear() + "-" + (month) + "-" + (day);
+					//将获取的当前日期赋值给主表的单据日期
+					this.PurchaseStorage.psDocumentDate = today;
+					//调用根据单据日期查询赋值单据号码方法（传参单据日期）
+					this.queryDateToId(this.PurchaseStorage.psDocumentDate);*/
+				},
+				mounted : function(){
+					var this_ = this;
+					
+					layui.use('laydate', function(){
+						var laydate = layui.laydate;
+						
+						//执行一个laydate实例
+						//单据日期
+						laydate.render({
+							elem : '#data1',	//指向元素
+							done : function(value){
+								this_.PurchaseStorage.psDocumentDate = value;
+								console.log("分别输出两个值：" + value + " - " + this_.PurchaseStorage.psDocumentDate);
+								
+								this_.queryDateToId(this_.PurchaseStorage.psDocumentDate);
+							}
+						});
+						//付款日期
+						laydate.render({
+							elem: '#data2'
+						});
+					});
+				},
+				updated : function(){
+					//
+				}
+			})
+		</script>
 		<script>
 			layui.use('layer', function() { //独立版的layer无需执行这一句
 				var $ = layui.jquery,
@@ -466,425 +897,6 @@
 				});
 
 			});
-		</script>
-		<script type="text/javascript">
-			
-	 		let index = 0;
-	 		
-			function subpageTriggerEvent(incident){
-				//alert("采购入库设定页 - 触发事件：" + incident);
-				
-				if(incident == "goFirstPage"){
-					listVm.goFirstPage();
-				} else if(incident == "goPrePage"){
-					listVm.goPrePage();
-				} else if(incident == "goNextPage"){
-					listVm.goNextPage();
-				} else if(incident == "goLastPage"){
-					listVm.goLastPage();
-				} else if(incident == "goInsert"){
-					listVm.goInsert();
-				} else if(incident == "save"){
-					listVm.save();
-				} else if(incident == "cancel"){
-					listVm.cancel();
-				} else if(incident == "goUpdate"){
-					listVm.goUpdate();
-				} else if(incident == "delete"){
-					listVm.delete_();
-				} else if(incident == "refresh"){
-					listVm.refresh();
-				} else if(incident == "audit"){
-					listVm.audit();
-				} else if(incident == "cancelTheAudit"){
-					listVm.cancelTheAudit();
-				}
-			}
-			
-			var listVm = new Vue({
-				el: "#main-div",
-				data: {
-					page : {},
-					PurchaseStorage: {
-						psDocumentNumber : 2020020201,
-						psDocumentDate : '2020-02-02',
-						pageNum : 1
-					},
-					state : "",
-					clauseList: [
-                        {value: '货到',label: '货到'},
-                        {value: '次月',label: '次月'},
-                        {value: '月结',label: '月结'},
-                        {value: '其它',label: '其它'},
-                    ]
-                },
-				methods: {
-					queryDateToId: function(psDocumentDate) {
-						var this_ = this;
-
-						$.ajax({
-							type : "get",
-							async : false,
-							url : "http://localhost:8080/SoftwareFactoryProject_/ps/queryDateToId?psDocumentDate=" + psDocumentDate,
-            				dataType : "json",
-							success : function(result) {
-								//alert(result);
-			                    this_.PurchaseStorage.psDocumentNumber = result;
-			                    
-			                    if(this_.state == "goInsert"){
-			                    	this_.PurchaseStorage.psdList = [
-							 			{
-							 				psdDocumentNumber : this_.PurchaseStorage.psDocumentNumber,
-							 				psdColumnNo: ++index,
-							 				matterId: 'C01-W-02',
-							 				matterName: '6PA#AB2台式机',
-							 				psdSpecifications: '',
-							 				psdCompanyName: 'PCS',
-							 				psdAmount: 25,
-							 				psdMoneyDiscountBefore: 2450.05,
-							 				psdFoldNumber: '99.59',
-							 				psdPrice: 2440.00,
-							 				psdMoney: 61000.00,
-							 				psdTaxRate: 17.00,
-							 				psdTaxAmount: 10370.00,
-							 				psdIncludingTaxAmount: 71370.00,
-							 				psdLotNumber: '',
-							 				psdGift: 0,
-							 				psdInvoiceDetails: 1,
-							 				psdUninvoicedQuantity: 0,
-							 				psdRemarks: '',
-							 				psdSourceOrder: '采购订单',
-							 				psdSourceNo: '2019121701',
-							 				psdWentDutch: 0.00
-							 			},
-							 			{
-							 				psdDocumentNumber : this_.PurchaseStorage.psDocumentNumber,
-							 				psdColumnNo: ++index,
-							 				matterId: 'C01-W-01',
-							 				matterName: '6PA3443141式机',
-							 				psdSpecifications: '',
-							 				psdCompanyName: 'PCS',
-							 				psdAmount: 25,
-							 				psdMoneyDiscountBefore: 2450.05,
-							 				psdFoldNumber: '99.59',
-							 				psdPrice: 2440.00,
-							 				psdMoney: 61000.00,
-							 				psdTaxRate: 17.00,
-							 				psdTaxAmount: 10370.00,
-							 				psdIncludingTaxAmount: 71370.00,
-							 				psdLotNumber: '',
-							 				psdGift: 0,
-							 				psdInvoiceDetails: 1,
-							 				psdUninvoicedQuantity: 0,
-							 				psdRemarks: '',
-							 				psdSourceOrder: '采购订单',
-							 				psdSourceNo: '2019121701',
-							 				psdWentDutch: 0.00
-							 			}
-							 		];
-			                    }
-							}
-						});
-					},
-					queryPage : function(pageNum_){
-						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-						//下拉框可点击尚未解决 - 四处：两禁用两可用
-						$("tbody td").prop("contentEditable", false);
-						$("#departid").prop("readonly", true);
-						
-						var this_ = this;
-						this.PurchaseStorage.pageNum = pageNum_;
-						this.PurchaseStorage.pageSize = 1;
-						
-						axios.post(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
-							//数据正常		/alert(JSON.stringify(res.data));
-							this_.page = res.data;
-							//console.log("时间转换前：" + this_.page.list[0].psDocumentDate + " - " + this_.page.list[0].psPaymentDate);
-							this_.page.list[0].psDocumentDate = this_.timeCycle(this_.page.list[0].psDocumentDate);
-							this_.page.list[0].psPaymentDate = this_.timeCycle(this_.page.list[0].psPaymentDate);
-							//console.log("时间转换后：" + this_.page.list[0].psDocumentDate + " - " + this_.page.list[0].psPaymentDate);
-							this_.PurchaseStorage = this_.page.list[0];
-						});
-						
-						/*$.ajax({
-							type : "post",
-							async : false,
-							url : "http://localhost:8080/SoftwareFactoryProject_/ps/psa",
-							data : JSON.stringify(this.PurchaseStorage),
-							contentType : 'application/json;charset=UTF-8',
-            				dataType : "json",
-							success : function(result) {
-								this_.page = result;
-								this_.PurchaseStorage = this_.page.list[0];
-							}
-						});*/
-					},
-		   			goFirstPage : function(){
-		   				this.queryPage(1);
-		   			},
-		   			goPrePage : function(){
-		   				if(this.page.hasPreviousPage)
-		      				this.queryPage(this.page.prePage);
-		   			},
-		   			goNextPage : function(){
-		   				if(this.page.hasNextPage)
-		      				this.queryPage(this.page.nextPage);
-		   			},
-		   			goLastPage : function(){
-		   				this.queryPage(this.page.pages);
-		   			},
-					goInsert : function(){
-						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
-						$("tbody td").prop("contentEditable", true);
-						$("#psDocumentNumber").prop("readonly", false);
-						this.state = "goInsert";
-						
-						this.hanlderEmpty(this.PurchaseStorage);
-						this.PurchaseStorage.psExecutor = "admin";
-						this.PurchaseStorage.statu = "goInsert";
-						
-						//$("tbody").html("<tr><td></td><td @dbclick='obtainMaterial();'></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
-					},
-					save : function(){
-						//alert("执行" + this.state + "操作！");
-						var this_ = this;
-						
-						alert(JSON.stringify(this.PurchaseStorage));
-						
-						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
-							//数据正常		/alert(JSON.stringify(res));
-							if(res.data.code == "1"){
-		   						this_.queryPage((this_.page.pages+1));
-								return false;
-							} else if(res.data.code == "2"){
-								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-								$("tbody td").prop("contentEditable", false);
-								return false;
-							}
-							alert("非常遗憾，本次" + res.data.message);
-						});
-					},
-					cancel : function(){
-						if(this.state == "goInsert"){
-			   				if(confirm("确定取消本次新增操作吗！？"))
-								this.queryPage(1);
-						} else if(this.state == "goUpdate"){
-			   				if(confirm("确定取消本次修改操作吗！？"))
-		   						this.queryPage(this.page.pages);
-						}
-					},
-					goUpdate : function(){
-						$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", false);
-						$("tbody td").prop("contentEditable", true);
-						this.state = "goUpdate";
-						this.PurchaseStorage.statu = "goUpdate";
-					},
-					delete_ : function(){
-		   				if(!confirm("确定删除本条仓库数据吗？"))
-		   					return false;
-		   				
-						var this_ = this;
-		   				//数据无误			
-		   				alert("参数：" + this.PurchaseStorage.psDocumentNumber);
-		   				axios.delete(`http://localhost:8080/SoftwareFactoryProject_/ps/psa/` + this.PurchaseStorage.psDocumentNumber).then(function(res){
-							//数据正常		/
-							alert(JSON.stringify(res));
-							if(res.data.code == "1"){
-								this_.queryPage(1);
-								return false;
-							}
-							alert("非常遗憾，本次" + res.data.message);
-						});
-					},
-					refresh : function(){
-						this.queryPage(1);
-					},
-					audit : function(){																																																							alert("审核成功");					return false;
-						
-						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
-							//数据正常		/alert(JSON.stringify(res));
-							if(res.data.code == "1"){
-		   						this_.queryPage((this_.page.pages+1));
-								return false;
-							} else if(res.data.code == "2"){
-								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-								$("tbody td").prop("contentEditable", false);
-								return false;
-							}
-							alert("非常遗憾，本次" + res.data.message);
-						});
-						
-					},
-					cancelTheAudit : function(){																																																												return false;
-						
-						axios.put(`http://localhost:8080/SoftwareFactoryProject_/ps/psa`, this.PurchaseStorage).then(function(res){
-							//数据正常		/alert(JSON.stringify(res));
-							if(res.data.code == "1"){
-		   						this_.queryPage((this_.page.pages+1));
-								return false;
-							} else if(res.data.code == "2"){
-								$(".layui-form-item div>input,.layui-form-item div>textarea").prop("disabled", true);
-								$("tbody td").prop("contentEditable", false);
-								return false;
-							}
-							alert("非常遗憾，本次" + res.data.message);
-						});
-						
-					},
-					hanlderEmpty : function(obj){
-						for(var o in obj){
-							obj[o] = "";
-						}
-					},
-					timeCycle : function(date){
-						//var d = new Date('Thu May 12 2016 08:00:00 GMT+0800 (中国标准时间)');
-						//var datetime=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds()
-						var d = new Date(date);
-						var yue = "",day = "";
-						if(d.getMonth() < 9) {
-							yue = "0" + (d.getMonth()+1);
-						} else {
-							yue = d.getMonth()+1;
-						}
-						if(d.getDate() < 10) {
-							day = "0" + d.getDate();
-						} else {
-							day = d.getDate();
-						}
-						return d.getFullYear() + "-" + yue + "-" + day;
-					},
-					blurFunc : function(e, index, name) {　　　		//失去焦点实现双向数据绑定
-				 		let content = e.target.innerText;
-				 		e.target.innerText = '';
-			 			this.PurchaseStorage.psdList[index][name] = content;
-				 		e.target.innerText = content;
-				 	},
-				 	addCustomerVisit : function() {　　　		//添加行
-				 		
-				 	},
-				 	removeCustomerVisit : function(index) {
-				 		//移除行
-			 			console.log(this.PurchaseStorage.psdList);
-			 			this.PurchaseStorage.psdList.splice(index, 1);
-				 	},
-				 	openCGQGtype : function(){
-				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
-							var $ = layui.jquery,
-								layer = layui.layer; 		//独立版的layer无需执行这一句
-							
-							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-								title: ["单选--供应商主文件设定", 'font-size:18px;'],
-								type: 2,
-								area: ['700px', '600px'],
-								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
-								id: 'layerDemo' + "auto",	//防止重复弹出
-								content: "GongYingShang.html",
-								btn: '关闭',
-								btnAlign: 'c',			//按钮居中
-								shade: 0.5, 			//不显示遮罩
-								success: function(layero, index){
-								    var body = layer.getChildFrame('body', index);
-								    //body.find('input').val('Hi，我是从父页来的');
-								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
-								    //console.log(body.html()) 	//得到iframe页的body内容
-								    body.find('#index').val(index);
-								}
-							});
-						});
-				 	},
-				 	openCKDate : function(){
-				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
-							var $ = layui.jquery,
-								layer = layui.layer; 		//独立版的layer无需执行这一句
-							
-							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-								title: ["单选--仓库主文件设定", 'font-size:18px;'],
-								type: 2,
-								area: ['600px', '500px'],
-								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
-								id: 'layerDemo' + "auto",	//防止重复弹出
-								content: "CangKu.html",
-								btn: '关闭',
-								btnAlign: 'c',			//按钮居中
-								shade: 0.5, 			//不显示遮罩
-								success: function(layero, index){
-								    var body = layer.getChildFrame('body', index);
-								    //body.find('input').val('Hi，我是从父页来的');
-								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
-								    //console.log(body.html()) 	//得到iframe页的body内容
-								    body.find('#index').val(index);
-								}
-							});
-						});
-				 	},
-				 	openStaff : function(){
-				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
-							var $ = layui.jquery,
-								layer = layui.layer; 		//独立版的layer无需执行这一句
-							
-							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-								title: ["单选--人员主文件设定", 'font-size:18px;'],
-								type: 2,
-								area: ['600px', '500px'],
-								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
-								id: 'layerDemo' + "auto",	//防止重复弹出
-								content: "Staff.html",
-								btn: '关闭',
-								btnAlign: 'c',			//按钮居中
-								shade: 0.5, 			//不显示遮罩
-								success: function(layero, index){
-								    var body = layer.getChildFrame('body', index);
-								    //body.find('input').val('Hi，我是从父页来的');
-								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
-								    //console.log(body.html()) 	//得到iframe页的body内容
-								    body.find('#index').val(index);
-								}
-							});
-						});
-				 	},
-				},
-				created: function() {
-					this.queryPage(1);
-					
-					/*var now = new Date();
-					//格式化日，如果小于9，前面补0  
-					var day = ("0" + now.getDate()).slice(-2);
-					//格式化月，如果小于9，前面补0  
-					var month = ("0" + (now.getMonth() + 1)).slice(-2);
-					//拼装完整日 期格式  
-					var today = now.getFullYear() + "-" + (month) + "-" + (day);
-					//将获取的当前日期赋值给主表的单据日期
-					this.PurchaseStorage.psDocumentDate = today;
-					//调用根据单据日期查询赋值单据号码方法（传参单据日期）
-					this.queryDateToId(this.PurchaseStorage.psDocumentDate);*/
-				},
-				mounted : function(){
-					var this_ = this;
-					
-					layui.use('laydate', function(){
-						var laydate = layui.laydate;
-						
-						//执行一个laydate实例
-						//单据日期
-						laydate.render({
-							elem : '#data1',	//指向元素
-							done : function(value){
-								this_.PurchaseStorage.psDocumentDate = value;
-								console.log("分别输出两个值：" + value + " - " + this_.PurchaseStorage.psDocumentDate);
-								
-								this_.queryDateToId(this_.PurchaseStorage.psDocumentDate);
-							}
-						});
-						//付款日期
-						laydate.render({
-							elem: '#data2'
-						});
-					});
-				}
-			})
 		</script>
 	</body>
 

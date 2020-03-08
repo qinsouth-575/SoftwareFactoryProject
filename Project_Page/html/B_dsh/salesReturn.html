@@ -61,7 +61,8 @@
 		}
 	</script>
 
-	<body>
+	<body >
+		<div id="main-div">
 		<div class="x-body">
 			<h2>销售退货单</h2>
 		</div>
@@ -71,43 +72,43 @@
 				<div class="layui-row">
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3" style="margin-top: 15px;">客户</span>
-						<input type="text" class="layui-col-md-offset1 layui-input" style="width: 170px;" readonly="readonly" />
+						<input type="text" class="layui-col-md-offset1 layui-input" style="width: 170px;" disabled="disabled" v-model="salesorder.customerId"/>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">单据日期</span> <input type="date" style="width: 170px;" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md2" style="margin-top: 15px;">单据日期</span> <input type="date" style="width: 170px;" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwtId"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">送货地址</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md3" style="margin-top: 15px;">送货地址</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwPriceIncludeTax"/>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">单据号码</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md2" style="margin-top: 15px;">单据号码</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwCertificateNumber"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3" style="margin-top: 15px;">单价是否含税</span>
-						<select name="" style="width: 170px;" lay-verify="required" class=" layui-col-md-offset1 layui-input" disabled="disabled">
+						<select name="" style="width: 170px;" lay-verify="required" class=" layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.salescxrk">
 							<option value=""></option>
 						</select>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">币别</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md2" style="margin-top: 15px;">币别</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.warehouseId"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">仓库</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md3" style="margin-top: 15px;">仓库</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwCertificateNumber"/>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">汇率</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md2" style="margin-top: 15px;">汇率</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwDocumentDate"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3" style="margin-top: 15px;">重新出库</span>
-						<select name="" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled">
+						<select name="" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwDocumentNumber">
 							<option value=""></option>
 						</select>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">国外贸易</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md2" style="margin-top: 15px;">国外贸易</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.currencyId"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">凭证编码</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md3" style="margin-top: 15px;">凭证编码</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwExchangeRate"/>
 					</div>
 					<div class="layui-tab layui-col-md10 layui-col-md-offset2">
 						<ul class="layui-tab-title layui-col-md10 layui-col-md-offset2">
@@ -143,32 +144,52 @@
 										</tr>
 									</thead>
 									<tbody>
-
+											<tr v-for="sa,index in salesorder.srwList">
+											<td>{{sa.srwdId}}</td>
+											<td>{{sa.matterId}}</td>
+											<td>{{sa.srwdEngname}}</td>
+											<td>{{sa.srwdRemark}}</td>
+											<td>{{sa.srwdPriceIncludeTax}}</td>
+											<td>{{sa.srwdSingleStatus}}</td>
+											<td>{{sa.srwdDocumentDate}}</td>
+											<td>{{sa.srwdDocumentNumber}}</td>
+											<td>{{sa.srwdPrice}}</td>
+											<td>{{sa.srwdMoney}}</td>
+											<td>{{sa.srwdTaxRate}}</td>
+											<td>{{sa.srwdTaxAmount}}</td>
+											<td>{{sa.srwdIncludingTaxAmount}}</td>
+											<td>{{sa.srwdBatchNumber}}</td>
+											<td>{{sa.srwdIfgift}}</td>
+											<td>{{sa.srwdInvoiceDetails}}</td>
+											<td>{{sa.srwdNomakeInvoiceNum}}</td>
+											<td>{{sa.srwdRemarks}}</td>
+											<td>{{sa.srwdSourceOrder}}</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
 
 							<div class="layui-tab-item layui-col-md12">
 								<div class="layui-col-md12">
-									<span class="layui-col-md2" style="margin-left: 25px;">备注</span><textarea style="margin-left: 27px;" readonly="readonly" rows="6" cols="81"></textarea>
+									<span class="layui-col-md2" style="margin-left: 25px;">备注</span><textarea style="margin-left: 27px;" disabled="disabled" rows="6" cols="81" v-model="salesorder.soSubordinate"></textarea>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">业务人员</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md3" style="margin-top: 15px;">业务人员</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwHeaderProvision"/>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">制单人员</span><input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md2" style="margin-top: 15px;">制单人员</span><input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwEndClause"/>
 					</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">所属部门</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md3" style="margin-top: 15px;">所属部门</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwRemark"/>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">复核人员</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md2" style="margin-top: 15px;">复核人员</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwAuditing"/>
 					</div><br/><br/>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">所属项目</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" readonly="readonly" />
+						<span class="layui-col-md3" style="margin-top: 15px;">所属项目</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwYn"/>
 					</div>
 
 					<div class="layui-col-md12">
@@ -197,6 +218,155 @@
     	}
        
     </script>-->
+    </div>
+    <script src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/xadmin.js"></script>
+		<script type="text/javascript" src="../../js/vue.js"></script>
+		<script type="text/javascript" src="../../js/axios.min.js"></script>
+		<script>
+			//必须设置允许跨域访问session中数据(cooike)
+			axios.default.withCredentials = true;
+			
+			var state = "";
+			
+			function subpageTriggerEvent(incident){
+				//alert("部门设定页 - 触发事件：" + incident);
+				
+				if(incident == "goFirstPage"){
+					listVm.goFirstPage();
+				} else if(incident == "goPrePage"){
+					listVm.goPrePage();
+				} else if(incident == "goNextPage"){
+					listVm.goNextPage();
+				} else if(incident == "goLastPage"){
+					listVm.goLastPage();
+				} else if(incident == "goInsert"){
+					listVm.goInsert();
+				} else if(incident == "save"){
+					listVm.save();
+				} else if(incident == "cancel"){
+					listVm.cancel();
+				} else if(incident == "goUpdate"){
+					listVm.goUpdate();
+				} else if(incident == "delete"){
+					listVm.delete_();
+				} else if(incident == "refresh"){
+					listVm.refresh();
+				}
+				
+				state = incident;
+			}
+			
+			//创建Vue对象
+			var listVm=new Vue({
+				el:"#main-div",
+				data:{
+					pagelist:{},
+					salesorder:{
+						pageNum : 1
+					},
+					salelist:[],
+					state:""
+				},
+				methods:{
+					queryPage: function(pageNum_){
+						$("input").prop("disabled", true);
+						$("select").prop("disabled", true);
+						$("textarea").prop("disabled", true);
+						var this_ = this;
+						this.salesorder.pageNum = pageNum_;
+					
+						axios.post(`http://localhost:8080/SoftwareFactoryProject_/salereturnwarehouse/PageQueryAll`, this.salesorder).then(function(res){
+							//数据正常
+							alert(JSON.stringify(res.data));
+							this_.pagelist = res.data;
+							this_.salesorder = this_.pagelist.list[0];
+						});
+					},
+					goFirstPage : function(){
+		   				this.queryPage(1);
+		   			},
+		   			goPrePage : function(){
+		   				if(this.pagelist.hasPreviousPage)
+		      				this.queryPage(this.pagelist.prePage);
+		   			},
+		   			goNextPage : function(){
+		   				if(this.pagelist.hasNextPage)
+		      				this.queryPage(this.pagelist.nextPage);
+		   			},
+		   			goLastPage : function(){
+		   				this.queryPage(this.pagelist.pages);
+		   			},
+		   			goInsert : function(){
+						$("input").prop("disabled", false);
+						$("select").prop("disabled", false);
+						$("textarea").prop("disabled", false);
+						this.state = "goInsert";
+						this.salesorder = {};
+						alert(JSON.stringify(salesorder));
+					},
+					save : function(){
+						//alert("执行" + this.state + "操作！");
+						var this_ = this;
+						this.salesorder.flag = this.state;
+						
+						axios.put(`http://localhost:8080/SoftwareFactoryProject_/salereturnwarehouse/insertOrUpdateCD`, this.salesorder).then(function(res){
+							//数据正常		/alert(JSON.stringify(res));
+							if(res.data.code == "1"){
+		   						this_.queryPage((this_.pagelist.pages+1));
+								return false;
+							} else if(res.data.code == "2"){
+								$("input").prop("disabled", true);
+								$("select").prop("disabled", true);
+								$("textarea").prop("disabled", true);
+								return false;
+							}
+							alert("非常遗憾，本次" + res.data.message);
+						});
+					},
+					cancel : function(){
+						if(this.state == "goInsert"){
+			   				if(confirm("确定取消本次新增操作吗！？"))
+								this.queryPage(1);
+						} else if(this.state == "goUpdate"){
+			   				if(confirm("确定取消本次修改操作吗！？"))
+		   						this.queryPage(this.pagelist.pages);
+						}
+						
+					},
+					goUpdate : function(){
+								$("input").prop("disabled", false);
+								$("select").prop("disabled", false);
+								$("textarea").prop("disabled", false);
+						this.state = "goUpdate";
+					},
+					delete_ : function(){
+		   				if(!confirm("确定删除本条仓库数据吗？"))
+		   					return false;
+		   				
+						var this_ = this;
+		   				//数据无误			/	alert("参数：" + this.department.departid);
+		   				axios.delete(`http://localhost:8080/SoftwareFactoryProject_/salereturnwarehouse/deleteById/` + this.salesorder.srwId).then(function(res){
+							//数据正常		/alert(JSON.stringify(res));
+							if(res.data.code == "1"){
+								this_.queryPage(1);
+								return false;
+							}
+							alert("非常遗憾，本次" + res.data.message);
+						});
+					},
+					refresh : function(){
+						this.queryPage(1);
+					}
+				},
+				mounted : function(){
+					this.queryPage(1);
+					
+					
+				}
+			});
+		</script>
 	</body>
 
 </html>

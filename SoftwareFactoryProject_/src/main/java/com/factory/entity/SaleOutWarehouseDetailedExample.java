@@ -1,8 +1,6 @@
 package com.factory.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class SaleOutWarehouseDetailedExample {
@@ -104,32 +102,6 @@ public class SaleOutWarehouseDetailedExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andSowdIdIsNull() {
@@ -612,63 +584,63 @@ public class SaleOutWarehouseDetailedExample {
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateIsNull() {
-            addCriterion("sowd_document_date is null");
+        public Criteria andSowdFoldTheNumberIsNull() {
+            addCriterion("sowd_fold_the_number is null");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateIsNotNull() {
-            addCriterion("sowd_document_date is not null");
+        public Criteria andSowdFoldTheNumberIsNotNull() {
+            addCriterion("sowd_fold_the_number is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateEqualTo(Date value) {
-            addCriterionForJDBCDate("sowd_document_date =", value, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberEqualTo(Float value) {
+            addCriterion("sowd_fold_the_number =", value, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("sowd_document_date <>", value, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberNotEqualTo(Float value) {
+            addCriterion("sowd_fold_the_number <>", value, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("sowd_document_date >", value, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberGreaterThan(Float value) {
+            addCriterion("sowd_fold_the_number >", value, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("sowd_document_date >=", value, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberGreaterThanOrEqualTo(Float value) {
+            addCriterion("sowd_fold_the_number >=", value, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateLessThan(Date value) {
-            addCriterionForJDBCDate("sowd_document_date <", value, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberLessThan(Float value) {
+            addCriterion("sowd_fold_the_number <", value, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("sowd_document_date <=", value, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberLessThanOrEqualTo(Float value) {
+            addCriterion("sowd_fold_the_number <=", value, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateIn(List<Date> values) {
-            addCriterionForJDBCDate("sowd_document_date in", values, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberIn(List<Float> values) {
+            addCriterion("sowd_fold_the_number in", values, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("sowd_document_date not in", values, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberNotIn(List<Float> values) {
+            addCriterion("sowd_fold_the_number not in", values, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("sowd_document_date between", value1, value2, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberBetween(Float value1, Float value2) {
+            addCriterion("sowd_fold_the_number between", value1, value2, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSowdDocumentDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("sowd_document_date not between", value1, value2, "sowdDocumentDate");
+        public Criteria andSowdFoldTheNumberNotBetween(Float value1, Float value2) {
+            addCriterion("sowd_fold_the_number not between", value1, value2, "sowdFoldTheNumber");
             return (Criteria) this;
         }
 

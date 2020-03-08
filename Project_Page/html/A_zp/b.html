@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/layui.css"/>
+	</head>
+	<body>
+		<select id="type" onchange="jz()"  name="" style="width: 90px;height: 25px;" class="layui-col-md-offset1">
+			<option id="staffId" value="staff_id">人员编号</option>
+			<option id="departname" value="c.DepartName">所属部门</option>
+			<option id="staffName" value="staff_name">人员姓名</option>
+			<option id="staffIdnumber" value="staff_idnumber">身份证号</option>
+			<option id="staffGender" value="staff_gender">性别</option>
+			<option id="staffTechnicaltitle" value="staff_technicaltitle">中文职位</option>
+		</select>
+		<input id="name" type="text" style="height: 20px;" class="layui-col-md-offset1" />
+		<div class="layui-tab-item layui-show layui-tab-content " style="border: 1px solid; overflow-x: scroll; overflow-y: scroll;">
+			<table class="layui-table" readonly="readonly">
+				<thead>
+					<tr>
+						<th style="white-space: nowrap;">人员编号</th>
+						<th style="white-space: nowrap;">人员姓名</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</div>
+		<script type="text/javascript" src="../../js/jquery-1.8.2.min.js" ></script>
+		<script>
+			jz()
+			function jz(){
+				var type=$("#type").val()
+				var name=$("#name").val()
+				$.ajax({
+					url:"//localhost:8080/SoftwareFactoryProject_/zp/queryyg",
+					data:{
+						type:type,
+						name:name
+					},
+					success:function(r){  
+							$("tbody").html("")
+							$(r).each(function(i,obj){
+								console.log(obj)
+								if($("#type").val()=="staff_id"){
+									$tr=$("<tr ondblclick='c(this)'><td>"+obj.staffId+"</td><td>"+obj.staffName+"</td><td>"+obj.staffName+"</td><td>"+obj.departname+"</td></tr>")
+								}else{
+									$("table thead tr th:eq(1)").text($("#type").find("option:selected").text())
+									$tr=$("<tr ondblclick='c(this)'><td>"+obj.staffId+"</td><td>"+obj[$("#type").find("option:selected").attr("id")]+"</td><td>"+obj.staffName+"</td><td>"+obj.departname+"</td></tr>")
+								}
+								$("tbody").append($tr)
+							})
+							$("table tbody tr").each(function(i,obj){
+								$(obj).find("td:eq(2)").hide()
+								$(obj).find("td:eq(3)").hide()
+							})
+					}
+				});
+			}
+			function c(obj){
+				var staff_name=$(obj).find("td:eq(2)").text()
+				var departname=$(obj).find("td:eq(3)").text()
+				parent.show2(staff_name,departname)
+				//当你在iframe页面关闭自身时
+				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+				parent.layer.close(index); //再执行关闭
+			}
+		</script>
+	</body>
+</html>

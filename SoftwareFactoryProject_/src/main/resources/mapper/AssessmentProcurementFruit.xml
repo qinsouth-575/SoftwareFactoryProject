@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.factory.mapper.AssessmentProcurementFruitMapper" >
+  <resultMap id="BaseResultMap" type="com.factory.entity.AssessmentProcurementFruit" >
+    <id column="apf_id" property="apfId" jdbcType="VARCHAR" />
+    <result column="ap_id" property="apId" jdbcType="VARCHAR" />
+    <result column="ps_id" property="psId" jdbcType="VARCHAR" />
+    <result column="apf_matter_id" property="apfMatterId" jdbcType="VARCHAR" />
+    <result column="apf_matter_name" property="apfMatterName" jdbcType="VARCHAR" />
+    <result column="apf_specifications" property="apfSpecifications" jdbcType="VARCHAR" />
+    <result column="apf_company_name" property="apfCompanyName" jdbcType="VARCHAR" />
+    <result column="apf_amount" property="apfAmount" jdbcType="INTEGER" />
+    <result column="apf_money" property="apfMoney" jdbcType="REAL" />
+    <result column="apf_weight" property="apfWeight" jdbcType="REAL" />
+    <result column="apf_volume_wood" property="apfVolumeWood" jdbcType="REAL" />
+    <result column="apf_contribution" property="apfContribution" jdbcType="REAL" />
+    <result column="prt_audition" property="prtAudition" jdbcType="VARCHAR" />
+    <result column="prt_yn" property="prtYn" jdbcType="VARCHAR" />
+    <result column="prt_custom1" property="prtCustom1" jdbcType="VARCHAR" />
+    <result column="prt_custom2" property="prtCustom2" jdbcType="VARCHAR" />
+    <result column="prt_custom3" property="prtCustom3" jdbcType="VARCHAR" />
+    <result column="prt_custom4" property="prtCustom4" jdbcType="VARCHAR" />
+    <result column="prt_custom5" property="prtCustom5" jdbcType="VARCHAR" />
+    <result column="prt_custom6" property="prtCustom6" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+      
+  <select id="selecttb_detail02" resultType="com.factory.entity.AssessmentProcurementFruit" resultMap="BaseResultMap">
+SELECT * FROM `assessment_procurement_fruit` 
+WHERE `ap_id`=#{apId}
+</select>
+
+
+  <delete id="delete005">
+  delete from assessment_procurement_fruit where ap_id=#{apId}
+  </delete>
+  </mapper>

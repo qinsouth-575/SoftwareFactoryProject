@@ -19,7 +19,9 @@
   	SELECT * FROM `comdepartment` 
   </select>
   
-  
+  <select id="querybm" resultMap="BaseResultMap" parameterType="java.lang.String">
+ 	SELECT * FROM `comdepartment` WHERE #{type} LIKE #{name};
+  </select>
   
   
   <sql id="Example_Where_Clause" >

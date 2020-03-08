@@ -1,6 +1,7 @@
 package com.factory.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class PurchasingOrder {
     private String poId;
@@ -46,6 +47,18 @@ public class PurchasingOrder {
     private String poCustom2;
 
     private String poCustom3;
+    
+ 
+    
+    private List<PurchasingOrderDetails> jb;
+public List<PurchasingOrderDetails> getJb() {
+		return jb;
+	}
+
+	public void setJb(List<PurchasingOrderDetails> jb) {
+		this.jb = jb;
+	}
+
 private String pureExecutor;
 private String pureCheckagainStaff;
 	public String getPureExecutor() {

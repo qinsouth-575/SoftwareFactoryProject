@@ -59,6 +59,14 @@
     <result column="customer_custom5" property="customerCustom5" jdbcType="VARCHAR" />
     <result column="customer_custom6" property="customerCustom6" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+ <select id="querykh" resultMap="BaseResultMap" parameterType="java.lang.String">
+ 	SELECT * FROM `customer` WHERE #{type} LIKE #{name};
+ </select>
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -1025,4 +1033,7 @@
       customer_custom6 = #{customerCustom6,jdbcType=VARCHAR}
     where customer_id = #{customerId,jdbcType=VARCHAR}
   </update>
+  <select id="xsquery" resultMap="BaseResultMap">
+  		select * from customer
+  </select>
 </mapper>

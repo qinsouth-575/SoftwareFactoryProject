@@ -5,7 +5,13 @@
     <id column="asbid" property="asbid" jdbcType="INTEGER" />
     <result column="apbid" property="apbid" jdbcType="VARCHAR" />
     <result column="stockNumber" property="stocknumber" jdbcType="VARCHAR" />
-    <result column="amout" property="amout" jdbcType="VARCHAR" />
+    <result column="matterName" property="mattername" jdbcType="VARCHAR" />
+    <result column="matterSize" property="mattersize" jdbcType="VARCHAR" />
+    <result column="unitid" property="unitid" jdbcType="VARCHAR" />
+    <result column="unitName" property="unitname" jdbcType="VARCHAR" />
+    <result column="wmrExistingNumber" property="wmrexistingnumber" jdbcType="INTEGER" />
+    <result column="amout" property="amout" jdbcType="INTEGER" />
+    <result column="batchNumber" property="batchnumber" jdbcType="VARCHAR" />
     <result column="standby" property="standby" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.factory.entity.AllocationScheduleBill" extends="BaseResultMap" >
@@ -70,7 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    asbid, apbid, stockNumber, amout, standby
+    asbid, apbid, stockNumber, matterName, matterSize, unitid, unitName, wmrExistingNumber, 
+    amout, batchNumber, standby
   </sql>
   <sql id="Blob_Column_List" >
     remark
@@ -125,10 +132,14 @@
   </delete>
   <insert id="insert" parameterType="com.factory.entity.AllocationScheduleBill" >
     insert into allocation_schedule_bill (asbid, apbid, stockNumber, 
-      amout, standby, remark
+      matterName, matterSize, unitid, 
+      unitName, wmrExistingNumber, amout, 
+      batchNumber, standby, remark
       )
     values (#{asbid,jdbcType=INTEGER}, #{apbid,jdbcType=VARCHAR}, #{stocknumber,jdbcType=VARCHAR}, 
-      #{amout,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
+      #{mattername,jdbcType=VARCHAR}, #{mattersize,jdbcType=VARCHAR}, #{unitid,jdbcType=VARCHAR}, 
+      #{unitname,jdbcType=VARCHAR}, #{wmrexistingnumber,jdbcType=INTEGER}, #{amout,jdbcType=INTEGER}, 
+      #{batchnumber,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.factory.entity.AllocationScheduleBill" >
@@ -143,8 +154,26 @@
       <if test="stocknumber != null" >
         stockNumber,
       </if>
+      <if test="mattername != null" >
+        matterName,
+      </if>
+      <if test="mattersize != null" >
+        matterSize,
+      </if>
+      <if test="unitid != null" >
+        unitid,
+      </if>
+      <if test="unitname != null" >
+        unitName,
+      </if>
+      <if test="wmrexistingnumber != null" >
+        wmrExistingNumber,
+      </if>
       <if test="amout != null" >
         amout,
+      </if>
+      <if test="batchnumber != null" >
+        batchNumber,
       </if>
       <if test="standby != null" >
         standby,
@@ -163,8 +192,26 @@
       <if test="stocknumber != null" >
         #{stocknumber,jdbcType=VARCHAR},
       </if>
+      <if test="mattername != null" >
+        #{mattername,jdbcType=VARCHAR},
+      </if>
+      <if test="mattersize != null" >
+        #{mattersize,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null" >
+        #{unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="wmrexistingnumber != null" >
+        #{wmrexistingnumber,jdbcType=INTEGER},
+      </if>
       <if test="amout != null" >
-        #{amout,jdbcType=VARCHAR},
+        #{amout,jdbcType=INTEGER},
+      </if>
+      <if test="batchnumber != null" >
+        #{batchnumber,jdbcType=VARCHAR},
       </if>
       <if test="standby != null" >
         #{standby,jdbcType=VARCHAR},
@@ -192,8 +239,26 @@
       <if test="record.stocknumber != null" >
         stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
       </if>
+      <if test="record.mattername != null" >
+        matterName = #{record.mattername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mattersize != null" >
+        matterSize = #{record.mattersize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitid != null" >
+        unitid = #{record.unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitname != null" >
+        unitName = #{record.unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wmrexistingnumber != null" >
+        wmrExistingNumber = #{record.wmrexistingnumber,jdbcType=INTEGER},
+      </if>
       <if test="record.amout != null" >
-        amout = #{record.amout,jdbcType=VARCHAR},
+        amout = #{record.amout,jdbcType=INTEGER},
+      </if>
+      <if test="record.batchnumber != null" >
+        batchNumber = #{record.batchnumber,jdbcType=VARCHAR},
       </if>
       <if test="record.standby != null" >
         standby = #{record.standby,jdbcType=VARCHAR},
@@ -211,7 +276,13 @@
     set asbid = #{record.asbid,jdbcType=INTEGER},
       apbid = #{record.apbid,jdbcType=VARCHAR},
       stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
-      amout = #{record.amout,jdbcType=VARCHAR},
+      matterName = #{record.mattername,jdbcType=VARCHAR},
+      matterSize = #{record.mattersize,jdbcType=VARCHAR},
+      unitid = #{record.unitid,jdbcType=VARCHAR},
+      unitName = #{record.unitname,jdbcType=VARCHAR},
+      wmrExistingNumber = #{record.wmrexistingnumber,jdbcType=INTEGER},
+      amout = #{record.amout,jdbcType=INTEGER},
+      batchNumber = #{record.batchnumber,jdbcType=VARCHAR},
       standby = #{record.standby,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -223,7 +294,13 @@
     set asbid = #{record.asbid,jdbcType=INTEGER},
       apbid = #{record.apbid,jdbcType=VARCHAR},
       stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
-      amout = #{record.amout,jdbcType=VARCHAR},
+      matterName = #{record.mattername,jdbcType=VARCHAR},
+      matterSize = #{record.mattersize,jdbcType=VARCHAR},
+      unitid = #{record.unitid,jdbcType=VARCHAR},
+      unitName = #{record.unitname,jdbcType=VARCHAR},
+      wmrExistingNumber = #{record.wmrexistingnumber,jdbcType=INTEGER},
+      amout = #{record.amout,jdbcType=INTEGER},
+      batchNumber = #{record.batchnumber,jdbcType=VARCHAR},
       standby = #{record.standby,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -238,8 +315,26 @@
       <if test="stocknumber != null" >
         stockNumber = #{stocknumber,jdbcType=VARCHAR},
       </if>
+      <if test="mattername != null" >
+        matterName = #{mattername,jdbcType=VARCHAR},
+      </if>
+      <if test="mattersize != null" >
+        matterSize = #{mattersize,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        unitid = #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null" >
+        unitName = #{unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="wmrexistingnumber != null" >
+        wmrExistingNumber = #{wmrexistingnumber,jdbcType=INTEGER},
+      </if>
       <if test="amout != null" >
-        amout = #{amout,jdbcType=VARCHAR},
+        amout = #{amout,jdbcType=INTEGER},
+      </if>
+      <if test="batchnumber != null" >
+        batchNumber = #{batchnumber,jdbcType=VARCHAR},
       </if>
       <if test="standby != null" >
         standby = #{standby,jdbcType=VARCHAR},
@@ -254,7 +349,13 @@
     update allocation_schedule_bill
     set apbid = #{apbid,jdbcType=VARCHAR},
       stockNumber = #{stocknumber,jdbcType=VARCHAR},
-      amout = #{amout,jdbcType=VARCHAR},
+      matterName = #{mattername,jdbcType=VARCHAR},
+      matterSize = #{mattersize,jdbcType=VARCHAR},
+      unitid = #{unitid,jdbcType=VARCHAR},
+      unitName = #{unitname,jdbcType=VARCHAR},
+      wmrExistingNumber = #{wmrexistingnumber,jdbcType=INTEGER},
+      amout = #{amout,jdbcType=INTEGER},
+      batchNumber = #{batchnumber,jdbcType=VARCHAR},
       standby = #{standby,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=LONGVARCHAR}
     where asbid = #{asbid,jdbcType=INTEGER}
@@ -263,7 +364,13 @@
     update allocation_schedule_bill
     set apbid = #{apbid,jdbcType=VARCHAR},
       stockNumber = #{stocknumber,jdbcType=VARCHAR},
-      amout = #{amout,jdbcType=VARCHAR},
+      matterName = #{mattername,jdbcType=VARCHAR},
+      matterSize = #{mattersize,jdbcType=VARCHAR},
+      unitid = #{unitid,jdbcType=VARCHAR},
+      unitName = #{unitname,jdbcType=VARCHAR},
+      wmrExistingNumber = #{wmrexistingnumber,jdbcType=INTEGER},
+      amout = #{amout,jdbcType=INTEGER},
+      batchNumber = #{batchnumber,jdbcType=VARCHAR},
       standby = #{standby,jdbcType=VARCHAR}
     where asbid = #{asbid,jdbcType=INTEGER}
   </update>

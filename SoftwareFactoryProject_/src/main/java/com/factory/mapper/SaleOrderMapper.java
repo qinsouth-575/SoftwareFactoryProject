@@ -6,11 +6,15 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SaleOrderMapper {
+	
+	//分页查询
+	List<SaleOrder> PageQueryAll();
+
     int countByExample(SaleOrderExample example);
 
     int deleteByExample(SaleOrderExample example);
 
-    int deleteByPrimaryKey(String soId);
+    int deleteByPrimaryKey(Integer soId);
 
     int insert(SaleOrder record);
 
@@ -18,7 +22,7 @@ public interface SaleOrderMapper {
 
     List<SaleOrder> selectByExample(SaleOrderExample example);
 
-    SaleOrder selectByPrimaryKey(String soId);
+    SaleOrder selectByPrimaryKey(Integer soId);
 
     int updateByExampleSelective(@Param("record") SaleOrder record, @Param("example") SaleOrderExample example);
 
@@ -27,4 +31,10 @@ public interface SaleOrderMapper {
     int updateByPrimaryKeySelective(SaleOrder record);
 
     int updateByPrimaryKey(SaleOrder record);
+    
+    int updateAll(SaleOrder record);
+    
+    int deleteById(int id);
+    
+    public Integer queryPSDocumentNumber(@Param("documentdate") String psDocumentDate);
 }

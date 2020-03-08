@@ -10,7 +10,7 @@ public interface SaleReturnWarehouseMapper {
 
     int deleteByExample(SaleReturnWarehouseExample example);
 
-    int deleteByPrimaryKey(String srwId);
+    int deleteByPrimaryKey(Integer srwId);
 
     int insert(SaleReturnWarehouse record);
 
@@ -18,7 +18,7 @@ public interface SaleReturnWarehouseMapper {
 
     List<SaleReturnWarehouse> selectByExample(SaleReturnWarehouseExample example);
 
-    SaleReturnWarehouse selectByPrimaryKey(String srwId);
+    SaleReturnWarehouse selectByPrimaryKey(Integer srwId);
 
     int updateByExampleSelective(@Param("record") SaleReturnWarehouse record, @Param("example") SaleReturnWarehouseExample example);
 
@@ -27,4 +27,11 @@ public interface SaleReturnWarehouseMapper {
     int updateByPrimaryKeySelective(SaleReturnWarehouse record);
 
     int updateByPrimaryKey(SaleReturnWarehouse record);
+    
+    List<SaleReturnWarehouse> queryAll();
+    
+    int deleteById(int id);
+    
+    int updateAll(SaleReturnWarehouse record);
+
 }

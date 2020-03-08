@@ -5,9 +5,16 @@
     <id column="bsbid" property="bsbid" jdbcType="INTEGER" />
     <result column="bpbid" property="bpbid" jdbcType="VARCHAR" />
     <result column="stockNumber" property="stocknumber" jdbcType="VARCHAR" />
-    <result column="bookAmout" property="bookamout" jdbcType="VARCHAR" />
-    <result column="blitemAmout" property="blitemamout" jdbcType="VARCHAR" />
-    <result column="PALAmout" property="palamout" jdbcType="VARCHAR" />
+    <result column="matterName" property="mattername" jdbcType="VARCHAR" />
+    <result column="matterSize" property="mattersize" jdbcType="VARCHAR" />
+    <result column="unitid" property="unitid" jdbcType="VARCHAR" />
+    <result column="unitName" property="unitname" jdbcType="VARCHAR" />
+    <result column="bookAmout" property="bookamout" jdbcType="INTEGER" />
+    <result column="blitemAmout" property="blitemamout" jdbcType="INTEGER" />
+    <result column="palamout" property="palamout" jdbcType="INTEGER" />
+    <result column="matter_nowavgcost" property="matterNowavgcost" jdbcType="REAL" />
+    <result column="palaMoney" property="palamoney" jdbcType="REAL" />
+    <result column="batchNumber" property="batchnumber" jdbcType="VARCHAR" />
     <result column="cause" property="cause" jdbcType="VARCHAR" />
     <result column="standby" property="standby" jdbcType="VARCHAR" />
   </resultMap>
@@ -70,7 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    bsbid, bpbid, stockNumber, bookAmout, blitemAmout, PALAmout, cause, standby
+    bsbid, bpbid, stockNumber, matterName, matterSize, unitid, unitName, bookAmout, blitemAmout, 
+    palamout, matter_nowavgcost, palaMoney, batchNumber, cause, standby
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.factory.entity.BlitemScheduleBillExample" >
     select
@@ -104,11 +112,17 @@
   </delete>
   <insert id="insert" parameterType="com.factory.entity.BlitemScheduleBill" >
     insert into blitem_schedule_bill (bsbid, bpbid, stockNumber, 
-      bookAmout, blitemAmout, PALAmout, 
-      cause, standby)
+      matterName, matterSize, unitid, 
+      unitName, bookAmout, blitemAmout, 
+      palamout, matter_nowavgcost, palaMoney, 
+      batchNumber, cause, standby
+      )
     values (#{bsbid,jdbcType=INTEGER}, #{bpbid,jdbcType=VARCHAR}, #{stocknumber,jdbcType=VARCHAR}, 
-      #{bookamout,jdbcType=VARCHAR}, #{blitemamout,jdbcType=VARCHAR}, #{palamout,jdbcType=VARCHAR}, 
-      #{cause,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR})
+      #{mattername,jdbcType=VARCHAR}, #{mattersize,jdbcType=VARCHAR}, #{unitid,jdbcType=VARCHAR}, 
+      #{unitname,jdbcType=VARCHAR}, #{bookamout,jdbcType=INTEGER}, #{blitemamout,jdbcType=INTEGER}, 
+      #{palamout,jdbcType=INTEGER}, #{matterNowavgcost,jdbcType=REAL}, #{palamoney,jdbcType=REAL}, 
+      #{batchnumber,jdbcType=VARCHAR}, #{cause,jdbcType=VARCHAR}, #{standby,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.factory.entity.BlitemScheduleBill" >
     insert into blitem_schedule_bill
@@ -122,6 +136,18 @@
       <if test="stocknumber != null" >
         stockNumber,
       </if>
+      <if test="mattername != null" >
+        matterName,
+      </if>
+      <if test="mattersize != null" >
+        matterSize,
+      </if>
+      <if test="unitid != null" >
+        unitid,
+      </if>
+      <if test="unitname != null" >
+        unitName,
+      </if>
       <if test="bookamout != null" >
         bookAmout,
       </if>
@@ -129,7 +155,16 @@
         blitemAmout,
       </if>
       <if test="palamout != null" >
-        PALAmout,
+        palamout,
+      </if>
+      <if test="matterNowavgcost != null" >
+        matter_nowavgcost,
+      </if>
+      <if test="palamoney != null" >
+        palaMoney,
+      </if>
+      <if test="batchnumber != null" >
+        batchNumber,
       </if>
       <if test="cause != null" >
         cause,
@@ -148,14 +183,35 @@
       <if test="stocknumber != null" >
         #{stocknumber,jdbcType=VARCHAR},
       </if>
+      <if test="mattername != null" >
+        #{mattername,jdbcType=VARCHAR},
+      </if>
+      <if test="mattersize != null" >
+        #{mattersize,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null" >
+        #{unitname,jdbcType=VARCHAR},
+      </if>
       <if test="bookamout != null" >
-        #{bookamout,jdbcType=VARCHAR},
+        #{bookamout,jdbcType=INTEGER},
       </if>
       <if test="blitemamout != null" >
-        #{blitemamout,jdbcType=VARCHAR},
+        #{blitemamout,jdbcType=INTEGER},
       </if>
       <if test="palamout != null" >
-        #{palamout,jdbcType=VARCHAR},
+        #{palamout,jdbcType=INTEGER},
+      </if>
+      <if test="matterNowavgcost != null" >
+        #{matterNowavgcost,jdbcType=REAL},
+      </if>
+      <if test="palamoney != null" >
+        #{palamoney,jdbcType=REAL},
+      </if>
+      <if test="batchnumber != null" >
+        #{batchnumber,jdbcType=VARCHAR},
       </if>
       <if test="cause != null" >
         #{cause,jdbcType=VARCHAR},
@@ -183,14 +239,35 @@
       <if test="record.stocknumber != null" >
         stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
       </if>
+      <if test="record.mattername != null" >
+        matterName = #{record.mattername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mattersize != null" >
+        matterSize = #{record.mattersize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitid != null" >
+        unitid = #{record.unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitname != null" >
+        unitName = #{record.unitname,jdbcType=VARCHAR},
+      </if>
       <if test="record.bookamout != null" >
-        bookAmout = #{record.bookamout,jdbcType=VARCHAR},
+        bookAmout = #{record.bookamout,jdbcType=INTEGER},
       </if>
       <if test="record.blitemamout != null" >
-        blitemAmout = #{record.blitemamout,jdbcType=VARCHAR},
+        blitemAmout = #{record.blitemamout,jdbcType=INTEGER},
       </if>
       <if test="record.palamout != null" >
-        PALAmout = #{record.palamout,jdbcType=VARCHAR},
+        palamout = #{record.palamout,jdbcType=INTEGER},
+      </if>
+      <if test="record.matterNowavgcost != null" >
+        matter_nowavgcost = #{record.matterNowavgcost,jdbcType=REAL},
+      </if>
+      <if test="record.palamoney != null" >
+        palaMoney = #{record.palamoney,jdbcType=REAL},
+      </if>
+      <if test="record.batchnumber != null" >
+        batchNumber = #{record.batchnumber,jdbcType=VARCHAR},
       </if>
       <if test="record.cause != null" >
         cause = #{record.cause,jdbcType=VARCHAR},
@@ -208,9 +285,16 @@
     set bsbid = #{record.bsbid,jdbcType=INTEGER},
       bpbid = #{record.bpbid,jdbcType=VARCHAR},
       stockNumber = #{record.stocknumber,jdbcType=VARCHAR},
-      bookAmout = #{record.bookamout,jdbcType=VARCHAR},
-      blitemAmout = #{record.blitemamout,jdbcType=VARCHAR},
-      PALAmout = #{record.palamout,jdbcType=VARCHAR},
+      matterName = #{record.mattername,jdbcType=VARCHAR},
+      matterSize = #{record.mattersize,jdbcType=VARCHAR},
+      unitid = #{record.unitid,jdbcType=VARCHAR},
+      unitName = #{record.unitname,jdbcType=VARCHAR},
+      bookAmout = #{record.bookamout,jdbcType=INTEGER},
+      blitemAmout = #{record.blitemamout,jdbcType=INTEGER},
+      palamout = #{record.palamout,jdbcType=INTEGER},
+      matter_nowavgcost = #{record.matterNowavgcost,jdbcType=REAL},
+      palaMoney = #{record.palamoney,jdbcType=REAL},
+      batchNumber = #{record.batchnumber,jdbcType=VARCHAR},
       cause = #{record.cause,jdbcType=VARCHAR},
       standby = #{record.standby,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -226,14 +310,35 @@
       <if test="stocknumber != null" >
         stockNumber = #{stocknumber,jdbcType=VARCHAR},
       </if>
+      <if test="mattername != null" >
+        matterName = #{mattername,jdbcType=VARCHAR},
+      </if>
+      <if test="mattersize != null" >
+        matterSize = #{mattersize,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        unitid = #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitname != null" >
+        unitName = #{unitname,jdbcType=VARCHAR},
+      </if>
       <if test="bookamout != null" >
-        bookAmout = #{bookamout,jdbcType=VARCHAR},
+        bookAmout = #{bookamout,jdbcType=INTEGER},
       </if>
       <if test="blitemamout != null" >
-        blitemAmout = #{blitemamout,jdbcType=VARCHAR},
+        blitemAmout = #{blitemamout,jdbcType=INTEGER},
       </if>
       <if test="palamout != null" >
-        PALAmout = #{palamout,jdbcType=VARCHAR},
+        palamout = #{palamout,jdbcType=INTEGER},
+      </if>
+      <if test="matterNowavgcost != null" >
+        matter_nowavgcost = #{matterNowavgcost,jdbcType=REAL},
+      </if>
+      <if test="palamoney != null" >
+        palaMoney = #{palamoney,jdbcType=REAL},
+      </if>
+      <if test="batchnumber != null" >
+        batchNumber = #{batchnumber,jdbcType=VARCHAR},
       </if>
       <if test="cause != null" >
         cause = #{cause,jdbcType=VARCHAR},
@@ -248,9 +353,16 @@
     update blitem_schedule_bill
     set bpbid = #{bpbid,jdbcType=VARCHAR},
       stockNumber = #{stocknumber,jdbcType=VARCHAR},
-      bookAmout = #{bookamout,jdbcType=VARCHAR},
-      blitemAmout = #{blitemamout,jdbcType=VARCHAR},
-      PALAmout = #{palamout,jdbcType=VARCHAR},
+      matterName = #{mattername,jdbcType=VARCHAR},
+      matterSize = #{mattersize,jdbcType=VARCHAR},
+      unitid = #{unitid,jdbcType=VARCHAR},
+      unitName = #{unitname,jdbcType=VARCHAR},
+      bookAmout = #{bookamout,jdbcType=INTEGER},
+      blitemAmout = #{blitemamout,jdbcType=INTEGER},
+      palamout = #{palamout,jdbcType=INTEGER},
+      matter_nowavgcost = #{matterNowavgcost,jdbcType=REAL},
+      palaMoney = #{palamoney,jdbcType=REAL},
+      batchNumber = #{batchnumber,jdbcType=VARCHAR},
       cause = #{cause,jdbcType=VARCHAR},
       standby = #{standby,jdbcType=VARCHAR}
     where bsbid = #{bsbid,jdbcType=INTEGER}
