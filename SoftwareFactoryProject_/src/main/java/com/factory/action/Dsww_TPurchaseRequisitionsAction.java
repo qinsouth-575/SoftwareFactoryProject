@@ -18,6 +18,7 @@ import com.factory.biz.Flqj_OrdbillstyleBiz;
 import com.factory.entity.Matter;
 import com.factory.entity.Ordbillstyle;
 import com.factory.entity.TPurchaseRequisitions;
+import com.factory.entity.TPurchaseRequisitionsDetails;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -83,11 +84,18 @@ public class Dsww_TPurchaseRequisitionsAction {
 		return fobsb.queryOBSthreeAll(obs);
 	}
 	
-	@RequestMapping(value = "queryMatter", method = RequestMethod.POST)
+	@RequestMapping(value = "queryMatter/{matterId}", method = RequestMethod.POST)
 	@ResponseBody
-	public Matter queryMatter(@RequestBody String matterId){
+	public TPurchaseRequisitionsDetails queryMatter(@PathVariable String matterId){
 		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - queryMatter - 参数信息：" + matterId);
 		return tprb.queryMatter(matterId);
+	}
+	
+	@RequestMapping(value = "queryMatterAll", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Matter> queryMatterAll(Matter mat){
+		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - queryMatter - 参数信息：" + mat);
+		return tprb.queryMatterAll(mat);
 	}
 
 	//采购询价 - 3.删除

@@ -9,6 +9,12 @@ import com.factory.entity.Ordbillstyle;
 import com.factory.entity.OrdbillstyleExample;
 import com.factory.mapper.OrdbillstyleMapper;
 
+/**
+ * - 业务逻辑层 - 类型 - 1.采购请购类型设定（Flag：3）		2.入库类型设定（Flag：6）	3.出库类型设定（Flag：7）
+ * @author south wind
+ * @version v1.0 2020年3月7日 下午2:11:19
+ * - 表/功能：
+ */
 @Service
 public class Flqj_OrdbillstyleBiz {
 	

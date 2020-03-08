@@ -36,8 +36,14 @@ public class TPurchaseRequisitionsDetails {
 		super();
 	}
 
-    //
-    
+    //单参数（物料编号）构造函数
+	public TPurchaseRequisitionsDetails(String prdMatterId) {
+		super();
+		this.prdMatterId = prdMatterId;
+	}
+
+	//
+	
 	public Integer getPrdId() {
         return prdId;
     }

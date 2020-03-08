@@ -74,11 +74,21 @@ public class Dsww_TPurchaseRequisitionsBiz {
     };
     
     //2.1根据物料编号查询是否存在
-    public Matter queryMatter(String matterId) {
+    public TPurchaseRequisitionsDetails queryMatter(String matterId) {
     	MatterExample matterExample = new MatterExample();
     	matterExample.createCriteria().andMatterIdEqualTo(matterId);
-    	Matter matter = matterdao.selectByExample(matterExample).get(0);
-    	return matter == null ? new Matter("0") : matter;
+    	List<Matter> matList = matterdao.selectByExample(matterExample);
+    	
+    	if(matList.size() == 0) {
+    		return new TPurchaseRequisitionsDetails("0");
+    	}
+    	
+    	return new TPurchaseRequisitionsDetails("0");
+    }
+    
+    //2.2查询物料集合
+    public List<Matter> queryMatterAll(Matter mat) {
+    	return matterdao.selectByExample(null);
     }
 
     //采购询价 - 3.删除/5.审核/6.取消审核

@@ -6,338 +6,362 @@
 		<title></title>
 		<link rel="stylesheet" href="../../css/font.css">
 		<link rel="stylesheet" href="../../css/xadmin.css">
+		
+		<style type="text/css">
+			.layui-input-block {margin-left: 120px;min-height: 36px;}
+			.layui-row {margin-bottom: 10px;}
+			.layui-form-label {
+				float: left;
+				display: block;
+				padding: 9px 5px;
+				width: 85px;
+				font-weight: 400;
+				line-height: 20px;
+				text-align: right;
+			}
+			.layui-form-item {margin-top: 5px;margin-bottom: 5px;clear: none;display: inline-block;}
+			.layui-tab-title li {padding: 0 0px;}
+			.layui-table {width: 100%;background-color: #fff;color: #666;overflow-y: auto;}
+			.layui-table thead tr {background-color: #d7e7ff !important;}
+			.layui-table td,.layui-table th {border-width: 1px;border-style: solid;border-color: #d3d1d1;}
+			.color {color: blue;}
+			.divEdit {outline: none}
+			.textAlignCenter {text-align: center}
+			.listTable {
+				padding 4px 10px 4px 4px font-size 11px width 100% td,
+				th {padding-left 4px line-height 24px width 100%}
+				.customerName {width 150px}
+				.visitTime {width 120px}
+				.visitDesc {width auto}
+				.operation {width 34px}
+			}
+			#approve{
+				display: none;
+				overflow: hidden;
+				border-radius: 7px;
+				transform:rotate(21deg);
+				position: fixed;
+				top: 36px;
+				right: 36px;
+				z-index: 99;
+			}
+		</style>
 	</head>
 
 	<body>
 		<div class="x-body" id="main-div">
-			<div class="layui-container">
-				<div class="layui-row" style="border: 0px red solid;">
-					<div class="layui-row" style="width: 1000px;height: 475px;margin: auto;">
-						<div class="layui-form-item layui-col-md6">
-							<label class="layui-form-label" style="color:blue;">供应商</label>
-							<div class="layui-input-inline">
-								<input type="text" v-model="PurchaseStorage.supplierName" @dblclick="openCGQGtype();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-							</div>
+			<div class="layui-container" style="padding: 8px;">
+				<div class="layui-row">
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">供应商</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.supplierName" @dblclick="openCGQGtype();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 						</div>
-						
-						<div class="layui-form-item layui-col-md6">
-							<label class="layui-form-label" style="color:blue;">单据日期</label>
-							<div class="layui-input-inline">
-								<input type="text" v-model="PurchaseStorage.psDocumentDate" class="layui-input" id="data1">
-							</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">单据日期</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psDocumentDate" class="layui-input" id="data1">
 						</div>
-									
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label">供应商地址</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.supplierEngname" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">单据号码</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psDocumentNumber" id="psDocumentNumber" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label" style="width: 90px;margin-left: -10px;">采购入库类型</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.pstId" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label">币别</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.currencyName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label style="width: 90px;margin-left: -10px;" class="layui-form-label">单价是否含税</label>
-											<div class="layui-input-inline">
-												<select v-model="PurchaseStorage.psPriceIncludeTax" style="height: 38px;">
-													<option v-for="item in shuiList" :value="item.value" :key="item.value" name="psPriceIncludeTax">
-														{{item.label}}
-								                    </option>
-												</select>
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label">汇率</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psExchangeRate" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label" style="color:blue;">仓库</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.warehousename" @dblclick="openCKDate();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<label class="layui-form-label">国外贸易</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psForeignTrade" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<div class="layui-inline">
-											<label class="layui-form-label">凭证编号</label>
-											<div class="layui-input-inline">
-												<input type="text" v-model="PurchaseStorage.psSingleStatus" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-											</div>
-										</div>
-									</div>
-									
-									
-									<div class="layui-tab" style="height: 250px;box-shadow:2px 2px 10px #909090;margin-bottom: 20px;">
-										<ul class="layui-tab-title">
-											<li style="" class="layui-this">内容</li>
-											<li style="">账款</li>
-											<li style="">备注</li>
-										</ul>
-										<div class="layui-tab-content">
-											<div class="layui-tab-item layui-show layui-col-md12" style="overflow: scroll;height: 195px;">
-												<table class="layui-table" border="1" rules="all" style="text-align: center;margin: 0px;">
-													<thead>
-														<tr style="white-space:nowrap;">
-															<td>(栏号)</td>
-															<td>物料编号</td>
-															<td>(物料名称)</td>
-															<td>(规格型号)</td>
-															<td>(单位名称)</td>
-															<td>数量</td>
-															<td>折扣前单价</td>
-															<td>折数(%)</td>
-															<td>单价</td>
-															<td>金额</td>
-															<td>税率(%)</td>
-															<td>税额</td>
-															<td>(含税金额)</td>
-															<td>(批号)</td>
-															<td>赠品</td>
-															<td>(发票明细)</td>
-															<td>(未开票数量)</td>
-															<td>分录备注</td>
-															<td>(来源单别)</td>
-															<td>(来源单号)</td>
-															<td>(分摊费用)</td>
-														</tr>
-													</thead>
-													<tbody>
-														<tr v-for="p,index in PurchaseStorage.psdList" style="white-space:nowrap;">
-													      	<td class="psdColumnNo" style="background-color: #999999;color: white;">{{PurchaseStorage.psdList[index].psdColumnNo}}</td>
-													      	<td class="matterId"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'matterId')">{{PurchaseStorage.psdList[index].matterId}}</div></td>
-													      	<td class="matterName">{{PurchaseStorage.psdList[index].matterName}}</td>
-													      	<td class="psdSpecifications">{{PurchaseStorage.psdList[index].psdSpecifications}}</td>
-													      	<td class="psdCompanyName">{{PurchaseStorage.psdList[index].psdCompanyName}}</td>
-													      	<td class="psdAmount"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'psdAmount')">{{PurchaseStorage.psdList[index].psdAmount}}</div></td>
-													      	<td class="psdMoneyDiscountBefore">{{PurchaseStorage.psdList[index].psdMoneyDiscountBefore}}</td>
-													      	<td class="psdFoldNumber">{{PurchaseStorage.psdList[index].psdFoldNumber}}</td>
-													      	<td class="psdPrice">{{PurchaseStorage.psdList[index].psdPrice}}</td>
-													      	<td class="psdMoney">{{PurchaseStorage.psdList[index].psdMoney}}</td>
-													      	<td class="psdTaxRate">{{PurchaseStorage.psdList[index].psdTaxRate}}</td>
-													      	<td class="psdTaxAmount">{{PurchaseStorage.psdList[index].psdTaxAmount}}</td>
-													      	<td class="psdIncludingTaxAmount">{{PurchaseStorage.psdList[index].psdIncludingTaxAmount}}</td>
-													      	<td class="psdLotNumber">{{PurchaseStorage.psdList[index].psdLotNumber}}</td>
-													      	<td class="psdGift">{{PurchaseStorage.psdList[index].psdGift}}</td>
-													      	<td class="psdInvoiceDetails">{{PurchaseStorage.psdList[index].psdInvoiceDetails}}</td>
-													      	<td class="psdUninvoicedQuantity">{{PurchaseStorage.psdList[index].psdUninvoicedQuantity}}</td>
-													      	<td class="psdRemarks"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'psdRemarks')">{{PurchaseStorage.psdList[index].psdRemarks}}</div></td>
-													      	<td class="psdSourceOrder">{{PurchaseStorage.psdList[index].psdSourceOrder}}</td>
-													      	<td class="psdSourceNo">{{PurchaseStorage.psdList[index].psdSourceNo}}</td>
-													      	<td class="psdWentDutch">{{PurchaseStorage.psdList[index].psdWentDutch}}</td>
-															<!--<td>
-																<input type="checkbox" class="checkbox" v-model="p.psdLotNumber">
-																<label for="checkbox">{{ p.psdLotNumber ? '' : '' }}</label>
-															</td>
-															<td>
-																<input type="checkbox" class="checkbox" v-model="p.psdGift">
-																<label for="checkbox">{{ p.psdGift ? '' : '' }}</label></td>
-															<td>
-																<input type="checkbox" class="checkbox" v-model="p.psdInvoiceDetails">
-																<label for="checkbox">{{ p.psdInvoiceDetails ? '' : '' }}</label>
-															</td>-->
-														</tr>
-													</tbody>
-													<tfoot>
-														<tr style="white-space:nowrap;">
-															<td colspan="1">合计:</td>
-															<td colspan="4"></td>
-															<td colspan="1">{{PurchaseStorage.psSunnum}}</td>
-															<td colspan="3"></td>
-															<td colspan="1">{{PurchaseStorage.psSunmoney}}</td>
-															<td colspan="1"></td>
-															<td colspan="1">{{PurchaseStorage.psTax}}</td>
-															<td colspan="1">{{PurchaseStorage.psIncludeTaxAmount}}</td>
-															<td colspan="7"></td>
-															<td colspan="1">{{PurchaseStorage.psWentDutch}}</td>
-														</tr>
-													</tfoot>
-												</table>
-											</div>
-											
-											<div class="layui-tab-item">
-												<div class="layui-form-item">
-													<div class="layui-inline">
-														<label class="layui-form-label">账款归属</label>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psAccountOwnershipName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-														</div>
-													</div>
-													<div class="layui-inline">
-														<label class="layui-form-label">付款日期</label>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psPaymentDate" class="layui-input" id="data2">
-														</div>
-													</div>
-												</div>
-												<div class="layui-form-item">
-													<div class="layui-inline">
-														<label class="layui-form-label">付款条件</label>
-														<div class="layui-input-inline" style="margin-right: -100px;">
-															<select v-model="PurchaseStorage.psPaymentClause" style="width: 85px;height: 38px;">
-																<option v-for="item in clauseList" :value="item.value" :key="item.value" name="psPaymentClause">
-																	{{item.label}}
-											                    </option>
-															</select>
-														</div>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psPaymentClauseNum" name="title" required lay-verify="required" autocomplete="off" class="layui-input layui-input-inline" style="width: 100px;">
-															<span style="position: relative;top: 10px;" class="">天</span>
-														</div>
-													</div>
-													<div class="layui-inline" style="margin-left: -90px;">
-														<label class="layui-form-label">账款月份</label>
-														<div class="layui-input-inline">
-															<input type="text" class="layui-input" v-model="PurchaseStorage.psAccountReceivable">
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="layui-tab-item">
-												<div class="layui-form-item">
-													<div class="layui-inline">
-														<label class="layui-form-label">自定义栏一</label>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psCustom1" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-														</div>
-													</div>
-													<div class="layui-inline">
-														<label class="layui-form-label">自定义栏二</label>
-														<div class="layui-input-inline">
-															<input type="text" v-model="PurchaseStorage.psCustom2" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-														</div>
-													</div>
-												</div>
-												<div class="layui-form-item">
-													<div class="layui-inline">
-														<label class="layui-form-label">备注</label>
-														<div class="layui-input-inline">
-															<textarea v-model="PurchaseStorage.psRemark" style="resize:none;" rows="6" cols="70"></textarea>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-
-							<div>
-								<div class="layui-form-item">
-									<div class="layui-inline">
-										<label class="layui-form-label" style="color:blue;">采购人员</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.staffName" @dblclick="openStaff();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-									<div class="layui-inline">
-										<label class="layui-form-label">制单人员</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.psExecutor" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<div class="layui-inline">
-										<label class="layui-form-label" style="color:blue;">所属部门</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.departName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-									<div class="layui-inline">
-										<label class="layui-form-label">复核人员</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.psCheckagainStaff" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<div class="layui-inline">
-										<label class="layui-form-label">所属项目</label>
-										<div class="layui-input-inline">
-											<input type="text" v-model="PurchaseStorage.psBelongsProject" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-								</div>
+					</div>
 								
-								<!-- 查询转单功能按钮 - 开始 -->
-								<ul id="puchaseStoragegongneng" class="layui-nav" style="margin-bottom: 150px;width: 300px;float: right;">
-									<li class="layui-nav-item layui-this">
-										<a href="javascript:void(0);">查询</a>
-										<dl class="layui-nav-child">
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">历史交易查询</a>
-											</dd>
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">分摊费用明细</a>
-											</dd>
-										</dl>
-									</li>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">供应商地址</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.supplierEngname" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">单据号码</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psDocumentNumber" id="psDocumentNumber" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="width: 90px;margin-left: -10px;">采购入库类型</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.pstId" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">币别</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.currencyName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-col-md6">
+						<label style="width: 90px;margin-left: -10px;" class="layui-form-label">单价是否含税</label>
+						<div class="layui-input-block">
+							<select v-model="PurchaseStorage.psPriceIncludeTax" style="height: 38px;">
+								<option v-for="item in shuiList" :value="item.value" :key="item.value" name="psPriceIncludeTax">
+									{{item.label}}
+			                    </option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">汇率</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psExchangeRate" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">仓库</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.warehousename" @dblclick="openCKDate();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">国外贸易</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psForeignTrade" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
 									
-									<li class="layui-nav-item">
-										<a href="javascript:void(0);">转单</a>
-										<dl class="layui-nav-child">
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">采购询价转入</a>
-											</dd>
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">采购订单转入</a>
-											</dd>
-											<dd>
-												<a data-method="offset" data-type="auto" href="javascript:void(0)">进口商业发票转入</a>
-											</dd>
-										</dl>
-									</li>
-									
-									<li class="layui-nav-item">
-										<a href="javascript:void(0);">功能</a>
-										<dl class="layui-nav-child">
-											<dd>
-												<a href="">批号设定</a>
-											</dd>
-											<dd>
-												<a href="">条码打印</a>
-											</dd>
-											<dd>
-												<a href="">批次变更单价</a>
-											</dd>
-										</dl>
-									</li>
-								</ul>
-								<!-- 查询转单功能按钮 - 结束 -->
+					<div class="layui-form-item layui-col-md12">
+						<div class="layui-col-md6">
+							<label class="layui-form-label">凭证编号</label>
+							<div class="layui-input-block">
+								<input type="text" v-model="PurchaseStorage.psSingleStatus" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
 							</div>
 						</div>
 					</div>
+				</div>
+					
+				<div class="layui-row">	
+					<div class="layui-tab" style="height: 250px;box-shadow:2px 2px 10px #909090;margin-bottom: 20px;">
+						<ul class="layui-tab-title">
+							<li style="" class="layui-this">内容</li>
+							<li style="">账款</li>
+							<li style="">备注</li>
+						</ul>
+						<div class="layui-tab-content">
+							<div class="layui-tab-item layui-show layui-col-md12" style="overflow: scroll;height: 195px;">
+								<table class="layui-table" border="1" rules="all" style="text-align: center;margin: 0px;">
+									<thead>
+										<tr style="white-space:nowrap;">
+											<td>(栏号)</td>
+											<td>物料编号</td>
+											<td>(物料名称)</td>
+											<td>(规格型号)</td>
+											<td>(单位名称)</td>
+											<td>数量</td>
+											<td>折扣前单价</td>
+											<td>折数(%)</td>
+											<td>单价</td>
+											<td>金额</td>
+											<td>税率(%)</td>
+											<td>税额</td>
+											<td>(含税金额)</td>
+											<td>(批号)</td>
+											<td>赠品</td>
+											<td>(发票明细)</td>
+											<td>(未开票数量)</td>
+											<td>分录备注</td>
+											<td>(来源单别)</td>
+											<td>(来源单号)</td>
+											<td>(分摊费用)</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="p,index in PurchaseStorage.psdList" style="white-space:nowrap;">
+									      	<td class="psdColumnNo" style="background-color: #999999;color: white;">{{PurchaseStorage.psdList[index].psdColumnNo}}</td>
+									      	<td class="matterId"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'matterId')">{{PurchaseStorage.psdList[index].matterId}}</div></td>
+									      	<td class="matterName">{{PurchaseStorage.psdList[index].matterName}}</td>
+									      	<td class="psdSpecifications">{{PurchaseStorage.psdList[index].psdSpecifications}}</td>
+									      	<td class="psdCompanyName">{{PurchaseStorage.psdList[index].psdCompanyName}}</td>
+									      	<td class="psdAmount"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'psdAmount')">{{PurchaseStorage.psdList[index].psdAmount}}</div></td>
+									      	<td class="psdMoneyDiscountBefore">{{PurchaseStorage.psdList[index].psdMoneyDiscountBefore}}</td>
+									      	<td class="psdFoldNumber">{{PurchaseStorage.psdList[index].psdFoldNumber}}</td>
+									      	<td class="psdPrice">{{PurchaseStorage.psdList[index].psdPrice}}</td>
+									      	<td class="psdMoney">{{PurchaseStorage.psdList[index].psdMoney}}</td>
+									      	<td class="psdTaxRate">{{PurchaseStorage.psdList[index].psdTaxRate}}</td>
+									      	<td class="psdTaxAmount">{{PurchaseStorage.psdList[index].psdTaxAmount}}</td>
+									      	<td class="psdIncludingTaxAmount">{{PurchaseStorage.psdList[index].psdIncludingTaxAmount}}</td>
+									      	<td class="psdLotNumber">{{PurchaseStorage.psdList[index].psdLotNumber}}</td>
+									      	<td class="psdGift">{{PurchaseStorage.psdList[index].psdGift}}</td>
+									      	<td class="psdInvoiceDetails">{{PurchaseStorage.psdList[index].psdInvoiceDetails}}</td>
+									      	<td class="psdUninvoicedQuantity">{{PurchaseStorage.psdList[index].psdUninvoicedQuantity}}</td>
+									      	<td class="psdRemarks"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'psdRemarks')">{{PurchaseStorage.psdList[index].psdRemarks}}</div></td>
+									      	<td class="psdSourceOrder">{{PurchaseStorage.psdList[index].psdSourceOrder}}</td>
+									      	<td class="psdSourceNo">{{PurchaseStorage.psdList[index].psdSourceNo}}</td>
+									      	<td class="psdWentDutch">{{PurchaseStorage.psdList[index].psdWentDutch}}</td>
+											<!--<td>
+												<input type="checkbox" class="checkbox" v-model="p.psdLotNumber">
+												<label for="checkbox">{{ p.psdLotNumber ? '' : '' }}</label>
+											</td>
+											<td>
+												<input type="checkbox" class="checkbox" v-model="p.psdGift">
+												<label for="checkbox">{{ p.psdGift ? '' : '' }}</label></td>
+											<td>
+												<input type="checkbox" class="checkbox" v-model="p.psdInvoiceDetails">
+												<label for="checkbox">{{ p.psdInvoiceDetails ? '' : '' }}</label>
+											</td>-->
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr style="white-space:nowrap;">
+											<td colspan="1">合计:</td>
+											<td colspan="4"></td>
+											<td colspan="1">{{PurchaseStorage.psSunnum}}</td>
+											<td colspan="3"></td>
+											<td colspan="1">{{PurchaseStorage.psSunmoney}}</td>
+											<td colspan="1"></td>
+											<td colspan="1">{{PurchaseStorage.psTax}}</td>
+											<td colspan="1">{{PurchaseStorage.psIncludeTaxAmount}}</td>
+											<td colspan="7"></td>
+											<td colspan="1">{{PurchaseStorage.psWentDutch}}</td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+							
+							<div class="layui-tab-item">
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">账款归属</label>
+									<div class="layui-input-block">
+										<input type="text" v-model="PurchaseStorage.psAccountOwnershipName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">付款日期</label>
+									<div class="layui-input-block">
+										<input type="text" v-model="PurchaseStorage.psPaymentDate" class="layui-input" id="data2">
+									</div>
+								</div>
+								
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">付款条件</label>
+									<div class="layui-input-block">
+										<div style="float: left;">
+											<select v-model="PurchaseStorage.psPaymentClause" style="width: 97px;height: 38px;">
+												<option v-for="item in clauseList" :value="item.value" :key="item.value" name="psPaymentClause">
+													{{item.label}}
+							                    </option>
+											</select>
+										</div>
+										<input type="text" v-model="PurchaseStorage.psPaymentClauseNum" name="title" required lay-verify="required" autocomplete="off" class="layui-input layui-input-inline" style="width: 100px;position: relative;left: 10px;">
+										<span style="position: relative;top: 10px;left: 5px;">天</span>
+									</div>
+								</div>
+								
+								<div class="layui-form-item layui-col-md6">
+								<!--<div class="layui-inline" style="margin-left: -90px;">-->
+									<label class="layui-form-label">账款月份</label>
+									<div class="layui-input-block">
+										<input type="text" class="layui-input" v-model="PurchaseStorage.psAccountReceivable">
+									</div>
+								</div>
+							</div>
+							
+							<div class="layui-tab-item">
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">自定义栏一</label>
+									<div class="layui-input-block">
+										<input type="text" v-model="PurchaseStorage.psCustom1" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">自定义栏二</label>
+									<div class="layui-input-block">
+										<input type="text" v-model="PurchaseStorage.psCustom2" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								
+								<div class="layui-form-item layui-col-md6">
+									<label class="layui-form-label">备注</label>
+									<div class="layui-input-block">
+										<textarea v-model="PurchaseStorage.psRemark" style="resize:none;" rows="6" cols="70"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				<div class="layui-row">	
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">采购人员</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.staffName" @dblclick="openStaff();" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">制单人员</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psExecutor" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label" style="color:blue;">所属部门</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.departName" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">复核人员</label>
+						<div class="layui-input-block">
+							<input type="text" v-model="PurchaseStorage.psCheckagainStaff" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-col-md6">
+						<label class="layui-form-label">所属项目</label>
+						<div class="layui-input-block	">
+							<input type="text" v-model="PurchaseStorage.psBelongsProject" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</div>
+							
+				<div class="layui-row">	
+					<!-- 查询转单功能按钮 - 开始 -->
+					<ul id="puchaseStoragegongneng" class="layui-nav" style="margin-bottom: 150px;width: 300px;float: right;">
+						<li class="layui-nav-item layui-this">
+							<a href="javascript:void(0);">查询</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">历史交易查询</a>
+								</dd>
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">分摊费用明细</a>
+								</dd>
+							</dl>
+						</li>
+						
+						<li class="layui-nav-item">
+							<a href="javascript:void(0);">转单</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">采购询价转入</a>
+								</dd>
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">采购订单转入</a>
+								</dd>
+								<dd>
+									<a data-method="offset" data-type="auto" href="javascript:void(0)">进口商业发票转入</a>
+								</dd>
+							</dl>
+						</li>
+						
+						<li class="layui-nav-item">
+							<a href="javascript:void(0);">功能</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a href="">批号设定</a>
+								</dd>
+								<dd>
+									<a href="">条码打印</a>
+								</dd>
+								<dd>
+									<a href="">批次变更单价</a>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+					<!-- 查询转单功能按钮 - 结束 -->
 				</div>
 			</div>
 		</div>

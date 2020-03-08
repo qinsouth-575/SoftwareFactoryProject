@@ -59,12 +59,6 @@
 					<img src="../../images/approve.png" width="230px" height="60px" />
 				</div>
 				
-				<div class="layui-row">
-					<div class="layui-col-md12">
-						<span style="font-size: 18px;padding-left: 15px;">采购请购单</span>
-					</div>
-				</div>
-				
 				<div style="padding: 10px;">
 					<div class="layui-row">
 						<div class="layui-form-item layui-col-md6">
@@ -94,6 +88,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="layui-row">
 						<div class="layui-tab">
 							<ul class="layui-tab-title">
@@ -206,6 +201,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="layui-row">
 						<div class="layui-form-item layui-col-md6">
 							<label class="layui-form-label color">请购人员</label>
@@ -552,11 +548,11 @@
 					blurFunc : function(e, index, name) {　　　		//失去焦点实现双向数据绑定
 				 		let content = e.target.innerText;							//1.获得当前值
 				 		if(name = "prdMatterId"){
-				 			axios.post(`http://localhost:8080/SoftwareFactoryProject_/tpr/queryMatter`, content).then(function(res){
+				 			axios.post(`http://localhost:8080/SoftwareFactoryProject_/tpr/queryMatter/` + content).then(function(res){
 								//数据.正常		/
 								alert(JSON.stringify(res.data));
 								
-								if(res != null){
+								if(res.data.prdMatterId == '0'){
 									alert(111);
 								} else {
 									alert(222);
@@ -568,6 +564,9 @@
 				 		e.target.innerText = '';									//2.将文本值赋值为空
 			 			this.TPurchaseRequisitions.prdList[index][name] = content;	//3.对vue中data赋值，实现双向绑定
 				 		e.target.innerText = content;								//4.反向赋值回页面显示标签
+				 	},
+				 	openMatter : function(){
+				 		alert(111);	
 				 	},
 				 	addCustomerVisit : function() {　　　		//添加行
 				 		
@@ -629,9 +628,6 @@
 							});
 						});
 				 	},
-				 	openMatter : function(){
-				 		alert(111);	
-				 	}
 				},
 				created: function() {
 				 	this.queryPage(1);

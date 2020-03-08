@@ -23,6 +23,7 @@ public class Flqj_ComwareHouseBiz {
 	@Autowired
 	private ComwareHouseMapper dao;
 	
+	//开窗取值：查询仓库列表
 	public List<ComwareHouse> queryCOMAll(ComwareHouse comwarehouse){
 		return dao.selectByExample(null);
 	}
