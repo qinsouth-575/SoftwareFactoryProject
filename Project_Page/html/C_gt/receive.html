@@ -319,11 +319,11 @@ var vue = new Vue({
 			data() {
 				return{
 					pageCd: {},
-						advances_received_main_y: {
-							priabillId: 2020020201,
-							priabillPayablestime: '2020-02-02',
-							pageNum: 1
-						},
+					advances_received_main_y: {
+						priabillId: 2020020201,
+						priabillPayablestime: '2020-02-02',
+						pageNum: 1
+					},
 					heji: 0,
 					state: ""
 				}
@@ -361,7 +361,6 @@ var vue = new Vue({
 					},
 					queryPage : function(pageNum_){
 						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", true);
-						alert("1");
 						var this_ = this;
 						this_.heji = 0;
 						this.advances_received_main_y.pageNum = pageNum_;
@@ -408,7 +407,7 @@ var vue = new Vue({
 		      				this.queryPage(this.pageCd.prePage);
 		   			},
 		   			goNextPage : function(){
-		   				alert(this.pageCd.hasNextPage)
+		   				//alert(this.pageCd.hasNextPage)
 		   				if(this.pageCd.hasNextPage)
 		      				this.queryPage(this.pageCd.nextPage);
 		   			},
