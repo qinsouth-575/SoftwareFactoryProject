@@ -39,7 +39,7 @@ public class Cgt_AdvancesReceivedMainYBiz {
 	}
 	
 	public PageInfo<AdvancesReceivedMainY> queryAdvancesReceivedMainYAllDESC(AdvancesReceivedMainY record){
-
+		PageHelper.startPage(record.getPageNum(), record.getPageSize());
     	List<AdvancesReceivedMainY> adrmyList = dao.selectAdvancesReceivedMainYAllDESC();
     	PageInfo<AdvancesReceivedMainY> page = new PageInfo<AdvancesReceivedMainY>(adrmyList);
     	/*for (AdvancesReceivedMainY army : page.getList()) {
