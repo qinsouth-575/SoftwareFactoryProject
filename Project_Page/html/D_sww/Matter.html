@@ -41,17 +41,21 @@
 			axios.default.withCredentials = true;
 			
 			var obs = {}
-			axios.post(`http://localhost:8080/SoftwareFactoryProject_/ps/querysta`, obs).then(function(res){
+			axios.post(`http://localhost:8080/SoftwareFactoryProject_/tpr/queryMatterAll`, obs).then(function(res){
 				//数据正常		/alert(JSON.stringify(res.data));
 				
 				$.each(res.data, function(i, obs){
-					var $dr = $("<tr class='ordbillstyle'>" +
-               			"<td>" + obs.staffId + "</td>" + 
-               			"<td>" + obs.staffName + "</td>" + 
+					var $dr = $("<tr class='matter'>" +
+               			"<td>" + obs.prdMatterId + "</td>" + 
+               			"<td>" + obs.prdMatterName + "</td>" + 
                			"<td>" +
                				"<input type='checkbox'>" +
-               				"<input type='hidden' class='teamId' value='" + obs.teamId + "'>" +
-               				"<input type='hidden' class='departName' value='" + obs.departName + "'>" +
+               				"<input type='hidden' class='prdSpecifications' value='" + obs.prdSpecifications + "'>" +
+               				"<input type='hidden' class='prdCompanyName' value='" + obs.prdCompanyName + "'>" +
+               				"<input type='hidden' class='prdStandardCurrencyName' value='" + obs.prdStandardCurrencyName + "'>" +
+               				"<input type='hidden' class='prdStandardPrice' value='" + obs.prdStandardPrice + "'>" +
+               				"<input type='hidden' class='prdFinallyCurrencyName' value='" + obs.prdFinallyCurrencyName + "'>" +
+               				"<input type='hidden' class='prdFinallyPrice' value='" + obs.prdFinallyPrice + "'>" +
                			"</td>" +
               		"</tr>");
 					
@@ -59,70 +63,64 @@
 				});
 				
 				$("tbody>tr").on("click", function(){
-					$("tbody input").prop("checked", false);
-					if(!$(this).find("input").is(":checked")){
-						$(this).find("input").prop("checked", true);
+					//多选，故注释	$("tbody input").prop("checked", false);
+					//alert($(this).find("input").eq(0).prop("checked"));
+					if(!$(this).find("input").eq(0).prop("checked")){
+						$(this).find("input").eq(0).prop("checked", true);
 					} else {
-						$(this).find("input").prop("checked", false);
+						$(this).find("input").eq(0).prop("checked", false);
 					}
 				});
 			});
 			
 			function quhui(){
-				let obs = {};
-				$(".ordbillstyle").each(function() {
-					if($(this).find("input").prop("checked")) {
-						obs.staffId = $(this).find("td").eq(0).text();
-						obs.staffName = $(this).find("td").eq(1).text();
-						obs.teamId = $(this).find(".teamId").val();
-						obs.departName = $(this).find(".departName").val();
+				let tprdList = [];
+				$(".matter").each(function() {
+					if($(this).find("input").eq(0).prop("checked")) {
+						var tprd = {
+							prdMatterId : $(this).find("td").eq(0).text(),
+							prdMatterName : $(this).find("td").eq(1).text(),
+							prdSpecifications : $(this).find(".prdSpecifications").val() == "null" ? "" : $(this).find(".prdSpecifications").val(),
+							prdCompanyName : $(this).find(".prdCompanyName").val(),
+							prdStandardCurrencyName : $(this).find(".prdStandardCurrencyName").val(),
+							prdStandardPrice : $(this).find(".prdStandardPrice").val(),
+							prdFinallyCurrencyName : $(this).find(".prdFinallyCurrencyName").val(),
+							prdFinallyPrice : $(this).find(".prdFinallyPrice").val()
+						};
+						tprdList.push(tprd);
 					}
 				});
-				//数据无误 	/alert(JSON.stringify(obs));
+				//数据无误 	/alert(JSON.stringify(tprdList));
 				//let index = parent.layer.getFrameIndex(window.name);
-				parent.listVm.TPurchaseRequisitions.prStaffId = obs.staffId;
-				parent.listVm.TPurchaseRequisitions.prStaffName = obs.staffName;
-				parent.listVm.TPurchaseRequisitions.prTeamId = obs.teamId;
-				parent.listVm.TPurchaseRequisitions.prDepartName = obs.departName;
+				var prdList = [];
+				for (var i = 0,prdColumnNo = 1; i < tprdList.length; i++,prdColumnNo++) {
+					var prd = {
+						prdDocumentNumber : parent.listVm.TPurchaseRequisitions.prDocumentNumber,
+		 				prdColumnNo: prdColumnNo,
+		 				prdMatterId: tprdList[i].prdMatterId,
+		 				prdMatterName: tprdList[i].prdMatterName,
+		 				prdSpecifications: tprdList[i].prdSpecifications,
+		 				prdCompanyName: tprdList[i].prdCompanyName,
+		 				prdAmount: 0,
+		 				prdStandardCurrencyName: tprdList[i].prdStandardCurrencyName,
+		 				prdStandardPrice: tprdList[i].prdStandardPrice,
+		 				prdStandardAmount: 0.00,
+		 				prdFinallyCurrencyName: tprdList[i].prdFinallyCurrencyName,
+		 				prdFinallyPrice: tprdList[i].prdFinallyPrice,
+		 				prdFinallyAmount: 0.00,
+		 				prdRequiredDate: '',
+		 				prdProposedDate: '',
+		 				prdNotPurchaseQuantity: 0,
+		 				prdRemarks: '',
+		 				prdSourceOrder: '',
+		 				prdSourceNo: ''
+					};
+					prdList.push(prd);
+				}
+				//alert(JSON.stringify(prdList));
+				parent.listVm.TPurchaseRequisitions.prdList = prdList;
 				parent.layer.close($("#index").val());
 			}
-			
-			/*
-			//开窗取值
-			function tck(){
-				let a = layui.layer;
-				a.open({
-					title: ["采购入库单", 'font-size:18px;'],
-					type: 2,
-					area: ['1100px', '90%'],
-					content: 'queryShangPin.html',
-					shade: 0.5,
-					end: function() {
-						//initCaiGouRuKu(1, 5);
-						tpur = {};
-					}
-				});
-			};
-			function queryshgnpinQuHui() {
-				let prodIds = "";
-				$(".shangpin").each(function() {
-					if($(this).prop("checked")) {
-						prodIds += $(this).val() + ",";
-					}
-				});
-				let index = parent.layer.getFrameIndex(window.name);
-				parent.queryShangPinById(prodIds);
-				parent.layer.close(index);
-			}
-	
-			function queryshangpinClick(obj) {
-				if($(obj).children().next().next().next().children().prop("checked")) {
-					$(obj).children().next().next().next().children().prop("checked", false);
-				} else {
-					$(obj).children().next().next().next().children().prop("checked", true);
-				}
-			} 
-			*/
 		</script>
 	</body>
 

@@ -86,44 +86,6 @@
 				parent.listVm.TPurchaseRequisitions.prDepartName = obs.departName;
 				parent.layer.close($("#index").val());
 			}
-			
-			/*
-			//开窗取值
-			function tck(){
-				let a = layui.layer;
-				a.open({
-					title: ["采购入库单", 'font-size:18px;'],
-					type: 2,
-					area: ['1100px', '90%'],
-					content: 'queryShangPin.html',
-					shade: 0.5,
-					end: function() {
-						//initCaiGouRuKu(1, 5);
-						tpur = {};
-					}
-				});
-			};
-			function queryshgnpinQuHui() {
-				let prodIds = "";
-				$(".shangpin").each(function() {
-					if($(this).prop("checked")) {
-						prodIds += $(this).val() + ",";
-					}
-				});
-				let index = parent.layer.getFrameIndex(window.name);
-				parent.queryShangPinById(prodIds);
-				parent.layer.close(index);
-			}
-	
-			function queryshangpinClick(obj) {
-				if($(obj).children().next().next().next().children().prop("checked")) {
-					$(obj).children().next().next().next().children().prop("checked", false);
-				} else {
-					$(obj).children().next().next().next().children().prop("checked", true);
-				}
-			} 
-			*/
 		</script>
 	</body>
-
 </html>

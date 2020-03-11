@@ -83,7 +83,11 @@ public class Dsww_TPurchaseRequisitionsAction {
 		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - queryOBSthreeAll - 参数信息：" + obs);
 		return fobsb.queryOBSthreeAll(obs);
 	}
-	
+
+    //2.1-4.1（新增/修改）根据物料编号查询是否存在	
+	//		不存在	返回matterId为0的对象做判断显示
+	//		存在则	创建采购询价详情类对象录入物料及采购入库详表最后一次采购信息并返回
+    //瑕疵：采购入库未查主表币别，本项目为单币别项目，故直接引用物料主文件币别信息
 	@RequestMapping(value = "queryMatter/{matterId}", method = RequestMethod.POST)
 	@ResponseBody
 	public TPurchaseRequisitionsDetails queryMatter(@PathVariable String matterId){
@@ -91,9 +95,10 @@ public class Dsww_TPurchaseRequisitionsAction {
 		return tprb.queryMatter(matterId);
 	}
 	
+	//2.2-4.2（新增/修改）查询物料集合
 	@RequestMapping(value = "queryMatterAll", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Matter> queryMatterAll(Matter mat){
+	public List<TPurchaseRequisitionsDetails> queryMatterAll(Matter mat){
 		log.debug("SoftwareFactoryProject_ - Dsww_TPurchaseRequisitionsAction - queryMatter - 参数信息：" + mat);
 		return tprb.queryMatterAll(mat);
 	}

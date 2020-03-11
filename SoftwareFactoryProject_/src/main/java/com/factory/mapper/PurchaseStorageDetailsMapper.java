@@ -12,6 +12,9 @@ public interface PurchaseStorageDetailsMapper {
 	//1.根据主表编号查询全部（查询）
 	public List<PurchaseStorageDetails> queryPSDAll(@Param("psdDocumentNumber") String psdDocumentNumber);
 	
+	//2.（采购请购单）根据物料编号查询采购入库单详表最后一次出现的记录
+	public PurchaseStorageDetails queryPASByMatterId(@Param("matterId") String matterId);
+	
 	
 	
 	

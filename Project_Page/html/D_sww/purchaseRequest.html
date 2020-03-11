@@ -132,7 +132,7 @@
 												<tbody>
 													<tr v-for="(item,index) in TPurchaseRequisitions.prdList" :key="index" style="white-space:nowrap;">
 												      	<td class="prdColumnNo">{{TPurchaseRequisitions.prdList[index].prdColumnNo}}</td>
-												      	<td class="prdMatterId"><div class="divEdit" contenteditable="false"@blur="blurFunc($event,index,'prdMatterId')" @dblclick="openMatter();" >{{TPurchaseRequisitions.prdList[index].prdMatterId}}</div></td>
+												      	<td class="prdMatterId"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'prdMatterId')" @dblclick="openMatter();" >{{TPurchaseRequisitions.prdList[index].prdMatterId}}</div></td>
 												      	<td class="prdMatterName">{{TPurchaseRequisitions.prdList[index].prdMatterName}}</td>
 												      	<td class="prdSpecifications">{{TPurchaseRequisitions.prdList[index].prdSpecifications}}</td>
 												      	<td class="prdCompanyName">{{TPurchaseRequisitions.prdList[index].prdCompanyName}}</td>
@@ -143,7 +143,7 @@
 												      	<td class="prdFinallyCurrencyName">{{TPurchaseRequisitions.prdList[index].prdFinallyCurrencyName}}</td>
 												      	<td class="prdFinallyPrice">{{TPurchaseRequisitions.prdList[index].prdFinallyPrice}}</td>
 												      	<td class="prdFinallyAmount">{{TPurchaseRequisitions.prdList[index].prdFinallyAmount}}</td>
-												      	<td class="prdRequiredDate"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'prdRequiredDate')">{{TPurchaseRequisitions.prdList[index].prdRequiredDate}}</div></td>
+												      	<td class="prdRequiredDate">{{TPurchaseRequisitions.prdList[index].prdRequiredDate}}</td>
 												      	<td class="prdProposedDate">{{TPurchaseRequisitions.prdList[index].prdProposedDate}}</td>
 												      	<td class="prdNotPurchaseQuantity">{{TPurchaseRequisitions.prdList[index].prdNotPurchaseQuantity}}</td>
 												      	<td class="prdRemarks"><div class="divEdit" contenteditable="false" @blur="blurFunc($event,index,'prdRemarks')">{{TPurchaseRequisitions.prdList[index].prdRemarks}}</div></td>
@@ -264,7 +264,7 @@
 			//必须设置允许跨域访问session中数据(cooike)
 			axios.default.withCredentials = true;
 			
-	 		let index = 0;
+	 		let prdColumnNo = 0;
 			
 			function subpageTriggerEvent(incident){
 				//alert("采购入库设定页 - 触发事件：" + incident);
@@ -375,6 +375,7 @@
 						$("tbody td>div").prop("contenteditable", true);
 						$("#prDocumentNumber").prop("readonly", false);
 						this.state = "goInsert";
+						prdColumnNo = 0;
 						
 						this.hanlderEmpty(this.TPurchaseRequisitions);		//清空属性
 						//1.单据日期
@@ -394,7 +395,7 @@
 						this.TPurchaseRequisitions.prdList = [
 				 			{
 				 				prdDocumentNumber : this.TPurchaseRequisitions.prDocumentNumber,
-				 				prdColumnNo: ++index,
+				 				prdColumnNo: ++prdColumnNo,
 				 				prdMatterId: '',
 				 				prdMatterName: '',
 				 				prdSpecifications: '',
@@ -424,12 +425,10 @@
 						//alert("执行" + this.state + "操作！");
 						var this_ = this;
 						
-						alert(JSON.stringify(this.TPurchaseRequisitions));
-						
+						console.log("数据（新增/修改）：" + JSON.stringify(this.TPurchaseRequisitions));
 						axios.put(`http://localhost:8080/SoftwareFactoryProject_/tpr/tpra`, this.TPurchaseRequisitions).then(function(res){
 							//数据正常		/alert(JSON.stringify(res));
 							if(res.data.code == "1"){
-								index = 0;
 		   						this_.queryPage((1));
 								return false;
 							} else if(res.data.code == "2"){
@@ -462,8 +461,7 @@
 		   					return false;
 		   				
 						var this_ = this;
-		   				//数据无误			
-		   				alert("参数：" + this.TPurchaseRequisitions.prDocumentNumber);
+		   				//数据无误	/alert("参数：" + this.TPurchaseRequisitions.prDocumentNumber);
 		   				axios.delete(`http://localhost:8080/SoftwareFactoryProject_/tpr/tpra/` + this.TPurchaseRequisitions.prDocumentNumber).then(function(res){
 							//数据正常		/alert(JSON.stringify(res));
 							if(res.data.code == "1"){
@@ -546,33 +544,105 @@
 						return d.getFullYear() + "-" + yue + "-" + day;
 					},
 					blurFunc : function(e, index, name) {　　　		//失去焦点实现双向数据绑定
+						var this_ = this;
 				 		let content = e.target.innerText;							//1.获得当前值
-				 		if(name = "prdMatterId"){
+				 		if(name == "prdMatterId"){
 				 			axios.post(`http://localhost:8080/SoftwareFactoryProject_/tpr/queryMatter/` + content).then(function(res){
-								//数据.正常		/
-								alert(JSON.stringify(res.data));
-								
-								if(res.data.prdMatterId == '0'){
-									alert(111);
+								//数据正常		/console.log(JSON.stringify(res.data));
+								if(res.data.prdMatterId != '0'){
+									this_.TPurchaseRequisitions.prdList[index].prdMatterId = res.data.prdMatterId;
+									this_.TPurchaseRequisitions.prdList[index].prdMatterName = res.data.prdMatterName;
+									this_.TPurchaseRequisitions.prdList[index].prdSpecifications = res.data.prdSpecifications;
+									this_.TPurchaseRequisitions.prdList[index].prdCompanyName = res.data.prdCompanyName;
+									this_.TPurchaseRequisitions.prdList[index].prdStandardCurrencyName = res.data.prdStandardCurrencyName;
+									this_.TPurchaseRequisitions.prdList[index].prdStandardPrice = res.data.prdStandardPrice;
+									this_.TPurchaseRequisitions.prdList[index].prdFinallyCurrencyName = res.data.prdFinallyCurrencyName;
+									this_.TPurchaseRequisitions.prdList[index].prdFinallyPrice = res.data.prdFinallyPrice;
+						 			
+						 			console.log(JSON.stringify(this_.TPurchaseRequisitions));
+					 				/*this_.TPurchaseRequisitions.prdList[prdColumnNo] = {
+						 				prdDocumentNumber : this_.TPurchaseRequisitions.prDocumentNumber,
+						 				prdColumnNo: ++prdColumnNo,
+						 				prdMatterId: '',
+						 				prdMatterName: '',
+						 				prdSpecifications: '',
+						 				prdCompanyName: '',
+						 				prdAmount: 0,
+						 				prdStandardCurrencyName: '',
+						 				prdStandardPrice: 0.00,
+						 				prdStandardAmount: 0.00,
+						 				prdFinallyCurrencyName: '',
+						 				prdFinallyPrice: 0.00,
+						 				prdFinallyAmount: 0.00,
+						 				prdRequiredDate: '',
+						 				prdProposedDate: '',
+						 				prdNotPurchaseQuantity: 0,
+						 				prdRemarks: '',
+						 				prdSourceOrder: '',
+						 				prdSourceNo: ''
+						 			};*/
 								} else {
-									alert(222);
+									alert("没有符合条件的产品编号！！！");
+									$(".prdMatterId").eq(index).find("div").text(this_.TPurchaseRequisitions.prdList[index].prdMatterId);
 								}
 							});
-							
-							return;
+				 		} else if (name == "prdAmount"){
+				 			//计算
+					 		e.target.innerText = '';									//2.将文本值赋值为空
+				 			this.TPurchaseRequisitions.prdList[index][name] = content;	//3.对vue中data赋值，实现双向绑定
+					 		e.target.innerText = content;								//4.反向赋值回页面显示标签
+					 		
+					 		this.calculate();
+				 		} else if (name == "prdRemarks"){
+					 		e.target.innerText = '';									//2.将文本值赋值为空
+				 			this.TPurchaseRequisitions.prdList[index][name] = content;	//3.对vue中data赋值，实现双向绑定
+					 		e.target.innerText = content;								//4.反向赋值回页面显示标签
 				 		}
-				 		e.target.innerText = '';									//2.将文本值赋值为空
-			 			this.TPurchaseRequisitions.prdList[index][name] = content;	//3.对vue中data赋值，实现双向绑定
-				 		e.target.innerText = content;								//4.反向赋值回页面显示标签
 				 	},
 				 	openMatter : function(){
-				 		alert(111);	
+				 		var this_ = this;
+				 		
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["多选--物料主文件设定", 'font-size:18px;'],
+								type: 2,
+								area: ['900px', '500px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "Matter.html",
+								shade: 0.5, 			//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()) 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								},
+								cancel: function(index){
+								    layer.close(index);
+							    },
+								end: function () {			//无论是确认还是取消，只要层被销毁了，end都会执行，不携带任何参数。layer.open关闭事件
+									//location.reload();　　//layer.open关闭刷新
+									$("tbody td div").prop("contenteditable", true);
+									this_.calculate();
+								}
+							});
+						});
 				 	},
-				 	addCustomerVisit : function() {　　　		//添加行
+				 	calculate : function() {				//计算
+				 		for (var i = 0; i < this.TPurchaseRequisitions.prdList.length; i++) {
+				 			this.TPurchaseRequisitions.prdList[i].prdStandardAmount = Number(this.TPurchaseRequisitions.prdList[i].prdAmount) * Number(this.TPurchaseRequisitions.prdList[i].prdStandardPrice);
+				 			this.TPurchaseRequisitions.prdList[i].prdFinallyAmount = Number(this.TPurchaseRequisitions.prdList[i].prdAmount) * Number(this.TPurchaseRequisitions.prdList[i].prdFinallyPrice);
+				 			this.TPurchaseRequisitions.prdList[i].prdNotPurchaseQuantity = this.TPurchaseRequisitions.prdList[i].prdAmount;
+				 		}
 				 		
 				 	},
 				 	removeCustomerVisit : function(index) {
-				 		//移除行
+				 		//移除行 - 未实现
 			 			console.log(this.TPurchaseRequisitions.prdList);
 			 			this.TPurchaseRequisitions.prdList.splice(index, 1);
 				 	},
@@ -656,9 +726,23 @@
 							elem : '#date',	//指向元素
 							done : function(value){
 								this_.TPurchaseRequisitions.prDocumentDate = value;
-								console.log("分别输出两个值：" + value + " - " + this_.TPurchaseRequisitions.prDocumentDate);
+								//数据无误	/console.log("分别输出两个值：" + value + " - " + this_.TPurchaseRequisitions.prDocumentDate);
 								
 								this_.queryDateToId(this_.TPurchaseRequisitions.prDocumentDate);
+							}
+						});
+						
+						//需求日期（联动：建议采购日期）
+						laydate.render({
+							elem : '.prdRequiredDate',	//指向元素
+							done : function(value){
+				   				if(confirm("以下 需求日期 都是用同一个日期吗！？")){
+				   					for (var i = 0; i < this_.TPurchaseRequisitions.prdList.length; i++) {
+										this_.TPurchaseRequisitions.prdList[i].prdRequiredDate = value;
+										this_.TPurchaseRequisitions.prdList[i].prdProposedDate = value;
+									}
+				   				}
+				   				//console.log(this_.TPurchaseRequisitions);
 							}
 						});
 					});
