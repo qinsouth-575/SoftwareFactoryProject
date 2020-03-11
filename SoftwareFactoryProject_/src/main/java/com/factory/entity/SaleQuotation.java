@@ -10,57 +10,69 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class SaleQuotation {
     private String sqId;//单据号码
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date sqDocumentTime;//单据日期
 
-    private String currencyName;//币别
+    private String currencyId;//币别id
+    private String currencyName;
 
-    private Float sqExchangeRate;//汇率默认值：1.0000
+    private Float sqExchangeRate;//汇率
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date sqEffectiveTime;//有效时间
+
+    private Integer sqTax;//是否含税
 
     private String customerId;//客户id
-
-    private String customerName;//客户全称
+    private String customerName;
 
     private String sqDeliveryAddress;//送货地址
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date sqEffectiveTime;//有效日期
+    private Integer staffId;//业务人员id
 
-    private Integer sqTax;//单价是否含税
+    private String teamId;//所属部门（部门id）
 
-    private String sqMonograph;//表头条文
+    private String sqMonograph;
 
-    private String sqReviewer;//表尾条文
+    private String sqReviewer;//复核人员
 
-    private String sqWatchword;//自定栏一
+    private String sqWatchword;
 
-    private String sqTailclause;//自定栏二
+    private String sqTailclause;//尾款
 
     private String sqRemark;//备注
 
-    private Integer staffId;//员工id
+    private String sqAuditing;
 
-    private String staffName;//员工名称
+    private String sqYn;
 
-    private String teamId;//部门id
-
-    private String departName;//部门名称
-
-    private String sqAuditing;//制单人员（当前登录者）
-
-    private String sqYn;//复核人员（当前登录者）
-
-    private String sqCustom1;
+    private String sqCustom1;//自定栏1
 
     private String sqCustom2;
 
     private String sqCustom3;
     
-    private List<SaleQuotationDetails> list;
+    private List<SaleQuotationDetails>list;
     
-    public List<SaleQuotationDetails> getList() {
+    public String getCurrencyName() {
+		return currencyName;
+	}
+
+	public void setCurrencyName(String currencyName) {
+		this.currencyName = currencyName;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public List<SaleQuotationDetails> getList() {
 		return list;
 	}
 
@@ -84,12 +96,12 @@ public class SaleQuotation {
         this.sqDocumentTime = sqDocumentTime;
     }
 
-    public String getCurrencyName() {
-        return currencyName;
+    public String getCurrencyId() {
+        return currencyId;
     }
 
-    public void setCurrencyName(String currencyName) {
-        this.currencyName = currencyName;
+    public void setCurrencyId(String currencyId) {
+        this.currencyId = currencyId;
     }
 
     public Float getSqExchangeRate() {
@@ -98,30 +110,6 @@ public class SaleQuotation {
 
     public void setSqExchangeRate(Float sqExchangeRate) {
         this.sqExchangeRate = sqExchangeRate;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getSqDeliveryAddress() {
-        return sqDeliveryAddress;
-    }
-
-    public void setSqDeliveryAddress(String sqDeliveryAddress) {
-        this.sqDeliveryAddress = sqDeliveryAddress;
     }
 
     public Date getSqEffectiveTime() {
@@ -138,6 +126,38 @@ public class SaleQuotation {
 
     public void setSqTax(Integer sqTax) {
         this.sqTax = sqTax;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getSqDeliveryAddress() {
+        return sqDeliveryAddress;
+    }
+
+    public void setSqDeliveryAddress(String sqDeliveryAddress) {
+        this.sqDeliveryAddress = sqDeliveryAddress;
+    }
+
+    public Integer getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(Integer staffId) {
+        this.staffId = staffId;
+    }
+
+    public String getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
     }
 
     public String getSqMonograph() {
@@ -178,38 +198,6 @@ public class SaleQuotation {
 
     public void setSqRemark(String sqRemark) {
         this.sqRemark = sqRemark;
-    }
-
-    public Integer getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
-    }
-
-    public String getStaffName() {
-        return staffName;
-    }
-
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
-    }
-
-    public String getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(String teamId) {
-        this.teamId = teamId;
-    }
-
-    public String getDepartName() {
-        return departName;
-    }
-
-    public void setDepartName(String departName) {
-        this.departName = departName;
     }
 
     public String getSqAuditing() {
