@@ -34,6 +34,14 @@
 	WHERE `psd_document_number` = #{psdDocumentNumber}
   </select>
   
+  <select id="queryPASByMatterId" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT * 
+	FROM `purchase_storage_details`
+	WHERE `matter_id` = #{matterId}
+	ORDER BY `psd_document_number` DESC 
+	LIMIT 1
+  </select>
+  
   
   
   <sql id="Example_Where_Clause" >

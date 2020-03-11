@@ -42,8 +42,21 @@ public class TPurchaseRequisitionsDetails {
 		this.prdMatterId = prdMatterId;
 	}
 
-	//
-	
+	//物料主文件六列信息、采购入库详两列信息
+	public TPurchaseRequisitionsDetails(String prdMatterId, String prdMatterName, String prdSpecifications,
+			String prdCompanyName, String prdStandardCurrencyName, Float prdStandardPrice, 
+			String prdFinallyCurrencyName, Float prdFinallyPrice) {
+		super();
+		this.prdMatterId = prdMatterId;
+		this.prdMatterName = prdMatterName;
+		this.prdSpecifications = prdSpecifications;
+		this.prdCompanyName = prdCompanyName;
+		this.prdStandardCurrencyName = prdStandardCurrencyName;
+		this.prdStandardPrice = prdStandardPrice;
+		this.prdFinallyCurrencyName = prdFinallyCurrencyName;
+		this.prdFinallyPrice = prdFinallyPrice;
+	}
+
 	public Integer getPrdId() {
         return prdId;
     }

@@ -506,4 +506,29 @@ public class Matter {
     public void setMatterPrepare2(String matterPrepare2) {
         this.matterPrepare2 = matterPrepare2;
     }
+
+	@Override
+	public String toString() {
+		return "Matter [matterId=" + matterId + ", matterName=" + matterName + ", matterSize=" + matterSize
+				+ ", matterEnglishName=" + matterEnglishName + ", classid=" + classid + ", classname=" + classname
+				+ ", unitid=" + unitid + ", unitname=" + unitname + ", matterBarno=" + matterBarno + ", matterMsale="
+				+ matterMsale + ", matterMsaleA=" + matterMsaleA + ", matterMsaleB=" + matterMsaleB + ", matterMsaleC="
+				+ matterMsaleC + ", matterMsaleD=" + matterMsaleD + ", matterMsaleE=" + matterMsaleE
+				+ ", matterStandardPrice=" + matterStandardPrice + ", currencyid=" + currencyid + ", currencyname="
+				+ currencyname + ", matterMaterialType=" + matterMaterialType + ", matterIftax=" + matterIftax
+				+ ", matterTaxno=" + matterTaxno + ", matterTaxpoint=" + matterTaxpoint + ", matterPurchaseLeadTime="
+				+ matterPurchaseLeadTime + ", supplierId=" + supplierId + ", supplierName=" + supplierName
+				+ ", matterSetWithBatchNumber=" + matterSetWithBatchNumber + ", matterSafestock=" + matterSafestock
+				+ ", matterDaystartcount=" + matterDaystartcount + ", matterAvgcost=" + matterAvgcost
+				+ ", matterStandardcost=" + matterStandardcost + ", matterDaystartallcost=" + matterDaystartallcost
+				+ ", matterLowsafestock=" + matterLowsafestock + ", matterNowcount=" + matterNowcount
+				+ ", matterNowavgcost=" + matterNowavgcost + ", matterStandardallcost=" + matterStandardallcost
+				+ ", matterNowallcost=" + matterNowallcost + ", matterFirstin=" + matterFirstin + ", matterFirstout="
+				+ matterFirstout + ", matterAppearstartday=" + matterAppearstartday + ", matterRecentout="
+				+ matterRecentout + ", matterRecentin=" + matterRecentin + ", matterStopdate=" + matterStopdate
+				+ ", matterCustom1=" + matterCustom1 + ", matterCustom2=" + matterCustom2 + ", matterMdecoration="
+				+ matterMdecoration + ", matterAuditing=" + matterAuditing + ", matterYn=" + matterYn
+				+ ", matterPrepare1=" + matterPrepare1 + ", matterPrepare2=" + matterPrepare2 + "]";
+	}
+    
 }
