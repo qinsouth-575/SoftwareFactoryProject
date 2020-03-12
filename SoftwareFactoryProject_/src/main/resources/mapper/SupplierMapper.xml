@@ -1012,8 +1012,7 @@
       supplier_custom6 = #{supplierCustom6,jdbcType=VARCHAR}
     where supplier_id = #{supplierId,jdbcType=VARCHAR}
   </update>
-<!--   
-    <select id="selectsupplier" resultType="com.factory.entity.Supplier" resultMap="BaseResultMap">
-SELECT * FROM `supplier` 
-</select> -->
+  <select id="querySupplierIdByName" parameterType="java.lang.String" resultType="java.lang.String" >
+  	select `supplier_id` from `supplier` where `supplier_name`=#{supplierName}
+  </select>
 </mapper>
