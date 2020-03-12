@@ -35,7 +35,19 @@ public class SaleOrderBiz {
 	
 	//新增销售订单
     public boolean insertSaleOrder(SaleOrder record) {
-    	return dao.insert(record) > 0;
+    	boolean b=false;
+    	boolean b2=dao.insert(record) > 0;
+    	if(b2) {
+    		System.out.println("新增主表成功！");
+    		boolean b3=DetailBiz.insertSelective(record.getSodList());
+    		if(b3) {
+    			System.out.println("新增详表成功！");
+    			b=true;
+    		}
+    		
+    	}
+    	
+    	return b;
     };
     
   //修改销售订单
@@ -82,6 +94,16 @@ public class SaleOrderBiz {
   			ptime += ptimecount;
   		}
   		return ptime;
+  	}
+  	
+  	//查询编号
+  	public List<SaleOrder> querydescid(){
+  		return dao.querydescid();
+  	}
+  	
+  	//修改审核和取消审核
+  	public boolean updateAll(SaleOrder record) {
+  		return dao.updateAll(record)>0;
   	}
 	
 }

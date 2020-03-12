@@ -28,6 +28,16 @@
 			margin-left: 35px;
 			width: 150px;
 		}
+		#approve{
+				display: none;
+				overflow: hidden;
+				border-radius: 7px;
+				transform:rotate(21deg);
+				position: fixed;
+				top: 36px;
+				right: 36px;
+				z-index: 99;
+			}
 	</style>
 	<script type="text/javascript">
 		window.onload = function() {
@@ -69,46 +79,53 @@
 		<div class="layui-container">
 			<div id="xsth">
 				<div class="layui-col-md10 layui-col-md-offset2"></div>
+				<div id="approve">
+					<img src="../../images/approve.png" width="230px" height="60px" />
+				</div>
 				<div class="layui-row">
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3" style="margin-top: 15px;">客户</span>
-						<input type="text" class="layui-col-md-offset1 layui-input" style="width: 170px;" disabled="disabled" v-model="salesorder.customerId"/>
+						<input type="text" class="layui-col-md-offset1 layui-input" style="width: 170px;" disabled="disabled" v-model="salesorder.customerId" @dblclick="openCGQGtype();"/>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">单据日期</span> <input type="date" style="width: 170px;" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwtId"/>
+						<span class="layui-col-md2" style="margin-top: 15px;">单据日期</span> <input type="date" style="width: 170px;" style="width: 170px;" class="layui-col-md-offset1 layui-input" v-model="salesorder.srwDocumentDate" disabled="disabled"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">送货地址</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwPriceIncludeTax"/>
+						<span class="layui-col-md3" style="margin-top: 15px;">送货地址</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwAddress"/>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">单据号码</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwCertificateNumber"/>
+						<span class="layui-col-md2" style="margin-top: 15px;">单据号码</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwDocumentNumber"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3" style="margin-top: 15px;">单价是否含税</span>
-						<select name="" style="width: 170px;" lay-verify="required" class=" layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.salescxrk">
-							<option value=""></option>
+						<select name="" style="width: 170px;" lay-verify="required" class=" layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwPriceIncludeTax">
+							<option v-for="item in shuiList" :value="item.value" :key="item.value" name="srwPriceIncludeTax">
+                 				{{item.label}}
+                            </option>
 						</select>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">币别</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.warehouseId"/>
+						<span class="layui-col-md2" style="margin-top: 15px;">币别</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.currencyId"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">仓库</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwCertificateNumber"/>
+						<span class="layui-col-md3" style="margin-top: 15px;">仓库</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" @dblclick="openCKtype();" v-model="salesorder.warehouseId"/>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">汇率</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwDocumentDate"/>
+						<span class="layui-col-md2" style="margin-top: 15px;">汇率</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwExchangeRate"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
 						<span class="layui-col-md3" style="margin-top: 15px;">重新出库</span>
-						<select name="" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwDocumentNumber">
-							<option value=""></option>
+						<select name="" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.salescxrk">
+							<option v-for="item in cxckList" :value="item.value" :key="item.value" name="salescxrk">
+                 				{{item.label}}
+                            </option>
 						</select>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">国外贸易</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.currencyId"/>
+						<span class="layui-col-md2" style="margin-top: 15px;">国外贸易</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwForeignTrade"/>
 					</div><br /><br /><br />
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">凭证编码</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwExchangeRate"/>
+						<span class="layui-col-md3" style="margin-top: 15px;">凭证编码</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwCertificateNumber"/>
 					</div>
 					<div class="layui-tab layui-col-md10 layui-col-md-offset2">
 						<ul class="layui-tab-title layui-col-md10 layui-col-md-offset2">
@@ -118,7 +135,7 @@
 						</ul>
 						<div class="layui-tab-content layui-col-md10 layui-col-md-offset2">
 							<div class="layui-tab-item layui-show layui-tab-content " style=" overflow-x: scroll; overflow-y: scroll;">
-								<table class="layui-table" readonly="readonly" height="500">
+								<table class="layui-table" readonly="readonly">
 
 									<thead>
 										<tr>
@@ -171,25 +188,25 @@
 
 							<div class="layui-tab-item layui-col-md12">
 								<div class="layui-col-md12">
-									<span class="layui-col-md2" style="margin-left: 25px;">备注</span><textarea style="margin-left: 27px;" disabled="disabled" rows="6" cols="81" v-model="salesorder.soSubordinate"></textarea>
+									<span class="layui-col-md2" style="margin-left: 25px;">备注</span><textarea style="margin-left: 27px;" disabled="disabled" rows="6" cols="81" v-model="salesorder.srwRemark"></textarea>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">业务人员</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwHeaderProvision"/>
+						<span class="layui-col-md3" style="margin-top: 15px;">业务人员</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" @dblclick="openStaff();" v-model="salesorder.srwBuyer" />
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">制单人员</span><input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwEndClause"/>
+						<span class="layui-col-md2" style="margin-top: 15px;">制单人员</span><input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwForm"/>
 					</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">所属部门</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwRemark"/>
+						<span class="layui-col-md3" style="margin-top: 15px;">所属部门</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwBelongsSection"/>
 					</div>
 					<div class="layui-col-md5">
-						<span class="layui-col-md2" style="margin-top: 15px;">复核人员</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwAuditing"/>
+						<span class="layui-col-md2" style="margin-top: 15px;">复核人员</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwCheckagainStaff"/>
 					</div><br/><br/>
 					<div class="layui-col-md5 layui-col-md-offset2">
-						<span class="layui-col-md3" style="margin-top: 15px;">所属项目</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwYn"/>
+						<span class="layui-col-md3" style="margin-top: 15px;">所属项目</span> <input type="text" style="width: 170px;" class="layui-col-md-offset1 layui-input" disabled="disabled" v-model="salesorder.srwBelongsProject"/>
 					</div>
 
 					<div class="layui-col-md12">
@@ -219,7 +236,8 @@
        
     </script>-->
     </div>
-    <script src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery-1.8.2.min.js" ></script>
+		<script src="../../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../../js/xadmin.js"></script>
 		<script type="text/javascript" src="../../js/vue.js"></script>
@@ -253,6 +271,10 @@
 					listVm.delete_();
 				} else if(incident == "refresh"){
 					listVm.refresh();
+				} else if(incident == "audit"){
+					listVm.audit();
+				} else if(incident == "cancelTheAudit"){
+					listVm.cancelTheAudit();
 				}
 				
 				state = incident;
@@ -267,7 +289,15 @@
 						pageNum : 1
 					},
 					salelist:[],
-					state:""
+					state:"",
+					shuiList: [
+                        {value: '0',label: '含税'},
+                        {value: '1',label: '未税'}
+                    ],
+                    cxckList: [
+                        {value: '0',label: '否'},
+                        {value: '1',label: '是'}
+                    ]
 				},
 				methods:{
 					queryPage: function(pageNum_){
@@ -281,7 +311,14 @@
 							//数据正常
 							alert(JSON.stringify(res.data));
 							this_.pagelist = res.data;
+							//日期转换
+							this_.pagelist.list[0].srwDocumentDate = this_.timeCycle(this_.pagelist.list[0].srwDocumentDate);
 							this_.salesorder = this_.pagelist.list[0];
+							if(this_.salesorder.srwAuditing == 1){
+								$("#approve").show();
+							} else {
+								$("#approve").hide();
+							}
 						});
 					},
 					goFirstPage : function(){
@@ -298,14 +335,139 @@
 		   			goLastPage : function(){
 		   				this.queryPage(this.pagelist.pages);
 		   			},
+		   			queryDateToId: function(srwDocumentDate) {
+						var this_ = this;
+
+						$.ajax({
+							type : "get",
+							async : false,
+							url : "http://localhost:8080/SoftwareFactoryProject_/salereturnwarehouse/queryDateToId?srwDocumentDate=" + srwDocumentDate,
+            				dataType : "json",
+							success : function(result) {
+								//alert(result);
+			                    this_.salesorder.srwDocumentNumber = result;
+							}
+						});
+					},
 		   			goInsert : function(){
 						$("input").prop("disabled", false);
 						$("select").prop("disabled", false);
 						$("textarea").prop("disabled", false);
 						this.state = "goInsert";
-						this.salesorder = {};
-						alert(JSON.stringify(salesorder));
+						this.hanlderEmpty(this.salesorder);		//清空属性	这里将srwList=“”，意为变成了一个普通属性，非集合，当属性还在，传到后台引发405报错，数据类型不对应
+						
+						//1.单据日期
+						var now = new Date();
+						this.salesorder.srwDocumentDate = this.timeCycle(now);
+						
+						alert(this.salesorder.srwDocumentDate);
+						//2.单据编码	
+						this.queryDateToId(this.salesorder.srwDocumentDate);
+						
+						this.salesorder.srwList = [];//改回集合						
+						this.salesorder.srwPriceIncludeTax = 1;	//未税
+						this.salesorder.salescxrk = 0; //重新出库
+						this.salesorder.currencyId="RMB人民币";//币别
+						this.salesorder.srwForm="admin";//制单人员
+						this.salesorder.srwExchangeRate=1.0000;//汇率
+						this.salesorder.srwForeignTrade="否"//国外贸易
+						var this_ = this;
+						
+						axios.post(`http://localhost:8080/SoftwareFactoryProject_/salereturnwarehouse/querydescid`).then(function(res){
+							
+							$.each(res.data, function(i, obs){
+								this_.salesorder.srwId=parseInt(obs.srwId)+1;
+								alert(this_.salesorder.srwId);
+								//11.详表第一条
+								this_.salesorder.srwList = [
+						 			{
+						 				srwdId : 1,
+						 				srwId : this_.salesorder.srwId,
+						 				matterId: 2,
+						 				srwdEngname: '物料',
+						 				srwdRemark: '',
+						 				srwdPriceIncludeTax: '',
+						 				srwdSingleStatus: 0,
+						 				srwdDocumentDate: 0.00,
+						 				srwdDocumentNumber: 100.00,
+						 				srwdPrice: 0.00,
+						 				srwdMoney: 0.00,
+						 				srwdTaxRate: 0.00,
+						 				srwdTaxAmount: 0.00,
+		  			 				    srwdIncludingTaxAmount: 0.00,
+						 				srwdBatchNumber: '',
+						 				srwdIfgift: 0,
+						 				srwdInvoiceDetails: '',
+						 				srwdNomakeInvoiceNum: 0,
+						 				srwdRemarks: '',
+						 				srwdSourceOrder: ''
+						 				
+						 			}
+						 		];
+							});
+						});
 					},
+					timeCycle : function(date){
+						//var d = new Date('Thu May 12 2016 08:00:00 GMT+0800 (中国标准时间)');
+						//var datetime=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds()
+						var d = new Date(date);
+						var yue = "",day = "";
+						if(d.getMonth() < 9) {
+							yue = "0" + (d.getMonth()+1);
+						} else {
+							yue = d.getMonth()+1;
+						}
+						if(d.getDate() < 10) {
+							day = "0" + d.getDate();
+						} else {
+							day = d.getDate();
+						}
+						return d.getFullYear() + "-" + yue + "-" + day;
+					},
+					audit : function(){     //审核
+				         if(!confirm("确认复核记录项吗？"))
+				          return false;
+				           
+				      var this_ = this;
+				      var tpr = {
+				       srwId : this.salesorder.srwId,
+				       srwCheckagainStaff : this.salesorder.srwForm,
+				       srwAuditing : 1,
+				       customerId : this.salesorder.customerId
+				      };
+				      axios.post(`http://localhost:8080/SoftwareFactoryProject_/salereturnwarehouse/updateshyqxsh`, tpr).then(function(res){
+				       //数据正常  /alert(JSON.stringify(res));
+				       if(res.data.code == "1"){
+				        this_.salesorder.srwCheckagainStaff = this_.salesorder.srwForm;
+				        this_.salesorder.srwAuditing = 1;
+				        $("#approve").show();
+				        return false;
+				       }
+				       alert("非常遗憾，本次" + res.data.message);
+				      });
+				     },
+				     cancelTheAudit : function(){  //取消审核
+				         if(!confirm("确认取消复核记录项吗？"))
+				          return false;
+				          
+				      var this_ = this;
+				      var tpr = {
+				       srwId : this.salesorder.srwId,
+				       srwCheckagainStaff : "",
+				       srwAuditing : 2,
+				       customerId : this.salesorder.customerId
+				      };
+				      axios.post(`http://localhost:8080/SoftwareFactoryProject_/salereturnwarehouse/updateshyqxsh`, tpr).then(function(res){
+				       //数据正常  /alert(JSON.stringify(res));
+				       if(res.data.code == "1"){
+				        this_.salesorder.srwCheckagainStaff = "";
+				        this_.salesorder.srwAuditing = 2;
+				        $("#approve").hide();
+				        return false;
+				       }
+				       alert("非常遗憾，本次" + res.data.message);
+				      });
+				     },
 					save : function(){
 						//alert("执行" + this.state + "操作！");
 						var this_ = this;
@@ -358,8 +520,92 @@
 					},
 					refresh : function(){
 						this.queryPage(1);
-					}
+					},
+					hanlderEmpty : function(obj){
+						for(var o in obj){
+							obj[o] = "";
+						}
+					},
+					openCGQGtype : function(){
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["单选--供应商主文件设定", 'font-size:18px;'],
+								type: 2,
+								area: ['600px', '460px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "customerorder_return.html",
+								btn: '关闭',
+								btnAlign: 'c',			//按钮居中
+								shade: 0.5, 			//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()) 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								}
+							});
+						});
+				 },
+				 openCKtype : function(){
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["单选--供应商主文件设定", 'font-size:18px;'],
+								type: 2,
+								area: ['600px', '460px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "ck_return.html",
+								btn: '关闭',
+								btnAlign: 'c',			//按钮居中
+								shade: 0.5, 			//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()) 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								}
+							});
+						});
+				 },
+				 openStaff : function(){
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["单选--人员主文件设定", 'font-size:18px;'],
+								type: 2,
+								area: ['600px', '460px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "Staff_return.html",
+								btn: '关闭',
+								btnAlign: 'c',			//按钮居中
+								shade: 0.5, 			//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()) 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								}
+							});
+						});
+				 }
 				},
+				
 				mounted : function(){
 					this.queryPage(1);
 					

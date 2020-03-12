@@ -24,6 +24,16 @@
 			margin-left: 35px;
 			width: 150px;
 		}
+		#approve{
+				display: none;
+				overflow: hidden;
+				border-radius: 7px;
+				transform:rotate(21deg);
+				position: fixed;
+				top: 36px;
+				right: 36px;
+				z-index: 99;
+			}
 	</style>
 	<script type="text/javascript">
 		window.onload = function() {
@@ -60,6 +70,9 @@
 	<body>
 		<div class="layui-container" id="main-div">
 			<div style="border: 1px solid pink;" id="xsth">
+				<div id="approve">
+					<img src="../../images/approve.png" width="230px" height="60px" />
+				</div>
 				<div class="layui-col-md10 layui-col-md-offset2"></div>
 				<div class="layui-row">
 					<div class="layui-col-md5 layui-col-md-offset2">
@@ -172,7 +185,7 @@
 											<td>{{sa.solProducedQuantity}}</td>
 											<td>{{sa.solAuditing}}</td>
 											<td>{{sa.solYn}}</td>
-											<td>已生成数量</td>
+											<td>{{sa.soId}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -220,7 +233,7 @@
 						</div>
 				</div>
 						<div class="layui-col-md5 layui-col-md-offset2">
-							<span class="layui-col-md3">业务人员</span> <input type="text" class="layui-col-md-offset1 " disabled="disabled" v-model="salesorder.staffId"/>
+							<span class="layui-col-md3">业务人员</span> <input type="text" class="layui-col-md-offset1 " disabled="disabled" v-model="salesorder.staffId" @dblclick="openStaff();"/>
 						</div>
 						<div class="layui-col-md5">
 							<span class="layui-col-md2">制单人员</span><input type="text" class="layui-col-md-offset1 " disabled="disabled" v-model="salesorder.soMonograph"/>
@@ -254,6 +267,7 @@
 				var element = layui.element;
 			});
 		</script>-->
+		<script type="text/javascript" src="../../js/jquery-1.8.2.min.js" ></script>
 		<script src="../../js/jquery.min.js"></script>
 		<script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="../../js/xadmin.js"></script>
@@ -288,6 +302,10 @@
 					listVm.delete_();
 				} else if(incident == "refresh"){
 					listVm.refresh();
+				} else if(incident == "audit"){
+					listVm.audit();
+				} else if(incident == "cancelTheAudit"){
+					listVm.cancelTheAudit();
 				}
 				
 				state = incident;
@@ -363,6 +381,11 @@
 							this_.pagelist.list[0].soDocumentTime = this_.timeCycle(this_.pagelist.list[0].soDocumentTime);
 							this_.pagelist.list[0].soCollectionMonth=this_.timeCycle(this_.pagelist.list[0].soCollectionMonth);
 							this_.salesorder = this_.pagelist.list[0];
+							if(this_.salesorder.soAuditing == 1){
+								$("#approve").show();
+							} else {
+								$("#approve").hide();
+							}
 						});
 					},
 					goFirstPage : function(){
@@ -393,7 +416,7 @@
 						//2.单据编码	
 						this.queryDateToId(this.salesorder.soDocumentTime);
 						
-						this.salesorder.sodList = [];		//改回集合
+						this.salesorder.sodList = [];	//改回集合
 						this.salesorder.soTax = 1;	//未税
 						this.salesorder.soOderStatic = 1; //未结案
 						
@@ -401,35 +424,91 @@
 						this.salesorder.currencyId="RMB人民币";//币别
 						this.salesorder.soMonograph="admin";//制单人员
 						
-						//11.详表第一条
-						this.salesorder.sodList = [
-				 			{
-				 				solId : 1,
-				 				matterId: 2,
-				 				solMatName: '',
-				 				solMatType: '',
-				 				solNominal: '',
-				 				solQuantity: '',
-				 				solPrePrice: 0,
-				 				solFold: 0.00,
-				 				solPrice: '100.00',
-				 				solAmount: 0.00,
-				 				solTaxRate: 0.00,
-				 				solTax: 0.00,
-  			 				    solTaxAmount: 0.00,
-				 				solGiveaway: 0.00,
-				 				solJournalizing: '',
-				 				solMaterialComposition: 0,
-				 				solSingleSource: 0,
-				 				solSingleOder: 0,
-				 				solProduction: '',
-				 				solSchedulingSingleNumber: '',
-				 				solProducedQuantity: '',
-				 				solAuditing: 0.00,
-				 				solYn:'已生成数量'
-				 			}
-				 		];
+						var this_ = this;
+						
+						axios.post(`http://localhost:8080/SoftwareFactoryProject_/saleorder/querydescid`).then(function(res){
+							
+							$.each(res.data, function(i, obs){
+								this_.salesorder.soId=parseInt(obs.soId)+1;
+								alert(this_.salesorder.soId);
+								//11.详表第一条
+								this_.salesorder.sodList = [
+						 			{
+						 				solId : 1,
+						 				soId : this_.salesorder.soId,
+						 				matterId: 2,
+						 				solMatName: '物料',
+						 				solMatType: '',
+						 				solNominal: '',
+						 				solQuantity: 0,
+						 				solPrePrice: 0.00,
+						 				solFold: 100.00,
+						 				solPrice: 0.00,
+						 				solAmount: 0.00,
+						 				solTaxRate: 0.00,
+						 				solTax: 0.00,
+		  			 				    solTaxAmount: 0.00,
+						 				solGiveaway: '',
+						 				solJournalizing: 0,
+						 				solMaterialComposition: '',
+						 				solSingleSource: '',
+						 				solSingleOder: '',
+						 				solProduction: '',
+						 				solSchedulingSingleNumber: '',
+						 				solProducedQuantity: '',
+						 				solAuditing: '',
+						 				solYn:0
+						 			}
+						 		];
+							});
+						});
+						
+						
 					},
+					audit : function(){     //审核
+				         if(!confirm("确认复核记录项吗？"))
+				          return false;
+				           
+				      var this_ = this;
+				      var tpr = {
+				       soId : this.salesorder.soId,
+				       soReviewer : this.salesorder.soMonograph,
+				       soAuditing : 1,
+				       customerorderId : this.salesorder.customerorderId
+				      };
+				      axios.post(`http://localhost:8080/SoftwareFactoryProject_/saleorder/updateshyqxsh`, tpr).then(function(res){
+				       //数据正常  /alert(JSON.stringify(res));
+				       if(res.data.code == "1"){
+				        this_.salesorder.soReviewer = this_.salesorder.soMonograph;
+				        this_.salesorder.soAuditing = 1;
+				        $("#approve").show();
+				        return false;
+				       }
+				       alert("非常遗憾，本次" + res.data.message);
+				      });
+				     },
+				     cancelTheAudit : function(){  //取消审核
+				         if(!confirm("确认取消复核记录项吗？"))
+				          return false;
+				          
+				      var this_ = this;
+				      var tpr = {
+				       soId : this.salesorder.soId,
+				       soReviewer : "",
+				       soAuditing : 2,
+				       customerorderId : this.salesorder.customerorderId
+				      };
+				      axios.post(`http://localhost:8080/SoftwareFactoryProject_/saleorder/updateshyqxsh`, tpr).then(function(res){
+				       //数据正常  /alert(JSON.stringify(res));
+				       if(res.data.code == "1"){
+				        this_.salesorder.soReviewer = "";
+				        this_.salesorder.soAuditing = 2;
+				        $("#approve").hide();
+				        return false;
+				       }
+				       alert("非常遗憾，本次" + res.data.message);
+				      });
+				     },
 					hanlderEmpty : function(obj){
 						for(var o in obj){
 							obj[o] = "";
@@ -443,7 +522,7 @@
 						axios.put(`http://localhost:8080/SoftwareFactoryProject_/saleorder/insertOrUpdateCD`, this.salesorder).then(function(res){
 							//数据正常		/alert(JSON.stringify(res));
 							if(res.data.code == "1"){
-		   						this_.queryPage((this_.pagelist.pages+1));
+		   						this_.queryPage(1);
 								return false;
 							} else if(res.data.code == "2"){
 								$("input").prop("disabled", true);
@@ -484,6 +563,32 @@
 								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
 								id: 'layerDemo' + "auto",	//防止重复弹出
 								content: "customerorder_cz.html",
+								btn: '关闭',
+								btnAlign: 'c',			//按钮居中
+								shade: 0.5, 			//不显示遮罩
+								success: function(layero, index){
+								    var body = layer.getChildFrame('body', index);
+								    //body.find('input').val('Hi，我是从父页来的');
+								    //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+								    //var iframeWin = window[layero.find('iframe')[0]['name']]; 
+								    //console.log(body.html()) 	//得到iframe页的body内容
+								    body.find('#index').val(index);
+								}
+							});
+						});
+				 },
+				 openStaff : function(){
+				 		layui.use('layer', function() { 	//独立版的layer无需执行这一句
+							var $ = layui.jquery,
+								layer = layui.layer; 		//独立版的layer无需执行这一句
+							
+							layer.open({	//具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+								title: ["单选--人员主文件设定", 'font-size:18px;'],
+								type: 2,
+								area: ['600px', '460px'],
+								offset: "auto" ,			//offset - 坐标:auto默认坐标，即垂直水平居中
+								id: 'layerDemo' + "auto",	//防止重复弹出
+								content: "dshStaff.html",
 								btn: '关闭',
 								btnAlign: 'c',			//按钮居中
 								shade: 0.5, 			//不显示遮罩

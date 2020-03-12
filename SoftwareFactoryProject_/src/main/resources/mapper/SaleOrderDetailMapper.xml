@@ -136,7 +136,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.factory.entity.SaleOrderDetail" >
-    insert into sale_order_detail (sol_id, so_id, matter_id, 
+    insert into sale_order_detail (so_id, matter_id, 
       sol_mat_name, sol_mat_type, sol_nominal, 
       sol_quantity, sol_pre_price, sol_fold, 
       sol_price, sol_amount, sol_tax_rate, 
@@ -146,7 +146,7 @@
       sol_scheduling_single_number, sol_produced_quantity, 
       sol_auditing, sol_yn, sol_custom1, 
       sol_custom2, sol_custom3)
-    values (#{solId,jdbcType=INTEGER}, #{soId,jdbcType=INTEGER}, #{matterId,jdbcType=VARCHAR}, 
+    values (#{soId,jdbcType=INTEGER}, #{matterId,jdbcType=VARCHAR}, 
       #{solMatName,jdbcType=VARCHAR}, #{solMatType,jdbcType=VARCHAR}, #{solNominal,jdbcType=VARCHAR}, 
       #{solQuantity,jdbcType=INTEGER}, #{solPrePrice,jdbcType=REAL}, #{solFold,jdbcType=INTEGER}, 
       #{solPrice,jdbcType=REAL}, #{solAmount,jdbcType=REAL}, #{solTaxRate,jdbcType=REAL}, 

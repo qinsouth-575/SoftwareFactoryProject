@@ -33,7 +33,7 @@
   </resultMap>
   
   <select id="PageQueryAll" resultMap="BaseResultMap">
-  			select * from sale_order
+  			select * from sale_order ORDER BY `so_id` DESC
   </select>
   
   <delete id="deleteById" parameterType="java.lang.Integer">
@@ -45,6 +45,10 @@
   	SELECT COUNT(*) 
 	FROM `sale_order` 
 	WHERE `so_document_time` LIKE #{documentdate}
+  </select>
+  
+  <select id="querydescid" resultMap="BaseResultMap">
+  	SELECT * FROM `sale_order` ORDER BY so_id DESC LIMIT 1
   </select>
   
   <sql id="Example_Where_Clause" >

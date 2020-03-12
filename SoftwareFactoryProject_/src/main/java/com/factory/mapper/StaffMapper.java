@@ -18,8 +18,8 @@ public interface StaffMapper {
     Staff queryNameAndPwd(Staff account);
     
     
-    
-    
+    //查询所有
+    List<Staff> queryAll();
     
 	
 	

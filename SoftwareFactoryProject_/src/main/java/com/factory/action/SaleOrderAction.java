@@ -1,6 +1,7 @@
 package com.factory.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.factory.biz.DSH_Staff;
 import com.factory.biz.SaleOrderBiz;
-import com.factory.entity.Comdepartment;
 import com.factory.entity.SaleOrder;
+import com.factory.entity.Staff;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -22,6 +24,10 @@ public class SaleOrderAction {
 		
 		@Autowired
 		private SaleOrderBiz biz;
+		
+		@Autowired
+		private DSH_Staff staffbiz;
+		
 		
 		@RequestMapping(value = "PageQueryAll",method = RequestMethod.POST)
 		@ResponseBody
@@ -76,5 +82,37 @@ public class SaleOrderAction {
 		@ResponseBody
 		public String queryPSDocumentNumber(String psDocumentDate) {
 			return biz.queryPSDocumentNumber(psDocumentDate);
+		}
+		
+		
+		//查询人员
+		@RequestMapping(value = "staffqueryAll",method = RequestMethod.POST)
+		@ResponseBody
+		public List<Staff> queryAll(){
+			return staffbiz.queryAll();
+		}
+		
+		//查询编号
+		@RequestMapping(value = "querydescid",method = RequestMethod.POST)
+		@ResponseBody
+		public List<SaleOrder> querydescid(){
+	  		return biz.querydescid();
+	  	}
+		
+		//审核与取消审核
+		@RequestMapping(value = "updateshyqxsh", method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String,String> updateshyqxsh(@RequestBody SaleOrder cd){
+			Map<String,String> map = new HashMap<String,String>();
+			 
+				if(biz.updateAll(cd)) {
+					map.put("code", "1");
+					map.put("message", "修改成功！");
+				} else {
+					map.put("code", "2");
+					map.put("message", "修改失败！");
+				}
+			
+			return map;
 		}
 }

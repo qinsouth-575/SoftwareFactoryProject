@@ -1,6 +1,7 @@
 package com.factory.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,15 @@ public class SaleReturnWarehouseAction {
 	public Map<String,String> insertOrUpdateCD(@RequestBody SaleReturnWarehouse cd){
 		Map<String,String> map = new HashMap<String,String>();
 		System.out.println(cd.getFlag());
-//		if(cd.getFlag().equals("goInsert")) {
-//			if(biz.insertSaleOrder(cd)) {
-//				map.put("code", "1");
-//				map.put("message", "新增成功！");
-//			} else {
-//				map.put("code", "3");
-//				map.put("message", "新增失败！");
-//			}
-//		} else 
-		if(cd.getFlag().equals("goUpdate")) {
+		if(cd.getFlag().equals("goInsert")) {
+			if(biz.insertSaleOrder(cd)) {
+				map.put("code", "1");
+				map.put("message", "新增成功！");
+			} else {
+				map.put("code", "3");
+				map.put("message", "新增失败！");
+			}
+		} else if(cd.getFlag().equals("goUpdate")) {
 			if(biz.updateSaleOrder(cd)) {
 				map.put("code", "2");
 				map.put("message", "修改成功！");
@@ -72,4 +72,37 @@ public class SaleReturnWarehouseAction {
 		}
 		return map;
 	}
+	
+	
+			//查询编号
+			@RequestMapping(value = "querydescid",method = RequestMethod.POST)
+			@ResponseBody
+			public List<SaleReturnWarehouse> querydescid(){
+		  		return biz.querydescid();
+		  	}
+			
+			//销售订单 - 单据号码查询
+			@RequestMapping(value = "queryDateToId", method = RequestMethod.GET)
+			@ResponseBody
+			public String queryPSDocumentNumber(String srwDocumentDate) {
+				return biz.queryPSDocumentNumber(srwDocumentDate);
+			}
+			
+			
+			//审核与取消审核
+			@RequestMapping(value = "updateshyqxsh", method = RequestMethod.POST)
+			@ResponseBody
+			public Map<String,String> updateshyqxsh(@RequestBody SaleReturnWarehouse cd){
+				Map<String,String> map = new HashMap<String,String>();
+				 
+					if(biz.updateAll(cd)) {
+						map.put("code", "1");
+						map.put("message", "修改成功！");
+					} else {
+						map.put("code", "2");
+						map.put("message", "修改失败！");
+					}
+				
+				return map;
+			}
 }

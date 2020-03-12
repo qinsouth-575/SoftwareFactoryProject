@@ -17,6 +17,8 @@ public interface SaleOrderMapper {
     int deleteByPrimaryKey(Integer soId);
 
     int insert(SaleOrder record);
+    
+    List<SaleOrder> querydescid();
 
     int insertSelective(SaleOrder record);
 

@@ -38,6 +38,17 @@
     <result column="srw_custom2" property="srwCustom2" jdbcType="VARCHAR" />
     <result column="srw_custom3" property="srwCustom3" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="querydescid" resultMap="BaseResultMap">
+  	SELECT * FROM `sale_return_warehouse` ORDER BY srw_id DESC LIMIT 1
+  </select>
+  
+  <select id="queryPSDocumentNumber" parameterType="java.lang.String" resultType="java.lang.Integer" >
+  	SELECT COUNT(*) 
+	FROM `sale_return_warehouse` 
+	WHERE `srw_document_date` LIKE #{srwDocumentDate}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -135,7 +146,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.factory.entity.SaleReturnWarehouse" >
-    insert into sale_return_warehouse (srw_id, customer_id, srw_address, 
+    insert into sale_return_warehouse (customer_id, srw_address, 
       srwt_id, srw_price_include_tax, salescxrk, 
       warehouse_id, srw_certificate_number, srw_document_date, 
       srw_document_number, currency_id, srw_exchange_rate, 
@@ -147,7 +158,7 @@
       srw_header_provision, srw_end_clause, srw_remark, 
       srw_auditing, srw_yn, srw_custom1, 
       srw_custom2, srw_custom3)
-    values (#{srwId,jdbcType=INTEGER}, #{customerId,jdbcType=VARCHAR}, #{srwAddress,jdbcType=VARCHAR}, 
+    values (#{customerId,jdbcType=VARCHAR}, #{srwAddress,jdbcType=VARCHAR}, 
       #{srwtId,jdbcType=VARCHAR}, #{srwPriceIncludeTax,jdbcType=VARCHAR}, #{salescxrk,jdbcType=INTEGER}, 
       #{warehouseId,jdbcType=VARCHAR}, #{srwCertificateNumber,jdbcType=VARCHAR}, #{srwDocumentDate,jdbcType=DATE}, 
       #{srwDocumentNumber,jdbcType=VARCHAR}, #{currencyId,jdbcType=VARCHAR}, #{srwExchangeRate,jdbcType=REAL}, 

@@ -87,7 +87,9 @@
   	SELECT * FROM `staff` WHERE `job_number`=#{jobNumber} AND `password`=#{password};
   </select>
   
-  
+  <select id="queryAll" resultMap="BaseResultMap">
+  	SELECT * from `staff`
+  </select>
   
   
   

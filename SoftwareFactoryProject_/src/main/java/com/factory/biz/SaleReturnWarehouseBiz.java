@@ -62,4 +62,48 @@ public class SaleReturnWarehouseBiz {
 		}
 		return b;
 	}
+	
+	 //根据当前日期查询单据号码
+  	public String queryPSDocumentNumber(String srwDocumentDate) {
+  		int count = dao.queryPSDocumentNumber("%" + srwDocumentDate + "%")+1;
+  		String ptimecount = String.valueOf(count);
+  		String [] str = srwDocumentDate.split("-");
+  		String ptime = "";
+  		for (int i = 0; i < str.length; i++) {
+  			ptime += str[i];
+  		}
+  		if (count < 10) {
+  			ptime += "0" + ptimecount;
+  		}else if (count < 100) {
+  			ptime += ptimecount;
+  		}
+  		return ptime;
+  	}
+	
+	//查询编号
+  	public List<SaleReturnWarehouse> querydescid(){
+  		return dao.querydescid();
+  	}
+  	
+  //新增销售订单
+    public boolean insertSaleOrder(SaleReturnWarehouse record) {
+    	boolean b=false;
+    	boolean b2=dao.insert(record) > 0;
+    	if(b2) {
+    		System.out.println("新增主表成功！");
+    		boolean b3=DetailBiz.insertSelective(record.getSrwList());
+    		if(b3) {
+    			System.out.println("新增详表成功！");
+    			b=true;
+    		}
+    		
+    	}
+    	
+    	return b;
+    }
+    
+  //修改审核和取消审核
+  	public boolean updateAll(SaleReturnWarehouse record) {
+  		return dao.updateAll(record)>0;
+  	}
 }
