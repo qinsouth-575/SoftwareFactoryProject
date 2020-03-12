@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.factory.entity.AssessmentProcurement;
 import com.factory.entity.AssessmentProcurementDetailed;
 import com.factory.entity.AssessmentProcurementFruit;
-
+import com.factory.entity.PurchasingOrder;
 import com.factory.mapper.AssessmentProcurementDetailedMapper;
 import com.factory.mapper.AssessmentProcurementFruitMapper;
 import com.factory.mapper.AssessmentProcurementMapper;
@@ -90,4 +90,19 @@ public int insertpurchasenote3(AssessmentProcurement pu) {
 	return dao.insertpurchasenote3(pu);
 }
 	
+
+public int updatepoDocumentNumber(AssessmentProcurement bi){
+	
+	return dao.updatepoDocumentNumber(bi);
+}
+
+public AssessmentProcurement selectpoaudition(AssessmentProcurement bi){
+	return dao.selectpoaudition(bi);
+}
+
+
+public int updatepoDocumentNumber2(AssessmentProcurement bi){
+	
+	return dao.updatepoDocumentNumber2(bi);
+}
 }

@@ -46,4 +46,8 @@ public interface StaffMapper {
     int updateByPrimaryKeySelective(Staff record);
 
     int updateByPrimaryKey(Staff record);
+    
+    
+	public List<Staff> selectstaff();
+
 }

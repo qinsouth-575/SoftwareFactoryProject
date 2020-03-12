@@ -250,7 +250,7 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">采购人员</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pobuyer">
+									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" id="pobuyer" ondblclick="bb()">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
@@ -328,13 +328,25 @@
 					//后一笔
 				} else if(incident == "goInsert") {
 					$("#zsgc").val("xz");
+					$('.layui-input').removeAttr("disabled");
 					//新增
+					
+				
+			
+			
+			
+			
 				} else if(incident == "save") {
 
 					var jb = $("[id=zsgc]").val()
 
 					if(jb == "xz") {
-						alert("xz")
+						//直接取数据新增
+						
+						
+		
+			
+			
 
 					} else if(jb == "xg") {
 
@@ -486,8 +498,15 @@
 						})
 
 						$("#zsgc").val("");
+						
+						
+						
+						
 					} else {
 						alert("先选择内容")
+						
+						
+						
 					}
 
 					//保存
@@ -731,6 +750,23 @@
 				pageNum = 2;
 				cc();
 
+			}
+			
+			function bb(){
+				//开窗取值
+				
+				layer.open({
+					type:2,
+					content:"b.html"
+				});
+			}
+			
+			function show(customerEasyname1,customerEasyname){
+				
+				$("#pobuyer").val(customerEasyname1)
+				$("#pobelongssection").val(customerEasyname)
+				
+				//疯狂模式，关闭所有层 layer.closeAll(); 
 			}
 		</script>
 	</body>

@@ -17,6 +17,9 @@ public interface AssessmentProcurementMapper {
 	 int insertpurchasenote2(AssessmentProcurement pu);
 
 	 int insertpurchasenote3(AssessmentProcurement pu);
-
+	 int updatepoDocumentNumber(AssessmentProcurement pu);
+	 
+	 AssessmentProcurement selectpoaudition(AssessmentProcurement bi);
+	  int updatepoDocumentNumber2(AssessmentProcurement pu);
 	
 }

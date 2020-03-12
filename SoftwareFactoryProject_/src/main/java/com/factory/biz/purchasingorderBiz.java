@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.factory.entity.PurchasingOrder;
 import com.factory.entity.PurchasingOrderDetails;
+import com.factory.entity.Staff;
 import com.factory.mapper.PurchasingOrderDetailsMapper;
 import com.factory.mapper.PurchasingOrderMapper;
+import com.factory.mapper.StaffMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -19,6 +21,9 @@ public class purchasingorderBiz {
 	
 	@Autowired
     private PurchasingOrderDetailsMapper dao2;
+	
+	@Autowired
+    private StaffMapper dao3;
 	
 	public PageInfo<PurchasingOrder> selectb_bill(Integer pageNum,Integer pageSize){
 		//PurchasingOrderExample example = new PurchasingOrderExample();
@@ -77,5 +82,11 @@ public PurchasingOrder selectpoaudition(PurchasingOrder bi){
 public int updatepoDocumentNumber2(PurchasingOrder bi){
 	
 	return dao.updatepoDocumentNumber2(bi);
+}
+
+
+public List<Staff> selectstaff(){
+	
+	return dao3.selectstaff();
 }
 }

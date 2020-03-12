@@ -64,8 +64,18 @@ public class Staff {
     private String staffCustom1;
     private String staffCustom2;
     private String staffCustom3;
+    
+    private String departname;
 
-    public Staff() {
+    public String getDepartname() {
+		return departname;
+	}
+
+	public void setDepartname(String departname) {
+		this.departname = departname;
+	}
+
+	public Staff() {
 		super();
 	}
 
