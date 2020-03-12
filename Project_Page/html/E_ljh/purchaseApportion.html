@@ -605,6 +605,76 @@
 					
 					//刷新
 					cc();
+				} else if(incident == "audit") {
+
+					//审核
+					alert("审核")
+
+					var obk = {
+						apId: $("[id=apId]").val()
+					}
+					alert(JSON.stringify(obk))
+					$.ajax({
+						url: "//localhost:8080/SoftwareFactoryProject_/sts/updatepoDocumentNumber",
+						type: "post",
+						data: JSON.stringify(obk),
+						contentType: "application/json",
+						dataType: "json",
+						"success": function(res) {
+							alert("审核成功");
+						}
+						
+
+					})
+
+				} else if(incident == "cancelTheAudit") {
+
+					//反审核
+					alert("反审核")
+					
+					var obk = {
+						apId: $("[id=apId]").val()
+					}
+		$.ajax({
+			url : "//localhost:8080/SoftwareFactoryProject_/sts/selectpoaudition",
+			type : "post",
+			data : JSON.stringify(obk),
+			contentType : "application/json",
+			dataType : "json",
+			"success":function(res){
+			
+              if(res!="1"){
+              
+	                 
+	                 
+	                 var obk = {
+						apId: $("[id=apId]").val()
+					}
+					
+					$.ajax({
+						url: "//localhost:8080/SoftwareFactoryProject_/sts/updatepoDocumentNumber2",
+						type: "post",
+						data: JSON.stringify(obk),
+						contentType: "application/json",
+						dataType: "json",
+						"success": function(res) {
+							alert("取消审核成功");
+						}
+						
+
+					})
+	                 
+	                 
+	                 
+	                 
+              }else{
+              	
+	                 alert("该单据未被审核，不能取消审核");
+	
+                    }
+			}
+			
+		})
 				}
 				
 				state = incident;

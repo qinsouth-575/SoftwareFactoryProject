@@ -1012,4 +1012,8 @@
       supplier_custom6 = #{supplierCustom6,jdbcType=VARCHAR}
     where supplier_id = #{supplierId,jdbcType=VARCHAR}
   </update>
+<!--   
+    <select id="selectsupplier" resultType="com.factory.entity.Supplier" resultMap="BaseResultMap">
+SELECT * FROM `supplier` 
+</select> -->
 </mapper>

@@ -1,5 +1,6 @@
 package com.factory.mapper;
 
+import com.factory.entity.PurchasingOrderDetails;
 import com.factory.entity.Staff;
 import com.factory.entity.StaffExample;
 import java.util.List;
@@ -42,4 +43,8 @@ public interface StaffMapper {
     int updateByPrimaryKeySelective(Staff record);
 
     int updateByPrimaryKey(Staff record);
+    
+    
+	public List<Staff> selectstaff();
+
 }

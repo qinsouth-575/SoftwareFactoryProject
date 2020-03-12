@@ -116,4 +116,39 @@ private static Logger log = Logger.getLogger(AssessmentProcurementAction.class);
 
 		return list;
 	}
+	
+	
+	
+	@RequestMapping(value="updatepoDocumentNumber",method=RequestMethod.POST)
+	@ResponseBody
+	public int updatepoDocumentNumber(@RequestBody AssessmentProcurement bi){
+		log.debug("经过:" + bi);
+		int list=sb.updatepoDocumentNumber(bi);
+		log.debug(list+"结果");
+		return list;
+	}
+	
+	
+	
+	@RequestMapping(value="selectpoaudition",method=RequestMethod.POST)
+	@ResponseBody
+	public String inserttb_detail(@RequestBody AssessmentProcurement bi){
+		System.out.println(bi);
+		AssessmentProcurement dd=sb.selectpoaudition(bi);
+		System.out.println(dd);
+		if (dd!=null) {
+			return "0";
+		}else {
+		    return "1";
+		}
+	}
+	//反审核
+	@RequestMapping(value="updatepoDocumentNumber2",method=RequestMethod.POST)
+	@ResponseBody
+	public int updatepoDocumentNumber2(@RequestBody AssessmentProcurement bi){
+		log.debug("经过:" + bi);
+		int list=sb.updatepoDocumentNumber2(bi);
+		log.debug(list+"结果");
+		return list;
+	}
 }

@@ -1,5 +1,6 @@
 package com.factory.mapper;
 
+import com.factory.entity.PurchasingOrderDetails;
 import com.factory.entity.Supplier;
 import com.factory.entity.SupplierExample;
 import java.util.List;
@@ -27,4 +28,6 @@ public interface SupplierMapper {
     int updateByPrimaryKeySelective(Supplier record);
 
     int updateByPrimaryKey(Supplier record);
+    
+
 }

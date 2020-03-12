@@ -62,5 +62,27 @@ INSERT INTO `assessment_procurement`(`ap_date_document`,`ap_id`,`ap_single_statu
 		</foreach>
 		
 	</insert>
+	
+	
+	
+	
+	   <update id="updatepoDocumentNumber"   parameterType="com.factory.entity.AssessmentProcurement">
+  UPDATE `assessment_procurement`
+SET ap_audition="是"
+WHERE ap_id=#{apId}
+  </update>
+  
+  
+  
+  <select id="selectpoaudition" resultMap="BaseResultMap">
+SELECT * FROM `assessment_procurement`
+WHERE `ap_audition`="是"  AND  ap_id=#{apId}
+</select>
+  
+      <update id="updatepoDocumentNumber2"   parameterType="com.factory.entity.AssessmentProcurement">
+  UPDATE `assessment_procurement`
+SET ap_audition="否"
+WHERE ap_id=#{apId}
+  </update>
   
   </mapper>

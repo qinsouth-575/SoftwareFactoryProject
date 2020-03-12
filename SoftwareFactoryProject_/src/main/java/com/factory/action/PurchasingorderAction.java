@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.factory.biz.purchasingorderBiz;
 import com.factory.entity.PurchasingOrder;
 import com.factory.entity.PurchasingOrderDetails;
+import com.factory.entity.Staff;
 import com.github.pagehelper.PageInfo;
 
 @Controller  
@@ -121,6 +122,16 @@ System.out.println(list+"np");
 		log.debug("经过:" + bi);
 		int list=sb.updatepoDocumentNumber2(bi);
 		log.debug(list+"结果");
+		return list;
+	}
+	
+	
+	@RequestMapping(value="selectstaff",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Staff> inserttb_detail(){
+		log.debug("经过");
+		List<Staff>  list= sb.selectstaff();
+System.out.println(list+"np");
 		return list;
 	}
 	
