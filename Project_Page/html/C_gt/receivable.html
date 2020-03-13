@@ -70,7 +70,7 @@
 	</head>
 
 	<body>
-		<div class="x-body">
+		<div id="vue_fw" class="x-body">
 			<div class="layui-container" style="padding: 8px;">
 				<div class="layui-row">
 					<div class="layui-col-md12">
@@ -85,78 +85,77 @@
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">客户</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" v-model="advances_received_main.payablesCustomerName" name="title" required lay-verify="required" placeholder="请选择客户" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">单据日期</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" id="date" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" v-model="advances_received_main.payablesPayablestime" id="date1" name="title" required lay-verify="date" placeholder="" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">结算方式一</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" v-model="advances_received_main.payablesPrice1" required lay-verify="required" placeholder="转账" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">单据号码</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" v-model="advances_received_main.payablesId" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">结算方式二</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" v-model="advances_received_main.payablesPrice2" required lay-verify="required" placeholder="汇票" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label color">币别</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" v-model="advances_received_main.payablesCurrencyName" required lay-verify="required" placeholder="人民币" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">结算方式三</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" v-model="advances_received_main.payablesPrice3" required lay-verify="required" placeholder="现金" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">汇率</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" v-model="advances_received_main.payablesExchangeRate" required lay-verify="required" placeholder="1.0" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">折扣率（%）</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" v-model="advances_received_main.payablesZhekou" required lay-verify="required" placeholder="0.0" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">应收冲款类型</label>
 								<div class="layui-input-block">
-									<select name="city" lay-verify="required">
-										<option value=""></option>
-										<option value="0">预收款</option>
-										<option value="1">收款冲款</option>
-										<option value="2">预收冲应收</option>
+									<select v-model="advances_received_main.payablesType" name="city" lay-verify="required">
+										<option value="0"></option>
+										<option value="收款冲款">收款冲款</option>
+										<option value="预收冲应收">预收冲应收</option>
 									</select>
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">终止账月</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" v-model="advances_received_main.payablesEndtime" id="date2" name="title" required lay-verify="date" placeholder="" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-col-md6">
 								<label class="layui-form-label">凭证编号</label>
 								<div class="layui-input-block">
-									<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+									<input type="text" name="title" v-model="advances_received_main.payablesVoucherno" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 						</form>
@@ -284,16 +283,328 @@
 
 		<script src="../../layui.all.js"></script>
 		<script src="../../js/jquery.min.js"></script>
+		<script src="../../layui.js"></script>
+		<script src="../../js/vue.js"></script>
 		<script>
-			var date = layui.laydate;
-			//执行一个laydate实例
-			date.render({
-				elem: '#date' //指定元素
-			});
-			date.render({
-				elem: '#date',
-				format: 'yyyyMMdd'
-			});
+			var state = "";
+			
+			function subpageTriggerEvent(incident){
+				//alert("部门设定页 - 触发事件：" + incident);
+				
+				if(incident == "goFirstPage"){
+					vue.goFirstPage();
+				} else if(incident == "goPrePage"){
+					vue.goPrePage();
+				} else if(incident == "goNextPage"){
+					vue.goNextPage();
+				} else if(incident == "goLastPage"){
+					vue.goLastPage();
+				} else if(incident == "goInsert"){
+					vue.goInsert();
+				} else if(incident == "save"){
+					vue.save();
+				} else if(incident == "cancel"){
+					vue.cancel();
+				} else if(incident == "goUpdate"){
+					vue.goUpdate();
+				} else if(incident == "delete"){
+					vue.delete_();
+				} else if(incident == "refresh") {
+					vue.refresh();
+				}  else if(incident == "audit"){
+					vue.yesaudit();
+				}  else if(incident == "cancelTheAudit"){
+					vue.noaudit();
+				}
+
+state = incident;
+}
+			
+var vue = new Vue({
+			el: "#vue_fw",
+			data() {
+				return{
+					pageCd: {},
+						advances_received_main: {
+							payablesId: 2020020201,
+							payablesPayablestime: '2020-02-02',
+							pageNum: 1
+						},
+					heji: 0,
+					state: ""
+				}
+			},
+			methods: {
+				//时间格式化函数，此处仅针对yyyy-MM-dd hh:mm:ss 的格式进行格式化
+				dateFormat: function(time) {
+					var date = new Date(time);
+					var year = date.getFullYear();
+					/* 在日期格式中，月份是从0开始的，因此要加0
+					 * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+					 * */
+					var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+					var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+					var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+					var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+					var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+					// 拼接
+					return year + "-" + month + "-" + day;
+					//return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+				},
+				gt_select_payablestime: function(payablestime) {
+						var vue_ = this;
+
+						$.ajax({
+							type:"get",
+							async : false,
+							url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMain/gt_select_payablestime?payablestime=" + payablestime,
+            				dataType : "json",
+							success : function(result) {
+			                    vue_.advances_received_main.payablesId = result;
+							}
+						});
+					},
+					queryPage : function(pageNum_){
+						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", true);
+						var this_ = this;
+						this_.heji = 0;
+						this.advances_received_main.pageNum = pageNum_;
+						
+						$.ajax({
+							type : "post",
+							async : false,
+							url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMain/gt_queryPage_AdvancesReceivedMain",
+							data : JSON.stringify(this.advances_received_main),
+							contentType : 'application/json;charset=UTF-8',
+            				dataType : "json",
+							success : function(result) {
+								this_.pageCd = result;
+								this_.advances_received_main = this_.pageCd.list[0];
+								//时间格式默认为UTC地区时间格式，调用手写的时间格式转换方式转换成yyyy-MM-dd hh:mm:ss/**/
+								this_.advances_received_main.payablesPayablestime = this_.dateFormat(this_.advances_received_main.payablesPayablestime);
+								this_.advances_received_main.payablesEndtime = this_.dateFormat(this_.advances_received_main.payablesEndtime);
+								for (i = 0; i < this_.advances_received_main.ard.length; i++) {
+									this_.heji = this_.heji + parseInt(this_.advances_received_main.ardy[i].padeOffsetamount);
+								}
+							}
+						});
+					},
+					goHeJi : function(){
+						var this_ = this;
+						this_.heji = 0;
+						$("#tab tr:gt(0)").each(function(){
+   							var input1 = $(this).find('input[name="inputOne"]').val();
+   							if(!isNaN(input1)){
+     							 this_.heji += parseInt(input1)
+   							}
+						});
+					},
+					insertRows:function(){
+					this.goHeJi();
+					var newTr =	$("<tr class='emptyyy'><td><input name='inputOne' type='text' style='width: 50px;' /></td><td><select style='width: 150px;height: 30px;' name='selectOne'><option>销售订单</option><option>S/C</option></select></td><td><input name='inputTwo' type='text' style='width: 50px;' /></td><td><input name='inputThree' type='text' style='width: 50px;' /></td></tr>");
+					$("#tab").append(newTr);
+					
+					},
+		   			goFirstPage : function(){
+		   				this.queryPage(1);
+		   			},
+		   			goPrePage : function(){
+		   				if(this.pageCd.hasPreviousPage)
+		      				this.queryPage(this.pageCd.prePage);
+		   			},
+		   			goNextPage : function(){
+		   				//alert(this.pageCd.hasNextPage)
+		   				if(this.pageCd.hasNextPage)
+		      				this.queryPage(this.pageCd.nextPage);
+		   			},
+		   			goLastPage : function(){
+		   				this.queryPage(this.pageCd.pages);
+		   			},
+					goInsert : function(){
+						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
+						this.state = "goInsert";
+						
+						//Object.assign(this.$data, this.$options.data());
+						this.hanlderEmpty(this.advances_received_main_y);
+						
+						var now = new Date();
+						//格式化日，如果小于9，前面补0 
+						var day = ("0" + now.getDate()).slice(-2);
+						//格式化月，如果小于9，前面补0  
+						var month = ("0" + (now.getMonth() + 1)).slice(-2);
+						//拼装完整日 期格式  
+						var today = now.getFullYear() + "-" + (month) + "-" + (day);
+						//将获取的当前日期赋值给主表的单据日期
+						this.advances_received_main_y.priabillPayablestime = today;
+						//调用根据单据日期查询赋值单据号码方法（传参单据日期）
+						this.gt_select_payablestime(this.advances_received_main_y.priabillPayablestime);
+						//默认人民币
+						this.advances_received_main_y.priabillCurrencyName = "人民币";
+						//解除button的禁用
+						$("button").attr('disabled',false);//移除disabled属性
+						//$("tbody").html("<tr><td><input v-on:input='goHeJi()' type='text' style='width: 50px;' /></td><td><input type='text' style='width: 50px;' /></td><td><input type='text' style='width: 50px;' /></td><td><input type='text' style='width: 50px;' /></td></tr>");						
+						//$("tbody").remove();
+					},
+					save : function(){
+						//alert("执行" + this.state + "操作！");
+						var this_ = this;
+						this_.goHeJi();
+						
+						let listFea=[]
+   						$("tbody tr").each(function(){
+      						var detail={};
+      						var input1 = $(this).find('input[name="inputOne"]').val();
+      						var select1 = $(this).find('select[name="selectOne"]').val();
+      						var input2 = $(this).find('input[name="inputTwo"]').val();
+      						var input3 = $(this).find('input[name="inputThree"]').val();+
+      						console.log(input1,select1,input2,input3);
+      						detail.priabillid = this_.advances_received_main_y.priabillId;
+      						detail.priabillPrice = input1;
+      						detail.priabillType = select1;
+      						detail.priabillNumber = input2;
+      						detail.priabillRemarks = input3;
+      						listFea.push(detail);
+   						});
+   						this_.advances_received_main_y.ardy = listFea;
+						
+						var advances_received_main_y = JSON.stringify(this_.advances_received_main_y);
+						if(this_.state == "goInsert"){
+							$.ajax({
+								type:"post",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_insert_Y",
+								data : advances_received_main_y,
+								contentType : "application/json;charset=utf-8",
+								success : function(result){
+									parent.layer.msg('新增成功!!!');
+									$("tbody>.emptyyy").empty();
+									this_.queryPage(this_.pageCd.pages+1);
+									this_.goHeJi();
+								}
+							});
+						}else if(this_.state == "goUpdate"){
+							$.ajax({
+								type:"post",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_update_Y",
+								data : advances_received_main_y,
+								contentType : "application/json;charset=utf-8",
+								success : function(result){
+									parent.layer.msg('修改成功!!!');
+									$("tbody>.emptyyy").empty();
+									this_.queryPage(this_.pageCd.pages+1);
+									this_.goHeJi();
+								}
+							});
+						}
+					},
+					cancel : function(){
+						if(this.state == "goInsert"){
+			   				if(confirm("确定取消本次新增操作吗！？"))
+								this.queryPage(1);
+						} else if(this.state == "goUpdate"){
+			   				if(confirm("确定取消本次修改操作吗！？"))
+		   						this.queryPage(this.pageCd.pages);
+						}
+					},
+					goUpdate : function(){
+						$(".layui-form-item>div>input,.layui-form-item>div>textarea").prop("disabled", false);
+						this.state = "goUpdate";
+						
+					},
+					delete_ : function(){
+		   				if(!confirm("确认删除记录项吗？"))
+		   					return false;
+		   				
+						var this_ = this;
+						var status = false;
+						var priabillId = this_.advances_received_main_y.priabillId;
+						if(this_.advances_received_main_y.priabillAuditstatus > 0){
+							alert("目前数据已审核，无法执行此操作");
+						}
+						else{
+							$.ajax({
+								type:"get",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_del_mydy?priabillId=" + priabillId,
+            					//async:true,
+								success : function(result) {
+									if(result > 0){
+										this_.queryPage(1);
+									}
+								}
+							});
+						}
+						
+					},
+					refresh : function(){
+						this.queryPage(1);
+					},
+					yesaudit : function(){
+						//审核
+						var this_ = this;
+						var priabillId = this_.advances_received_main_y.priabillId;
+
+						//var status = false;
+						if(this_.advances_received_main_y.priabillAuditstatus == 0){
+							$.ajax({
+								type:"get",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_update_Auditstatus?priabillId=" + priabillId,
+            					//async:true,
+            					success : function(result) {
+									if(result > 0){
+										this_.advances_received_main_y.priabillAuditstatus = 1;
+									}
+								}
+							});
+						}
+					},
+					noaudit : function(){
+						//反审核
+						var this_ = this;
+						var priabillId = this_.advances_received_main_y.priabillId;
+
+						//var status = false;
+						if(this_.advances_received_main_y.priabillAuditstatus > 0){
+							$.ajax({
+								type:"get",
+								url : "http://localhost:8080/SoftwareFactoryProject_/gt_AdvancesReceivedMainY/gt_update_Auditstatus2?priabillId=" + priabillId,
+            					//async:true,
+            					success : function(result) {
+									if(result > 0){
+										this_.advances_received_main_y.priabillAuditstatus = 0;
+									}
+								}
+							});
+						}
+					},
+					hanlderEmpty : function(obj){
+						for(var o in obj){
+							obj[o] = "";
+						}
+					}
+				},
+				created: function() {
+					this.queryPage(1);
+				},
+				mounted : function(){
+					var vue_ = this;
+					
+					layui.use('laydate', function(){
+						var laydate = layui.laydate;
+						
+						//执行一个laydate实例
+						laydate.render({
+							elem : '#date1',	//指向元素
+							done : function(value){
+								//alert(value);
+								vue_.advances_received_main_y.priabillPayablestime = value;
+								console.log("分别输出两个值：" + value + " - " + vue_.advances_received_main_y.priabillPayablestime);
+								
+								vue_.gt_select_payablestime(vue_.advances_received_main_y.priabillPayablestime);
+								//$("#priabill_id").val(result);		这条代码有效，当时逼急了，拿这条代码出来看看效果可怜自己
+							}
+						});
+					});
+				}
+			})
 		</script>
 	</body>
 

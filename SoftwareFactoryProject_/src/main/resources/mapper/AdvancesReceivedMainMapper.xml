@@ -35,6 +35,13 @@
     <result column="payables_custom2" property="payablesCustom2" jdbcType="VARCHAR" />
     <result column="payables_custom3" property="payablesCustom3" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="selectAdvancesReceivedMainAllDESC" resultMap="BaseResultMap">
+  	SELECT * 
+	FROM `advances_received_main`
+	ORDER BY `payables_payablestime` DESC
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -1,6 +1,7 @@
 package com.factory.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class AdvancesReceivedMain {
     private String payablesId;
@@ -66,8 +67,34 @@ public class AdvancesReceivedMain {
     private String payablesCustom2;
 
     private String payablesCustom3;
+    
+    private Integer pageNum;				//当前页
+    
+    private final Integer pageSize = 1;		//每页显示条数
+    
+    private List<AdvancesReceivedDetails>ard;
 
-    public String getPayablesId() {
+    public Integer getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public List<AdvancesReceivedDetails> getArd() {
+		return ard;
+	}
+
+	public void setArd(List<AdvancesReceivedDetails> ard) {
+		this.ard = ard;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public String getPayablesId() {
         return payablesId;
     }
 

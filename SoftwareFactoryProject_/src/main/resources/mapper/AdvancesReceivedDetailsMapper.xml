@@ -115,6 +115,12 @@
     from advances_received_details
     where paydetail_id = #{paydetailId,jdbcType=VARCHAR}
   </select>
+  <select id="gt_selectBypayables_id" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from advances_received_details
+    where payables_id = #{payables_id,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from advances_received_details
     where paydetail_id = #{paydetailId,jdbcType=VARCHAR}

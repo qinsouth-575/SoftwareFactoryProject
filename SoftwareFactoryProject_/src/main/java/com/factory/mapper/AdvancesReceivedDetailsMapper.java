@@ -2,10 +2,14 @@ package com.factory.mapper;
 
 import com.factory.entity.AdvancesReceivedDetails;
 import com.factory.entity.AdvancesReceivedDetailsExample;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface AdvancesReceivedDetailsMapper {
+	
+	List<AdvancesReceivedDetails> gt_selectBypayables_id(@Param("payables_id") String payables_id);
+	
     int countByExample(AdvancesReceivedDetailsExample example);
 
     int deleteByExample(AdvancesReceivedDetailsExample example);
